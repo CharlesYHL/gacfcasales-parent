@@ -116,7 +116,7 @@ public class SysRoleController {
 	@ResponseBody
 	public Map selectTmUserRoleByObj(@PathVariable("userId") String userId){
 		//Result<Map> result = new Result<Map>();
-		
+		System.out.println(userId);
 		Map map = sysUserRoleService.selectTmUserRoleByObj(Long.parseLong(userId));
 		/*Result<SysUserRole> result = new Result<SysUserRole>();
 		SysUserRole ur = new SysUserRole();

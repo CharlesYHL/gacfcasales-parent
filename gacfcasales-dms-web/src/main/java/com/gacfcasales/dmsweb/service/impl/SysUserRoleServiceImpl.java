@@ -90,7 +90,7 @@ public class SysUserRoleServiceImpl implements SysUserRoleService{
 		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
 		String dealerCode = loginInfo.getDealerCode();
 		Map map = new HashMap();
-		map = sysUserRoleDao.selectTcUserRoleByObj(userId);
+		map = sysUserRoleDao.selectTmUserRoleByObj(userId);
 		/*if("999999".equals(dealerCode)) {
 			
 		}else {

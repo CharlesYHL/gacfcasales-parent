@@ -255,8 +255,10 @@
 			u.NAME AS userName,
 			r. NAME AS roleName
 		FROM
-			tc_user u
+			tm_user u
+		LEFT JOIN tm_employee tme ON u.EMPLOYEE_NO = tme.EMPLOYEE_NO
 		LEFT JOIN sys_user_rescue_role ur ON ur.user_id = u.USER_ID
+		
 		LEFT JOIN sys_rescue_role r ON ur.role_id = r.id
 		WHERE	u.USER_ID = #{userId} limit 1
 	</select>
