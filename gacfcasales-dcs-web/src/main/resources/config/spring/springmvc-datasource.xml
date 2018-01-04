@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd 
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	
+	
+	<context:property-placeholder location="classpath*:config.properties" />
+	
+	<context:component-scan base-package="com.gacfcasales" />
+	
+	  <!-- 1.1 写库 -->  
+    <bean id="dataSource_druid_write" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">  
+      <!-- 基本属性 url、user、password -->  
+      <property name="url" value="${jdbc.url}" />  
+      <property name="username" value="${jdbc.username}" />  
+      <property name="password" value="${jdbc.password}" />  
+          
+      <!-- 配置初始化大小、最小、最大 -->  
+      <property name="initialSize" value="1" />  
+      <property name="minIdle" value="1" />   
+      <property name="maxActive" value="20" />  
+     
+      <!-- 配置获取连接等待超时的时间 -->  
+      <property name="maxWait" value="60000" />  
+     
+      <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->  
+      <property name="timeBetweenEvictionRunsMillis" value="60000" />  
+     
+      <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->  
+      <property name="minEvictableIdleTimeMillis" value="300000" />  
+      
+      <property name="validationQuery" value="SELECT 'x'" />  
+      <property name="testWhileIdle" value="true" />  
+      <property name="testOnBorrow" value="false" />  
+      <property name="testOnReturn" value="false" />  
+     
+      <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->  
+      <property name="poolPreparedStatements" value="true" />  
+      <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />  
+     
+      <!-- 配置监控统计拦截的filters -->  
+      <property name="filters" value="mergeStat" />   
+      <!-- 合并多个DruidDataSource的监控数据 -->  
+      <property name="useGlobalDataSourceStat" value="true" />  
+      <!-- 慢SQL记录监控 -->  
+      <property name="connectionProperties" value="druid.stat.slowSqlMillis=5000" />  
+    </bean>  
+    
+    <!-- 1.2 只读库 -->  
+    <bean id="dataSource_druid_read" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">  
+      <!-- 基本属性 url、user、password -->  
+      <property name="url" value="${jdbc.url}" />  
+      <property name="username" value="${jdbc.username}" />  
+      <property name="password" value="${jdbc.password}" />  
+          
+      <!-- 配置初始化大小、最小、最大 -->  
+      <property name="initialSize" value="1" />  
+      <property name="minIdle" value="1" />   
+      <property name="maxActive" value="20" />  
+     
+      <!-- 配置获取连接等待超时的时间 -->  
+      <property name="maxWait" value="60000" />  
+     
+      <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->  
+      <property name="timeBetweenEvictionRunsMillis" value="60000" />  
+     
+      <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->  
+      <property name="minEvictableIdleTimeMillis" value="300000" />  
+      
+      <property name="validationQuery" value="SELECT 'x'" />  
+      <property name="testWhileIdle" value="true" />  
+      <property name="testOnBorrow" value="false" />  
+      <property name="testOnReturn" value="false" />  
+     
+      <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->  
+      <property name="poolPreparedStatements" value="true" />  
+      <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />  
+     
+      <!-- 配置监控统计拦截的filters -->  
+      <property name="filters" value="mergeStat" />   
+      <!-- 合并多个DruidDataSource的监控数据 -->  
+      <property name="useGlobalDataSourceStat" value="true" />  
+      <!-- 慢SQL记录监控 -->  
+      <property name="connectionProperties" value="druid.stat.slowSqlMillis=5000" />  
+    </bean>  
+	
+	 <!-- 1.3 动态读写分离数据源 -->  
+    <bean id="demoDataSource" class="com.gacfcasales.dcsweb.aspect.ChooseDataSource">    
+        <property name="targetDataSources">        
+          <map key-type="java.lang.String">        
+             <!-- 写库 -->      
+             <entry key="write" value-ref="dataSource_druid_write"/>        
+             <!-- 读库 -->      
+             <entry key="read" value-ref="dataSource_druid_read"/>        
+          </map>  
+        </property>     
+        <!-- 设置默认数据源 -->  
+        <property name="defaultTargetDataSource" ref="dataSource_druid_read"/>        
+        
+    </bean>  
+	
+	 <!-- 2  注册 mybatis sqlmapper 映射-->  
+    <!-- 2.1  spring 自动注册 mybatis 的映射文件配置 （mappers.mapper 节点内容） -->  
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
+        <!-- 映射文件中，mapper.namespace 属性值“接口”的基础包名 -->  
+        <property name="basePackage" value="com.gacfcasales.dcsweb.dao" />  
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />  
+    </bean>  
+      
+    <!-- 2.2 sping 自动注册 mappers.mapper 文件，并将对应的接口注册到ioc容器（即：使用接口实例访问数据库） -->  
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
+        <!-- 使用的数据源 -->  
+        <property name="dataSource" ref="demoDataSource" />  
+        <!-- 如需添加特殊映射文件，可以写到下面的  xml 文件中 -->  
+       <!--  <property name="configLocation"  value="classpath:mybatis-config/sqlMapConfig.xml"/>   -->
+        <!-- 自动扫描mapping.xml文件，**表示迭代查找,也可在sqlMapConfig.xml中单独指定xml文件-->  
+        <property name="mapperLocations" value="classpath:com/gacfcasales/dcsweb/dao/*Mapper.xml" />  
+    </bean>  
+      
+    <!-- 2.3 使用 sqlSessionFactory 管理 sqlsession 对象，并注册到ioc容器（即：使用 sqlSession.selectList() 等方式访问数据库）-->  
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">  
+        <constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>  
+    </bean>  
+  
+  
+    <!-- 3 事务管理 -->  
+    <!-- 3.1 注册(事务管理)transaction manager, use JtaTransactionManager for global tx -->  
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+        <!-- 管理的数据源 -->  
+        <property name="dataSource" ref="demoDataSource" />  
+    </bean>  
+    <!-- 3.2 开启使用annotation（注解）控制事务，基于类的事务将启用，默认为“基于接口的代理将起作用” -->  
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/> 
+    
+     <!-- 4 切入点，用于通过 @DataSource 注解获取当前方法使用的数据源名称 -->  
+    <!-- 4.1 注册ioc组件  -->     
+     <bean id="dataSourceAspect" class="com.gacfcasales.dcsweb.aspect.DataSourceAspect" />  
+   <!--  4.2 配置切入点，在指定包下生效       -->
+    <aop:config proxy-target-class="true">      
+      <!--   调整aop 执行排序级别   -->
+        <aop:aspect id="dataSourceAspect" ref="dataSourceAspect" order="1">  
+        	 <!--    标记 aop 起作用的包   星号作用：第一个*标记任何返回值类型；第二个*标记任何类型；第三个*标记任何方法；    双点儿所用：第一个..标记任何子包；第二个..标记任何参数；   -->
+            <aop:pointcut id="tx" expression="execution(* com.gacfcasales.dcsweb.service.*.*(..)) "/>  
+            <!-- 在调用标有 @DataSource注解  的方法之前，执行 me.utils.database.DataSourceAspect.before() 方法   -->
+            <aop:before pointcut-ref="tx" method="before" />                  
+        </aop:aspect>      
+    </aop:config>    
+    
+</beans>

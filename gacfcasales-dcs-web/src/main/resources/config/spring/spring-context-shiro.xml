@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<description>Apache Shiro 配置</description>
+	
+	<!-- 缓存管理器 使用Ehcache实现 -->
+    <bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:/config/spring/ehcache-shiro.xml"/>
+    </bean>
+    
+    <!-- 会话ID生成器 -->
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+
+    <!-- 会话Cookie模板 -->
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+         <constructor-arg value="dcs.session.id"/>
+       <!--  <constructor-arg name="name" value="dcs.session.id"/> -->
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="-1"/> 
+         <!--设置Cookie名字，默认为JSESSIONID-->
+        <property name="name" value="DCSWEBSID" />
+    </bean>
+    
+    <!-- 会话DAO -->
+    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+        <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
+        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+    </bean>
+
+    <!-- 会话验证调度器 -->
+    <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
+        <property name="sessionValidationInterval" value="1800000"/>
+        <property name="sessionManager" ref="sessionManager"/>
+    </bean>
+
+    <!-- 会话管理器 -->
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="globalSessionTimeout" value="1800000"/>
+        <property name="deleteInvalidSessions" value="true"/>
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+        <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
+        <property name="sessionDAO" ref="sessionDAO"/>
+        <property name="sessionIdCookieEnabled" value="true"/>
+        <property name="sessionIdCookie" ref="sessionIdCookie"/>
+    </bean>
+
+	<bean id="casSubjectFactory" class="org.apache.shiro.cas.CasSubjectFactory"/>
+	<!-- 安全管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="casRealm" />
+		<property name="sessionManager" ref="sessionManager"/>
+		<property name="cacheManager" ref="shiroEhcacheManager"/>
+		<property name="subjectFactory" ref="casSubjectFactory"/>
+	</bean>
+
+	<!-- Realm实现 -->
+	<bean id="casRealm" class="com.gacfcasales.dcsweb.shiro.SecurityClientRealm">
+		<property name="authenticationCachingEnabled" value="true"/>
+        <property name="authenticationCacheName" value="authenticationCache"/>
+        <property name="authorizationCachingEnabled" value="true"/>
+        <property name="authorizationCacheName" value="authorizationCache"/>
+	    <property name="casServerUrlPrefix" value="${sso.server.url}"/>  
+	    <property name="casService" value="${sso.client.url}/cas"/>  
+	</bean>
+	
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="${sso.server.url}/login?service=${sso.client.url}/cas" />
+		<property name="successUrl" value="/home"/>
+		<property name="filterChainDefinitions">
+			<value>
+				<!-- 静态资源允许访问 -->
+				/resource/** = anon
+				/**/error/** = anon
+				/remote/** = anon
+				/loginout = anon
+				/casfailed.jsp = anon
+				/**/ajax/** = user
+				/cartype/downLoadFile =anon
+				/cas = cas
+				/** = urlperms
+			</value>
+		</property>
+		<property name="filters">
+			<map>
+				<entry key="cas" value-ref="casFilter" />
+				<entry key="urlperms" value-ref="urlperms" />
+			</map>
+		</property>
+	</bean>
+	
+	<!-- Shiro生命周期处理器 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	
+	<!-- 自定义URL拦截器 -->
+	<bean id="urlperms" class="com.gacfcasales.dcsweb.shiro.UrlPermissionsAuthorizationFilter" />
+	
+	<!--  com.gfs.security.shiro.SSOFilter -->
+	<bean id="casFilter" class="com.gacfcasales.dcsweb.shiro.SSOFilter">
+		<property name="failureUrl" value="/casfailed.jsp"/>
+	</bean>
+
+</beans>

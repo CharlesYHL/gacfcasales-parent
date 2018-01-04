@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gacfcasales.dmsweb.dao.SysRoleDao">
+    <!-- SysRole的resultMap,column是给数据库列起的别名,它对应property类的属性-->
+    <resultMap id="result_SysRole_Map" type="com.gacfcasales.common.entity.SysRole">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="seq" property="seq" />
+        <result column="description" property="description" />
+        <result column="status" property="status" />
+    </resultMap>
+
+	   <!-- Assist用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} #{req.value} <if test="req.suffix != null"> ${req.suffix}</if>
+            </foreach>
+        </where>
+    </sql>
+
+	   <!-- updateAssist用于更新数据的使用它拓展自Assist,用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} #{req.value} <if test="req.suffix != null"> ${req.suffix}</if>
+            </foreach>
+        </where>
+    </sql>
+
+    <!-- 数据库中表名为:sys_rescue_role的列名,as前是数据库的列明,as后是列的别名用于映射成实体类中的属性,需要注意的是别名必须与resultMap中的column别名一致 -->
+    <sql id="sys_rescue_role_Column">
+        sys_rescue_role.id as id
+        ,sys_rescue_role.name as name
+        ,sys_rescue_role.seq as seq
+        ,sys_rescue_role.description as description
+        ,sys_rescue_role.status as status
+    </sql>
+    
+    
+ 	<select id="selectSysRoleByUserId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select u.role_id as roleId from sys_user_rescue_role u left join sys_rescue_role r on u.role_id=r.id where u.user_id = #{userId}
+    </select>
+    
+    <select id="selectResourceByRoleId" parameterType="java.lang.Long" resultType="map">
+        select rr.resource_id as resourceIds from sys_role_rescue_resource rr left join sys_rescue_role r on rr.role_id=r.id where r.id =  #{roleId}
+    </select>
+    
+    <!--获得类名为:SysRole对应的数据库表的数据总行数 -->
+    <select id="getSysRoleRowCount" parameterType="com.gacfcasales.common.Assist" resultType="java.lang.Long">
+        select count(id) from sys_rescue_role
+        <if test="require!=null"><include refid="Assist" /></if>
+    </select>
+    <!-- 获得类名为:SysRole对应数据库中表的数据集合 -->
+    <select id="selectSysRole" parameterType="com.gacfcasales.common.Assist"  resultMap="result_SysRole_Map">
+        select  <if test="distinct !=null">${distinct}</if>
+        <choose>
+            <when test="resultColumn!=null">${resultColumn}</when>
+            <otherwise>
+        <include refid="sys_rescue_role_Column" /> 
+            </otherwise>
+        </choose>
+        from sys_rescue_role
+         <if test="require!=null">
+             <include refid="Assist" />
+         </if>
+         <if test="order !=null">${order}</if>
+         <choose>
+              <when test="startRow !=null and rowSize !=null">LIMIT #{startRow},#{rowSize} </when>
+              <when test="rowSize !=null">LIMIT #{rowSize}</when>
+         </choose>
+    </select> 
+
+    <!-- 获得一个SysRole对象,以参数SysRole对象中不为空的属性作为条件进行查询-->
+    <select id="selectSysRoleByObj" parameterType="com.gacfcasales.common.entity.SysRole" resultMap="result_SysRole_Map">
+        select 
+            <include refid="sys_rescue_role_Column" /> 
+        from sys_rescue_role
+        <where>
+            <if test="status != null "> and sys_rescue_role.status = #{status}</if>
+            <if test="description != null "> and sys_rescue_role.description = #{description}</if>
+            <if test="seq != null "> and sys_rescue_role.seq = #{seq}</if>
+            <if test="name != null "> and sys_rescue_role.name = #{name}</if>
+            <if test="id != null "> and sys_rescue_role.id = #{id}</if>
+        </where>
+    </select> 
+
+    <!-- 通过SysRole的id获得对应数据库中表的数据对象-->
+    <select id="selectSysRoleById" parameterType="java.lang.Long" resultMap="result_SysRole_Map">
+        select 
+            <include refid="sys_rescue_role_Column" /> 
+        from sys_rescue_role
+        where sys_rescue_role.id = #{id}
+    </select> 
+
+	<insert id="insertResources" parameterType="map">
+		insert into sys_role_rescue_resource (role_id, resource_id) values
+		<foreach collection="resourceIds" item="resourceId" separator=",">
+			(#{roleId}, #{resourceId})
+		</foreach>
+	</insert>
+	
+	<delete id="deleteResources">
+		delete from sys_role_rescue_resource where role_id=#{roleId}
+	</delete>
+
+    <!-- 将SysRole插入到对应数据库的表中,包括属性值为null的数据-->
+
+    <insert id="insertSysRole" useGeneratedKeys="true" keyProperty="id" parameterType="com.gacfcasales.common.entity.SysRole">
+        insert into sys_rescue_role(id,name,seq,description,status) 
+        values(#{id},#{name},#{seq},#{description},#{status})
+    </insert>
+
+    <!-- 将SysRole中属性值不为null的数据,插入到对应数据库的表中-->
+    <insert id="insertNonEmptySysRole" useGeneratedKeys="true" keyProperty="id" parameterType="com.gacfcasales.common.entity.SysRole">
+        insert into sys_rescue_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="seq != null">seq,</if>
+            <if test="description != null">description,</if>
+            <if test="status != null">status,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null"> #{id},</if>
+            <if test="name != null"> #{name},</if>
+            <if test="seq != null"> #{seq},</if>
+            <if test="description != null"> #{description},</if>
+            <if test="status != null"> #{status},</if>
+        </trim>
+    </insert>
+
+    <!-- 通过SysRole的id将数据库表中对应的数据删除-->
+    <delete id="deleteSysRoleById" parameterType="java.lang.Long">
+        delete from sys_rescue_role
+        where id = #{id}
+    </delete>
+
+    <!-- 通过辅助工具Assist中的条件将SysRole对应的数据库表的数据删除-->
+    <delete id="deleteSysRole" parameterType="com.gacfcasales.common.Assist">
+        delete from sys_rescue_role
+        <if test="require!=null"><include refid="Assist" /></if>
+    </delete>
+
+    <!-- 通过SysRole的id将SysRole的数据更新到数据库中对应的表,包括值null的数据-->
+    <update id="updateSysRoleById" parameterType="com.gacfcasales.common.entity.SysRole">
+        update sys_rescue_role set
+            name=#{name}
+            ,seq=#{seq}
+            ,description=#{description}
+            ,status=#{status}
+        where id=#{id}
+    </update>
+
+    <!-- 通过SysRole的id将SysRole中属性值不为null的数据更新到数据库对应的表中-->
+    <update id="updateNonEmptySysRoleById" parameterType="com.gacfcasales.common.entity.SysRole">
+        update sys_rescue_role
+        <set>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="seq != null">
+                seq=#{seq},
+            </if>
+            <if test="description != null">
+                description=#{description},
+            </if>
+            <if test="status != null">
+                status=#{status},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!-- 通过辅助工具Assist中的条件将SysRole中的数据更新到数据库对应的表中,包括值为null的数据-->
+    <update id="updateSysRole" parameterType="map">
+        update sys_rescue_role
+        <set>
+                id=#{enti.id},
+                name=#{enti.name},
+                seq=#{enti.seq},
+                description=#{enti.description},
+                status=#{enti.status},
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+    <!-- 通过辅助工具Assist中的条件将SysRole中属性值不为null的数据更新到数据库对应的表中-->
+    <update id="updateNonEmptySysRole" parameterType="map">
+        update sys_rescue_role
+        <set>
+            <if test="enti.id != null">
+                id=#{enti.id},
+            </if>
+            <if test="enti.name != null">
+                name=#{enti.name},
+            </if>
+            <if test="enti.seq != null">
+                seq=#{enti.seq},
+            </if>
+            <if test="enti.description != null">
+                description=#{enti.description},
+            </if>
+            <if test="enti.status != null">
+                status=#{enti.status},
+            </if>
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+    
+    
+    <select id="selectSysRoleByUserIdAndCode" parameterType="map" resultType="java.lang.Long">
+    	select u.role_id as roleId from sys_user_rescue_role u left join sys_rescue_role r on u.role_id=r.id 
+    	where u.user_id = #{userId} and u.user_code = #{userCode} and u.dms_app_id=#{appId}
+    </select>
+
+
+	<select id="findByAppIdAndUsername" resultType="map">
+		SELECT r.* FROM sys_user_rescue_role p
+		INNER JOIN tm_user u ON p.user_id=u.USER_ID
+		INNER JOIN tm_employee tme ON u.EMPLOYEE_NO = tme.EMPLOYEE_NO
+		INNER JOIN sys_rescue_role r ON p.role_id=r.id
+		WHERE p.dms_app_id=#{appId} AND tme.EMPLOYEE_NO =#{username}
+	</select>
+	
+</mapper>

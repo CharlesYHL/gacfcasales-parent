@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gacfcasales.dcsweb.dao.SysUserRoleDao">
+    <!-- SysUserRole的resultMap,column是给数据库列起的别名,它对应property类的属性-->
+    <resultMap id="result_SysUserRole_Map" type="com.gacfcasales.common.entity.SysUserRole">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="user_code" property="userCode"/>
+        <result column="role_id" property="roleId" />
+        <result column="roleName" property="roleName" />
+        <result column="userName" property="userName" />
+        
+    </resultMap>
+
+	   <!-- Assist用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} #{req.value} <if test="req.suffix != null"> ${req.suffix}</if>
+            </foreach>
+        </where>
+    </sql>
+
+	   <!-- updateAssist用于更新数据的使用它拓展自Assist,用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} #{req.value} <if test="req.suffix != null"> ${req.suffix}</if>
+            </foreach>
+        </where>
+    </sql>
+
+    <!-- 数据库中表名为:sys_user_rescue_role的列名,as前是数据库的列明,as后是列的别名用于映射成实体类中的属性,需要注意的是别名必须与resultMap中的column别名一致 -->
+    <sql id="sys_user_rescue_role_Column">
+        sys_user_rescue_role.id as id
+        ,sys_user_rescue_role.user_id as user_id
+        ,sys_user_rescue_role.role_id as role_id
+        ,sys_user_rescue_role.user_code as user_code
+    </sql>
+
+    <!--获得类名为:SysUserRole对应的数据库表的数据总行数 -->
+    <select id="getSysUserRoleRowCount" parameterType="com.gacfcasales.common.Assist" resultType="java.lang.Long">
+        select count(id) from sys_user_rescue_role
+        <if test="require!=null"><include refid="Assist" /></if>
+    </select>
+    
+    <!-- 获得类名为:SysUserRole对应数据库中表的数据集合 -->
+    <select id="selectSysUserRole" parameterType="com.gacfcasales.common.Assist"  resultMap="result_SysUserRole_Map">
+        select 
+         	u.id as user_id,
+         	r.id as role_id,
+        	u.name as userName,
+			r.name as roleName
+        from 
+        	sys_rescue_user u
+        left join 
+        	sys_user_rescue_role ur
+        	on ur.user_id = u.id
+        left join 
+        	sys_rescue_role r 
+        	on ur.role_id=r.id 
+        <if test="require!=null">
+             <include refid="Assist" />
+         </if>
+         <if test="order !=null">${order}</if>
+         <choose>
+              <when test="startRow !=null and rowSize !=null">LIMIT #{startRow},#{rowSize} </when>
+              <when test="rowSize !=null">LIMIT #{rowSize}</when>
+         </choose>
+    </select> 
+
+    <!-- 获得一个SysUserRole对象,以参数SysUserRole对象中不为空的属性作为条件进行查询-->
+    <select id="selectSysUserRoleByObj" parameterType="com.gacfcasales.common.entity.SysUserRole" resultMap="result_SysUserRole_Map">
+       select 
+       		ur.id as id,
+         	u.id as user_id,
+         	r.id as role_id,
+        	u.name as userName,
+			r.name as roleName
+        from 
+        	sys_rescue_user u
+        left join 
+        	sys_user_rescue_role ur
+        	on ur.user_id = u.id
+        left join 
+        	sys_rescue_role r 
+        	on ur.role_id=r.id 
+        <where>
+            <if test="roleId != null "> and r.id = #{roleId}</if>
+            <if test="userId != null "> and u.id = #{userId}</if>
+            <if test="id != null "> and ur.id = #{id}</if>
+        </where>
+    </select> 
+
+    <!-- 通过SysUserRole的id获得对应数据库中表的数据对象-->
+    <select id="selectSysUserRoleById" parameterType="java.lang.String" resultMap="result_SysUserRole_Map">
+        select 
+            <include refid="sys_user_rescue_role_Column" /> 
+        from sys_user_rescue_role
+        where sys_user_rescue_role.id = #{id}
+    </select> 
+
+    <!-- 将SysUserRole插入到对应数据库的表中,包括属性值为null的数据-->
+
+    <insert id="insertSysUserRole" parameterType="com.gacfcasales.common.entity.SysUserRole">
+        insert into sys_user_rescue_role(id,user_id,role_id) 
+        values(#{id},#{userId},#{roleId})
+    </insert>
+
+    <!-- 将SysUserRole中属性值不为null的数据,插入到对应数据库的表中-->
+    <insert id="insertNonEmptySysUserRole" parameterType="com.gacfcasales.common.entity.SysUserRole">
+        insert into sys_user_rescue_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="roleId != null">role_id,</if>
+            <if test="userCode != null">user_code,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null"> #{id},</if>
+            <if test="userId != null"> #{userId},</if>
+            <if test="roleId != null"> #{roleId},</if>
+            <if test="userCode != null"> #{userCode},</if>
+        </trim>
+    </insert>
+
+    <!-- 通过SysUserRole的id将数据库表中对应的数据删除-->
+    <delete id="deleteSysUserRoleById" parameterType="java.lang.String">
+        delete from sys_user_rescue_role
+        where id = #{id}
+    </delete>
+
+    <!-- 通过辅助工具Assist中的条件将SysUserRole对应的数据库表的数据删除-->
+    <delete id="deleteSysUserRole" parameterType="com.gacfcasales.common.Assist">
+        delete from sys_user_rescue_role
+        <if test="require!=null"><include refid="Assist" /></if>
+    </delete>
+
+    <!-- 通过SysUserRole的id将SysUserRole的数据更新到数据库中对应的表,包括值null的数据-->
+    <update id="updateSysUserRoleById" parameterType="com.gacfcasales.common.entity.SysUserRole">
+        update sys_user_rescue_role set
+            user_id=#{userId}
+            ,role_id=#{roleId}
+        where id=#{id}
+    </update>
+
+    <!-- 通过SysUserRole的id将SysUserRole中属性值不为null的数据更新到数据库对应的表中-->
+    <update id="updateNonEmptySysUserRoleById" parameterType="com.gacfcasales.common.entity.SysUserRole">
+        update sys_user_rescue_role
+        <set>
+            <if test="userId != null">
+                user_id=#{userId},
+            </if>
+            <if test="roleId != null">
+                role_id=#{roleId},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!-- 通过辅助工具Assist中的条件将SysUserRole中的数据更新到数据库对应的表中,包括值为null的数据-->
+    <update id="updateSysUserRole" parameterType="map">
+        update sys_user_rescue_role
+        <set>
+                id=#{enti.id},
+                user_id=#{enti.userId},
+                role_id=#{enti.roleId},
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+    <!-- 通过辅助工具Assist中的条件将SysUserRole中属性值不为null的数据更新到数据库对应的表中-->
+    <update id="updateNonEmptySysUserRole" parameterType="map">
+        update sys_user_rescue_role
+        <set>
+            <if test="enti.id != null">
+                id=#{enti.id},
+            </if>
+            <if test="enti.userId != null">
+                user_id=#{enti.userId},
+            </if>
+            <if test="enti.roleId != null">
+                role_id=#{enti.roleId},
+            </if>
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+
+	<select id="getTmUserRoleRowCount" parameterType="com.gacfcasales.common.Assist"  resultType="java.lang.Long">
+		 select  count(*) from tm_user tmu
+        <if test="require!=null"><include refid="Assist" /></if>
+	</select>
+	
+	<select id="selectTmUserRole" parameterType="com.gacfcasales.common.Assist"  resultType="map">
+		select tmu.DEALER_CODE,tmu.EMPLOYEE_NO,tmu.USER_NAME as userName,tmu.USER_CODE AS userCode,tmu.USER_ID AS userId,r.NAME AS roleName,r.id AS roleId
+ 		from tm_user tmu LEFT JOIN TT_LOGIN_USER_MAP tlum ON tmu.DEALER_CODE = tlum.DEALER_CODE AND tmu.EMPLOYEE_NO = tlum.EMPLOYEE_NO
+		LEFT JOIN tc_user tcu  ON tlum.TARGET_USER = tcu.ACNT 
+		LEFT JOIN sys_user_rescue_role ur ON ur.user_id = tmu.USER_ID
+		LEFT JOIN  sys_rescue_role r ON ur.role_id = r.id
+ 		<if test="require!=null">
+             <include refid="Assist" />
+         </if>
+         <if test="order !=null">${order}</if>
+         <choose>
+              <when test="startRow !=null and rowSize !=null">LIMIT #{startRow},#{rowSize} </when>
+              <when test="rowSize !=null">LIMIT #{rowSize}</when>
+         </choose>
+	</select>
+	
+	<select id="selectTmUserRoleByObj" parameterType="java.lang.Long"  resultType="map">
+		SELECT
+			ur.id AS id,
+			u.USER_ID AS userId,
+			u.USER_CODE as userCode,
+			r.id AS role_id,
+			u.USER_NAME AS userName,
+			r. NAME AS roleName
+		FROM
+			tm_user u
+		LEFT JOIN sys_user_rescue_role ur ON ur.user_id = u.USER_ID
+		LEFT JOIN sys_rescue_role r ON ur.role_id = r.id
+		WHERE	u.USER_ID = #{userId} limit 1
+	</select>
+	
+	<select id="getTcUserRowCount" parameterType="com.gacfcasales.common.Assist"  resultType="java.lang.Long">
+		 select  count(*) from tc_user tmu
+        <if test="require!=null"><include refid="Assist" /></if>
+	</select>
+
+	<select id="selectTcUser" parameterType="com.gacfcasales.common.Assist"  resultType="map">
+		SELECT
+			tmu.NAME AS userName,tmu.ACNT AS userCode,tmu.USER_ID AS userId,r.NAME AS roleName,
+			r.id AS roleId
+		FROM tc_user tmu
+		LEFT JOIN sys_user_rescue_role ur ON ur.user_id = tmu.USER_ID
+		LEFT JOIN sys_rescue_role r ON ur.role_id = r.id
+ 		<if test="require!=null">
+             <include refid="Assist" />
+         </if>
+         <if test="order !=null">${order}</if>
+         <choose>
+              <when test="startRow !=null and rowSize !=null">LIMIT #{startRow},#{rowSize} </when>
+              <when test="rowSize !=null">LIMIT #{rowSize}</when>
+         </choose>
+	</select>
+
+
+	<select id="selectTcUserRoleByObj" parameterType="java.lang.Long"  resultType="map">
+		SELECT
+			ur.id AS id,
+			u.USER_ID AS userId,
+			u.ACNT as userCode,
+			r.id AS role_id,
+			u.NAME AS userName,
+			r. NAME AS roleName
+		FROM
+			tc_user u
+		LEFT JOIN sys_user_rescue_role ur ON ur.user_id = u.USER_ID
+		LEFT JOIN sys_rescue_role r ON ur.role_id = r.id
+		WHERE	u.USER_ID = #{userId} limit 1
+	</select>
+
+</mapper>
