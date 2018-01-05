@@ -75,6 +75,7 @@
 				<!-- 静态资源允许访问 -->
 				/resource/** = anon
 				/**/error/** = anon
+				/**/excel/** = anon
 				/remote/** = anon
 				/loginout = anon
 				/casfailed.jsp = anon

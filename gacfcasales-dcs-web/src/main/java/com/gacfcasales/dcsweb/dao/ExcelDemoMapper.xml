@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gacfcasales.dcsweb.dao.ExcelDemoDao">
 
-	<select id="findAllAction" resultType="list">
+	<select id="findAllAction" resultType="map">
 		select * from tc_default_action
 	</select>
 </mapper>
