@@ -87,8 +87,8 @@ public class SysUserRoleServiceImpl implements SysUserRoleService{
 
 	@Override
 	public Map selectTmUserRoleByObj(Long userId) {
-		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
-		String dealerCode = loginInfo.getDealerCode();
+		/*LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+		String dealerCode = loginInfo.getDealerCode();*/
 		Map map = new HashMap();
 		map = sysUserRoleDao.selectTcUserRoleByObj(userId);
 		/*if("999999".equals(dealerCode)) {
