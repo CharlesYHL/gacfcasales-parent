@@ -40,11 +40,13 @@ public class SecurityClientRealm  extends CasRealm {
 	@Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        String username = (String)principals.getPrimaryPrincipal();
+        String dealer_name = (String)principals.getPrimaryPrincipal();
+        String dealerCode = dealer_name.substring(0, dealer_name.indexOf(":"));
+        String username = dealer_name.substring(dealer_name.indexOf(":")+1,dealer_name.length());
         TmUser tmUser = new TmUser();
         //user.setType(User.TYPE_ADMIN);
         tmUser.setEMPLOYEE_NO(username);
-        
+        tmUser.setDEALER_CODE(dealerCode);
         Subject currentUser = SecurityUtils.getSubject();  
 		Session session = currentUser.getSession();
 		 Map map = userService.selectTmUserByOne(username);
