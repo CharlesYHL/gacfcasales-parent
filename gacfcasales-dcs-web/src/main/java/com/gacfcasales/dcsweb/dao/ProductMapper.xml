@@ -2,41 +2,146 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gacfcasales.dcsweb.dao.ProductDao">
 
-	  <!-- Assist用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
-    <sql id="Assist">
-        <where>
-            <foreach collection="require" item="req" separator=" ">
-                ${req.require} #{req.value} <if test="req.suffix != null"> ${req.suffix}</if>
-            </foreach>
-        </where>
-    </sql>
-    
-       <!-- updateAssist用于更新数据的使用它拓展自Assist,用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
-    <sql id="updateAssist">
-        <where>
-            <foreach collection="assist.require" item="req" separator=" ">
-                ${req.require} #{req.value} <if test="req.suffix != null"> ${req.suffix}</if>
-            </foreach>
-        </where>
-    </sql>
+	<!-- Assist用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+	<sql id="Assist">
+		<where>
+			<foreach collection="require" item="req" separator=" ">
+				${req.require} #{req.value}
+				<if test="req.suffix != null"> ${req.suffix}</if>
+			</foreach>
+		</where>
+	</sql>
 
-	<select id="selectSysProduct" parameterType="com.gacfcasales.common.Assist"  resultType="map">
-		 select  <if test="distinct !=null">${distinct}</if>
-        <choose>
-            <when test="resultColumn!=null">${resultColumn}</when>
-            <otherwise>
-        		*
-            </otherwise>
-        </choose>
-        from TI_OPI_EXTENDED_DCS
-        <if test="require!=null">
-              <include refid="Assist" />
-        </if>
+	<!-- updateAssist用于更新数据的使用它拓展自Assist,用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+	<sql id="updateAssist">
+		<where>
+			<foreach collection="assist.require" item="req" separator=" ">
+				${req.require} #{req.value}
+				<if test="req.suffix != null"> ${req.suffix}</if>
+			</foreach>
+		</where>
+	</sql>
+
+	<select id="selectSysProduct" parameterType="com.gacfcasales.common.Assist"
+		resultType="map">
+		select
+		<if test="distinct !=null">${distinct}</if>
+		<choose>
+			<when test="resultColumn!=null">${resultColumn}</when>
+			<otherwise>
+				PRODUCT_ID,
+				PRODUCT_NO,
+				PRODUCT_NAME,
+				PRODUCT_CATEGORY,
+				PRODUCT_PROPERTY,
+				DNP_PRICE,
+				MSRP_PRICE,
+				(
+				CASE
+				WHEN RELEASE_STATUS =
+				54011001 THEN
+				'未发布'
+				WHEN RELEASE_STATUS = 54011002 THEN
+				'已发布'
+				WHEN
+				RELEASE_STATUS = 54011003 THEN
+				'已取消'
+				ELSE
+				''
+				END
+				) RELEASE_STATUS,
+				DATE_FORMAT(RELEASE_DATE,'%Y-%m-%d %H:%m:%s') RELEASE_DATE,
+				DATE_FORMAT(STOP_DATE,'%Y-%m-%d %H:%m:%s') STOP_DATE,
+				(CASE WHEN
+				IS_VALID = 12781001 THEN '是' WHEN IS_VALID = 12781002 THEN '否'
+				ELSE
+				'' END) IS_VALID,
+				(CASE WHEN IS_C_SALE = 12781001 THEN '是' WHEN
+				IS_C_SALE = 12781002 THEN
+				'否' ELSE '' END) IS_C_SALE,
+				(CASE WHEN PRODUCT_DATE = 12	THEN '12个月'
+			 		  WHEN PRODUCT_DATE = 24 THEN '24个月'
+		              WHEN PRODUCT_DATE = 36 THEN '36个月'
+		         ELSE '' END ) PRODUCT_DATE,
+				PRODUCT_MODEL,
+				DATE_FORMAT(SALES_DATE,'%Y-%m-%d %H:%m:%s') SALES_DATE
+			</otherwise>
+		</choose>
+		from TI_OPI_EXTENDED_DCS
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
 	</select>
-	
-	<select id="getSysProductRowCount" parameterType="com.gacfcasales.common.Assist" resultType="java.lang.Long">
-        select count(PRODUCT_ID) from TI_OPI_EXTENDED_DCS
-        <if test="require!=null"><include refid="Assist" /></if>
-    </select>
-	
+
+	<select id="getSysProductRowCount" parameterType="com.gacfcasales.common.Assist"
+		resultType="java.lang.Long">
+		select count(PRODUCT_ID) from TI_OPI_EXTENDED_DCS
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+	</select>
+
+	<select id="exportProduct" parameterType="com.gacfcasales.common.entity.TiOpiExtendedDCS"
+		resultType="map">
+		select PRODUCT_ID,
+		PRODUCT_NO,
+		PRODUCT_NAME,
+		PRODUCT_CATEGORY,
+		PRODUCT_PROPERTY,
+		DNP_PRICE,
+		MSRP_PRICE,
+		(
+		CASE
+		WHEN RELEASE_STATUS =
+		54011001 THEN
+		'未发布'
+		WHEN RELEASE_STATUS = 54011002 THEN
+		'已发布'
+		WHEN
+		RELEASE_STATUS = 54011003 THEN
+		'已取消'
+		ELSE
+		''
+		END
+		) RELEASE_STATUS,
+		DATE_FORMAT(RELEASE_DATE,'%Y-%m-%d %H:%m:%s') RELEASE_DATE,
+		DATE_FORMAT(STOP_DATE,'%Y-%m-%d %H:%m:%s') STOP_DATE,
+		(CASE WHEN
+		IS_VALID = 12781001 THEN '是' WHEN IS_VALID = 12781002 THEN '否'
+		ELSE ''
+		END) IS_VALID,
+		(CASE WHEN IS_C_SALE = 12781001 THEN '是' WHEN IS_C_SALE
+		= 12781002 THEN '否'
+		ELSE '' END) IS_C_SALE,
+		(CASE WHEN PRODUCT_DATE = 12	THEN '12个月'
+			 WHEN PRODUCT_DATE = 24 THEN '24个月'
+		     WHEN PRODUCT_DATE = 36 THEN '36个月'
+		ELSE '' END ) PRODUCT_DATE,
+		PRODUCT_MODEL,
+		DATE_FORMAT(SALES_DATE,'%Y-%m-%d %H:%m:%s') SALES_DATE
+		from TI_OPI_EXTENDED_DCS
+		<where>
+			<if test="PRODUCT_NO != null and PRODUCT_NO != '' "> and PRODUCT_NO LIKE
+				concat(concat('%',#{PRODUCT_NO}),'%')</if>
+			<if test="PRODUCT_NAME != null and PRODUCT_NAME != '' "> and PRODUCT_NAME LIKE
+				concat(concat('%',#{PRODUCT_NAME}),'%')</if>
+			<if test="PRODUCT_CATEGORY != null and PRODUCT_CATEGORY != '' "> and PRODUCT_CATEGORY LIKE
+				concat(concat('%',#{PRODUCT_CATEGORY}),'%')</if>
+			<if test="PRODUCT_PROPERTY != null and PRODUCT_PROPERTY != '' "> and PRODUCT_PROPERTY LIKE
+				concat(concat('%',#{PRODUCT_PROPERTY}),'%')</if>
+			<if test="IS_VALID != null and IS_VALID != '0' "> and IS_VALID = #{IS_VALID}</if>
+			<if test="PRODUCT_DATE != null and PRODUCT_DATE != '0' "> and PRODUCT_DATE = #{PRODUCT_DATE}</if>
+			<if test="RELEASE_STATUS != null and RELEASE_STATUS != '0' "> and RELEASE_STATUS = #{RELEASE_STATUS}</if>
+			<if test="PRODUCT_MODEL != null and PRODUCT_MODEL != '' "> and PRODUCT_MODEL = #{PRODUCT_MODEL}</if>
+			<if test="IS_C_SALE != null and IS_C_SALE != '0' "> and IS_C_SALE = #{IS_C_SALE}</if>
+			<if
+				test="releaseStart != null and releaseStart != '' and releaseEnd != null and releaseEnd != '' "> and RELEASE_DATE between #{releaseStart} and #{releaseEnd}
+			</if>
+			<if
+				test="salesStart != null and salesStart != '' and salesEnd != null and salesEnd != '' "> and SALES_DATE between #{salesStart} and #{salesEnd}</if>
+		</where>
+
+	</select>
+
+
 </mapper>

@@ -1,6 +1,7 @@
 package com.gacfcasales.dcsweb.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,12 @@ public class ProductServiceImpl implements ProductService {
 	public long getSysProductRowCount(Assist assist) {
 		// TODO Auto-generated method stub
 		return productDao.getSysProductRowCount(assist);
+	}
+
+	@Override
+	public List<Map> exportProduct(TiOpiExtendedDCS tiOpiExtendedDCS) {
+		// TODO Auto-generated method stub
+		return productDao.exportProduct(tiOpiExtendedDCS);
 	}
 
 }

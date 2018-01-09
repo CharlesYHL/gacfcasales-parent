@@ -70,6 +70,8 @@ var vm = new Vue({
 			
 		},
 		showList: true,
+		showOper:false,
+		showOperPart:false,
 		title:null,
 		tiOpiExtendedDCS:{
 			PRODUCT_ID : null,
@@ -126,9 +128,67 @@ var vm = new Vue({
 			$("#salesEnd").val('');
 			vm.reload();
 		},
+		addProduct:function(){
+			showOper();
+			vm.title = "添加产品";
+			vm.tiOpiExtendedDCS.PRODUCT_NO = null;
+			vm.tiOpiExtendedDCS.PRODUCT_NAME = null;
+			
+			//重置表单，防止点返回后再次进入验证信息还存在
+			resetFrom();
+			//验证表单，开启验证功能
+			//validateFrom();
+		},
+		addPart:function(){
+			showOperPart();
+			vm.title = "查询配件";
+			var addPartNo = $("#addPartNo").val();
+			$("#partNo").val(addPartNo);
+		},
+		clear_part:function(){
+			$("#partNo").val('');
+			$("#partName").val('');
+		},
+		query_part:function(){
+			
+		},
+		return_part:function(){
+			vm.add_reload();
+		},
+		exportExcel:function(){
+			var param = {
+					PRODUCT_NO:$("#productNo").val(),
+					PRODUCT_NAME:$("#productName").val(),
+					PRODUCT_CATEGORY:$("#productCategory").val(),
+					PRODUCT_PROPERTY:$("#productProperty").val(),
+					IS_VALID:$("#isValid").val(),
+					PRODUCT_DATE:$("#productDate").val(),
+					RELEASE_STATUS:$("#releaseStatus").val(),
+					PRODUCT_MODEL:$("#productModel").val(),
+					IS_C_SALE:$("#isCSales").val(),
+					releaseStart:$("#releaseStart").val(),
+					releaseEnd:$("#releaseEnd").val(),
+					salesStart:$("#salesStart").val(),
+					salesEnd:$("#salesEnd").val()
+			};
+			
+			/*$.get(,function(data){
+				console.log(data);
+			});*/
+			window.location.href = ctx+ '/sysProduct/ajax/productExcel';
+			
+		},
 		reload: function () {
 	    	vm.showList = true;
+	    	vm.showOper = false;
+	    	vm.showOperPart =false;
 	    	$('#table').bootstrapTable('refresh'); 
+		},
+		add_reload:function(){
+			vm.showList = false;
+			vm.showOper = true;
+			vm.showOperPart =false;
+			$('#add_table').bootstrapTable('refresh'); 
 		}
 	}
 });
@@ -311,4 +371,25 @@ var TableInit = function () {
     return oTableInit;
     
 };
+
+function resetFrom(){
+	$('#baseFrom>.form-group ').each(function(){
+		$(this).removeClass("has-error");
+		$(this).removeClass("has-success");
+		$(this).find(".col-sm-3 span").remove();
+	});
+}
+
+//显示操作层
+function showOper(){
+	vm.showList = false;
+	vm.showOper = true;
+	vm.showOperPart = false;
+}
+
+function showOperPart(){
+	vm.showList = false;
+	vm.showOper = false;
+	vm.showOperPart = true;
+}
 

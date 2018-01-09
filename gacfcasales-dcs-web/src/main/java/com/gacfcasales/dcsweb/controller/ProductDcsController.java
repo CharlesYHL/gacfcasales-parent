@@ -1,6 +1,12 @@
 package com.gacfcasales.dcsweb.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +21,8 @@ import com.gacfcasales.common.Assist;
 import com.gacfcasales.common.Result;
 import com.gacfcasales.common.entity.SysResource;
 import com.gacfcasales.common.entity.TiOpiExtendedDCS;
+import com.gacfcasales.common.excel.ExcelExportColumn;
+import com.gacfcasales.common.excel.ExportExcel;
 import com.gacfcasales.dcsweb.service.ProductService;
 
 @Controller
@@ -30,6 +38,42 @@ public class ProductDcsController {
 		System.out.println("========进入页面=========");
 		return "sysPage/sysProduct/list";
 	}
+	
+	@RequestMapping(value="/ajax/addProduct",method=RequestMethod.GET)
+	public String  toAddProductPage(){
+		System.out.println("========进入新增页面=========");
+		return "sysPage/sysProduct/addProduct";
+		//return "include/header";
+	}
+	
+	@RequestMapping(value="/ajax/productExcel",method = RequestMethod.GET)
+	public void ProductExcel(TiOpiExtendedDCS tiOpiExtendedDCS,HttpServletRequest request,HttpServletResponse response){
+		 ExportExcel exportExcel = new ExportExcel();
+		 
+		 List<Map> resultList = productService.exportProduct(tiOpiExtendedDCS);
+		 
+		 Map<String, List<Map>> excelData = new HashMap<String, List<Map>>();
+	     excelData.put("产品信息表", resultList);
+
+	     List<ExcelExportColumn> exportColumnList = new ArrayList<ExcelExportColumn>();
+		 
+	     exportColumnList.add(new ExcelExportColumn("PRODUCT_NO", "产品编号"));
+	     exportColumnList.add(new ExcelExportColumn("PRODUCT_NAME", "产品名称"));
+	     exportColumnList.add(new ExcelExportColumn("PRODUCT_CATEGORY", "产品类别"));
+	     exportColumnList.add(new ExcelExportColumn("PRODUCT_PROPERTY", "产品属性"));
+	     exportColumnList.add(new ExcelExportColumn("DNP_PRICE", "DNP价格"));
+	     exportColumnList.add(new ExcelExportColumn("MSRP_PRICE", "MSRP价格"));
+	     exportColumnList.add(new ExcelExportColumn("RELEASE_STATUS", "发布状态"));
+	     exportColumnList.add(new ExcelExportColumn("RELEASE_DATE", "发布时间"));
+	     exportColumnList.add(new ExcelExportColumn("STOP_DATE", "停用时间"));
+	     exportColumnList.add(new ExcelExportColumn("IS_VALID", "是否有效"));
+	     exportColumnList.add(new ExcelExportColumn("IS_C_SALE", "是否可销售"));
+	     exportColumnList.add(new ExcelExportColumn("PRODUCT_DATE", "产品有效期"));
+	     exportColumnList.add(new ExcelExportColumn("PRODUCT_MODEL", "适用车型"));
+	     exportColumnList.add(new ExcelExportColumn("SALES_DATE", "销售时间"));
+	     exportExcel.generateExcelForDms(excelData, exportColumnList, "产品信息表.xls", request, response);
+	}
+	
 	
 	@RequestMapping(value="/ajax/getProductList",method=RequestMethod.POST)
 	@ResponseBody

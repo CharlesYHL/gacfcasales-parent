@@ -1,12 +1,14 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
+
 <c:import url="/WEB-INF/views/include/header.jsp">
 	<c:param name="styles">
 		<link rel="stylesheet"
 			href="${ctx}/resource/plugins/ztree/css/metroStyle/metroStyle.css">
 		<link rel="stylesheet"
 			href="${ctx}/resource/plugins/treegrid/jquery.treegrid.css">
-		<link rel="stylesheet" href="${ctx}/resource/css/jquery.datetimepicker.css">
+		<link rel="stylesheet"
+			href="${ctx}/resource/css/jquery.datetimepicker.css">
 	</c:param>
 </c:import>
 
@@ -44,23 +46,23 @@
 				</div>
 				<div class="input-group input-group-sm"
 					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">是否有效</span> 
-					<select name="isValid" id="isValid"  class="selectpicker"></select>
+					<span class="input-group-addon" style="width: 60px;">是否有效</span> <select
+						name="isValid" id="isValid" class="selectpicker"></select>
 				</div>
 				<div class="input-group input-group-sm"
 					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">产品有效期</span> 
-					<select name="productDate" id="productDate"  class="selectpicker"></select>
+					<span class="input-group-addon" style="width: 60px;">产品有效期</span> <select
+						name="productDate" id="productDate" class="selectpicker"></select>
 				</div>
 			</div>
-			
+
 			<div style="height: 3px;"></div>
 			<div>
-				
+
 				<div class="input-group input-group-sm"
 					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">发布状态</span> 
-					<select name="releaseStatus" id="releaseStatus"  class="selectpicker"></select>
+					<span class="input-group-addon" style="width: 60px;">发布状态</span> <select
+						name="releaseStatus" id="releaseStatus" class="selectpicker"></select>
 				</div>
 				<div class="input-group input-group-sm"
 					style="margin-right: 16px; width: 320px;">
@@ -70,32 +72,36 @@
 				</div>
 				<div class="input-group input-group-sm"
 					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">是否可销售</span> 
-					<select name="isCSales" id="isCSales"  class="selectpicker"></select>
+					<span class="input-group-addon" style="width: 60px;">是否可销售</span> <select
+						name="isCSales" id="isCSales" class="selectpicker"></select>
 				</div>
 			</div>
 			<div style="height: 3px;"></div>
-			
+
 			<div>
 				<div class="input-group input-group-sm"
 					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">发布时间</span> 
-					<input id="releaseStart" name="releaseStart" type="text" class="form-control" placeholder="请输入开始日期" />
-					<span class="input-group-addon"> - </span>
-					<input id="releaseEnd" name="releaseEnd" type="text" class="form-control" placeholder="请输入结束日期" />
+					<span class="input-group-addon" style="width: 60px;">发布时间</span> <input
+						id="releaseStart" name="releaseStart" type="text"
+						class="form-control" placeholder="请输入开始日期" /> <span
+						class="input-group-addon"> - </span> <input id="releaseEnd"
+						name="releaseEnd" type="text" class="form-control"
+						placeholder="请输入结束日期" />
 				</div>
 				<div class="input-group input-group-sm"
 					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">销售时间</span> 
-					<input id="salesStart" name="salesStart" type="text" class="form-control" placeholder="请输入开始日期" />
-					<span class="input-group-addon"> - </span>
-					<input id="salesEnd" name="salesEnd" type="text" class="form-control" placeholder="请输入结束日期" />
+					<span class="input-group-addon" style="width: 60px;">销售时间</span> <input
+						id="salesStart" name="salesStart" type="text" class="form-control"
+						placeholder="请输入开始日期" /> <span class="input-group-addon">
+						- </span> <input id="salesEnd" name="salesEnd" type="text"
+						class="form-control" placeholder="请输入结束日期" />
 				</div>
 			</div>
-			
+
 			<div style="height: 3px;"></div>
 			<div>
-				<div class="input-group input-group-sm" style="margin-left:40%;;margin-right: 8px;">
+				<div class="input-group input-group-sm"
+					style="margin-left: 40%;; margin-right: 8px;">
 					<button id="btn_add" type="button" class="btn btn-primary btn-sm"
 						@click="query">
 						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -111,19 +117,119 @@
 			</div>
 		</div>
 	</div>
-	
-	<div v-show="showList"  class="box box-custom collapsed-box" style="margin-bottom:0;">
+
+	<div v-show="showList" class="box box-custom collapsed-box"
+		style="margin-bottom: 0;">
 		<div class="box-body">
 			<div id="toolbar" class="btn-group">
-			    <button id="btn_add" type="button" class="btn btn-primary" style="margin-right:10px;" @click="add">
-			        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增
-			    </button>
-			    
-			    <button id="btn_export" type="button" class="btn btn-primary" @click="exportExcel">
-			        <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> 导出
-			    </button>
+				<button id="btn_add" type="button" class="btn btn-primary"
+					style="margin-right: 10px;" @click="addProduct">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					新增
+				</button>
+
+				<button id="btn_export" type="button" class="btn btn-primary"
+					@click="exportExcel">
+					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+					导出
+				</button>
 			</div>
 			<table id="table" class="table"></table>
+		</div>
+	</div>
+
+
+	<div v-show="showOper">
+		<div class="row">
+			<div class="col-xs-offset-1 col-xs-10">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">{{title}}</h3>
+					</div>
+					<div class="box-header with-border form-inline">
+						<div>
+							<div class="input-group input-group-sm"
+								style="margin-right: 16px; width: 320px;">
+								<span class="input-group-addon" style="width: 60px;">产品编号</span>
+								<input type="text" class="form-control" name="addPartNo"
+									id="addPartNo" value="" placeholder="请输入产品编号" /> 
+									<span
+									class="input-group-btn">
+									<button class="btn default btn-sm" @click="addPart">
+										<i class="fa fa-list-alt"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div v-show="showOper" class="box box-custom collapsed-box"
+		style="margin-bottom: 0;">
+		<div class="box-body">
+			<table id="add_table" class="table"></table>
+		</div>
+	</div>
+
+
+	<div v-show="showOperPart">
+		<div class="row">
+			<div class="col-xs-offset-1 col-xs-10">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">{{title}}</h3>
+					</div>
+					<div class="box-header with-border form-inline">
+						<div>
+							<div class="input-group input-group-sm"
+								style="margin-right: 16px; width: 320px;">
+								<span class="input-group-addon" style="width: 60px;">配件编号</span>
+								<input type="text" class="form-control" name="partNo"
+									id="partNo" value="" placeholder="请输入配件编号" />
+							</div>
+							<div class="input-group input-group-sm"
+								style="margin-right: 16px; width: 320px;">
+								<span class="input-group-addon" style="width: 60px;">配件名称</span>
+								<input type="text" class="form-control" name="partName"
+									id="partName" value="" placeholder="请输入配件编号" />
+							</div>
+						</div>
+						<div style="height: 3px;"></div>
+						<div>
+							<div class="input-group input-group-sm"
+								style="margin-left: 40%;; margin-right: 8px;">
+								<button id="btn_add_product" type="button"
+									class="btn btn-primary btn-sm" @click="query_part">
+									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+									查询
+								</button>
+							</div>
+							<div class="input-group input-group-sm">
+								<button id="btn_add_product" type="button"
+									class="btn btn-primary btn-sm" @click="clear_part">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;&nbsp;重置
+								</button>
+							</div>
+							<div class="input-group input-group-sm">
+								<button id="btn_add_product" type="button"
+									class="btn btn-primary btn-sm" @click="return_part">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;&nbsp;返回
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div v-show="showOperPart" class="box box-custom collapsed-box"
+		style="margin-bottom: 0;">
+		<div class="box-body">
+			<table id="part_table" class="table"></table>
 		</div>
 	</div>
 
@@ -132,16 +238,21 @@
 <script src="${ctx }/resource/bootstrap/js/vue1.0.26.js"></script>
 <script src="${ctx }/resource/bootstrap/js/vue-validator2.1.6.js"></script>
 <script src="${ctx}/resource/plugins/treegrid/jquery.treegrid.min.js"></script>
-<script src="${ctx}/resource/plugins/treegrid/jquery.treegrid.bootstrap3.js"></script>
-<script src="${ctx}/resource/plugins/treegrid/jquery.treegrid.extension.js"></script>
+<script
+	src="${ctx}/resource/plugins/treegrid/jquery.treegrid.bootstrap3.js"></script>
+<script
+	src="${ctx}/resource/plugins/treegrid/jquery.treegrid.extension.js"></script>
 <script src="${ctx}/resource/plugins/treegrid/tree.table.js"></script>
 <script src="${ctx}/resource/plugins/ztree/jquery.ztree.all.min.js"></script>
 
 <script src="${ctx}/resource/js/sysPage/sysProduct.js"></script>
 
 <!-- 日期控件 -->
-<script type="text/javascript" src="${ctx}/resource/datepicker/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="${ctx}/resource/datepicker/bootstrap-datepicker.zh-CN.js"></script>
+<script type="text/javascript"
+	src="${ctx}/resource/datepicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript"
+	src="${ctx}/resource/datepicker/bootstrap-datepicker.zh-CN.js"></script>
 <!-- 时间控件 -->
-<script type="text/javascript" src="${ctx}/resource/datepicker/jquery.datetimepicker.full.min.js" ></script>
+<script type="text/javascript"
+	src="${ctx}/resource/datepicker/jquery.datetimepicker.full.min.js"></script>
 
