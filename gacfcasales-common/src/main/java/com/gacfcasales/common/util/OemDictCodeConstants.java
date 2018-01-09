@@ -3071,5 +3071,15 @@ public class OemDictCodeConstants {
 	public final static int PDD_RELEASE_STATUS = 5311;
 	public final static int PDD_RELEASE_STATUS_01 = 53111001;//未发布
 	public final static int PDD_RELEASE_STATUS_02 = 53111002;//已发布
+	
+	/**
+	 * 产品发布状态
+	 *
+	 */
+	
+	public final static int PRODUCT_RELEASE_STATUS_01 = 54011001;//未发布
+	public final static int PRODUCT_RELEASE_STATUS_02 = 54011002;//已发布
+	public final static int PRODUCT_RELEASE_STATUS_03 = 54011003;//已取消
+	
 }
 

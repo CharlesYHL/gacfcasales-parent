@@ -69,7 +69,7 @@
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="${sso.server.url}/login?service=${sso.client.url}/cas" />
-		<property name="successUrl" value="/home"/>
+		<property name="successUrl" value=""/>
 		<property name="filterChainDefinitions">
 			<value>
 				<!-- 静态资源允许访问 -->

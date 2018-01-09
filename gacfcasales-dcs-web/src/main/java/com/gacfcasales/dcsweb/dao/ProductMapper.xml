@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gacfcasales.dcsweb.dao.ProductDao">
+
+	  <!-- Assist用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} #{req.value} <if test="req.suffix != null"> ${req.suffix}</if>
+            </foreach>
+        </where>
+    </sql>
+    
+       <!-- updateAssist用于更新数据的使用它拓展自Assist,用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} #{req.value} <if test="req.suffix != null"> ${req.suffix}</if>
+            </foreach>
+        </where>
+    </sql>
+
+	<select id="selectSysProduct" parameterType="com.gacfcasales.common.Assist"  resultType="map">
+		 select  <if test="distinct !=null">${distinct}</if>
+        <choose>
+            <when test="resultColumn!=null">${resultColumn}</when>
+            <otherwise>
+        		*
+            </otherwise>
+        </choose>
+        from TI_OPI_EXTENDED_DCS
+        <if test="require!=null">
+              <include refid="Assist" />
+        </if>
+	</select>
+	
+	<select id="getSysProductRowCount" parameterType="com.gacfcasales.common.Assist" resultType="java.lang.Long">
+        select count(PRODUCT_ID) from TI_OPI_EXTENDED_DCS
+        <if test="require!=null"><include refid="Assist" /></if>
+    </select>
+	
+</mapper>

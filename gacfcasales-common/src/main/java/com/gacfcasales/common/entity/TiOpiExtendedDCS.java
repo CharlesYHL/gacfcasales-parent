@@ -7,11 +7,12 @@ public class TiOpiExtendedDCS implements Serializable {
 	private Long PRODUCT_ID;
 	private Long PRODUCT_NO;
 	private String PRODUCT_NAME;
-	private Integer PRODUCT_PROPERTY;
+	private String PRODUCT_PROPERTY;
+	private String PRODUCT_CATEGORY;
 	private Double DNP_PRICE;
 	private Double MSRP_PRICE;
 	private Double SINGLE_DISCOUNT;
-	private Double IS_VALID;
+	private Integer IS_VALID;
 	private String CREATED_BY;
 	private Date CREATED_AT;
 	private String UPDATED_BY;
@@ -31,13 +32,20 @@ public class TiOpiExtendedDCS implements Serializable {
 	private Double TAX_COST_PRICE;
 	private Double TERMINAL_NON_SALES_PRICE;
 	private Double TERMINAL_SALES_PRICE;
+	
+	
+	private String releaseStart;
+	private String releaseEnd;
+	private String salesStart;
+	private String salesEnd;
+	
 
 	public TiOpiExtendedDCS() {
 		super();
 	}
 
 	public TiOpiExtendedDCS(Long PRODUCT_ID, Long PRODUCT_NO, String PRODUCT_NAME,
-			Integer PRODUCT_PROPERTY, Double DNP_PRICE, Double MSRP_PRICE, Double SINGLE_DISCOUNT, Double IS_VALID,
+			String PRODUCT_PROPERTY,String PRODUCT_CATEGORY, Double DNP_PRICE, Double MSRP_PRICE, Double SINGLE_DISCOUNT, Integer IS_VALID,
 			String CREATED_BY, Date CREATED_AT, String UPDATED_BY, Date UPDATED_AT, Integer IS_C_SALE,
 			Integer PRODUCT_DATE, String PRODUCT_MODEL, Date SALES_DATE, Date RELEASE_DATE, Integer RELEASE_STATUS,
 			Date STOP_DATE, Integer PRODUCT_FAIT, Integer PRODUCT_JEEP, Integer PRODUCT_CJD, String PRODUCT_DESCRIBTION,
@@ -47,6 +55,7 @@ public class TiOpiExtendedDCS implements Serializable {
 		this.PRODUCT_NO = PRODUCT_NO;
 		this.PRODUCT_NAME = PRODUCT_NAME;
 		this.PRODUCT_PROPERTY = PRODUCT_PROPERTY;
+		this.PRODUCT_CATEGORY = PRODUCT_CATEGORY;
 		this.DNP_PRICE = DNP_PRICE;
 		this.MSRP_PRICE = MSRP_PRICE;
 		this.SINGLE_DISCOUNT = SINGLE_DISCOUNT;
@@ -96,12 +105,22 @@ public class TiOpiExtendedDCS implements Serializable {
 		PRODUCT_NAME = pRODUCT_NAME;
 	}
 
-	public Integer getPRODUCT_PROPERTY() {
+	public String getPRODUCT_PROPERTY() {
 		return PRODUCT_PROPERTY;
 	}
 
-	public void setPRODUCT_PROPERTY(Integer pRODUCT_PROPERTY) {
+	public void setPRODUCT_PROPERTY(String pRODUCT_PROPERTY) {
 		PRODUCT_PROPERTY = pRODUCT_PROPERTY;
+	}
+	
+	
+	
+	public String getPRODUCT_CATEGORY() {
+		return PRODUCT_CATEGORY;
+	}
+
+	public void setPRODUCT_CATEGORY(String pRODUCT_CATEGORY) {
+		PRODUCT_CATEGORY = pRODUCT_CATEGORY;
 	}
 
 	public Double getDNP_PRICE() {
@@ -128,11 +147,11 @@ public class TiOpiExtendedDCS implements Serializable {
 		SINGLE_DISCOUNT = sINGLE_DISCOUNT;
 	}
 
-	public Double getIS_VALID() {
+	public Integer getIS_VALID() {
 		return IS_VALID;
 	}
 
-	public void setIS_VALID(Double iS_VALID) {
+	public void setIS_VALID(Integer iS_VALID) {
 		IS_VALID = iS_VALID;
 	}
 
@@ -287,4 +306,38 @@ public class TiOpiExtendedDCS implements Serializable {
 	public void setTERMINAL_SALES_PRICE(Double tERMINAL_SALES_PRICE) {
 		TERMINAL_SALES_PRICE = tERMINAL_SALES_PRICE;
 	}
+
+	public String getReleaseStart() {
+		return releaseStart;
+	}
+
+	public void setReleaseStart(String releaseStart) {
+		this.releaseStart = releaseStart;
+	}
+
+	public String getReleaseEnd() {
+		return releaseEnd;
+	}
+
+	public void setReleaseEnd(String releaseEnd) {
+		this.releaseEnd = releaseEnd;
+	}
+
+	public String getSalesStart() {
+		return salesStart;
+	}
+
+	public void setSalesStart(String salesStart) {
+		this.salesStart = salesStart;
+	}
+
+	public String getSalesEnd() {
+		return salesEnd;
+	}
+
+	public void setSalesEnd(String salesEnd) {
+		this.salesEnd = salesEnd;
+	}
+	
+	
 }
