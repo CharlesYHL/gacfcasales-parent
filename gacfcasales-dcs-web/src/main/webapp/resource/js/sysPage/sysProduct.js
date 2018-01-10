@@ -49,6 +49,20 @@ $(function(){
 	var oTable = new TableInit();
 	oTable.Init();
 });
+/*弹出的层级*/
+var index;
+
+function addProduct(){
+	index = layer.open({
+		  title: '新增产品',
+		  type: 2,
+		  area: ['85%', '65%'],
+		  fixed: true, //固定
+		  maxmin: false,
+		  content: ctx+'/sysProduct/ajax/addProduct'
+		});
+	//parent.layer.close(index);
+};
 
 var vm = new Vue({
 	el:'#productApp',
@@ -129,15 +143,15 @@ var vm = new Vue({
 			vm.reload();
 		},
 		addProduct:function(){
-			showOper();
-			vm.title = "添加产品";
-			vm.tiOpiExtendedDCS.PRODUCT_NO = null;
-			vm.tiOpiExtendedDCS.PRODUCT_NAME = null;
-			
-			//重置表单，防止点返回后再次进入验证信息还存在
-			resetFrom();
-			//验证表单，开启验证功能
-			//validateFrom();
+			index = layer.open({
+				  title: '新增产品',
+				  type: 2,
+				  area: ['700px', '450px'],
+				  fixed: true, //不固定
+				  maxmin: false,
+				  content: ctx+'/sysProduct/ajax/addProduct'
+				});
+			parent.layer.close(index);
 		},
 		addPart:function(){
 			showOperPart();
@@ -150,7 +164,8 @@ var vm = new Vue({
 			$("#partName").val('');
 		},
 		query_part:function(){
-			
+			new TableInitPart().Init();
+			//vm.part_reload();
 		},
 		return_part:function(){
 			vm.add_reload();
@@ -172,10 +187,39 @@ var vm = new Vue({
 					salesEnd:$("#salesEnd").val()
 			};
 			
+			var PRODUCT_NO=$("#productNo").val();
+			var PRODUCT_NAME=$("#productName").val();
+			var PRODUCT_CATEGORY=$("#productCategory").val();
+			var PRODUCT_PROPERTY=$("#productProperty").val();
+			var IS_VALID=$("#isValid").val();
+			var PRODUCT_DATE=$("#productDate").val();
+			var RELEASE_STATUS=$("#releaseStatus").val();
+			var PRODUCT_MODEL=$("#productModel").val();
+			var IS_C_SALE=$("#isCSales").val();
+			var releaseStart=$("#releaseStart").val();
+			var releaseEnd=$("#releaseEnd").val();
+			var salesStart=$("#salesStart").val();
+			var salesEnd=$("#salesEnd").val();
+			
 			/*$.get(,function(data){
 				console.log(data);
 			});*/
-			window.location.href = ctx+ '/sysProduct/ajax/productExcel';
+			//window.location.href = ctx+ '/sysProduct/ajax/productExcel';
+			
+			window.location.href = ctx	+ '/sysProduct/ajax/productExcel_bak?PRODUCT_NO='
+			+ encodeURI(encodeURI(PRODUCT_NO)) + '&PRODUCT_NAME='
+			+ encodeURI(encodeURI(PRODUCT_NAME)) + '&PRODUCT_CATEGORY='
+			+ encodeURI(encodeURI(PRODUCT_CATEGORY)) + '&PRODUCT_PROPERTY='
+			+ encodeURI(encodeURI(PRODUCT_PROPERTY)) + '&IS_VALID='
+			+ encodeURI(encodeURI(IS_VALID)) + '&PRODUCT_DATE='
+			+ encodeURI(encodeURI(PRODUCT_DATE))+'&RELEASE_STATUS='
+			+ encodeURI(encodeURI(RELEASE_STATUS)) + '&PRODUCT_MODEL='
+			+ encodeURI(encodeURI(PRODUCT_MODEL)) + '&IS_C_SALE='
+			+ encodeURI(encodeURI(IS_C_SALE)) + '&releaseStart='
+			+ encodeURI(encodeURI(releaseStart)) + '&releaseEnd='
+			+ encodeURI(encodeURI(releaseEnd)) + '&salesStart='
+			+ encodeURI(encodeURI(salesStart)) + '&salesEnd='
+			+ encodeURI(encodeURI(salesEnd));
 			
 		},
 		reload: function () {
@@ -189,6 +233,12 @@ var vm = new Vue({
 			vm.showOper = true;
 			vm.showOperPart =false;
 			$('#add_table').bootstrapTable('refresh'); 
+		},
+		part_reload:function(){
+			vm.showList = false;
+			vm.showOper = false;
+			vm.showOperPart =true;
+			$('#part_table').bootstrapTable('refresh'); 
 		}
 	}
 });
@@ -378,18 +428,5 @@ function resetFrom(){
 		$(this).removeClass("has-success");
 		$(this).find(".col-sm-3 span").remove();
 	});
-}
-
-//显示操作层
-function showOper(){
-	vm.showList = false;
-	vm.showOper = true;
-	vm.showOperPart = false;
-}
-
-function showOperPart(){
-	vm.showList = false;
-	vm.showOper = false;
-	vm.showOperPart = true;
 }
 

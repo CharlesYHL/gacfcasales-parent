@@ -90,6 +90,9 @@ public class TmPartInfo implements Serializable {
 	private String PART_VEHICLE_MODEL;
 	private Integer REPORT_WAY;
 	
+	private String releaseStart;
+	private String releaseEnd;
+	
 	public TmPartInfo() {
 		super();
 	}
@@ -691,6 +694,22 @@ public class TmPartInfo implements Serializable {
 	}
 	public void setREPORT_WAY(Integer rEPORT_WAY) {
 		REPORT_WAY = rEPORT_WAY;
+	}
+
+	public String getReleaseStart() {
+		return releaseStart;
+	}
+
+	public void setReleaseStart(String releaseStart) {
+		this.releaseStart = releaseStart;
+	}
+
+	public String getReleaseEnd() {
+		return releaseEnd;
+	}
+
+	public void setReleaseEnd(String releaseEnd) {
+		this.releaseEnd = releaseEnd;
 	}
 	
 	

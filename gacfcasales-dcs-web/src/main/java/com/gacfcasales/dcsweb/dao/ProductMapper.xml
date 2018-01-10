@@ -59,18 +59,43 @@
 				(CASE WHEN IS_C_SALE = 12781001 THEN '是' WHEN
 				IS_C_SALE = 12781002 THEN
 				'否' ELSE '' END) IS_C_SALE,
-				(CASE WHEN PRODUCT_DATE = 12	THEN '12个月'
-			 		  WHEN PRODUCT_DATE = 24 THEN '24个月'
-		              WHEN PRODUCT_DATE = 36 THEN '36个月'
-		         ELSE '' END ) PRODUCT_DATE,
+				(CASE WHEN
+				PRODUCT_DATE = 12 THEN '12个月'
+				WHEN PRODUCT_DATE = 24 THEN '24个月'
+				WHEN PRODUCT_DATE = 36 THEN '36个月'
+				ELSE '' END ) PRODUCT_DATE,
 				PRODUCT_MODEL,
 				DATE_FORMAT(SALES_DATE,'%Y-%m-%d %H:%m:%s') SALES_DATE
 			</otherwise>
 		</choose>
 		from TI_OPI_EXTENDED_DCS
-		<if test="require!=null">
+		<choose>
+            <when test="rowSize ==null">
+                <if test="require!=null">
+                    <include refid="Assist" />
+                </if>
+                <if test="order !=null">${order}</if>
+            </when>
+            <otherwise>
+                inner join
+                (
+                SELECT PRODUCT_ID as primary_key FROM TI_OPI_EXTENDED_DCS
+                <if test="require!=null">
+                    <include refid="Assist" />
+                </if>
+                <if test="order !=null">${order}</if>
+                <choose>
+                    <when test="startRow !=null and rowSize !=null">LIMIT #{startRow},#{rowSize} </when>
+                    <when test="rowSize !=null">LIMIT #{rowSize}</when>
+                 </choose>
+                 ) as tmp
+                 on tmp.primary_key=TI_OPI_EXTENDED_DCS.PRODUCT_ID
+            </otherwise>
+        </choose>
+		
+		<!-- <if test="require!=null">
 			<include refid="Assist" />
-		</if>
+		</if> -->
 	</select>
 
 	<select id="getSysProductRowCount" parameterType="com.gacfcasales.common.Assist"
@@ -113,9 +138,10 @@
 		(CASE WHEN IS_C_SALE = 12781001 THEN '是' WHEN IS_C_SALE
 		= 12781002 THEN '否'
 		ELSE '' END) IS_C_SALE,
-		(CASE WHEN PRODUCT_DATE = 12	THEN '12个月'
-			 WHEN PRODUCT_DATE = 24 THEN '24个月'
-		     WHEN PRODUCT_DATE = 36 THEN '36个月'
+		(CASE WHEN PRODUCT_DATE = 12
+		THEN '12个月'
+		WHEN PRODUCT_DATE = 24 THEN '24个月'
+		WHEN PRODUCT_DATE = 36 THEN '36个月'
 		ELSE '' END ) PRODUCT_DATE,
 		PRODUCT_MODEL,
 		DATE_FORMAT(SALES_DATE,'%Y-%m-%d %H:%m:%s') SALES_DATE
@@ -143,5 +169,174 @@
 
 	</select>
 
+
+	<select id="selectPartInfo" parameterType="com.gacfcasales.common.Assist"
+		resultType="map">
+		select
+		<if test="distinct !=null">${distinct}</if>
+		<choose>
+			<when test="resultColumn!=null">${resultColumn}</when>
+			<otherwise>
+				DEALER_CODE,
+				PART_NO,
+				PART_NAME,
+				(
+				CASE
+				WHEN PART_GROUP_CODE = 11361009 THEN
+				'常规零部件'
+				WHEN PART_GROUP_CODE = 11361010 THEN
+				'第三方'
+				WHEN PART_GROUP_CODE = 11361005 THEN
+				'养护品'
+				WHEN PART_GROUP_CODE = 11361011 THEN
+				'电瓶'
+				WHEN PART_GROUP_CODE = 11361007 THEN
+				'用品'
+				WHEN PART_GROUP_CODE = 11361008 THEN
+				'底盘号相关'
+				ELSE
+				''
+				END
+				) PART_GROUP_CODE,
+				(
+				CASE
+				WHEN PART_PROPERTY = 80021001 THEN
+				'A'
+				WHEN PART_PROPERTY = 80021001 THEN
+				'B'
+				WHEN PART_PROPERTY = 80021003 THEN
+				'C'
+				ELSE
+				''
+				END
+				) PART_PROPERTY,
+				CLAIM_PRICE,
+				OEM_LIMIT_PRICE,
+				INSTRUCT_PRICE,
+				LIMIT_PRICE,
+				(
+				CASE
+				WHEN IS_SJV = 12781001 THEN
+				'是'
+				ELSE
+				'否'
+				END
+				) IS_SJV,
+				(
+				CASE
+				WHEN IS_MOP = 12781001 THEN
+				'是'
+				ELSE
+				'否'
+				END
+				) IS_MOP,
+				(
+				CASE
+				WHEN IS_C_SALE = 12781001 THEN
+				'是'
+				ELSE
+				'否'
+				END
+				) IS_C_SALE,
+				(
+				CASE
+				WHEN PART_STATUS = 10011001 THEN
+				'否'
+				ELSE
+				'是'
+				END
+				) PART_STATUS
+			</otherwise>
+		</choose>
+		from TM_PART_INFO 
+		<choose>
+            <when test="rowSize ==null">
+                <if test="require!=null">
+                    <include refid="Assist" />
+                </if>
+                <if test="order !=null">${order}</if>
+            </when>
+            <otherwise>
+                inner join
+                (
+                SELECT PART_NO as primary_key FROM TM_PART_INFO
+                <if test="require!=null">
+                    <include refid="Assist" />
+                </if>
+                <if test="order !=null">${order}</if>
+                <choose>
+                    <when test="startRow !=null and rowSize !=null">LIMIT #{startRow},#{rowSize} </when>
+                    <when test="rowSize !=null">LIMIT #{rowSize}</when>
+                 </choose>
+                 ) as tmp
+                 on tmp.primary_key=TM_PART_INFO.PART_NO
+            </otherwise>
+        </choose>
+	    LIMIT #{startRow},#{rowSize}
+		<!-- <if test="require!=null">
+			<include refid="Assist" />
+		</if> -->
+	</select>
+
+
+	<select id="getPartInfoRowCount" parameterType="com.gacfcasales.common.Assist"
+		resultType="java.lang.Long">
+		select count(PART_NO) from TM_PART_INFO
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+	</select>
+	
+	
+	<select id="getProductModelList" parameterType="com.gacfcasales.common.Assist"
+		resultType="map">
+		select
+		<if test="distinct !=null">${distinct}</if>
+		<choose>
+			<when test="resultColumn!=null">${resultColumn}</when>
+			<otherwise>
+				*
+			</otherwise>
+		</choose>
+		from TI_OPI_EXTENDED_MODEL 
+		<choose>
+            <when test="rowSize ==null">
+                <if test="require!=null">
+                    <include refid="Assist" />
+                </if>
+                <if test="order !=null">${order}</if>
+            </when>
+            <otherwise>
+                inner join
+                (
+                SELECT PRODUCT_MODEL_ID as primary_key FROM TI_OPI_EXTENDED_MODEL
+                <if test="require!=null">
+                    <include refid="Assist" />
+                </if>
+                <if test="order !=null">${order}</if>
+                <choose>
+                    <when test="startRow !=null and rowSize !=null">LIMIT #{startRow},#{rowSize} </when>
+                    <when test="rowSize !=null">LIMIT #{rowSize}</when>
+                 </choose>
+                 ) as tmp
+                 on tmp.primary_key=TI_OPI_EXTENDED_MODEL.PRODUCT_MODEL_ID
+            </otherwise>
+        </choose>
+	    LIMIT #{startRow},#{rowSize}
+		<!-- <if test="require!=null">
+			<include refid="Assist" />
+		</if> -->
+	</select>
+	
+	
+	
+	
+	<select id="getProductModelRowCount" parameterType="com.gacfcasales.common.Assist"
+		resultType="java.lang.Long">
+		select count(PRODUCT_MODEL_ID) from  TI_OPI_EXTENDED_MODEL
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+	</select>
 
 </mapper>

@@ -15,6 +15,8 @@ public class Result<T> {
 	private long totalCount;
 	
 	private List<T> dataList;
+	
+	private List<Map> dataListMap;
 
 	public int getCode() {
 		return code;
@@ -66,6 +68,14 @@ public class Result<T> {
 	}
 	public Result(String message){
 		this.message = message;
+	}
+
+	public List<Map> getDataListMap() {
+		return dataListMap;
+	}
+
+	public void setDataListMap(List<Map> dataListMap) {
+		this.dataListMap = dataListMap;
 	}
 
 }
