@@ -167,3 +167,6 @@
 	src="${ctx}/resource/datepicker/jquery.datetimepicker.full.min.js"></script>
 <script src="${ctx }/resource/layui/layui.all.js"></script>
 
+<script >
+var globe_index;
+</script>

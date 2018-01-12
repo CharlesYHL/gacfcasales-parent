@@ -95,10 +95,14 @@
 			<table id="table" class="table"></table>
 		</div>
 		<div>
-			<div class="input-group input-group-sm" style="margin-left: 48%;; margin-right: 8px;">
-				<button id="btn_add_product" type="button"
+			<div class="input-group input-group-sm" style="margin-left: 48%;">
+				<button id="btn_add_product" type="button" style="margin-right: 8px;"
 					class="btn btn-primary btn-sm" @click="return_part">
 					<span class="glyphicon glyphicon-film" aria-hidden="true"></span>&nbsp;&nbsp;确定
+				</button>
+				<button id="btn_add_product" type="button"
+					class="btn btn-primary btn-sm" @click="goBack">
+					<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>&nbsp;&nbsp;返回
 				</button>
 			</div>
 		</div>

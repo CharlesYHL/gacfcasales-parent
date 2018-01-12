@@ -61,6 +61,12 @@ var vm = new Vue({
 			$('#partProperty').selectpicker('val', '0');
 			$('#partGroupCode').selectpicker('val', '0');
 		},
+		goBack : function(){
+			console.log("返回");
+			var index = parent.layer.getFrameIndex(window.name);
+			console.log(index);
+			parent.layer.close(index);
+		},
 		return_part : function() {
 			// 获取选中的数据
 			var selected = $('#table').bootstrapTable('getSelections');

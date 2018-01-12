@@ -50,10 +50,9 @@ $(function(){
 	oTable.Init();
 });
 /*弹出的层级*/
-var index;
 
 function addProduct(){
-	index = layer.open({
+	globe_index = layer.open({
 		  title: '新增产品',
 		  type: 2,
 		  area: ['85%', '65%'],
@@ -61,7 +60,6 @@ function addProduct(){
 		  maxmin: false,
 		  content: ctx+'/sysProduct/ajax/addProduct'
 		});
-	//parent.layer.close(index);
 };
 
 var vm = new Vue({

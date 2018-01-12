@@ -20,7 +20,8 @@ public class TiOpiExtendedDCS implements Serializable {
 	private Integer IS_C_SALE;
 	private Integer PRODUCT_DATE;
 	private String PRODUCT_MODEL;
-	private Date SALES_DATE;
+	private Date SALES_DATE_START;
+	private Date SALES_DATE_END;
 	private Date RELEASE_DATE;
 	private Integer RELEASE_STATUS;
 	private Date STOP_DATE;
@@ -47,7 +48,7 @@ public class TiOpiExtendedDCS implements Serializable {
 	public TiOpiExtendedDCS(Long PRODUCT_ID, Long PRODUCT_NO, String PRODUCT_NAME,
 			String PRODUCT_PROPERTY,String PRODUCT_CATEGORY, Double DNP_PRICE, Double MSRP_PRICE, Double SINGLE_DISCOUNT, Integer IS_VALID,
 			String CREATED_BY, Date CREATED_AT, String UPDATED_BY, Date UPDATED_AT, Integer IS_C_SALE,
-			Integer PRODUCT_DATE, String PRODUCT_MODEL, Date SALES_DATE, Date RELEASE_DATE, Integer RELEASE_STATUS,
+			Integer PRODUCT_DATE, String PRODUCT_MODEL, Date SALES_DATE_START, Date SALES_DATE_END, Date RELEASE_DATE, Integer RELEASE_STATUS,
 			Date STOP_DATE, Integer PRODUCT_FAIT, Integer PRODUCT_JEEP, Integer PRODUCT_CJD, String PRODUCT_DESCRIBTION,
 			Double NON_TAX_COST_PRICE, Double TAX_COST_PRICE, Double TERMINAL_NON_SALES_PRICE,
 			Double TERMINAL_SALES_PRICE) {
@@ -67,7 +68,8 @@ public class TiOpiExtendedDCS implements Serializable {
 		this.IS_C_SALE = IS_C_SALE;
 		this.PRODUCT_DATE = PRODUCT_DATE;
 		this.PRODUCT_MODEL = PRODUCT_MODEL;
-		this.SALES_DATE = SALES_DATE;
+		this.SALES_DATE_START = SALES_DATE_START;
+		this.SALES_DATE_END = SALES_DATE_END;
 		this.RELEASE_DATE = RELEASE_DATE;
 		this.RELEASE_STATUS = RELEASE_STATUS;
 		this.STOP_DATE = STOP_DATE;
@@ -210,13 +212,22 @@ public class TiOpiExtendedDCS implements Serializable {
 	public void setPRODUCT_MODEL(String pRODUCT_MODEL) {
 		PRODUCT_MODEL = pRODUCT_MODEL;
 	}
-
-	public Date getSALES_DATE() {
-		return SALES_DATE;
+	
+	
+	public Date getSALES_DATE_START() {
+		return SALES_DATE_START;
 	}
 
-	public void setSALES_DATE(Date sALES_DATE) {
-		SALES_DATE = sALES_DATE;
+	public void setSALES_DATE_START(Date sALES_DATE_START) {
+		SALES_DATE_START = sALES_DATE_START;
+	}
+
+	public Date getSALES_DATE_END() {
+		return SALES_DATE_END;
+	}
+
+	public void setSALES_DATE_END(Date sALES_DATE_END) {
+		SALES_DATE_END = sALES_DATE_END;
 	}
 
 	public Date getRELEASE_DATE() {

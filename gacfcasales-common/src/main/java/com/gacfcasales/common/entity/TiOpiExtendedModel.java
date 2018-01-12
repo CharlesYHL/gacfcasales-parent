@@ -8,7 +8,8 @@ public class TiOpiExtendedModel implements Serializable {
 	private Long PRODUCT_ID;
 	private String PRODUCT_NO;
 	private String PRODUCT_NAME;
-	private Integer PRODUCT_PROPERTY;
+	private String PRODUCT_PROPERTY;
+	private String PRODUCT_CATEGORY;
 	private String BRAND_CODE;
 	private String BRAND_NAME;
 	private String SERIES_CODE;
@@ -25,11 +26,15 @@ public class TiOpiExtendedModel implements Serializable {
 	private Integer PRODUCT_JEEP;
 	private Integer PRODUCT_CJD;
 	
+	private String BRAND_ID;
+	private String SERIES_ID;
+	private String MODEL_ID;
+	
 	public TiOpiExtendedModel() {
 		super();
 	}
 	
-	public TiOpiExtendedModel(Long PRODUCT_MODEL_ID,Long PRODUCT_ID,String PRODUCT_NO,String PRODUCT_NAME,Integer PRODUCT_PROPERTY,String BRAND_CODE,String BRAND_NAME,String SERIES_CODE,String SERIES_NAME,String MODEL_CODE,String MODEL_NAME,String CREATED_BY,Date CREATED_AT,String UPDATED_BY,Date UPDATED_AT,Integer IS_VALID,Integer IS_DELETE,Integer PRODUCT_FAIT,Integer PRODUCT_JEEP,Integer PRODUCT_CJD) {
+	public TiOpiExtendedModel(Long PRODUCT_MODEL_ID,Long PRODUCT_ID,String PRODUCT_NO,String PRODUCT_NAME,String PRODUCT_PROPERTY,String BRAND_CODE,String BRAND_NAME,String SERIES_CODE,String SERIES_NAME,String MODEL_CODE,String MODEL_NAME,String CREATED_BY,Date CREATED_AT,String UPDATED_BY,Date UPDATED_AT,Integer IS_VALID,Integer IS_DELETE,Integer PRODUCT_FAIT,Integer PRODUCT_JEEP,Integer PRODUCT_CJD) {
 		this.PRODUCT_MODEL_ID=PRODUCT_MODEL_ID;
 		this.PRODUCT_ID=PRODUCT_ID;
 		this.PRODUCT_NO=PRODUCT_NO;
@@ -76,12 +81,23 @@ public class TiOpiExtendedModel implements Serializable {
 	public void setPRODUCT_NAME(String pRODUCT_NAME) {
 		PRODUCT_NAME = pRODUCT_NAME;
 	}
-	public Integer getPRODUCT_PROPERTY() {
+	public String getPRODUCT_PROPERTY() {
 		return PRODUCT_PROPERTY;
 	}
-	public void setPRODUCT_PROPERTY(Integer pRODUCT_PROPERTY) {
+	public void setPRODUCT_PROPERTY(String pRODUCT_PROPERTY) {
 		PRODUCT_PROPERTY = pRODUCT_PROPERTY;
 	}
+	
+	
+	
+	public String getPRODUCT_CATEGORY() {
+		return PRODUCT_CATEGORY;
+	}
+
+	public void setPRODUCT_CATEGORY(String pRODUCT_CATEGORY) {
+		PRODUCT_CATEGORY = pRODUCT_CATEGORY;
+	}
+
 	public String getBRAND_CODE() {
 		return BRAND_CODE;
 	}
@@ -171,6 +187,30 @@ public class TiOpiExtendedModel implements Serializable {
 	}
 	public void setPRODUCT_CJD(Integer pRODUCT_CJD) {
 		PRODUCT_CJD = pRODUCT_CJD;
+	}
+
+	public String getBRAND_ID() {
+		return BRAND_ID;
+	}
+
+	public void setBRAND_ID(String bRAND_ID) {
+		BRAND_ID = bRAND_ID;
+	}
+
+	public String getSERIES_ID() {
+		return SERIES_ID;
+	}
+
+	public void setSERIES_ID(String sERIES_ID) {
+		SERIES_ID = sERIES_ID;
+	}
+
+	public String getMODEL_ID() {
+		return MODEL_ID;
+	}
+
+	public void setMODEL_ID(String mODEL_ID) {
+		MODEL_ID = mODEL_ID;
 	}
 	
 

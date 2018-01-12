@@ -501,4 +501,35 @@ public class CommonUtils {
         map.put("hour", sdf4.format(date));
         return map;
     }
+    
+    /*
+     * @author ChenPeiYu 获取5位订单号
+     * @date 2016年3月10日
+     * @param number
+     * @return
+     */
+    public static String getFiveOrderNo(int number) {
+        String orderNo = String.valueOf(number);
+        if (orderNo.length() <= CommonConstants.SYSTEM_ORDER_NO_NUMBERS) {
+            while (orderNo.length() < CommonConstants.SYSTEM_ORDER_NO_NUMBERS) {
+                orderNo = "0" + orderNo;
+            }
+            return orderNo;
+        } else {
+            return null;
+        }
+    }
+   /* 
+    public static String getFourOrderNo(int number,int nonumber ) {
+        String orderNo = String.valueOf(number);
+        if (orderNo.length() <= nonumber) {
+            while (orderNo.length() < nonumber) {
+                orderNo = "0" + orderNo;
+            }
+            return orderNo;
+        } else {
+            return null;
+        }
+    }
+    */
 }

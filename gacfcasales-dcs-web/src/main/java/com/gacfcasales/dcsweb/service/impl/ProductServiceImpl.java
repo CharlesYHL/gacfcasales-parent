@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gacfcasales.common.Assist;
+import com.gacfcasales.common.entity.ModelPage;
 import com.gacfcasales.common.entity.TiOpiExtendedDCS;
+import com.gacfcasales.common.entity.TiOpiExtendedModel;
 import com.gacfcasales.common.entity.TmPartInfo;
+import com.gacfcasales.common.entity.TmPartInfoPage;
 import com.gacfcasales.dcsweb.dao.ProductDao;
 import com.gacfcasales.dcsweb.service.ProductService;
 @Service
@@ -57,5 +60,49 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return productDao.getProductModelRowCount(assist);
 	}
+
+	@Override
+	public List<Map> getProductOne(TmPartInfoPage tmPartInfoPage) {
+		// TODO Auto-generated method stub
+		return productDao.getProductOne(tmPartInfoPage);
+	}
+
+	@Override
+	public Long insertAndRetuanID(TmPartInfoPage tmPartInfoPage) {
+		// TODO Auto-generated method stub
+		return productDao.insertAndRetuanID(tmPartInfoPage);
+	}
+
+	@Override
+	public void updateProduct(TiOpiExtendedDCS tiOpiExtendedDCS) {
+		// TODO Auto-generated method stub
+		productDao.updateProduct(tiOpiExtendedDCS);
+	}
+
+	@Override
+	public void insertProductModel(TiOpiExtendedModel tiOpiExtendedModel) {
+		// TODO Auto-generated method stub
+		productDao.insertProductModel(tiOpiExtendedModel);
+	}
+
+	@Override
+	public void deleteProductModel(TiOpiExtendedModel tiOpiExtendedModel) {
+		// TODO Auto-generated method stub
+		productDao.deleteProductModel(tiOpiExtendedModel);
+	}
+
+	@Override
+	public TiOpiExtendedDCS getProductByID(String PRODUCT_ID) {
+		// TODO Auto-generated method stub
+		return productDao.getProductByID(PRODUCT_ID);
+	}
+
+	@Override
+	public int getProductModel(ModelPage modelPage) {
+		// TODO Auto-generated method stub
+		return productDao.getProductModel(modelPage);
+	}
+
+	
 
 }

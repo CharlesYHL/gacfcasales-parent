@@ -1,74 +1,85 @@
-$(function(){
-	var oTable = new TableInit();
-	oTable.Init();
-	
-	//产品有效期
+$(function() {
+
+	// 产品有效期
 	jQuery("#productDate").append("<option value='0'>请选择</option>");
 	jQuery("#productDate").append("<option value='12'>12个月</option>");
 	jQuery("#productDate").append("<option value='24'>24个月</option>");
 	jQuery("#productDate").append("<option value='36'>36个月</option>");
-	
-	//是否FIAT授权
+
+	// 是否FIAT授权
 	jQuery("#isFiat").append("<option value='0'>请选择</option>");
 	jQuery("#isFiat").append("<option value='12781001'>是</option>");
 	jQuery("#isFiat").append("<option value='12781002'>否</option>");
-	
-	
-	//是否国产JEEP授权
+
+	// 是否国产JEEP授权
 	jQuery("#isJeep").append("<option value='0'>请选择</option>");
 	jQuery("#isJeep").append("<option value='12781001'>是</option>");
 	jQuery("#isJeep").append("<option value='12781002'>否</option>");
-	
-	
-	//是否CJD授权
+
+	// 是否CJD授权
 	jQuery("#isCjd").append("<option value='0'>请选择</option>");
 	jQuery("#isCjd").append("<option value='12781001'>是</option>");
 	jQuery("#isCjd").append("<option value='12781002'>否</option>");
-	
+
+	/*
+	 * var PRODUCT_NO = $("#productNo").val(); var PRODUCT_NAME =
+	 * $("#productName").val(); var PRODUCT_CATEGORY =
+	 * $("#productCategory").val(); var PRODUCT_PROPERTY =
+	 * $("#productProperty").val(); var PRODUCT_DATE = $("#productDate").val();
+	 * var DNP_PRICE = $("#dnpPrice").val(); var MSRP_PRICE =
+	 * $("#msrpPrice").val(); var PRODUCT_FAIT = $("#isFiat").val(); var
+	 * PRODUCT_JEEP = $("#isJeep").val(); var PRODUCT_CJD = $("#isCjd").val();
+	 * if (PRODUCT_NO != '' && PRODUCT_NAME != '' && PRODUCT_CATEGORY != '' &&
+	 * PRODUCT_PROPERTY != '') {
+	 *  }
+	 */
+	var oTable = new TableInit();
+	oTable.Init();
+
 });
-/*弹出的层级*/
+/* 弹出的层级 */
 var index;
-function addPart(){
+function addPart() {
 	var partNo = $("#productNo").val();
 	console.log("addPart ...");
 	index = parent.layer.open({
-		  title: '新增产品',
-		  type: 2,
-		  area: ['80%', '66%'],
-		  fixed: true, //固定
-		  maxmin: false,
-		  content: ctx+'/sysProduct/ajax/partInfo?partNo='+partNo,
-		  end : function(){
-				i = 0;
-			}
-		});
-	//parent.layer.close(index);
-	var index1 = parent.layer.getFrameIndex(window.name); 
+		title : '新增产品',
+		type : 2,
+		area : [ '80%', '66%' ],
+		fixed : true, // 固定
+		maxmin : false,
+		content : ctx + '/sysProduct/ajax/partInfo?partNo=' + partNo,
+		end : function() {
+			i = 0;
+		}
+	});
+	// parent.layer.close(index);
+	var index1 = parent.layer.getFrameIndex(window.name);
 	parent.layer.close(index1)
 };
 
 var vm = new Vue({
-	el:'#addProduct',
-	data:{
-		q:{
-			productNo: null,
-			productName:null,
-			productCategory:null,
-			productProperty:null,
-			IS_VALID:null,
-			productDate:null,
-			releaseStatus:null,
-			productModel:null,
-			isCSales:null,
-			releaseStart:null,
-			releaseEnd:null,
-			salesStart:null,
-			salesEnd:null
-			
+	el : '#addProduct',
+	data : {
+		q : {
+			productNo : null,
+			productName : null,
+			productCategory : null,
+			productProperty : null,
+			IS_VALID : null,
+			productDate : null,
+			releaseStatus : null,
+			productModel : null,
+			isCSales : null,
+			releaseStart : null,
+			releaseEnd : null,
+			salesStart : null,
+			salesEnd : null
+
 		},
-		showOper: true,
-		title:null,
-		tiOpiExtendedDCS:{
+		showOper : true,
+		title : null,
+		tiOpiExtendedDCS : {
 			PRODUCT_ID : null,
 			PRODUCT_NO : null,
 			PRODUCT_NAME : null,
@@ -97,30 +108,54 @@ var vm = new Vue({
 			TAX_COST_PRICE : null,
 			TERMINAL_NON_SALES_PRICE : null,
 			TERMINAL_SALES_PRICE : null,
-			releaseStart:null,
-			releaseEnd:null,
-			salesStart:null,
-			salesEnd:null
+			releaseStart : null,
+			releaseEnd : null,
+			salesStart : null,
+			salesEnd : null
 		}
 	},
-	methods: {
-		query: function () {
+	methods : {
+		query : function() {
 			vm.reload();
 		},
-		mounted:function(){
+		mounted : function() {
 			console.log("vue start...");
 		},
-		reload: function () {
-	    	vm.showOper = true;
-	    	$('#table').bootstrapTable('refresh'); 
+		addProductModel : function() {
+			var productId = $("#productId").val();
+			if (productId != '') {
+				parent.layer.open({
+					title : '新增产品',
+					type : 2,
+					area : [ '80%', '66%' ],
+					fixed : true, // 固定
+					maxmin : false,
+					content : ctx + '/sysProduct/ajax/searchModel?productId='
+							+ productId,
+					end : function() {
+						i = 0;
+					}
+				});
+				var index1 = parent.layer.getFrameIndex(window.name);
+				parent.layer.close(index1)
+			}else{
+				alert("请先去选择产品信息");
+			}
+		},
+		goBack : function() {
+			console.log("返回");
+			// console.log(parent.globe_index);
+			index = parent.layer.getFrameIndex(window.name);
+			parent.layer.close(index);
+		},
+		reload : function() {
+			vm.showOper = true;
+			$('#table').bootstrapTable('refresh');
 		}
 	}
 });
 
-
-
-
-var TableInit=function() {
+var TableInit = function() {
 	var oTableInit = new Object();
 	// 初始化Table
 	oTableInit.Init = function() {
@@ -153,70 +188,64 @@ var TableInit=function() {
 				formatter : function(value, row, index) {
 					return index + 1;
 				}
-			},{
-	    		checkbox: true	
-	    	},
-	    	{
+			}, {
+				checkbox : true
+			}, {
 				field : 'PRODUCT_MODEL_ID',
 				title : 'MODEL_ID',
 				align : 'center',
 				valign : 'middle',
-				visible : true
-			},
-			{
+				visible : false
+			}, {
 				field : 'PRODUCT_ID',
 				title : 'PRODUCT_ID',
 				align : 'center',
 				valign : 'middle',
-				visible : true
-			},
-			{
+				visible : false
+			}, {
 				field : 'PRODUCT_NO',
 				title : 'PRODUCT_NO',
 				align : 'center',
 				valign : 'middle',
-				visible : true
-			},
-			{
+				visible : false
+			}, {
 				field : 'PRODUCT_NAME',
 				title : 'PRODUCT_NAME',
 				align : 'center',
 				valign : 'middle',
-				visible : true
-			},
-			{
+				visible : false
+			}, {
 				field : 'PRODUCT_PROPERTY',
 				title : 'PRODUCT_PROPERTY',
 				align : 'center',
 				valign : 'middle',
-				visible : true
-			},
-	    	{
+				visible : false
+			}, {
 				field : 'BRAND_NAME',
 				title : '品牌',
 				align : 'center',
 				valign : 'middle'
-			},{
+			}, {
 				field : 'SERIES_NAME',
 				title : '车系',
 				align : 'center',
 				valign : 'middle'
-			},{
+			}, {
 				field : 'MODEL_NAME',
-				title : '车系',
+				title : '车型',
 				align : 'center',
 				valign : 'middle'
-			}
-			]
+			} ]
 		});
 	};
-	
+
 	oTableInit.queryParams = function(params) {
 		var param = {
 			limit : params.limit, // 页面大小
 			offset : params.offset, // 页码
 			pageindex : this.pageNumber,
 			pageSize : this.pageSize,
+			PRODUCT_ID : $("#productId").val(),
 			PRODUCT_NO : $("#productNo").val(),
 			PRODUCT_NAME : $("#productName").val(),
 			PRODUCT_CATEGORY : $("#productCategory").val(),
@@ -230,14 +259,14 @@ var TableInit=function() {
 		}
 		return param;
 	};
-	
+
 	// 用于server 分页，表格数据量太大的话
 	// 不想一次查询所有数据，可以使用server分页查询，数据量小的话可以直接把sidePagination: "server" 改为
 	// sidePagination: "client" ，同时去掉responseHandler: responseHandler就可以了，
 	oTableInit.responseHandler = function(res) {
 		if (res.code == 200) {
 			return {
-				"rows" : res.dataList,
+				"rows" : res.dataListMap,
 				"total" : res.totalCount
 			};
 		} else {
@@ -250,4 +279,3 @@ var TableInit=function() {
 
 	return oTableInit;
 };
-

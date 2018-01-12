@@ -62,40 +62,22 @@
 				(CASE WHEN
 				PRODUCT_DATE = 12 THEN '12个月'
 				WHEN PRODUCT_DATE = 24 THEN '24个月'
-				WHEN PRODUCT_DATE = 36 THEN '36个月'
+				WHEN
+				PRODUCT_DATE = 36 THEN '36个月'
 				ELSE '' END ) PRODUCT_DATE,
 				PRODUCT_MODEL,
-				DATE_FORMAT(SALES_DATE,'%Y-%m-%d %H:%m:%s') SALES_DATE
+				DATE_FORMAT(SALES_DATE_START,'%Y-%m-%d %H:%m:%s')
+				SALES_DATE_START,
+				DATE_FORMAT(SALES_DATE_END,'%Y-%m-%d %H:%m:%s')
+				SALES_DATE_END
 			</otherwise>
 		</choose>
 		from TI_OPI_EXTENDED_DCS
-		<choose>
-            <when test="rowSize ==null">
-                <if test="require!=null">
-                    <include refid="Assist" />
-                </if>
-                <if test="order !=null">${order}</if>
-            </when>
-            <otherwise>
-                inner join
-                (
-                SELECT PRODUCT_ID as primary_key FROM TI_OPI_EXTENDED_DCS
-                <if test="require!=null">
-                    <include refid="Assist" />
-                </if>
-                <if test="order !=null">${order}</if>
-                <choose>
-                    <when test="startRow !=null and rowSize !=null">LIMIT #{startRow},#{rowSize} </when>
-                    <when test="rowSize !=null">LIMIT #{rowSize}</when>
-                 </choose>
-                 ) as tmp
-                 on tmp.primary_key=TI_OPI_EXTENDED_DCS.PRODUCT_ID
-            </otherwise>
-        </choose>
-		
-		<!-- <if test="require!=null">
+		<if test="require!=null">
 			<include refid="Assist" />
-		</if> -->
+		</if>
+
+		<!-- <if test="require!=null"> <include refid="Assist" /> </if> -->
 	</select>
 
 	<select id="getSysProductRowCount" parameterType="com.gacfcasales.common.Assist"
@@ -141,11 +123,14 @@
 		(CASE WHEN PRODUCT_DATE = 12
 		THEN '12个月'
 		WHEN PRODUCT_DATE = 24 THEN '24个月'
-		WHEN PRODUCT_DATE = 36 THEN '36个月'
+		WHEN PRODUCT_DATE = 36
+		THEN '36个月'
 		ELSE '' END ) PRODUCT_DATE,
 		PRODUCT_MODEL,
-		DATE_FORMAT(SALES_DATE,'%Y-%m-%d %H:%m:%s') SALES_DATE
-		from TI_OPI_EXTENDED_DCS
+		DATE_FORMAT(SALES_DATE_START,'%Y-%m-%d %H:%m:%s') SALES_DATE_START,
+		DATE_FORMAT(SALES_DATE_END,'%Y-%m-%d %H:%m:%s') SALES_DATE_END
+		from
+		TI_OPI_EXTENDED_DCS
 		<where>
 			<if test="PRODUCT_NO != null and PRODUCT_NO != '' "> and PRODUCT_NO LIKE
 				concat(concat('%',#{PRODUCT_NO}),'%')</if>
@@ -163,8 +148,9 @@
 			<if
 				test="releaseStart != null and releaseStart != '' and releaseEnd != null and releaseEnd != '' "> and RELEASE_DATE between #{releaseStart} and #{releaseEnd}
 			</if>
-			<if
-				test="salesStart != null and salesStart != '' and salesEnd != null and salesEnd != '' "> and SALES_DATE between #{salesStart} and #{salesEnd}</if>
+			<if test="salesStart != null and salesStart != '' "> and SALES_DATE_START &gt;= #{salesStart} </if>
+
+			<if test=" salesEnd != null and salesEnd != '' "> and SALES_DATE_END &lt;= #{salesEnd} </if>
 		</where>
 
 	</select>
@@ -182,17 +168,21 @@
 				PART_NAME,
 				(
 				CASE
-				WHEN PART_GROUP_CODE = 11361009 THEN
+				WHEN PART_GROUP_CODE =
+				11361009 THEN
 				'常规零部件'
 				WHEN PART_GROUP_CODE = 11361010 THEN
 				'第三方'
-				WHEN PART_GROUP_CODE = 11361005 THEN
+				WHEN
+				PART_GROUP_CODE = 11361005 THEN
 				'养护品'
-				WHEN PART_GROUP_CODE = 11361011 THEN
+				WHEN PART_GROUP_CODE = 11361011
+				THEN
 				'电瓶'
 				WHEN PART_GROUP_CODE = 11361007 THEN
 				'用品'
-				WHEN PART_GROUP_CODE = 11361008 THEN
+				WHEN PART_GROUP_CODE
+				= 11361008 THEN
 				'底盘号相关'
 				ELSE
 				''
@@ -200,7 +190,8 @@
 				) PART_GROUP_CODE,
 				(
 				CASE
-				WHEN PART_PROPERTY = 80021001 THEN
+				WHEN
+				PART_PROPERTY = 80021001 THEN
 				'A'
 				WHEN PART_PROPERTY = 80021001 THEN
 				'B'
@@ -216,7 +207,8 @@
 				LIMIT_PRICE,
 				(
 				CASE
-				WHEN IS_SJV = 12781001 THEN
+				WHEN
+				IS_SJV = 12781001 THEN
 				'是'
 				ELSE
 				'否'
@@ -224,7 +216,8 @@
 				) IS_SJV,
 				(
 				CASE
-				WHEN IS_MOP = 12781001 THEN
+				WHEN IS_MOP =
+				12781001 THEN
 				'是'
 				ELSE
 				'否'
@@ -232,7 +225,8 @@
 				) IS_MOP,
 				(
 				CASE
-				WHEN IS_C_SALE = 12781001 THEN
+				WHEN IS_C_SALE = 12781001
+				THEN
 				'是'
 				ELSE
 				'否'
@@ -248,34 +242,14 @@
 				) PART_STATUS
 			</otherwise>
 		</choose>
-		from TM_PART_INFO 
-		<choose>
-            <when test="rowSize ==null">
-                <if test="require!=null">
-                    <include refid="Assist" />
-                </if>
-                <if test="order !=null">${order}</if>
-            </when>
-            <otherwise>
-                inner join
-                (
-                SELECT PART_NO as primary_key FROM TM_PART_INFO
-                <if test="require!=null">
-                    <include refid="Assist" />
-                </if>
-                <if test="order !=null">${order}</if>
-                <choose>
-                    <when test="startRow !=null and rowSize !=null">LIMIT #{startRow},#{rowSize} </when>
-                    <when test="rowSize !=null">LIMIT #{rowSize}</when>
-                 </choose>
-                 ) as tmp
-                 on tmp.primary_key=TM_PART_INFO.PART_NO
-            </otherwise>
-        </choose>
-	    LIMIT #{startRow},#{rowSize}
-		<!-- <if test="require!=null">
+		from TM_PART_INFO
+
+		<if test="require!=null">
 			<include refid="Assist" />
-		</if> -->
+		</if>
+		GROUP BY PART_NO,PART_NAME
+		LIMIT #{startRow},#{rowSize}
+		<!-- <if test="require!=null"> <include refid="Assist" /> </if> -->
 	</select>
 
 
@@ -286,8 +260,8 @@
 			<include refid="Assist" />
 		</if>
 	</select>
-	
-	
+
+
 	<select id="getProductModelList" parameterType="com.gacfcasales.common.Assist"
 		resultType="map">
 		select
@@ -298,45 +272,170 @@
 				*
 			</otherwise>
 		</choose>
-		from TI_OPI_EXTENDED_MODEL 
+		from TI_OPI_EXTENDED_MODEL
 		<choose>
-            <when test="rowSize ==null">
-                <if test="require!=null">
-                    <include refid="Assist" />
-                </if>
-                <if test="order !=null">${order}</if>
-            </when>
-            <otherwise>
-                inner join
-                (
-                SELECT PRODUCT_MODEL_ID as primary_key FROM TI_OPI_EXTENDED_MODEL
-                <if test="require!=null">
-                    <include refid="Assist" />
-                </if>
-                <if test="order !=null">${order}</if>
-                <choose>
-                    <when test="startRow !=null and rowSize !=null">LIMIT #{startRow},#{rowSize} </when>
-                    <when test="rowSize !=null">LIMIT #{rowSize}</when>
-                 </choose>
-                 ) as tmp
-                 on tmp.primary_key=TI_OPI_EXTENDED_MODEL.PRODUCT_MODEL_ID
-            </otherwise>
-        </choose>
-	    LIMIT #{startRow},#{rowSize}
-		<!-- <if test="require!=null">
-			<include refid="Assist" />
-		</if> -->
+			<when test="rowSize ==null">
+				<if test="require!=null">
+					<include refid="Assist" />
+				</if>
+				<if test="order !=null">${order}</if>
+			</when>
+			<otherwise>
+				left join
+				(
+				SELECT PRODUCT_MODEL_ID as primary_key FROM
+				TI_OPI_EXTENDED_MODEL
+				<if test="require!=null">
+					<include refid="Assist" />
+				</if>
+				<if test="order !=null">${order}</if>
+				<choose>
+					<when test="startRow !=null and rowSize !=null">LIMIT #{startRow},#{rowSize} </when>
+					<when test="rowSize !=null">LIMIT #{rowSize}</when>
+				</choose>
+				) as tmp
+				on tmp.primary_key=TI_OPI_EXTENDED_MODEL.PRODUCT_MODEL_ID
+			</otherwise>
+		</choose>
+		LIMIT #{startRow},#{rowSize}
+		<!-- <if test="require!=null"> <include refid="Assist" /> </if> -->
 	</select>
-	
-	
-	
-	
+
 	<select id="getProductModelRowCount" parameterType="com.gacfcasales.common.Assist"
 		resultType="java.lang.Long">
-		select count(PRODUCT_MODEL_ID) from  TI_OPI_EXTENDED_MODEL
+		select count(PRODUCT_MODEL_ID) from TI_OPI_EXTENDED_MODEL
 		<if test="require!=null">
 			<include refid="Assist" />
 		</if>
+	</select>
+
+	<!-- 判断产品是否存在 -->
+	<select id="getProductOne" parameterType="com.gacfcasales.common.entity.TmPartInfoPage"
+		resultType="map">
+		select PRODUCT_ID from TI_OPI_EXTENDED_DCS
+		<where>
+			<if test="PART_NO != null and PART_NO != '' "> and PRODUCT_NO LIKE
+				concat(concat('%',#{PART_NO}),'%')</if>
+			<if test="PART_NAME != null and PART_NAME != '' "> and PRODUCT_NAME LIKE
+				concat(concat('%',#{PART_NAME}),'%')</if>
+			<if test="PART_GROUP_CODE != null and PART_GROUP_CODE != '' "> and PRODUCT_CATEGORY LIKE
+				concat(concat('%',#{PART_GROUP_CODE}),'%')</if>
+			<if test="PART_PROPERTY != null and PART_PROPERTY != '' "> and PRODUCT_PROPERTY LIKE
+				concat(concat('%',#{PART_PROPERTY}),'%')</if>
+			<if test="CLAIM_PRICE != null  "> and DNP_PRICE = #{CLAIM_PRICE}</if>
+			<if test="LIMIT_PRICE != null  "> and MSRP_PRICE = #{LIMIT_PRICE}</if>
+			<if test="IS_C_SALE_INT != null and IS_C_SALE_INT != '0' "> and IS_C_SALE = #{IS_C_SALE_INT}</if>
+		</where>
+	</select>
+
+	<!-- 新增产品信息 -->
+	<insert id="insertAndRetuanID" useGeneratedKeys="true"
+		keyProperty="PRODUCT_ID" parameterType="com.gacfcasales.common.entity.TmPartInfoPage">
+
+		insert into
+		TI_OPI_EXTENDED_DCS(PRODUCT_ID,PRODUCT_NO,PRODUCT_NAME,PRODUCT_CATEGORY,PRODUCT_PROPERTY,DNP_PRICE,MSRP_PRICE,IS_C_SALE,IS_VALID,CREATED_AT)
+		values(#{PRODUCT_ID},#{PART_NO},#{PART_NAME},#{PART_GROUP_CODE},#{PART_PROPERTY},#{CLAIM_PRICE},#{LIMIT_PRICE},#{IS_C_SALE_INT},12781001,now())
+
+	</insert>
+
+	<!-- 更新产品信息 -->
+	<update id="updateProduct" parameterType="com.gacfcasales.common.entity.TiOpiExtendedDCS">
+		update
+		TI_OPI_EXTENDED_DCS set
+		UPDATED_AT = now(),
+		PRODUCT_DATE =
+		#{PRODUCT_DATE},
+		PRODUCT_MODEL =
+		#{PRODUCT_MODEL},
+		SALES_DATE_START =
+		#{SALES_DATE_START},
+		SALES_DATE_END= #{SALES_DATE_END},
+		PRODUCT_FAIT=
+		#{PRODUCT_FAIT},
+		PRODUCT_JEEP= #{PRODUCT_JEEP},
+		PRODUCT_CJD=
+		#{PRODUCT_CJD},
+		PRODUCT_DESCRIBTION= #{PRODUCT_DESCRIBTION}
+		where
+		PRODUCT_ID=#{PRODUCT_ID}
+	</update>
+
+	<!-- 新增车型信息 -->
+
+	<insert id="insertProductModel" parameterType="com.gacfcasales.common.entity.TiOpiExtendedModel">
+		insert into
+		TI_OPI_EXTENDED_MODEL(PRODUCT_MODEL_ID,
+		PRODUCT_ID,
+		PRODUCT_NO,
+		PRODUCT_NAME,
+		PRODUCT_PROPERTY,
+		BRAND_CODE,
+		BRAND_NAME,
+		SERIES_CODE,
+		SERIES_NAME,
+		MODEL_CODE,
+		MODEL_NAME,
+		CREATED_AT,
+		IS_VALID,
+		IS_DELETE,
+		PRODUCT_FAIT,
+		PRODUCT_JEEP,
+		PRODUCT_CJD,
+		PRODUCT_CATEGORY,
+		BRAND_ID,SERIES_ID,MODEL_ID)
+		values(#{PRODUCT_MODEL_ID},
+		#{PRODUCT_ID},
+		#{PRODUCT_NO},
+		#{PRODUCT_NAME},
+		#{PRODUCT_PROPERTY},
+		#{BRAND_CODE},
+		#{BRAND_NAME},
+		#{SERIES_CODE},
+		#{SERIES_NAME},
+		#{MODEL_CODE},
+		#{MODEL_NAME},
+		now(),
+		12781001,
+		0,
+		#{PRODUCT_FAIT},
+		#{PRODUCT_JEEP},
+		#{PRODUCT_CJD},
+		#{PRODUCT_CATEGORY},
+		#{BRAND_ID},#{SERIES_ID},#{MODEL_ID})
+
+
+	</insert>
+
+	<!-- 删除车型信息 -->
+	<delete id="deleteProductModel" parameterType="com.gacfcasales.common.entity.TiOpiExtendedModel">
+		update
+		TI_OPI_EXTENDED_MODEL set IS_DELETE = 1
+		where PRODUCT_MODEL_ID
+		#{PRODUCT_MODEL_ID}
+	</delete>
+
+	<select id="getProductByID" parameterType="java.lang.String"
+		resultType="com.gacfcasales.common.entity.TiOpiExtendedDCS">
+		select * from
+		TI_OPI_EXTENDED_DCS where
+		PRODUCT_ID=#{PRODUCT_ID}
+	</select>
+
+	<select id="getProductModel" parameterType="com.gacfcasales.common.entity.ModelPage"
+		resultType="java.lang.Integer">
+		select count(*) from ti_opi_extended_model
+		<where>
+			<if test="PRODUCT_ID != null and PRODUCT_ID != '' "> and PRODUCT_ID = #{PRODUCT_ID}</if>
+			<if test="BRAND_ID != null and BRAND_ID != '' "> and BRAND_ID = #{BRAND_ID}</if>
+			<if test="BRAND_CODE != null and BRAND_CODE != '' "> and BRAND_CODE = #{BRAND_CODE}</if>
+			<if test="BRAND_NAME != null and BRAND_NAME != '' "> and BRAND_NAME = #{BRAND_NAME}</if>
+			<if test="SERIES_ID != null and SERIES_ID != '' "> and SERIES_ID = #{SERIES_ID}</if>
+			<if test="SERIES_CODE != null and SERIES_CODE != '' "> and SERIES_CODE = #{SERIES_CODE}</if>
+			<if test="SERIES_NAME != null and SERIES_NAME != '' "> and SERIES_NAME = #{SERIES_NAME}</if>
+			<if test="MODEL_ID != null and MODEL_ID != '' "> and MODEL_ID = #{MODEL_ID}</if>
+			<if test="MODEL_CODE != null and MODEL_CODE != '' "> and MODEL_CODE = #{MODEL_CODE}</if>
+			<if test="MODEL_NAME != null and MODEL_NAME != '' "> and MODEL_NAME = #{MODEL_NAME}</if>
+		</where>
 	</select>
 
 </mapper>

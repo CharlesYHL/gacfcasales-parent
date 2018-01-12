@@ -4,7 +4,7 @@
 
 <div id="addProduct" v-cloak>
 	<div v-show="showOper">
-		<input type="text" value="${requestScope.tmPartInfo.PART_NO }"
+		<input type="text" id="productId" name="productId" value="${requestScope.tmPartInfo.PRODUCT_ID }"
 			hidden="hidden" />
 		<div class="row">
 			<div class="col-xs-offset-1 col-xs-10">
@@ -111,10 +111,9 @@
 							<div class="input-group input-group-sm"
 								style="margin-right: 16px; width: 600px;">
 								<span class="input-group-addon" style="width: 150px;">产品说明</span>
-								<input type="text" class="form-control" name="productDescribtion" style="height:50px;"
-									id="productDescribtion"
-									value=""
-									placeholder="产品说明" />
+								<input type="text" class="form-control"
+									name="productDescribtion" style="height: 50px;"
+									id="productDescribtion" value="" placeholder="产品说明" />
 							</div>
 						</div>
 					</div>
@@ -139,8 +138,26 @@
 					删除
 				</button>
 			</div>
-			<table id="table" class="table"></table>
+			<!-- <div style="height: 3px;"></div> -->
+			<div>
+				<table id="table" class="table"></table>
+			</div>
 		</div>
+		
+		<div>
+			<div class="input-group input-group-sm" style="margin-left: 48%;">
+				<button id="btn_add_product" type="button" style="margin-right: 8px;"
+					class="btn btn-primary btn-sm" @click="saveModel">
+					<span class="glyphicon glyphicon-film" aria-hidden="true"></span>&nbsp;&nbsp;保存
+				</button>
+				<button id="btn_add_product" type="button"
+					class="btn btn-primary btn-sm" @click="goBack">
+					<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>&nbsp;&nbsp;返回
+				</button>
+			</div>
+		</div>
+		<div style="height:10px;"></div>
+		
 	</div>
 
 </div>

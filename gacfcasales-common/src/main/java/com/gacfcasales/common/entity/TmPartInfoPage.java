@@ -3,6 +3,7 @@ package com.gacfcasales.common.entity;
 import java.io.Serializable;
 
 public class TmPartInfoPage implements Serializable {
+	private Long PRODUCT_ID;
 	private String PART_NO;
 	private String PART_NAME;
 	private String PART_GROUP_CODE;
@@ -13,6 +14,24 @@ public class TmPartInfoPage implements Serializable {
 	private String IS_MOP;
 	private String IS_C_SALE;
 	private String PART_STATUS;
+	
+	private Integer IS_C_SALE_INT;
+	
+	
+	
+	
+	public Integer getIS_C_SALE_INT() {
+		return IS_C_SALE_INT;
+	}
+	public void setIS_C_SALE_INT(Integer iS_C_SALE_INT) {
+		IS_C_SALE_INT = iS_C_SALE_INT;
+	}
+	public Long getPRODUCT_ID() {
+		return PRODUCT_ID;
+	}
+	public void setPRODUCT_ID(Long pRODUCT_ID) {
+		PRODUCT_ID = pRODUCT_ID;
+	}
 	public String getPART_NO() {
 		return PART_NO;
 	}
