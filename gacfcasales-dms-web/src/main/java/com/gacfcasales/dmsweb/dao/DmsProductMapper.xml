@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gacfcasales.dmsweb.dao.DmsProductDao">
+	<!-- Assist用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+	<sql id="Assist">
+		<where>
+			<foreach collection="require" item="req" separator=" ">
+				${req.require} #{req.value}
+				<if test="req.suffix != null"> ${req.suffix}</if>
+			</foreach>
+		</where>
+	</sql>
+
+	<!-- updateAssist用于更新数据的使用它拓展自Assist,用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+	<sql id="updateAssist">
+		<where>
+			<foreach collection="assist.require" item="req" separator=" ">
+				${req.require} #{req.value}
+				<if test="req.suffix != null"> ${req.suffix}</if>
+			</foreach>
+		</where>
+	</sql>
+
+
+	<select id="getDmsProductList" parameterType="com.gacfcasales.common.Assist"
+		resultType="map">
+		SELECT
+		PRODUCT_ID,
+		PRODUCT_NO,
+		PRODUCT_NAME,
+		(
+		CASE
+		WHEN IS_VALID = 12781001
+		THEN
+		'是'
+		ELSE
+		'否'
+		END
+		) IS_VALID,
+		(
+		CASE
+		WHEN IS_C_SALE = 12781001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		) IS_C_SALE,
+		(
+		CASE
+		WHEN PRODUCT_DATE = 12 THEN
+		'12个月'
+		WHEN
+		PRODUCT_DATE = 24 THEN
+		'24个月'
+		WHEN PRODUCT_DATE = 36 THEN
+		'36个月'
+		ELSE
+		''
+		END
+		) PRODUCT_DATE,
+		PRODUCT_MODEL,
+		SALES_DATE_START,
+		SALES_DATE_END,
+		(
+		CASE
+		WHEN 1 = 1 THEN
+		concat(
+		DATE_FORMAT(
+		SALES_DATE_START,
+		'%Y-%m-%d'
+		),
+		'--',
+		DATE_FORMAT(SALES_DATE_END, '%Y-%m-%d')
+		)
+		ELSE
+		''
+		END
+		) SALES_DATE_ALL,
+		DATE_FORMAT(RELEASE_DATE, '%Y-%m-%d') RELEASE_DATE,
+		(
+		CASE
+		WHEN
+		RELEASE_STATUS = 54011001 THEN
+		'未发布'
+		WHEN RELEASE_STATUS = 54011002 THEN
+		'已发布'
+		WHEN RELEASE_STATUS = 54011003 THEN
+		'已取消'
+		ELSE
+		''
+		END
+		)
+		RELEASE_STATUS,
+		(
+		CASE
+		WHEN PRODUCT_FAIT = 10041001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		)
+		PRODUCT_FAIT,
+		(
+		CASE
+		WHEN PRODUCT_JEEP = 10041001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		)
+		PRODUCT_JEEP,
+		(
+		CASE
+		WHEN PRODUCT_CJD = 10041001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		)
+		PRODUCT_CJD,
+		PRODUCT_DESCRIBTION,
+		NON_TAX_COST_PRICE,
+		TAX_COST_PRICE,
+		TERMINAL_NON_SALES_PRICE,
+		TERMINAL_SALES_PRICE
+		FROM
+		ti_opi_extended_dcs
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+		LIMIT #{startRow},#{rowSize}
+	</select>
+
+	<select id="getDmsProductRowCount" parameterType="com.gacfcasales.common.Assist"
+		resultType="java.lang.Long">
+		select count(PRODUCT_ID) from ti_opi_extended_dcs
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+	</select>
+
+	<select id="exportExcel" parameterType="com.gacfcasales.common.Assist"
+		resultType="map">
+		SELECT
+		PRODUCT_ID,
+		PRODUCT_NO,
+		PRODUCT_NAME,
+		(
+		CASE
+		WHEN IS_VALID = 12781001
+		THEN
+		'是'
+		ELSE
+		'否'
+		END
+		) IS_VALID,
+		(
+		CASE
+		WHEN IS_C_SALE = 12781001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		) IS_C_SALE,
+		(
+		CASE
+		WHEN PRODUCT_DATE = 12 THEN
+		'12个月'
+		WHEN
+		PRODUCT_DATE = 24 THEN
+		'24个月'
+		WHEN PRODUCT_DATE = 36 THEN
+		'36个月'
+		ELSE
+		''
+		END
+		) PRODUCT_DATE,
+		PRODUCT_MODEL,
+		SALES_DATE_START,
+		SALES_DATE_END,
+		(
+		CASE
+		WHEN 1 = 1 THEN
+		concat(
+		DATE_FORMAT(
+		SALES_DATE_START,
+		'%Y-%m-%d'
+		),
+		'--',
+		DATE_FORMAT(SALES_DATE_END, '%Y-%m-%d')
+		)
+		ELSE
+		''
+		END
+		) SALES_DATE_ALL,
+		DATE_FORMAT(RELEASE_DATE, '%Y-%m-%d') RELEASE_DATE,
+		(
+		CASE
+		WHEN
+		RELEASE_STATUS = 54011001 THEN
+		'未发布'
+		WHEN RELEASE_STATUS = 54011002 THEN
+		'已发布'
+		WHEN RELEASE_STATUS = 54011003 THEN
+		'已取消'
+		ELSE
+		''
+		END
+		)
+		RELEASE_STATUS,
+		(
+		CASE
+		WHEN PRODUCT_FAIT = 10041001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		)
+		PRODUCT_FAIT,
+		(
+		CASE
+		WHEN PRODUCT_JEEP = 10041001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		)
+		PRODUCT_JEEP,
+		(
+		CASE
+		WHEN PRODUCT_CJD = 10041001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		)
+		PRODUCT_CJD,
+		PRODUCT_DESCRIBTION,
+		NON_TAX_COST_PRICE,
+		TAX_COST_PRICE,
+		TERMINAL_NON_SALES_PRICE,
+		TERMINAL_SALES_PRICE
+		FROM
+		ti_opi_extended_dcs
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+	</select>
+
+	<select id="getProdutByID" parameterType="java.lang.String"
+		resultType="map">
+		SELECT
+		PRODUCT_ID,
+		PRODUCT_NO,
+		PRODUCT_NAME,
+		(
+		CASE
+		WHEN IS_VALID = 12781001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		) IS_VALID,
+		(
+		CASE
+		WHEN IS_C_SALE = 12781001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		) IS_C_SALE,
+		(
+		CASE
+		WHEN PRODUCT_DATE = 12 THEN
+		'12个月'
+		WHEN PRODUCT_DATE = 24 THEN
+		'24个月'
+		WHEN PRODUCT_DATE = 36 THEN
+		'36个月'
+		ELSE
+		''
+		END
+		) PRODUCT_DATE,
+		PRODUCT_MODEL,
+		SALES_DATE_START,
+		SALES_DATE_END,
+		(
+		CASE
+		WHEN 1 = 1 THEN
+		concat(
+		DATE_FORMAT(
+		SALES_DATE_START,
+		'%Y-%m-%d'
+		),
+		'--',
+		DATE_FORMAT(SALES_DATE_END, '%Y-%m-%d')
+		)
+		ELSE
+		''
+		END
+		) SALES_DATE_ALL,
+		DATE_FORMAT(RELEASE_DATE, '%Y-%m-%d') RELEASE_DATE,
+		(
+		CASE
+		WHEN RELEASE_STATUS = 54011001 THEN
+		'未发布'
+		WHEN RELEASE_STATUS = 54011002 THEN
+		'已发布'
+		WHEN RELEASE_STATUS = 54011003 THEN
+		'已取消'
+		ELSE
+		''
+		END
+		) RELEASE_STATUS,
+		(
+		CASE
+		WHEN PRODUCT_FAIT = 10041001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		) PRODUCT_FAIT,
+		(
+		CASE
+		WHEN PRODUCT_JEEP = 10041001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		) PRODUCT_JEEP,
+		(
+		CASE
+		WHEN PRODUCT_CJD = 10041001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		) PRODUCT_CJD,
+		PRODUCT_DESCRIBTION,
+		NON_TAX_COST_PRICE,
+		TAX_COST_PRICE,
+		TERMINAL_NON_SALES_PRICE,
+		TERMINAL_SALES_PRICE
+		FROM
+		ti_opi_extended_dcs
+		WHERE PRODUCT_ID=#{productId}
+	</select>
+
+	<select id="getModelByProductId" parameterType="com.gacfcasales.common.Assist"
+		resultType="map">
+		select
+		<if test="distinct !=null">${distinct}</if>
+		<choose>
+			<when test="resultColumn!=null">${resultColumn}</when>
+			<otherwise>
+				*
+			</otherwise>
+		</choose>
+		from TI_OPI_EXTENDED_MODEL
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+		LIMIT #{startRow},#{rowSize}
+		<!-- <if test="require!=null"> <include refid="Assist" /> </if> -->
+	</select>
+
+	<select id="getModelByProductIdRowCount" parameterType="com.gacfcasales.common.Assist"
+		resultType="java.lang.Long">
+		select count(PRODUCT_MODEL_ID) from TI_OPI_EXTENDED_MODEL
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+	</select>
+
+
+</mapper>

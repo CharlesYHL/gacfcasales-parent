@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gacfcasales.dmsweb.dao.CommoNoDao">
+
+	<!-- Assist用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+	<sql id="Assist">
+		<where>
+			<foreach collection="require" item="req" separator=" ">
+				${req.require} #{req.value}
+				<if test="req.suffix != null"> ${req.suffix}</if>
+			</foreach>
+		</where>
+	</sql>
+
+	<!-- updateAssist用于更新数据的使用它拓展自Assist,用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+	<sql id="updateAssist">
+		<where>
+			<foreach collection="assist.require" item="req" separator=" ">
+				${req.require} #{req.value}
+				<if test="req.suffix != null"> ${req.suffix}</if>
+			</foreach>
+		</where>
+	</sql>
+
+
+	<select id="getlock" parameterType="map" resultType="map">
+		SELECT *
+		FROM TT_BILL_NO WHERE DEALER_CODE=#{dealerCode} and
+		BILL_NO_TYPE=#{orderPrefix} and B_YEAR=#{yyyy} and B_MONTH = #{MM} and
+		B_DAY = #{dd}
+	</select>
+
+	<update id="updateBillNo" parameterType="map">
+		update TT_BILL_NO set
+		SEQ=#{sequence} where BILL_NO_ID=#{billNoId} and DEALER_CODE
+		=#{dealerCode}
+	</update>
+
+	<insert id="insertBillNo" parameterType="map">
+		insert into TT_BILL_NO
+		(BILL_NO_TYPE,B_YEAR,B_MONTH,B_DAY,SEQ,DEALER_CODE,CREATED_AT)
+		values(#{orderPrefix},#{yyyy},#{MM},#{dd},#{sequence},#{dealerCode},now());
+
+	</insert>
+
+
+	<!-- 获取品牌下拉框 -->
+	<select id="getBrandList" resultType="map">
+		SELECT DISTINCT m1.GROUP_ID
+		BRAND_ID,m1.GROUP_CODE
+		BRAND_CODE,m1.GROUP_NAME BRAND_NAME FROM
+		tm_vhcl_material_group
+		m1,tm_vhcl_material_group m2
+		WHERE m1.GROUP_ID =
+		m2.PARENT_GROUP_ID AND m2.GROUP_LEVEL = 2
+		AND m1.STATUS = '10011001'
+		AND m2.GROUP_TYPE =90081002
+	</select>
+
+	<!-- 获取车系下拉框 -->
+	<select id="getSeriesList" parameterType="java.lang.String"
+		resultType="map">
+		SELECT DISTINCT m2.GROUP_ID SERIES_ID, m2.GROUP_CODE
+		SERIES_CODE
+		,m2.GROUP_NAME SERIES_NAME FROM tm_vhcl_material_group
+		m1,tm_vhcl_material_group m2
+		WHERE m1.GROUP_ID = m2.PARENT_GROUP_ID AND
+		m2.GROUP_LEVEL = 2
+		AND m2.STATUS = '10011001' AND m2.GROUP_TYPE =
+		90081002
+		AND m1.GROUP_ID = #{groupId}
+
+	</select>
+
+	<!-- 获取车型下拉框 -->
+	<select id="getModelList" parameterType="java.lang.String"
+		resultType="map">
+		SELECT DISTINCT m2.GROUP_ID MODEL_ID,m2.GROUP_CODE
+		MODEL_CODE,m2.GROUP_NAME MODEL_NAME
+		FROM tm_vhcl_material_group
+		m1,tm_vhcl_material_group m2
+		WHERE m1.GROUP_ID = m2.PARENT_GROUP_ID
+		AND
+		m2.GROUP_LEVEL = 3
+		AND m2.STATUS = '10011001' AND m1.GROUP_TYPE =
+		90081002
+		AND m1.GROUP_ID = #{groupId}
+	</select>
+
+
+	<select id="getModelTableList" parameterType="com.gacfcasales.common.Assist"
+		resultType="com.gacfcasales.common.entity.ModelPage">
+
+		SELECT MODEL_ID,
+		MODEL_CODE,
+		MODEL_NAME,
+		SERIES_ID,
+		SERIES_CODE,
+		SERIES_NAME,
+		BRAND_ID,
+		BRAND_CODE,
+		BRAND_NAME FROM
+		(SELECT
+		model.MODEL_ID,model.MODEL_CODE,model.MODEL_NAME,
+		series.SERIES_ID,series.SERIES_CODE,series.SERIES_NAME,
+		brand.BRAND_ID,brand.BRAND_CODE,brand.BRAND_NAME
+		FROM
+		(SELECT DISTINCT
+		m2.GROUP_ID MODEL_ID,m2.GROUP_CODE
+		MODEL_CODE,m2.GROUP_NAME
+		MODEL_NAME,m1.GROUP_ID SERIES_ID_MODEL
+		FROM tm_vhcl_material_group
+		m1,tm_vhcl_material_group m2
+		WHERE m1.GROUP_ID = m2.PARENT_GROUP_ID
+		AND
+		m2.GROUP_LEVEL = 3
+		AND m2.STATUS = '10011001' AND m1.GROUP_TYPE =
+		90081002) model
+		INNER JOIN
+		(SELECT DISTINCT m2.GROUP_ID SERIES_ID,
+		m2.GROUP_CODE SERIES_CODE
+		,m2.GROUP_NAME SERIES_NAME,m1.GROUP_ID
+		BRAND_ID_SERIES FROM
+		tm_vhcl_material_group
+		m1,tm_vhcl_material_group m2
+		WHERE m1.GROUP_ID =
+		m2.PARENT_GROUP_ID AND m2.GROUP_LEVEL = 2
+		AND
+		m2.STATUS = '10011001'
+		AND m2.GROUP_TYPE = 90081002
+		) series
+		ON
+		model.SERIES_ID_MODEL = series.SERIES_ID
+		INNER JOIN
+		(SELECT DISTINCT
+		m1.GROUP_ID
+		BRAND_ID,m1.GROUP_CODE
+		BRAND_CODE,m1.GROUP_NAME
+		BRAND_NAME
+		FROM
+		tm_vhcl_material_group
+		m1,tm_vhcl_material_group m2
+		WHERE
+		m1.GROUP_ID =
+		m2.PARENT_GROUP_ID AND m2.GROUP_LEVEL = 2
+		AND
+		m1.STATUS =
+		'10011001'
+		AND m2.GROUP_TYPE =90081002) brand
+		ON series.BRAND_ID_SERIES
+		= brand.BRAND_ID) BSM
+		
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+		ORDER BY BSM.MODEL_CODE,BSM.MODEL_NAME DESC
+		LIMIT #{startRow},#{rowSize}
+	</select>
+
+	<select id="getModelTableRowCount" parameterType="com.gacfcasales.common.Assist"
+		resultType="java.lang.Long">
+		SELECT count(*) FROM
+		(SELECT
+		model.MODEL_ID,model.MODEL_CODE,model.MODEL_NAME,
+		series.SERIES_ID,series.SERIES_CODE,series.SERIES_NAME,
+		brand.BRAND_ID,brand.BRAND_CODE,brand.BRAND_NAME
+		FROM
+		(SELECT DISTINCT
+		m2.GROUP_ID MODEL_ID,m2.GROUP_CODE
+		MODEL_CODE,m2.GROUP_NAME
+		MODEL_NAME,m1.GROUP_ID SERIES_ID_MODEL
+		FROM tm_vhcl_material_group
+		m1,tm_vhcl_material_group m2
+		WHERE m1.GROUP_ID = m2.PARENT_GROUP_ID
+		AND
+		m2.GROUP_LEVEL = 3
+		AND m2.STATUS = '10011001' AND m1.GROUP_TYPE =
+		90081002) model
+		INNER JOIN
+		(SELECT DISTINCT m2.GROUP_ID SERIES_ID,
+		m2.GROUP_CODE SERIES_CODE
+		,m2.GROUP_NAME SERIES_NAME,m1.GROUP_ID
+		BRAND_ID_SERIES FROM
+		tm_vhcl_material_group
+		m1,tm_vhcl_material_group m2
+		WHERE m1.GROUP_ID =
+		m2.PARENT_GROUP_ID AND m2.GROUP_LEVEL = 2
+		AND
+		m2.STATUS = '10011001'
+		AND m2.GROUP_TYPE = 90081002
+		) series
+		ON
+		model.SERIES_ID_MODEL = series.SERIES_ID
+		INNER JOIN
+		(SELECT DISTINCT
+		m1.GROUP_ID
+		BRAND_ID,m1.GROUP_CODE
+		BRAND_CODE,m1.GROUP_NAME
+		BRAND_NAME
+		FROM
+		tm_vhcl_material_group
+		m1,tm_vhcl_material_group m2
+		WHERE
+		m1.GROUP_ID =
+		m2.PARENT_GROUP_ID AND m2.GROUP_LEVEL = 2
+		AND
+		m1.STATUS =
+		'10011001'
+		AND m2.GROUP_TYPE =90081002) brand
+		ON series.BRAND_ID_SERIES
+		= brand.BRAND_ID) BSM
+		<!-- ORDER BY BSM.MODEL_CODE,BSM.MODEL_NAME DESC -->
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+	</select>
+
+
+	<!-- 按车系查询 -->
+	<select id="getSeriesTableList" parameterType="com.gacfcasales.common.Assist"
+		resultType="com.gacfcasales.common.entity.ModelPage">
+
+		SELECT MODEL_ID,
+		MODEL_CODE,
+		MODEL_NAME,
+		SERIES_ID,
+		SERIES_CODE,
+		SERIES_NAME,
+		BRAND_ID,
+		BRAND_CODE,
+		BRAND_NAME FROM
+		(SELECT
+		model.MODEL_ID,model.MODEL_CODE,model.MODEL_NAME,
+		series.SERIES_ID,series.SERIES_CODE,series.SERIES_NAME,
+		brand.BRAND_ID,brand.BRAND_CODE,brand.BRAND_NAME
+		FROM
+		(SELECT DISTINCT
+		m2.GROUP_ID MODEL_ID,m2.GROUP_CODE
+		MODEL_CODE,m2.GROUP_NAME
+		MODEL_NAME,m1.GROUP_ID SERIES_ID_MODEL
+		FROM tm_vhcl_material_group
+		m1,tm_vhcl_material_group m2
+		WHERE m1.GROUP_ID = m2.PARENT_GROUP_ID
+		AND
+		m2.GROUP_LEVEL = 3
+		AND m2.STATUS = '10011001' AND m1.GROUP_TYPE =
+		90081002) model
+		INNER JOIN
+		(SELECT DISTINCT m2.GROUP_ID SERIES_ID,
+		m2.GROUP_CODE SERIES_CODE
+		,m2.GROUP_NAME SERIES_NAME,m1.GROUP_ID
+		BRAND_ID_SERIES FROM
+		tm_vhcl_material_group
+		m1,tm_vhcl_material_group m2
+		WHERE m1.GROUP_ID =
+		m2.PARENT_GROUP_ID AND m2.GROUP_LEVEL = 2
+		AND
+		m2.STATUS = '10011001'
+		AND m2.GROUP_TYPE = 90081002
+		) series
+		ON
+		model.SERIES_ID_MODEL = series.SERIES_ID
+		INNER JOIN
+		(SELECT DISTINCT
+		m1.GROUP_ID
+		BRAND_ID,m1.GROUP_CODE
+		BRAND_CODE,m1.GROUP_NAME
+		BRAND_NAME
+		FROM
+		tm_vhcl_material_group
+		m1,tm_vhcl_material_group m2
+		WHERE
+		m1.GROUP_ID =
+		m2.PARENT_GROUP_ID AND m2.GROUP_LEVEL = 2
+		AND
+		m1.STATUS =
+		'10011001'
+		AND m2.GROUP_TYPE =90081002) brand
+		ON series.BRAND_ID_SERIES
+		= brand.BRAND_ID) BSM
+		
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+		ORDER BY BSM.SERIES_CODE,BSM.SERIES_NAME DESC
+		LIMIT #{startRow},#{rowSize}
+	</select>
+
+	<select id="getSeriesTableRowCount" parameterType="com.gacfcasales.common.Assist"
+		resultType="java.lang.Long">
+		SELECT count(*) FROM
+		(SELECT
+		model.MODEL_ID,model.MODEL_CODE,model.MODEL_NAME,
+		series.SERIES_ID,series.SERIES_CODE,series.SERIES_NAME,
+		brand.BRAND_ID,brand.BRAND_CODE,brand.BRAND_NAME
+		FROM
+		(SELECT DISTINCT
+		m2.GROUP_ID MODEL_ID,m2.GROUP_CODE
+		MODEL_CODE,m2.GROUP_NAME
+		MODEL_NAME,m1.GROUP_ID SERIES_ID_MODEL
+		FROM tm_vhcl_material_group
+		m1,tm_vhcl_material_group m2
+		WHERE m1.GROUP_ID = m2.PARENT_GROUP_ID
+		AND
+		m2.GROUP_LEVEL = 3
+		AND m2.STATUS = '10011001' AND m1.GROUP_TYPE =
+		90081002) model
+		INNER JOIN
+		(SELECT DISTINCT m2.GROUP_ID SERIES_ID,
+		m2.GROUP_CODE SERIES_CODE
+		,m2.GROUP_NAME SERIES_NAME,m1.GROUP_ID
+		BRAND_ID_SERIES FROM
+		tm_vhcl_material_group
+		m1,tm_vhcl_material_group m2
+		WHERE m1.GROUP_ID =
+		m2.PARENT_GROUP_ID AND m2.GROUP_LEVEL = 2
+		AND
+		m2.STATUS = '10011001'
+		AND m2.GROUP_TYPE = 90081002
+		) series
+		ON
+		model.SERIES_ID_MODEL = series.SERIES_ID
+		INNER JOIN
+		(SELECT DISTINCT
+		m1.GROUP_ID
+		BRAND_ID,m1.GROUP_CODE
+		BRAND_CODE,m1.GROUP_NAME
+		BRAND_NAME
+		FROM
+		tm_vhcl_material_group
+		m1,tm_vhcl_material_group m2
+		WHERE
+		m1.GROUP_ID =
+		m2.PARENT_GROUP_ID AND m2.GROUP_LEVEL = 2
+		AND
+		m1.STATUS =
+		'10011001'
+		AND m2.GROUP_TYPE =90081002) brand
+		ON series.BRAND_ID_SERIES
+		= brand.BRAND_ID) BSM
+		<!-- ORDER BY BSM.SERIES_CODE,BSM.SERIES_NAME DESC -->
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+	</select>
+
+</mapper>

@@ -4,3 +4,8 @@ table tbody tr td{
 .box-body{
 	display:block !important; 
 }
+
+.table td{
+	word-break: keep-all;
+	white-space:nowrap;
+}
