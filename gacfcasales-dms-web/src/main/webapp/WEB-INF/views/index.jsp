@@ -47,7 +47,7 @@
               <!-- User image -->
               <li class="user-header">
                 <img src="${ctx }/resource/AdminLTE-2.3.11/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-               	<p>用户名：<shiro:user><shiro:principal property="loginName"/></shiro:user>   </p>
+               	<p>用户名：<shiro:user><shiro:principal/></shiro:user>   </p>
               </li>
               <li class="user-footer">
                 <!-- <div class="pull-left">

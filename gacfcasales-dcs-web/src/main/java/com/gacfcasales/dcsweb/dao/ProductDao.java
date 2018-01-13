@@ -46,5 +46,21 @@ public interface ProductDao {
 	 
 	 //插入产品车型信息表
 	 ///void insert
+	 //新增修改产品信息
+	 void updateAndAddProduct(TiOpiExtendedDCS tiOpiExtendedDCS);
+	 void updateAndAddProductModel(TiOpiExtendedDCS tiOpiExtendedDCS);
+	 
+	 
+	 //发布动作
+	 void releaseProduct(String PRODUCT_ID);
+	 //取消动作
+	 void cancelProduct(String PRODUCT_ID);
+	 
+	 List<Map> getDetailModelList(Assist assist);
+	 long getDetailModelRowCount(Assist assist);
+	 
+	 List<Map> getDealerDetailList(String PRODUCT_ID);
+	 
+	 List<Map> getDealerListAll(String PRODUCT_ID);
 	 
 }

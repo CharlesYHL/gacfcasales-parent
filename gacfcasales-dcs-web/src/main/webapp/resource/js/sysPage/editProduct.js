@@ -1,25 +1,82 @@
 $(function() {
+	var productFait = $("#productFait").val();
+	var productJeep = $("#productJeep").val();
+	var productCjd = $("#productCjd").val();
+	console.log("productFait=" + productFait);
+	console.log("productJeep=" + productJeep);
+	console.log("productCjd=" + productCjd);
+	var productDateRet = $("#productDateRet").val();
+	if (productFait != null && productFait != '') {
+		if (productFait == '10041001') {
+			jQuery("#isFiat").append("<option value='0'>请选择</option>");
+			jQuery("#isFiat").append("<option value='10041001' selected = 'selected'>是</option>");
+			jQuery("#isFiat").append("<option value='10041002'>否</option>");
+		} else if (productFait == '10041002') {
+			jQuery("#isFiat").append("<option value='0'>请选择</option>");
+			jQuery("#isFiat").append("<option value='10041001'>是</option>");
+			jQuery("#isFiat").append("<option value='10041002' selected = 'selected'>否</option>");
+		} else {
+			jQuery("#isFiat").append("<option value='0' selected = 'selected'>请选择</option>");
+			jQuery("#isFiat").append("<option value='10041001'>是</option>");
+			jQuery("#isFiat").append("<option value='10041002'>否</option>");
+		}
+	}
 
-	// 产品有效期
-	jQuery("#productDate").append("<option value='0'>请选择</option>");
-	jQuery("#productDate").append("<option value='12'>12个月</option>");
-	jQuery("#productDate").append("<option value='24'>24个月</option>");
-	jQuery("#productDate").append("<option value='36'>36个月</option>");
+	if (productJeep != null && productJeep != '') {
+		if (productJeep == '10041001') {
+			jQuery("#isJeep").append("<option value='0'>请选择</option>");
+			jQuery("#isJeep").append("<option value='10041001' selected = 'selected'>是</option>");
+			jQuery("#isJeep").append("<option value='10041002'>否</option>");
+		} else if (productJeep == '10041002') {
+			jQuery("#isJeep").append("<option value='0'>请选择</option>");
+			jQuery("#isJeep").append("<option value='10041001'>是</option>");
+			jQuery("#isJeep").append("<option value='10041002'  selected = 'selected'>否</option>");
+		} else {
+			jQuery("#isJeep").append("<option value='0' selected = 'selected'>请选择</option>");
+			jQuery("#isJeep").append("<option value='10041001'>是</option>");
+			jQuery("#isJeep").append("<option value='10041002'>否</option>");
+		}
+	}
 
-	// 是否FIAT授权
-	jQuery("#isFiat").append("<option value='0'>请选择</option>");
-	jQuery("#isFiat").append("<option value='10041001'>是</option>");
-	jQuery("#isFiat").append("<option value='10041002'>否</option>");
+	if (productCjd != null && productCjd != '') {
+		if (productCjd == '10041001') {
+			jQuery("#isCjd").append("<option value='0'>请选择</option>");
+			jQuery("#isCjd").append("<option value='10041001' selected = 'selected'>是</option>");
+			jQuery("#isCjd").append("<option value='10041002'>否</option>");
+		} else if (productCjd == '10041002') {
+			jQuery("#isCjd").append("<option value='0'>请选择</option>");
+			jQuery("#isCjd").append("<option value='10041001'>是</option>");
+			jQuery("#isCjd").append("<option value='10041002'  selected = 'selected'>否</option>");
+		} else {
+			jQuery("#isCjd").append("<option value='0' selected = 'selected'>请选择</option>");
+			jQuery("#isCjd").append("<option value='10041001'>是</option>");
+			jQuery("#isCjd").append("<option value='10041002'>否</option>");
+		}
+	}
 
-	// 是否国产JEEP授权
-	jQuery("#isJeep").append("<option value='0'>请选择</option>");
-	jQuery("#isJeep").append("<option value='10041001'>是</option>");
-	jQuery("#isJeep").append("<option value='10041002'>否</option>");
-
-	// 是否CJD授权
-	jQuery("#isCjd").append("<option value='0'>请选择</option>");
-	jQuery("#isCjd").append("<option value='10041001'>是</option>");
-	jQuery("#isCjd").append("<option value='10041002'>否</option>");
+	if (productDateRet != null && productDateRet != '') {
+		if (productDateRet == '12') {
+			jQuery("#productDate").append("<option value='0'>请选择</option>");
+			jQuery("#productDate").append("<option value='12' selected = 'selected'>12个月</option>");
+			jQuery("#productDate").append("<option value='24'>24个月</option>");
+			jQuery("#productDate").append("<option value='36'>36个月</option>");
+		} else if (productDateRet == '24') {
+			jQuery("#productDate").append("<option value='0'>请选择</option>");
+			jQuery("#productDate").append("<option value='12'>12个月</option>");
+			jQuery("#productDate").append("<option value='24' selected = 'selected'>24个月</option>");
+			jQuery("#productDate").append("<option value='36'>36个月</option>");
+		} else if (productDateRet == '36') {
+			jQuery("#productDate").append("<option value='0'>请选择</option>");
+			jQuery("#productDate").append("<option value='12'>12个月</option>");
+			jQuery("#productDate").append("<option value='24'>24个月</option>");
+			jQuery("#productDate").append("<option value='36' selected = 'selected'>36个月</option>");
+		} else {
+			jQuery("#productDate").append("<option value='0' selected = 'selected'>请选择</option>");
+			jQuery("#productDate").append("<option value='12'>12个月</option>");
+			jQuery("#productDate").append("<option value='24'>24个月</option>");
+			jQuery("#productDate").append("<option value='36'>36个月</option>");
+		}
+	}
 
 	$('#salesStart').datetimepicker({
 		lang : "ch",
@@ -32,28 +89,17 @@ $(function() {
 		format : 'Y-m-d'
 	});
 
-	/*
-	 * var PRODUCT_NO = $("#productNo").val(); var PRODUCT_NAME =
-	 * $("#productName").val(); var PRODUCT_CATEGORY =
-	 * $("#productCategory").val(); var PRODUCT_PROPERTY =
-	 * $("#productProperty").val(); var PRODUCT_DATE = $("#productDate").val();
-	 * var DNP_PRICE = $("#dnpPrice").val(); var MSRP_PRICE =
-	 * $("#msrpPrice").val(); var PRODUCT_FAIT = $("#isFiat").val(); var
-	 * PRODUCT_JEEP = $("#isJeep").val(); var PRODUCT_CJD = $("#isCjd").val();
-	 * if (PRODUCT_NO != '' && PRODUCT_NAME != '' && PRODUCT_CATEGORY != '' &&
-	 * PRODUCT_PROPERTY != '') { }
-	 */
 	var oTable = new TableInit();
 	oTable.Init();
-
 });
+
 /* 弹出的层级 */
 var index;
 function addPart() {
 	var partNo = $("#productNo").val();
 	console.log("addPart ...");
 	index = parent.layer.open({
-		title : '新增产品',
+		title : '编辑产品',
 		type : 2,
 		area : [ '80%', '66%' ],
 		fixed : true, // 固定
@@ -70,7 +116,7 @@ function addPart() {
 
 var vm = new Vue(
 		{
-			el : '#addProduct',
+			el : '#editProduct',
 			data : {
 				q : {
 					productNo : null,
@@ -136,7 +182,7 @@ var vm = new Vue(
 					var productId = $("#productId").val();
 					if (productId != '') {
 						parent.layer.open({
-							title : '新增产品',
+							title : '编辑产品',
 							type : 2,
 							area : [ '80%', '66%' ],
 							fixed : true, // 固定
@@ -189,7 +235,7 @@ var vm = new Vue(
 								});
 					} else {
 						alert("请先去选择一款产品!");
-						//layer.alert('请先去选择一款产品');
+						// layer.alert('请先去选择一款产品');
 					}
 				},
 				saveModel : function() {
@@ -228,14 +274,14 @@ var vm = new Vue(
 										success : function(data) {
 											console.log("返回参数:" + data);
 											if (data == '0') {
-												alert("产品新增成功");
+												alert("产品编辑成功");
 											}
 										},
 										error : function(data) {
 											console.log(data);
 										}
 									});
-						}else{
+						} else {
 							alert("产品销售时间不能为空");
 						}
 					} else {
@@ -255,6 +301,17 @@ var vm = new Vue(
 				}
 			}
 		});
+
+function getProductDate() {
+	console.log("------------------------")
+	/*$("#productDate").empty();
+	$("#productDate").selectpicker('refresh');
+	jQuery("#productDate").append("<option value='0'>请选择</option>");
+	jQuery("#productDate").append("<option value='12'>12个月</option>");
+	jQuery("#productDate").append("<option value='24'>24个月</option>");
+	jQuery("#productDate").append("<option value='36'>36个月</option>");*/
+	
+}
 
 var TableInit = function() {
 	var oTableInit = new Object();

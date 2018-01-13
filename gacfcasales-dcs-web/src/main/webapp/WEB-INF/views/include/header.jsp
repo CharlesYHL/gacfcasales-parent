@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-    <title>延保系统</title>
+    <title>厂端-延保系统</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <link rel="stylesheet" href="${ctx }/resource/bootstrap/css/bootstrap.min.css">
@@ -27,7 +27,7 @@
 <div class="wrapper">
   <header class="main-header">
     <a href="${ctx }/" class="logo">
-      <span class="logo-mini"><b>延保</b></span>
+      <span class="logo-mini"><b>厂端</b></span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>延保系统</b></span>
     </a>

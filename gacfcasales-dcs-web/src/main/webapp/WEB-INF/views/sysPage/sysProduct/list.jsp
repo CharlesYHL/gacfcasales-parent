@@ -10,7 +10,8 @@
 		<link rel="stylesheet"
 			href="${ctx}/resource/css/jquery.datetimepicker.css">
 		<link rel="stylesheet" href="${ctx }/resource/layui/css/layui.css">
-		<link rel="stylesheet" href="${ctx}/resource/plugins/toastr/toastr.min.css">
+		<link rel="stylesheet"
+			href="${ctx}/resource/plugins/toastr/toastr.min.css">
 	</c:param>
 </c:import>
 
@@ -122,26 +123,35 @@
 
 	<div v-show="showList" class="box box-custom collapsed-box"
 		style="margin-bottom: 0;">
-		<div class="box-body">
-			<div id="toolbar" class="btn-group">
-				<button id="btn_add" type="button" class="btn btn-primary"
-					style="margin-right: 10px;" onclick="addProduct();">
-					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-					新增
-				</button>
+		<div class="box-header">
+			<button id="btn_add" type="button" class="btn btn-primary"
+				style="margin-right: 2px;" onclick="addProduct();">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增
+			</button>
+			
+			<button id="btn_add" type="button" class="btn btn-primary"
+				style="margin-right: 2px;" onclick="releaseBatch();">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 批量发布
+			</button>
+			
+			<button id="btn_add" type="button" class="btn btn-primary"
+				style="margin-right: 2px;" onclick="cancelBatch();">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 批量取消
+			</button>
 
-				<button id="btn_export" type="button" class="btn btn-primary"
-					@click="exportExcel">
-					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-					导出
-				</button>
-			</div>
+			<button id="btn_export" type="button" class="btn btn-primary"
+				@click="exportExcel">
+				<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+				导出
+			</button>
+		</div>
+		<div class="box-body">
 			<table id="table" class="table"></table>
 		</div>
 	</div>
 
 
-	
+
 
 </div>
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
@@ -167,6 +177,6 @@
 	src="${ctx}/resource/datepicker/jquery.datetimepicker.full.min.js"></script>
 <script src="${ctx }/resource/layui/layui.all.js"></script>
 
-<script >
-var globe_index;
+<script>
+	var globe_index;
 </script>

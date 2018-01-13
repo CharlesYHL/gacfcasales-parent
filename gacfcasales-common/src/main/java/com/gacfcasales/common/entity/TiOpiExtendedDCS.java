@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class TiOpiExtendedDCS implements Serializable {
 	private Long PRODUCT_ID;
-	private Long PRODUCT_NO;
+	private String PRODUCT_NO;
 	private String PRODUCT_NAME;
 	private String PRODUCT_PROPERTY;
 	private String PRODUCT_CATEGORY;
@@ -45,7 +45,7 @@ public class TiOpiExtendedDCS implements Serializable {
 		super();
 	}
 
-	public TiOpiExtendedDCS(Long PRODUCT_ID, Long PRODUCT_NO, String PRODUCT_NAME,
+	public TiOpiExtendedDCS(Long PRODUCT_ID, String PRODUCT_NO, String PRODUCT_NAME,
 			String PRODUCT_PROPERTY,String PRODUCT_CATEGORY, Double DNP_PRICE, Double MSRP_PRICE, Double SINGLE_DISCOUNT, Integer IS_VALID,
 			String CREATED_BY, Date CREATED_AT, String UPDATED_BY, Date UPDATED_AT, Integer IS_C_SALE,
 			Integer PRODUCT_DATE, String PRODUCT_MODEL, Date SALES_DATE_START, Date SALES_DATE_END, Date RELEASE_DATE, Integer RELEASE_STATUS,
@@ -91,11 +91,11 @@ public class TiOpiExtendedDCS implements Serializable {
 		PRODUCT_ID = pRODUCT_ID;
 	}
 
-	public Long getPRODUCT_NO() {
+	public String getPRODUCT_NO() {
 		return PRODUCT_NO;
 	}
 
-	public void setPRODUCT_NO(Long pRODUCT_NO) {
+	public void setPRODUCT_NO(String pRODUCT_NO) {
 		PRODUCT_NO = pRODUCT_NO;
 	}
 

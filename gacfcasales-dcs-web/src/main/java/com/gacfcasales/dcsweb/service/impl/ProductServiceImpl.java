@@ -103,6 +103,54 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getProductModel(modelPage);
 	}
 
+	@Override
+	public void updateAndAddProduct(TiOpiExtendedDCS tiOpiExtendedDCS) {
+		// TODO Auto-generated method stub
+		productDao.updateAndAddProduct(tiOpiExtendedDCS);
+	}
+
+	@Override
+	public void releaseProduct(String PRODUCT_ID) {
+		// TODO Auto-generated method stub
+		productDao.releaseProduct(PRODUCT_ID);
+	}
+
+	@Override
+	public void cancelProduct(String PRODUCT_ID) {
+		// TODO Auto-generated method stub
+		productDao.cancelProduct(PRODUCT_ID);
+	}
+
+	@Override
+	public List<Map> getDetailModelList(Assist assist) {
+		// TODO Auto-generated method stub
+		return productDao.getDetailModelList(assist);
+	}
+
+	@Override
+	public long getDetailModelRowCount(Assist assist) {
+		// TODO Auto-generated method stub
+		return productDao.getDetailModelRowCount(assist);
+	}
+
+	@Override
+	public List<Map> getDealerDetailList(String PRODUCT_ID) {
+		// TODO Auto-generated method stub
+		return productDao.getDealerDetailList(PRODUCT_ID);
+	}
+
+	@Override
+	public List<Map> getDealerListAll(String PRODUCT_ID) {
+		// TODO Auto-generated method stub
+		return productDao.getDealerListAll(PRODUCT_ID);
+	}
+
+	@Override
+	public void updateAndAddProductModel(TiOpiExtendedDCS tiOpiExtendedDCS) {
+		// TODO Auto-generated method stub
+		productDao.updateAndAddProductModel(tiOpiExtendedDCS);
+	}
+
 	
 
 }

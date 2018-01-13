@@ -172,6 +172,7 @@
             <if test="createUser != null">create_user,</if>
             <if test="updateTime != null">update_time,</if>
             <if test="status != null">status,</if>
+            app_id
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null"> #{id},</if>
@@ -186,6 +187,7 @@
             <if test="createUser != null"> #{createUser},</if>
             <if test="updateTime != null"> #{updateTime},</if>
             <if test="status != null"> #{status},</if>
+            'fc9014a948b745f2a07c21f5af3d679e'
         </trim>
     </insert>
 

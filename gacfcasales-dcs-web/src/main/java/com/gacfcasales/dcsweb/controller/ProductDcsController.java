@@ -1,5 +1,7 @@
 package com.gacfcasales.dcsweb.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -26,6 +28,7 @@ import com.gacfcasales.common.Result;
 import com.gacfcasales.common.dto.ListDto;
 import com.gacfcasales.common.entity.ModelPage;
 import com.gacfcasales.common.entity.SysResource;
+import com.gacfcasales.common.entity.TiExtendedPage;
 import com.gacfcasales.common.entity.TiOpiExtendedDCS;
 import com.gacfcasales.common.entity.TiOpiExtendedModel;
 import com.gacfcasales.common.entity.TmPartInfo;
@@ -93,13 +96,14 @@ public class ProductDcsController {
 		exportColumnList.add(new ExcelExportColumn("IS_C_SALE", "是否可销售"));
 		exportColumnList.add(new ExcelExportColumn("PRODUCT_DATE", "产品有效期"));
 		exportColumnList.add(new ExcelExportColumn("PRODUCT_MODEL", "适用车型"));
-		exportColumnList.add(new ExcelExportColumn("SALES_DATE", "销售时间"));
+		exportColumnList.add(new ExcelExportColumn("SALES_DATE_START", "销售开始时间"));
+		exportColumnList.add(new ExcelExportColumn("SALES_DATE_END", "销售开始时间"));
 		exportExcel.generateExcelForDms(excelData, exportColumnList, "产品信息表.xls", request, response);
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/ajax/productExcel_bak", method = RequestMethod.GET)
-	public void ProductExcel(@RequestParam(required = false) Long PRODUCT_NO,
+	public void ProductExcel(@RequestParam(required = false) String PRODUCT_NO,
 			@RequestParam(required = false) String PRODUCT_NAME,
 			@RequestParam(required = false) String PRODUCT_CATEGORY,
 			@RequestParam(required = false) String PRODUCT_PROPERTY, @RequestParam(required = false) Integer IS_VALID,
@@ -149,7 +153,8 @@ public class ProductDcsController {
 		exportColumnList.add(new ExcelExportColumn("IS_C_SALE", "是否可销售"));
 		exportColumnList.add(new ExcelExportColumn("PRODUCT_DATE", "产品有效期"));
 		exportColumnList.add(new ExcelExportColumn("PRODUCT_MODEL", "适用车型"));
-		exportColumnList.add(new ExcelExportColumn("SALES_DATE", "销售时间"));
+		exportColumnList.add(new ExcelExportColumn("SALES_DATE_START", "销售开始时间"));
+		exportColumnList.add(new ExcelExportColumn("SALES_DATE_END", "销售开始时间"));
 		exportExcel.generateExcelForDms(excelData, exportColumnList, "产品信息表.xls", request, response);
 
 		/*
@@ -216,8 +221,8 @@ public class ProductDcsController {
 
 		if (tiOpiExtendedDCS.getSalesStart() != null && !"".equals(tiOpiExtendedDCS.getSalesStart())
 				&& tiOpiExtendedDCS.getSalesEnd() != null && !"".equals(tiOpiExtendedDCS.getSalesEnd())) {
-			assist.setRequires(Assist.andLte("SALES_DATE", tiOpiExtendedDCS.getSalesEnd()));
-			assist.setRequires(Assist.andGte("SALES_DATE", tiOpiExtendedDCS.getSalesStart()));
+			assist.setRequires(Assist.andLte("SALES_DATE_END", tiOpiExtendedDCS.getSalesEnd()));
+			assist.setRequires(Assist.andGte("SALES_DATE_START", tiOpiExtendedDCS.getSalesStart()));
 		}
 
 		assist.setOrder("PRODUCT_NO,PRODUCT_ID", true);
@@ -346,11 +351,13 @@ public class ProductDcsController {
 			}
 
 			if (tiOpiExtendedDCS.getPRODUCT_CATEGORY() != null && !"".equals(tiOpiExtendedDCS.getPRODUCT_CATEGORY())) {
-				assist.setRequires(Assist.andLike("PRODUCT_CATEGORY", "%" + tiOpiExtendedDCS.getPRODUCT_CATEGORY() + "%"));
+				assist.setRequires(
+						Assist.andLike("PRODUCT_CATEGORY", "%" + tiOpiExtendedDCS.getPRODUCT_CATEGORY() + "%"));
 			}
 
 			if (tiOpiExtendedDCS.getPRODUCT_PROPERTY() != null && !"".equals(tiOpiExtendedDCS.getPRODUCT_PROPERTY())) {
-				assist.setRequires(Assist.andLike("PRODUCT_PROPERTY", "%" + tiOpiExtendedDCS.getPRODUCT_PROPERTY() + "%"));
+				assist.setRequires(
+						Assist.andLike("PRODUCT_PROPERTY", "%" + tiOpiExtendedDCS.getPRODUCT_PROPERTY() + "%"));
 			}
 
 			int productFiat = tiOpiExtendedDCS.getPRODUCT_FAIT();
@@ -381,7 +388,7 @@ public class ProductDcsController {
 			List<Map> list = productService.getProductModelList(assist);
 			result.setTotalCount(count);
 			result.setDataListMap(list);
-		}else {
+		} else {
 			result.setTotalCount(0);
 			result.setDataListMap(null);
 		}
@@ -496,16 +503,16 @@ public class ProductDcsController {
 		TmPartInfoPage tmPartInfoPage = new TmPartInfoPage();
 		if (modelPageList.size() > 0) {
 			TiOpiExtendedDCS tiOpiExtendedDCS = new TiOpiExtendedDCS();
-			
-			for(int i=0;i<modelPageList.size();i++) {
+
+			for (int i = 0; i < modelPageList.size(); i++) {
 				ModelPage model = new ModelPage();
 				// System.out.println(modelPage.getBRAND_ID());
-				
+
 				if (modelPageList.get(i).getPRODUCT_ID() != null && !"".equals(modelPageList.get(i).getPRODUCT_ID())) {
 					tiOpiExtendedDCS = productService.getProductByID(modelPageList.get(i).getPRODUCT_ID());
 				}
 				TiOpiExtendedModel tiOpiExtendedModel = new TiOpiExtendedModel();
-				
+
 				if (tiOpiExtendedDCS != null) {
 					// tiOpiExtendedModel.set
 					int modelCount = productService.getProductModel(modelPageList.get(i));
@@ -530,7 +537,7 @@ public class ProductDcsController {
 						tiOpiExtendedModel.setMODEL_ID(modelPageList.get(i).getMODEL_ID());
 						productService.insertProductModel(tiOpiExtendedModel);
 					}
-					
+
 				}
 			}
 			tmPartInfoPage.setPART_NO(tiOpiExtendedDCS.getPRODUCT_NO().toString());
@@ -549,15 +556,17 @@ public class ProductDcsController {
 			}
 			return "0";
 		}
-		/*ModelAndView mav = new ModelAndView("sysPage/sysProduct/addProduct");
-		mav.addObject("tmPartInfoPage", tmPartInfoPage);*/
+		/*
+		 * ModelAndView mav = new ModelAndView("sysPage/sysProduct/addProduct");
+		 * mav.addObject("tmPartInfoPage", tmPartInfoPage);
+		 */
 		return "1";
 	}
-	
+
 	@RequestMapping(value = "/ajax/modelToProduct", method = RequestMethod.GET)
 	public ModelAndView modelToProduct(@RequestParam String productId) {
 		System.out.println(productId + "========进入AddProduct页面=========");
-		
+
 		TmPartInfoPage tmPartInfoPage = new TmPartInfoPage();
 		TiOpiExtendedDCS tiOpiExtendedDCS = productService.getProductByID(productId);
 		tmPartInfoPage.setPART_NO(tiOpiExtendedDCS.getPRODUCT_NO().toString());
@@ -578,6 +587,274 @@ public class ProductDcsController {
 		return mav;
 		// return "include/header";
 	}
-	
-	
+
+	// 删除车型
+	@RequestMapping(value = "/ajax/deleteProductModel", method = RequestMethod.POST, consumes = "application/json; charset=utf-8")
+	@ResponseBody
+	public String deleteProductModel(@RequestBody ListDto listDto) {
+		System.out.println(JSON.toJSONString(listDto));
+		List<Map> listMap = listDto.getListMap();
+		if (listMap.size() > 0) {
+			for (int i = 0; i < listMap.size(); i++) {
+				System.out.println(listMap.get(i).get("PRODUCT_MODEL_ID"));
+				TiOpiExtendedModel tiOpiExtendedModel = new TiOpiExtendedModel();
+				tiOpiExtendedModel
+						.setPRODUCT_MODEL_ID(Long.parseLong(listMap.get(i).get("PRODUCT_MODEL_ID").toString()));
+				productService.deleteProductModel(tiOpiExtendedModel);
+			}
+			return "0";
+		}
+		return "1";
+	}
+
+	// 新增更新产品信息
+	@RequestMapping(value = "/ajax/updateAndAddProduct", method = RequestMethod.GET)
+	@ResponseBody
+	public String updateAndAddProduct(TiOpiExtendedDCS tiOpiExtendedDCS) {
+		logger.debug(tiOpiExtendedDCS.getPRODUCT_ID().toString());
+		if (tiOpiExtendedDCS != null) {
+			// 不含税成本价
+			tiOpiExtendedDCS.setNON_TAX_COST_PRICE(tiOpiExtendedDCS.getDNP_PRICE());
+			// 含税成本价
+			double TAX_COST_PRICE = tiOpiExtendedDCS.getDNP_PRICE() * 1.06;
+			tiOpiExtendedDCS.setTAX_COST_PRICE(TAX_COST_PRICE);
+			// 终端不含税销售价
+			tiOpiExtendedDCS.setTERMINAL_NON_SALES_PRICE(tiOpiExtendedDCS.getMSRP_PRICE());
+
+			// 终端含税销售价
+			double TERMINAL_SALES_PRICE = tiOpiExtendedDCS.getMSRP_PRICE() * 1.06;
+			tiOpiExtendedDCS.setTERMINAL_SALES_PRICE(TERMINAL_SALES_PRICE);
+
+			if (tiOpiExtendedDCS.getSalesStart() != null && !"".equals(tiOpiExtendedDCS.getSalesStart())
+					&& tiOpiExtendedDCS.getSalesEnd() != null && !"".equals(tiOpiExtendedDCS.getSalesEnd())) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 小写的mm表示的是分钟
+				String dstrStart = tiOpiExtendedDCS.getSalesStart() + " 00:00:00";
+				String dstrEnd = tiOpiExtendedDCS.getSalesEnd() + " 23:59:59";
+				try {
+					Date dateStart = sdf.parse(dstrStart);
+					Date dateEnd = sdf.parse(dstrEnd);
+					tiOpiExtendedDCS.setSALES_DATE_START(dateStart);
+					tiOpiExtendedDCS.setSALES_DATE_END(dateEnd);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+
+			if (tiOpiExtendedDCS.getPRODUCT_FAIT() == 0) {
+				tiOpiExtendedDCS.setPRODUCT_FAIT(12781002);
+			}
+			if (tiOpiExtendedDCS.getPRODUCT_FAIT() == 0) {
+				tiOpiExtendedDCS.setPRODUCT_JEEP(12781002);
+			}
+
+			if (tiOpiExtendedDCS.getPRODUCT_CJD() == 0) {
+				tiOpiExtendedDCS.setPRODUCT_CJD(12781002);
+			}
+
+			productService.updateAndAddProduct(tiOpiExtendedDCS);
+			productService.updateAndAddProductModel(tiOpiExtendedDCS);
+			return "0";
+		}
+		return "1";
+	}
+
+	// 发布动作
+	@RequestMapping(value = "/ajax/releaseProduct", method = RequestMethod.GET)
+	@ResponseBody
+	public String releaseProduct(@RequestParam String productId) {
+		if (productId != null && !"".equals(productId)) {
+			productService.releaseProduct(productId);
+			return "0";
+		}
+		return "1";
+	}
+
+	// 取消动作
+	@RequestMapping(value = "/ajax/cancelProduct", method = RequestMethod.GET)
+	@ResponseBody
+	public String cancelProduct(@RequestParam String productId) {
+		if (productId != null && !"".equals(productId)) {
+			productService.cancelProduct(productId);
+			return "0";
+		}
+		return "1";
+	}
+
+	// 批量发布
+	@RequestMapping(value = "/ajax/releaseBatch", method = RequestMethod.POST, consumes = "application/json; charset=utf-8")
+	@ResponseBody
+	public String releaseBatch(@RequestBody ListDto listDto) {
+		System.out.println(JSON.toJSONString(listDto));
+		List<Map> productList = listDto.getListMap();
+		if (productList.size() > 0) {
+			for (int i = 0; i < productList.size(); i++) {
+				System.out.println(productList.get(i).get("PRODUCT_ID"));
+				productService.releaseProduct(productList.get(i).get("PRODUCT_ID").toString());
+			}
+			return "0";
+		}
+		return "1";
+	}
+
+	// 批量取消
+	@RequestMapping(value = "/ajax/cancelBatch", method = RequestMethod.POST, consumes = "application/json; charset=utf-8")
+	@ResponseBody
+	public String cancelBatch(@RequestBody ListDto listDto) {
+		System.out.println(JSON.toJSONString(listDto));
+		List<Map> productList = listDto.getListMap();
+		if (productList.size() > 0) {
+			for (int i = 0; i < productList.size(); i++) {
+				System.out.println(productList.get(i).get("PRODUCT_ID"));
+				productService.cancelProduct(productList.get(i).get("PRODUCT_ID").toString());
+			}
+			return "0";
+		}
+		return "1";
+	}
+
+	// 明细查看
+	@RequestMapping(value = "/ajax/detailProduct", method = RequestMethod.GET)
+	public ModelAndView toProduct(@RequestParam String productId) {
+		// System.out.println(JSON.toJSONString(listDto));
+		TiExtendedPage TiExtendedPage = new TiExtendedPage();
+		TiOpiExtendedDCS tiOpiExtendedDCS = productService.getProductByID(productId);
+		TiExtendedPage.setPRODUCT_ID(tiOpiExtendedDCS.getPRODUCT_ID().toString());
+		TiExtendedPage.setPRODUCT_NO(tiOpiExtendedDCS.getPRODUCT_NO().toString());
+		TiExtendedPage.setPRODUCT_NAME(tiOpiExtendedDCS.getPRODUCT_NAME().toString());
+		TiExtendedPage.setPRODUCT_CATEGORY(tiOpiExtendedDCS.getPRODUCT_CATEGORY().toString());
+		TiExtendedPage.setPRODUCT_PROPERTY(tiOpiExtendedDCS.getPRODUCT_PROPERTY().toString());
+		TiExtendedPage.setDNP_PRICE(tiOpiExtendedDCS.getDNP_PRICE().toString());
+		TiExtendedPage.setMSRP_PRICE(tiOpiExtendedDCS.getMSRP_PRICE().toString());
+		TiExtendedPage.setPRODUCT_DESCRIBTION(tiOpiExtendedDCS.getPRODUCT_DESCRIBTION());
+		if (tiOpiExtendedDCS.getPRODUCT_DATE() != null) {
+			TiExtendedPage.setPRODUCT_DATE(tiOpiExtendedDCS.getPRODUCT_DATE() + "个月");
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		if (tiOpiExtendedDCS.getSALES_DATE_START() != null && !"".equals(tiOpiExtendedDCS.getSALES_DATE_START())) {
+			TiExtendedPage.setSALES_DATE_START(sdf.format(tiOpiExtendedDCS.getSALES_DATE_START()));
+		}
+		if (tiOpiExtendedDCS.getSALES_DATE_END() != null && !"".equals(tiOpiExtendedDCS.getSALES_DATE_END())) {
+			TiExtendedPage.setSALES_DATE_END(sdf.format(tiOpiExtendedDCS.getSALES_DATE_END()));
+		}
+
+		if (tiOpiExtendedDCS.getPRODUCT_FAIT() == 10041001) {
+			TiExtendedPage.setPRODUCT_FAIT("是");
+		} else {
+			TiExtendedPage.setPRODUCT_FAIT("否");
+		}
+
+		if (tiOpiExtendedDCS.getPRODUCT_JEEP() == 10041001) {
+			TiExtendedPage.setPRODUCT_JEEP("是");
+		} else {
+			TiExtendedPage.setPRODUCT_JEEP("否");
+		}
+
+		if (tiOpiExtendedDCS.getPRODUCT_CJD() == 10041001) {
+			TiExtendedPage.setPRODUCT_CJD("是");
+		} else {
+			TiExtendedPage.setPRODUCT_CJD("否");
+		}
+
+		ModelAndView mav = new ModelAndView("sysPage/sysProduct/detail");
+		mav.addObject("tiOpiExtendedDCS", TiExtendedPage);
+		return mav;
+	}
+
+	@RequestMapping(value = "/ajax/getDetailModelList", method = RequestMethod.POST)
+	@ResponseBody
+	public Result<TmPartInfo> getDetailModelList(TiExtendedPage TiExtendedPage,
+			@RequestParam(required = false) Integer limit, @RequestParam(required = false) Integer offset,
+			@RequestParam(required = false) Integer pageindex, @RequestParam(required = false) Integer pageSize) {
+		Result<TmPartInfo> result = new Result<TmPartInfo>();
+		if (TiExtendedPage.getPRODUCT_ID() != null && !"".equals(TiExtendedPage.getPRODUCT_ID())) {
+			Assist assist = new Assist();
+			if (null != pageindex && null != pageSize) {
+				assist.setStartRow((pageindex - 1) * pageSize);
+				assist.setRowSize(pageSize);
+			}
+
+			if (TiExtendedPage.getPRODUCT_ID() != null && !"".equals(TiExtendedPage.getPRODUCT_ID())) {
+				assist.setRequires(Assist.andEq("PRODUCT_ID", TiExtendedPage.getPRODUCT_ID()));
+			}
+
+			assist.setOrder("PRODUCT_MODEL_ID,PRODUCT_ID", true);
+
+			long count = productService.getDetailModelRowCount(assist);
+			List<Map> list = productService.getDetailModelList(assist);
+			result.setTotalCount(count);
+			result.setDataListMap(list);
+		} else {
+			result.setTotalCount(0);
+			result.setDataListMap(null);
+		}
+		return result;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/ajax/dealerDetail", method = RequestMethod.GET)
+	public void ProductExcel(@RequestParam(required = false) String PRODUCT_ID, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		ExportExcel exportExcel = new ExportExcel();
+
+		List<Map> resultList = productService.getDealerListAll(PRODUCT_ID);
+
+		Map<String, List<Map>> excelData = new HashMap<String, List<Map>>();
+		excelData.put("经销商范围下载", resultList);
+
+		List<ExcelExportColumn> exportColumnList = new ArrayList<ExcelExportColumn>();
+
+		exportColumnList.add(new ExcelExportColumn("ORDER_NUM", "序号"));
+		exportColumnList.add(new ExcelExportColumn("DEALER_CODE", "经销商代码"));
+		exportColumnList.add(new ExcelExportColumn("DEALER_NAME", "经销商名称"));
+		exportColumnList.add(new ExcelExportColumn("IS_FIAT", "是否FIAT授权"));
+		exportColumnList.add(new ExcelExportColumn("IS_K4", "是否国产JEEP授权"));
+		exportColumnList.add(new ExcelExportColumn("IS_CJD", "是否CJD授权"));
+		exportColumnList.add(new ExcelExportColumn("BRAND_NAME", "品牌"));
+		exportExcel.generateExcelForDms(excelData, exportColumnList, "经销商范围下载.xls", request, response);
+
+	}
+
+	// 进入编辑页面
+	@RequestMapping(value = "/ajax/toEditProduct", method = RequestMethod.GET)
+	public ModelAndView toEditProduct(@RequestParam String productId) {
+		TiOpiExtendedDCS tiOpiExtendedDCS = new TiOpiExtendedDCS();
+		TiExtendedPage TiExtendedPage = new TiExtendedPage();
+		if (productId != null && !"".equals(productId)) {
+			tiOpiExtendedDCS = productService.getProductByID(productId);
+			TiExtendedPage.setPRODUCT_ID(tiOpiExtendedDCS.getPRODUCT_ID().toString());
+			TiExtendedPage.setPRODUCT_NO(tiOpiExtendedDCS.getPRODUCT_NO().toString());
+			TiExtendedPage.setPRODUCT_NAME(tiOpiExtendedDCS.getPRODUCT_NAME().toString());
+			TiExtendedPage.setPRODUCT_CATEGORY(tiOpiExtendedDCS.getPRODUCT_CATEGORY().toString());
+			TiExtendedPage.setPRODUCT_PROPERTY(tiOpiExtendedDCS.getPRODUCT_PROPERTY().toString());
+			TiExtendedPage.setDNP_PRICE(tiOpiExtendedDCS.getDNP_PRICE().toString());
+			TiExtendedPage.setMSRP_PRICE(tiOpiExtendedDCS.getMSRP_PRICE().toString());
+			TiExtendedPage.setPRODUCT_DESCRIBTION(tiOpiExtendedDCS.getPRODUCT_DESCRIBTION());
+			if(tiOpiExtendedDCS.getPRODUCT_DATE() == null) {
+				TiExtendedPage.setPRODUCT_DATE("0");
+			}else {
+				TiExtendedPage.setPRODUCT_DATE(tiOpiExtendedDCS.getPRODUCT_DATE().toString());
+			}
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			if (tiOpiExtendedDCS.getSALES_DATE_START() != null && !"".equals(tiOpiExtendedDCS.getSALES_DATE_START())) {
+				TiExtendedPage.setSALES_DATE_START(sdf.format(tiOpiExtendedDCS.getSALES_DATE_START()));
+			}
+			if (tiOpiExtendedDCS.getSALES_DATE_END() != null && !"".equals(tiOpiExtendedDCS.getSALES_DATE_END())) {
+				TiExtendedPage.setSALES_DATE_END(sdf.format(tiOpiExtendedDCS.getSALES_DATE_END()));
+			}
+			TiExtendedPage.setPRODUCT_FAIT(tiOpiExtendedDCS.getPRODUCT_FAIT().toString());
+			TiExtendedPage.setPRODUCT_JEEP(tiOpiExtendedDCS.getPRODUCT_JEEP().toString());
+			TiExtendedPage.setPRODUCT_CJD(tiOpiExtendedDCS.getPRODUCT_CJD().toString());
+
+		}
+
+		ModelAndView mav = new ModelAndView("sysPage/sysProduct/editProduct");
+		mav.addObject("tiOpiExtendedDCS", TiExtendedPage);
+		return mav;
+		// return "include/header";
+	}
+
 }

@@ -255,10 +255,12 @@
 
 	<select id="getPartInfoRowCount" parameterType="com.gacfcasales.common.Assist"
 		resultType="java.lang.Long">
-		select count(PART_NO) from TM_PART_INFO
+		select count(*) from 
+		(select PART_NO,PART_NAME from TM_PART_INFO
 		<if test="require!=null">
 			<include refid="Assist" />
 		</if>
+		GROUP BY PART_NO,PART_NAME) tx
 	</select>
 
 
@@ -273,30 +275,9 @@
 			</otherwise>
 		</choose>
 		from TI_OPI_EXTENDED_MODEL
-		<choose>
-			<when test="rowSize ==null">
-				<if test="require!=null">
-					<include refid="Assist" />
-				</if>
-				<if test="order !=null">${order}</if>
-			</when>
-			<otherwise>
-				left join
-				(
-				SELECT PRODUCT_MODEL_ID as primary_key FROM
-				TI_OPI_EXTENDED_MODEL
-				<if test="require!=null">
-					<include refid="Assist" />
-				</if>
-				<if test="order !=null">${order}</if>
-				<choose>
-					<when test="startRow !=null and rowSize !=null">LIMIT #{startRow},#{rowSize} </when>
-					<when test="rowSize !=null">LIMIT #{rowSize}</when>
-				</choose>
-				) as tmp
-				on tmp.primary_key=TI_OPI_EXTENDED_MODEL.PRODUCT_MODEL_ID
-			</otherwise>
-		</choose>
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
 		LIMIT #{startRow},#{rowSize}
 		<!-- <if test="require!=null"> <include refid="Assist" /> </if> -->
 	</select>
@@ -315,7 +296,8 @@
 		select PRODUCT_ID from TI_OPI_EXTENDED_DCS
 		<where>
 			<if test="PART_NO != null and PART_NO != '' "> and PRODUCT_NO LIKE
-				concat(concat('%',#{PART_NO}),'%')</if>
+				concat(concat('%',#{PART_NO}),'%')
+			</if>
 			<if test="PART_NAME != null and PART_NAME != '' "> and PRODUCT_NAME LIKE
 				concat(concat('%',#{PART_NAME}),'%')</if>
 			<if test="PART_GROUP_CODE != null and PART_GROUP_CODE != '' "> and PRODUCT_CATEGORY LIKE
@@ -408,9 +390,9 @@
 
 	<!-- 删除车型信息 -->
 	<delete id="deleteProductModel" parameterType="com.gacfcasales.common.entity.TiOpiExtendedModel">
-		update
-		TI_OPI_EXTENDED_MODEL set IS_DELETE = 1
-		where PRODUCT_MODEL_ID
+		<!-- update TI_OPI_EXTENDED_MODEL set IS_DELETE = 1 where PRODUCT_MODEL_ID 
+			#{PRODUCT_MODEL_ID} -->
+		delete from TI_OPI_EXTENDED_MODEL where PRODUCT_MODEL_ID =
 		#{PRODUCT_MODEL_ID}
 	</delete>
 
@@ -438,4 +420,112 @@
 		</where>
 	</select>
 
+	<update id="updateAndAddProduct" parameterType="com.gacfcasales.common.entity.TiOpiExtendedDCS">
+		UPDATE
+		TI_OPI_EXTENDED_DCS
+		SET PRODUCT_NO
+		=#{PRODUCT_NO},PRODUCT_CATEGORY=#{PRODUCT_CATEGORY},
+		PRODUCT_NAME=#{PRODUCT_NAME},PRODUCT_PROPERTY=#{PRODUCT_PROPERTY},
+		DNP_PRICE=#{DNP_PRICE},MSRP_PRICE=#{MSRP_PRICE},IS_VALID=12781001,UPDATED_AT=now(),
+		PRODUCT_DATE=#{PRODUCT_DATE},PRODUCT_MODEL=#{PRODUCT_MODEL},SALES_DATE_START=#{SALES_DATE_START},
+		SALES_DATE_END=#{SALES_DATE_END},PRODUCT_FAIT=#{PRODUCT_FAIT},
+		PRODUCT_JEEP=#{PRODUCT_JEEP},PRODUCT_CJD=#{PRODUCT_CJD},PRODUCT_DESCRIBTION=#{PRODUCT_DESCRIBTION},
+		NON_TAX_COST_PRICE=#{NON_TAX_COST_PRICE},TAX_COST_PRICE=#{TAX_COST_PRICE},
+		TERMINAL_NON_SALES_PRICE=#{TERMINAL_NON_SALES_PRICE},TERMINAL_SALES_PRICE=#{TERMINAL_SALES_PRICE}
+		WHERE PRODUCT_ID = #{PRODUCT_ID}
+	</update>
+
+
+	<!-- 发布动作 -->
+	<update id="releaseProduct" parameterType="java.lang.String">
+		UPDATE
+		TI_OPI_EXTENDED_DCS SET
+		RELEASE_DATE=now(),RELEASE_STATUS=54011002,IS_C_SALE=12781001,UPDATED_AT=now()
+		WHERE PRODUCT_ID = #{PRODUCT_ID}
+	</update>
+
+	<!-- 取消动作 -->
+	<update id="cancelProduct" parameterType="java.lang.String">
+		UPDATE
+		TI_OPI_EXTENDED_DCS SET
+		RELEASE_DATE=NULL,RELEASE_STATUS=54011003,IS_C_SALE=12781002,
+		UPDATED_AT=now()
+		WHERE PRODUCT_ID = #{PRODUCT_ID}
+	</update>
+
+
+	<select id="getDetailModelList" parameterType="com.gacfcasales.common.Assist"
+		resultType="map">
+		select
+		<if test="distinct !=null">${distinct}</if>
+		<choose>
+			<when test="resultColumn!=null">${resultColumn}</when>
+			<otherwise>
+				*
+			</otherwise>
+		</choose>
+		from TI_OPI_EXTENDED_MODEL
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+		LIMIT #{startRow},#{rowSize}
+		<!-- <if test="require!=null"> <include refid="Assist" /> </if> -->
+	</select>
+
+	<select id="getDetailModelRowCount" parameterType="com.gacfcasales.common.Assist"
+		resultType="java.lang.Long">
+		select count(PRODUCT_MODEL_ID) from TI_OPI_EXTENDED_MODEL
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+	</select>
+
+
+	<select id="getDealerDetailList" parameterType="java.lang.String"
+		resultType="map">
+		select * from TI_OPI_EXTENDED_MODEL
+		where
+		PRODUCT_ID=#{PRODUCT_ID}
+	</select>
+
+	<select id="getDealerListAll" parameterType="java.lang.String"
+		resultType="map">
+		select concat((@i :=@i
+		+ 1),'') AS ORDER_NUM, tx.* FROM
+		(SELECT @i := 0) AS it,
+		(SELECT
+		td.DEALER_CODE,td.DEALER_NAME,
+		(CASE WHEN td.IS_K4 =10041001 THEN '是' ELSE '否' END) IS_K4,
+		(CASE WHEN td.IS_FIAT =10041001 THEN '是' ELSE '否' END) IS_FIAT,
+		(CASE WHEN td.IS_CJD =10041001 THEN '是' ELSE '否' END ) IS_CJD,
+		(CASE WHEN toed.PRODUCT_JEEP =10041001 THEN '是' ELSE '否' END) PRODUCT_JEEP,
+		(CASE WHEN toed.PRODUCT_FAIT =10041001 THEN '是' ELSE '否' END) PRODUCT_FAIT,
+		(CASE WHEN toed.PRODUCT_CJD =10041001 THEN '是' ELSE '否' END)  PRODUCT_CJD,toed.PRODUCT_ID,topd.BRAND_NAME
+		from TM_DEALER td
+		LEFT JOIN TI_OPI_EXTENDED_DCS toed
+		ON td.IS_K4 =
+		toed.PRODUCT_JEEP OR td.IS_FIAT = toed.PRODUCT_FAIT OR
+		td.IS_CJD =
+		toed.PRODUCT_CJD
+		LEFT JOIN TI_OPI_EXTENDED_MODEL topd ON
+		toed.PRODUCT_ID = topd.PRODUCT_ID
+		WHERE toed.PRODUCT_ID=#{PRODUCT_ID}
+		AND td.IS_DEL = 0
+		GROUP BY
+		td.DEALER_CODE,td.DEALER_NAME,toed.PRODUCT_ID,topd.BRAND_NAME) tx
+	</select>
+	
+	<update id="updateAndAddProductModel" parameterType="com.gacfcasales.common.entity.TiOpiExtendedDCS">
+		UPDATE
+		TI_OPI_EXTENDED_MODEL
+		SET PRODUCT_NO
+		=#{PRODUCT_NO},PRODUCT_CATEGORY=#{PRODUCT_CATEGORY},
+		PRODUCT_NAME=#{PRODUCT_NAME},PRODUCT_PROPERTY=#{PRODUCT_PROPERTY},
+		IS_VALID=12781001,UPDATED_AT=now(),
+		PRODUCT_FAIT=#{PRODUCT_FAIT},
+		PRODUCT_JEEP=#{PRODUCT_JEEP},PRODUCT_CJD=#{PRODUCT_CJD}
+		WHERE PRODUCT_ID = #{PRODUCT_ID}
+	</update>
+	
+	
 </mapper>
