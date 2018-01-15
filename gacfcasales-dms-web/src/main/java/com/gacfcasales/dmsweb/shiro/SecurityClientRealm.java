@@ -16,9 +16,9 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.gacfcasales.common.entity.SysUser;
-import com.gacfcasales.common.entity.TcUser;
+import com.gacfcasales.common.dto.LoginInfoDto;
 import com.gacfcasales.common.entity.TmUser;
+import com.gacfcasales.common.util.ApplicationContextHelper;
 import com.gacfcasales.dmsweb.remote.IRemoteSecurityService;
 import com.gacfcasales.dmsweb.service.SysRoleService;
 import com.gacfcasales.dmsweb.service.SysUserService;
@@ -38,20 +38,17 @@ public class SecurityClientRealm  extends CasRealm {
 	@Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-		//LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
         String dealer_name = (String)principals.getPrimaryPrincipal();
         String dealerCode = dealer_name.substring(0, dealer_name.indexOf(":"));
         String username = dealer_name.substring(dealer_name.indexOf(":")+1,dealer_name.length());
         
-        //loginInfo.setUserId(Long.parseLong(username));
-        //loginInfo.setDealerCode(dealerCode);
         TmUser tmUser = new TmUser();
         //user.setType(User.TYPE_ADMIN);
         tmUser.setEMPLOYEE_NO(username);
         tmUser.setDEALER_CODE(dealerCode);
         Subject currentUser = SecurityUtils.getSubject();  
 		Session session = currentUser.getSession();
-		 Map map = userService.selectTmUserByOne(username);
+		 Map map = userService.selectTmUserByOne(username,dealerCode);
 		 //tcUser.setLoginName(loginName);;
 	     if(map != null) {
 	        	Map roleMap = new HashMap();

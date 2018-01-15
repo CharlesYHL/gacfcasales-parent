@@ -98,5 +98,5 @@ public interface SysUserService{
 
 	List<Map> selectTcUser(Assist assist);
 	
-	Map selectTmUserByOne(String username);
+	Map selectTmUserByOne(String username,String dealerCode);
 }

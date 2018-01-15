@@ -34,13 +34,16 @@ public class TiOpiExtendedDCS implements Serializable {
 	private Double TERMINAL_NON_SALES_PRICE;
 	private Double TERMINAL_SALES_PRICE;
 	
+	private String EMPLOYEE_NO;
+	private String DEALER_CODE;
 	
 	private String releaseStart;
 	private String releaseEnd;
 	private String salesStart;
 	private String salesEnd;
 	
-
+	
+	
 	public TiOpiExtendedDCS() {
 		super();
 	}
@@ -348,6 +351,22 @@ public class TiOpiExtendedDCS implements Serializable {
 
 	public void setSalesEnd(String salesEnd) {
 		this.salesEnd = salesEnd;
+	}
+
+	public String getEMPLOYEE_NO() {
+		return EMPLOYEE_NO;
+	}
+
+	public void setEMPLOYEE_NO(String eMPLOYEE_NO) {
+		EMPLOYEE_NO = eMPLOYEE_NO;
+	}
+
+	public String getDEALER_CODE() {
+		return DEALER_CODE;
+	}
+
+	public void setDEALER_CODE(String dEALER_CODE) {
+		DEALER_CODE = dEALER_CODE;
 	}
 	
 	

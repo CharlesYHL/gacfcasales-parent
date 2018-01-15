@@ -6,17 +6,12 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.gacfcasales.common.entity.SysResource;
-import com.gacfcasales.common.entity.SysRole;
-import com.gacfcasales.common.entity.TcUser;
 import com.gacfcasales.common.entity.TmUser;
 import com.gacfcasales.common.Assist;
-import com.gacfcasales.common.dto.LoginInfoDto;
 import com.gacfcasales.dmsweb.aspect.DataSourceAnnotation;
 import com.gacfcasales.dmsweb.dao.SysResourceDao;
 import com.gacfcasales.dmsweb.dao.SysUserDao;
 import com.gacfcasales.dmsweb.service.SysResourceService;
-import com.gacfcasales.common.util.ApplicationContextHelper;
-import com.gacfcasales.common.util.UUIDutil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

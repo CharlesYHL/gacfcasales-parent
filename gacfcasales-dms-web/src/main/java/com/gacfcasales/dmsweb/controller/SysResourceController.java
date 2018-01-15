@@ -21,15 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gacfcasales.common.Assist;
 import com.gacfcasales.common.Result;
-import com.gacfcasales.common.dto.LoginInfoDto;
 import com.gacfcasales.common.Assist.WhereRequire;
 import com.gacfcasales.common.entity.SysResource;
-import com.gacfcasales.common.entity.SysUser;
-import com.gacfcasales.common.entity.TcUser;
 import com.gacfcasales.common.entity.TmUser;
 import com.gacfcasales.dmsweb.service.SysResourceService;
-import com.gacfcasales.dmsweb.shiro.UrlPermissionsAuthorizationFilter;
-import com.gacfcasales.common.util.ApplicationContextHelper;
 import com.gacfcasales.common.util.UUIDutil;
 
 @Controller

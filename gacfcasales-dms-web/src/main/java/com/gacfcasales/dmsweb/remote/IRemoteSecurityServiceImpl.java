@@ -6,10 +6,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gacfcasales.common.dto.LoginInfoDto;
 import com.gacfcasales.common.entity.SysResource;
 import com.gacfcasales.common.entity.SysRole;
 import com.gacfcasales.common.entity.TcUser;
 import com.gacfcasales.common.entity.TmUser;
+import com.gacfcasales.common.util.ApplicationContextHelper;
 import com.gacfcasales.dmsweb.service.SysResourceService;
 import com.gacfcasales.dmsweb.service.SysRoleService;
 
@@ -21,6 +23,7 @@ public class IRemoteSecurityServiceImpl implements IRemoteSecurityService {
 	
 	public List<String> getPermissions(String appKey, TmUser tmUser) {
 		// TODO Auto-generated method stub
+		
 		System.out.println(tmUser.getEMPLOYEE_NO());
 		return sysResourceService.getPermissions(appKey, tmUser);
 	}

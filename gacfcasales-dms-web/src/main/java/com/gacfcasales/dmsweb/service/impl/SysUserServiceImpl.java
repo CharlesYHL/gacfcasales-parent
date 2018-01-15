@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.gacfcasales.common.dto.LoginInfoDto;
 import com.gacfcasales.common.entity.SysUser;
 import com.gacfcasales.common.entity.TcUser;
 import com.gacfcasales.common.entity.TmUser;
 import com.gacfcasales.common.exception.ServiceBizException;
 import com.gacfcasales.common.Assist;
+import com.gacfcasales.common.dto.LoginInfoDto;
 import com.gacfcasales.dmsweb.aspect.DataSourceAnnotation;
 import com.gacfcasales.dmsweb.dao.SysUserDao;
 import com.gacfcasales.dmsweb.service.SysUserService;
@@ -20,6 +20,8 @@ import com.gacfcasales.common.util.MD5UtilCommon;
 import com.gacfcasales.common.util.StringUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 @Service
 public class SysUserServiceImpl implements SysUserService{
@@ -237,7 +239,7 @@ public class SysUserServiceImpl implements SysUserService{
 	}
 
 	@Override
-	public Map selectTmUserByOne(String username) {
+	public Map selectTmUserByOne(String username,String dealerCode) {
 		// TODO Auto-generated method stub
 		return sysUserDao.selectTmUserByOne(username);
 	}

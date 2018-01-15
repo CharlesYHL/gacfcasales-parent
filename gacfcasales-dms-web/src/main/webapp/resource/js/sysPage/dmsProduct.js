@@ -38,9 +38,7 @@ $(function() {
 	oTable.Init();
 });
 
-
-
-function exportExcel(){
+function exportExcel() {
 	console.log("进入下载功能........");
 	var PRODUCT_NO = $("#productNo").val();
 	var PRODUCT_NAME = $("#productName").val();
@@ -51,18 +49,37 @@ function exportExcel(){
 	var releaseEnd = $("#releaseEnd").val();
 	var salesStart = $("#salesStart").val();
 	var salesEnd = $("#salesEnd").val();
-	
-	window.location.href = ctx
-	+ '/dmsProduct/ajax/productExcel?PRODUCT_NO='
-	+ encodeURI(encodeURI(PRODUCT_NO)) + '&PRODUCT_NAME='
-	+ encodeURI(encodeURI(PRODUCT_NAME)) + '&PRODUCT_DATE='
-	+ encodeURI(encodeURI(PRODUCT_DATE)) + '&RELEASE_STATUS='
-	+ encodeURI(encodeURI(RELEASE_STATUS)) + '&PRODUCT_MODEL='
-	+ encodeURI(encodeURI(PRODUCT_MODEL)) + '&releaseStart='
-	+ encodeURI(encodeURI(releaseStart)) + '&releaseEnd='
-	+ encodeURI(encodeURI(releaseEnd)) + '&salesStart='
-	+ encodeURI(encodeURI(salesStart)) + '&salesEnd='
-	+ encodeURI(encodeURI(salesEnd));
+
+	window.location.href = ctx + '/dmsProduct/ajax/productExcel?PRODUCT_NO='
+			+ encodeURI(encodeURI(PRODUCT_NO)) + '&PRODUCT_NAME='
+			+ encodeURI(encodeURI(PRODUCT_NAME)) + '&PRODUCT_DATE='
+			+ encodeURI(encodeURI(PRODUCT_DATE)) + '&RELEASE_STATUS='
+			+ encodeURI(encodeURI(RELEASE_STATUS)) + '&PRODUCT_MODEL='
+			+ encodeURI(encodeURI(PRODUCT_MODEL)) + '&releaseStart='
+			+ encodeURI(encodeURI(releaseStart)) + '&releaseEnd='
+			+ encodeURI(encodeURI(releaseEnd)) + '&salesStart='
+			+ encodeURI(encodeURI(salesStart)) + '&salesEnd='
+			+ encodeURI(encodeURI(salesEnd));
+}
+
+function reset(){
+	console.log("=================");
+	$("#productNo").val('');
+	$("#productName").val('');
+	$('#productDate').selectpicker('val', '0');
+	$('#releaseStatus').selectpicker('val', '0');
+	$("#productModel").val('');
+	$("#releaseStart").val('');
+	$("#releaseEnd").val('');
+	$("#salesStart").val('');
+	$("#salesEnd").val('');
+	vm.reload();
+}
+
+function query(){
+	var oTable = new TableInit();
+	oTable.Init();
+	vm.reload();
 }
 
 
@@ -132,14 +149,14 @@ var vm = new Vue({
 		},
 		reset : function() {
 			$("#productNo").val('');
-			$("#productName").val('');
+			/*$("#productName").val('');
 			$('#productDate').selectpicker('val', '0');
 			$('#releaseStatus').selectpicker('val', '0');
 			$("#productModel").val('');
 			$("#releaseStart").val('');
 			$("#releaseEnd").val('');
 			$("#salesStart").val('');
-			$("#salesEnd").val('');
+			$("#salesEnd").val('');*/
 			vm.reload();
 		},
 		exportExcel : function() {
@@ -154,8 +171,6 @@ var vm = new Vue({
 				salesStart : $("#salesStart").val(),
 				salesEnd : $("#salesEnd").val()
 			};
-
-		
 
 			window.location.href = ctx
 					+ '/dmsProduct/ajax/productExcel?PRODUCT_NO='
@@ -213,10 +228,10 @@ var TableInit = function() {
 										formatter : function(value, row, index) {
 											return index + 1;
 										}
-									},
+									}/*,
 									{
 										checkbox : true
-									},
+									}*/,
 									{
 										field : '操作',
 										title : '操作',
@@ -353,4 +368,14 @@ var TableInit = function() {
 
 };
 
-
+function detail(productId) {
+	console.log("进入明细页面" + productId);
+	globe_index = layer.open({
+		title : '产品明细',
+		type : 2,
+		area : [ '85%', '65%' ],
+		fixed : true, // 固定
+		maxmin : false,
+		content : ctx + '/dmsProduct/ajax/detailProduct?productId='+productId
+	});
+}

@@ -80,14 +80,14 @@
 				<div class="input-group input-group-sm"
 					style="margin-left: 40%;; margin-right: 8px;">
 					<button id="btn_add" type="button" class="btn btn-primary btn-sm"
-						@click="query">
+						onclick="query()">
 						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 						查询
 					</button>
 				</div>
 				<div class="input-group input-group-sm">
 					<button id="btn_add" type="button" class="btn btn-primary btn-sm"
-						@click="reset">
+						onclick="reset()">
 						<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;&nbsp;重置
 					</button>
 				</div>

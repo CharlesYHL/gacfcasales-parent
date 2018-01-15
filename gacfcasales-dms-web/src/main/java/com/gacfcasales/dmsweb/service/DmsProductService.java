@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.gacfcasales.common.Assist;
+import com.gacfcasales.common.entity.TiOpiExtendedDCS;
 
 public interface DmsProductService {
 	// 查询
@@ -20,4 +21,12 @@ public interface DmsProductService {
 	List<Map> getModelByProductId(Assist assist);
 
 	long getModelByProductIdRowCount(Assist assist);
+	
+	Map getDealer(String dealerCode);
+	
+	TiOpiExtendedDCS getProductByID(String PRODUCT_ID);
+	
+	 List<Map> getDetailModelList(Assist assist);
+	 long getDetailModelRowCount(Assist assist);
+	
 }
