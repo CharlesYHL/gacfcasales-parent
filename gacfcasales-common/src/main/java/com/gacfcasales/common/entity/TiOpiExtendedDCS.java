@@ -22,6 +22,7 @@ public class TiOpiExtendedDCS implements Serializable {
 	private String PRODUCT_MODEL;
 	private Date SALES_DATE_START;
 	private Date SALES_DATE_END;
+	private String SALES_DATE_ALL;
 	private Date RELEASE_DATE;
 	private Integer RELEASE_STATUS;
 	private Date STOP_DATE;
@@ -44,6 +45,14 @@ public class TiOpiExtendedDCS implements Serializable {
 	
 	
 	
+	public String getSALES_DATE_ALL() {
+		return SALES_DATE_ALL;
+	}
+
+	public void setSALES_DATE_ALL(String sALES_DATE_ALL) {
+		SALES_DATE_ALL = sALES_DATE_ALL;
+	}
+
 	public TiOpiExtendedDCS() {
 		super();
 	}

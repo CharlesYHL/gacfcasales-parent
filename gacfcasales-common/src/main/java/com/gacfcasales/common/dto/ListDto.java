@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+import com.gacfcasales.common.entity.DmsSalesPage;
 import com.gacfcasales.common.entity.ModelPage;
 import com.gacfcasales.common.entity.TiOpiExtendedDCS;
 import com.gacfcasales.common.entity.TiOpiExtendedModel;
@@ -12,16 +13,38 @@ import com.gacfcasales.common.entity.TmPartInfo;
 
 @Component
 public class ListDto {
-	 private List<ModelPage>   modelPageList;//一个映射账号
-	 
-	 private List<TiOpiExtendedModel> tiOpiExtendedModelList;
-	 
-	 private List<TmPartInfo> tmPartInfo;
-	 
-	 private List<Map> listMap;
-	 
-	 private List<TiOpiExtendedDCS> productList;
-	 
+	private List<ModelPage> modelPageList;// 一个映射账号
+
+	private List<TiOpiExtendedModel> tiOpiExtendedModelList;
+
+	private List<TmPartInfo> tmPartInfo;
+
+	private List<Map> listMap;
+
+	private List<TiOpiExtendedDCS> productList;
+
+	private List<DmsSalesPage> dmsSalesPageList;
+	
+	
+	private DmsSalesPage dmsSalesPage;
+
+	
+
+	public List<DmsSalesPage> getDmsSalesPageList() {
+		return dmsSalesPageList;
+	}
+
+	public void setDmsSalesPageList(List<DmsSalesPage> dmsSalesPageList) {
+		this.dmsSalesPageList = dmsSalesPageList;
+	}
+
+	public DmsSalesPage getDmsSalesPage() {
+		return dmsSalesPage;
+	}
+
+	public void setDmsSalesPage(DmsSalesPage dmsSalesPage) {
+		this.dmsSalesPage = dmsSalesPage;
+	}
 
 	public List<ModelPage> getModelPageList() {
 		return modelPageList;
@@ -62,6 +85,5 @@ public class ListDto {
 	public void setProductList(List<TiOpiExtendedDCS> productList) {
 		this.productList = productList;
 	}
-	 
-	 
+
 }

@@ -1,0 +1,349 @@
+$(function() {
+	// 设置日期控件
+	$('#createAt').datetimepicker({
+		lang : "ch",
+		timepicker : false,
+		format : 'Y-m-d'
+	});
+	$('#billingAt').datetimepicker({
+		lang : "ch",
+		timepicker : false,
+		format : 'Y-m-d'
+	});
+	
+	jQuery("#brandId").append("<option value='0'>请选择</option>");
+	jQuery("#seriesId").append("<option value='0'>请选择</option>");
+	jQuery("#modelId").append("<option value='0'>请选择</option>");
+	jQuery("#apackage").append("<option value='0'>请选择</option>");
+	
+
+});
+var index;
+var params;
+
+function getChildValues(values){
+	params = values;
+	console.log("接受到数据："+JSON.stringify(params));
+	// var selected = JSON.stringify(params)
+	console.log(params.VIN);
+	$("#vin").val(params.VIN);
+	$("#billingAt").val(params.INVOICE_DATE);
+	$("#ownerNo").val(params.OWNER_NO);
+	$("#ownerName").val(params.OWNER_NAME);
+	$("#ownerPhone").val(params.PHONE);
+	$("#ownerMobile").val(params.MOBILE);
+	$("#yearModel").val(params.YEAR_MODEL);
+	
+	if(params.BRAND != ''){
+		console.log(params.BRAND);
+		$("#brandId").append("<option selected = 'selected' value='"+params.BRAND_ID+"'>"+params.BRAND_NAME+"</option>");
+		$("#brandId").selectpicker('refresh');
+		// jQuery("#brandId").append("<option selected = 'selected'
+		// value='"+params.BRAND_ID+"'>"+params.BRAND_NAME+"</option>");
+	}
+	if(params.SERIES != ''){
+		$("#seriesId").append("<option selected = 'selected' value='"+params.SERIES_ID+"'>"+params.SERIES_NAME+"</option>");
+		$("#seriesId").selectpicker('refresh');
+	}
+	
+	if(params.MODEL != ''){
+		$("#modelId").append("<option selected = 'selected' value='"+params.MODEL_ID+"'>"+params.MODEL_NAME+"</option>");
+		$("#modelId").selectpicker('refresh');
+	}
+	
+	if(params.APACKAGE != ''){
+		$("#apackage").append("<option selected = 'selected' value='"+params.APACKAGE_ID+"'>"+params.APACKAGE_NAME+"</option>");
+		$("#apackage").selectpicker('refresh');
+	}
+	
+	/*
+	 * var nowDate = getNowDate(); getDay(nowDate,params.INVOICE_DATE);
+	 */
+}
+
+function getProductChild(values){
+	params = values;
+	console.log("接受到PRODUCT数据："+JSON.stringify(params));
+	
+	$("#productNo").val(params.PRODUCT_NO);
+	$("#productName").val(params.PRODUCT_NAME);
+	$("#productDate").val(params.PRODUCT_DATE);
+	$("#productDescribtion").val(params.PRODUCT_DESCRIBTION);
+	$("#terminalNonSalesPrice").val(params.TERMINAL_NON_SALES_PRICE);
+	$("#terminalSalesPrice").val(params.TERMINAL_SALES_PRICE);
+	
+	var nowDate = getNowDate();
+	var invoiceDate = $("#billingAt").val();
+	getDay(nowDate,invoiceDate);
+}
+
+function queryVin() {
+	index = layer.open({
+		id : 'queryVin',
+		title : '车主车辆查询',
+		type : 2,
+		area : [ '100%', '100%' ],
+		fixed : true, // 固定
+		maxmin : false,
+		content : ctx + '/dmsSales/ajax/toVehclist?vin=' + $("#vin").val(),
+		/* content : 'vehclist.jsp', */
+		/*
+		 * btn: ['确认', '返回'], yes: function(index, layero){ alert("success"); },
+		 * btn2: function(index, layero){ alert("fanhui"); },
+		 */
+		end : function() {
+			i = 0;
+		}
+	});
+	console.log(window.name);
+	// var index1 = parent.layer.getFrameIndex(window.name);
+	// parent.layer.close(index1)
+}
+
+function addProduct(){
+	var billingAt= $("#billingAt").val();
+	var vin = $("#vin").val();
+	if(billingAt !='' && vin != ''){
+	index = layer.open({
+		id : 'queryProduct',
+		title : '产品信息查询',
+		type : 2,
+		area : [ '100%', '100%' ],
+		fixed : true, // 固定
+		maxmin : false,
+		content : ctx + '/dmsSales/ajax/toProductlist?productNo=' + $("#productNo").val(),
+		end : function() {
+			i = 0;
+		}
+	});
+	}else if(billingAt == '' && vin != ''){
+		alert("开票日期不能为空");
+	}else{
+		alert("请先选择车辆信息!");
+	}
+
+}
+
+var vm = new Vue({
+	el : '#addSalesApp',
+	data : {
+		q : {
+			salesOrder : null,
+			createdBy : null,
+			createAt : null,
+			customerName : null,
+			customerContact : null,
+			orderStatus : null,
+			vin : null,
+			brandId : null,
+			seriesId : null,
+			modelId : null,
+			apackage : null,
+			yearModel : null,
+			billingAt : null,
+			ownerNo : null,
+			ownerName : null,
+			ownerPhone : null,
+			ownerMobile : null,
+			productNo : null,
+			productName : null,
+			productDate : null,
+			productDescribtion : null,
+			terminalNonSalesPrice : null,
+			terminalSalesPrice : null,
+			takeEffectStart : null,
+			takeEffectEnd : null,
+			purchaseNumber : null,
+			actualNonSalesPrice : null,
+			totalAmount : null
+
+		},
+		showList : true,
+		title : null,
+	},
+	methods : {
+		query : function() {
+			vm.reload();
+		},
+		reload : function() {
+			vm.showList = true;
+			$('#table').bootstrapTable('refresh');
+		}
+	}
+});
+
+function reset() {
+	var index1 = parent.layer.getFrameIndex(window.name);
+	parent.layer.close(index1)
+}
+
+
+function getDay(a, b) {
+	 a = new Date(a.replace(/-/g, '/'));
+     b = new Date(b.replace(/-/g, '/'));
+     var d = Math.abs(a.getTime() - b.getTime()) / 1000 / 24 / 60 / 60;
+     // var year = Math.floor(d / 365);//
+		// 不整除取最小的年数或者直接进位（Math.ceil），或者四舍五入Math.round，自己改这个罗
+     var year = Math.ceil(d / 365)
+     alert(year)
+     if (year > 3) {
+         // 大于
+    	 console.log('大于');
+    	 $("#takeEffectStart").val(more3YearStart());
+    	 $("#takeEffectEnd").val(more3YeareEnd);
+     }
+     else {
+         // 小于等于3年
+    	 console.log('小于');
+    	 getYear3Start(b);
+    	 getYear3End(b);
+    	 $("#takeEffectStart").val(getYear3Start(b));
+    	 $("#takeEffectEnd").val(getYear3End(b));
+     }
+}
+
+
+function getNowDate(){
+	var d = new Date();
+	var year = d.getFullYear();
+	var month = d.getMonth()+1;
+	var day = d.getDate();
+	if(month < 10){
+		month ='0'+(d.getMonth()+1);
+	}
+	if(day < 10){
+		day='0'+d.getDate();
+	}
+	var str = year+'-'+month+'-'+day;
+	console.log("nowDate===="+str);
+	return str;
+}
+
+function getYear3Start(c){
+	var year = c.getFullYear()+3
+	var month = c.getMonth()+1;
+	var day = c.getDate()+1;
+	if(month < 10){
+		month ='0'+(c.getMonth()+1);
+	}
+	if(day < 10){
+		day='0'+c.getDate();
+	}
+	var str = year+'-'+month+'-'+day;
+	console.log("质保期内开始时间"+str);
+	return str;
+}
+
+function getYear3End(c){
+	var year = c.getFullYear()+3
+	var month = c.getMonth()+1;
+	var day = c.getDate()+1;
+	if(month < 10){
+		month ='0'+(c.getMonth()+1);
+	}
+	if(day < 10){
+		day='0'+c.getDate();
+	}
+	
+	var productDate=$("#productDate").val();
+	if(productDate == '12个月'){
+		year = year+1;
+	}else if(productDate == '24个月'){
+		year = year+2;
+	}else if (productDate == '36个月') {
+		year = year+3;
+	}else{
+		year= year;
+	}
+	
+	var str = year+'-'+month+'-'+day;
+	console.log("质保期内结束时间"+str);
+	return str;
+}
+
+function more3YearStart(){
+	var d = new Date();
+	var year = d.getFullYear();
+	var month = d.getMonth()+1;
+	var day = d.getDate()+1;
+	if(month < 10){
+		month ='0'+month;
+	}
+	if(day < 10){
+		day='0'+day;
+	}
+	var str = year+'-'+month+'-'+day;
+	console.log("脱保期内开始时间"+str);
+	return str;
+}
+
+function more3YeareEnd(){
+	var d = new Date();
+	var year = d.getFullYear();
+	var month = d.getMonth()+1;
+	var day = d.getDate()+1;
+	if(month < 10){
+		month ='0'+month;
+	}
+	if(day < 10){
+		day='0'+day;
+	}
+	
+	var productDate=$("#productDate").val();
+	if(productDate == '12个月'){
+		year = year+1;
+	}else if(productDate == '24个月'){
+		year = year+2;
+	}else if (productDate == '36个月') {
+		year = year+3;
+	}else{
+		year= year;
+	}
+	var str = year+'-'+month+'-'+day;
+	console.log("脱保期内开始时间"+str);
+	return str;
+}
+
+
+function taxSales(){
+	var actualNonSalesPrice = $("#actualNonSalesPrice").val();
+	$("#totalAmount").val(actualNonSalesPrice*1.06);
+}
+
+
+function save(){
+	var customerName = $("#customerName").val();
+	var customerContact = $("#customerContact").val();
+	var vin = $("#vin").val();
+	var productNo = $("#productNo").val();
+	var billingAt = $("#billingAt").val();
+	var actualNonSalesPrice = $("#actualNonSalesPrice").val();
+	if(customerName == ''){
+		alert("客户姓名不能为空");
+	}else if(customerContact == ''){
+		alert("客户联系方式不能为空");
+	}else if(vin == ''){
+		alert("请选择车辆信息");
+	}else if(billingAt == ''){
+		alert("开票日期不能为空");
+	}else if(productNo == ''){
+		alert("请选择产品信息");
+	}else if(actualNonSalesPrice == ''){
+		alert("请输入实际不含税销售价");
+	}else{
+		//document.getElementById("btn_submit").disabled = true;
+		$("#btn_submit").attr("disabled", false);
+		$("#orderStatus").val("已保存");
+	}
+	
+}
+
+function submit(){
+	$("#orderStatus").val("已提交");
+	var orderStatus = $("#orderStatus").val();
+	if(orderStatus == '扣款成功'){
+		$("#btn_print").attr("disabled", false);
+	}
+}
+
+

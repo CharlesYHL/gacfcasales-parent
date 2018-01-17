@@ -153,8 +153,9 @@ public class ProductDcsController {
 		exportColumnList.add(new ExcelExportColumn("IS_C_SALE", "是否可销售"));
 		exportColumnList.add(new ExcelExportColumn("PRODUCT_DATE", "产品有效期"));
 		exportColumnList.add(new ExcelExportColumn("PRODUCT_MODEL", "适用车型"));
-		exportColumnList.add(new ExcelExportColumn("SALES_DATE_START", "销售开始时间"));
-		exportColumnList.add(new ExcelExportColumn("SALES_DATE_END", "销售开始时间"));
+		exportColumnList.add(new ExcelExportColumn("SALES_DATE_ALL", "销售时间"));
+		/*exportColumnList.add(new ExcelExportColumn("SALES_DATE_START", "销售开始时间"));
+		exportColumnList.add(new ExcelExportColumn("SALES_DATE_END", "销售开始时间"));*/
 		exportExcel.generateExcelForDms(excelData, exportColumnList, "产品信息表.xls", request, response);
 
 		/*
@@ -215,14 +216,14 @@ public class ProductDcsController {
 
 		if (tiOpiExtendedDCS.getReleaseStart() != null && !"".equals(tiOpiExtendedDCS.getReleaseStart())
 				&& tiOpiExtendedDCS.getReleaseEnd() != null && !"".equals(tiOpiExtendedDCS.getReleaseEnd())) {
-			assist.setRequires(Assist.andLte("RELEASE_DATE", tiOpiExtendedDCS.getReleaseEnd()));
-			assist.setRequires(Assist.andGte("RELEASE_DATE", tiOpiExtendedDCS.getReleaseStart()));
+			assist.setRequires(Assist.andLte("RELEASE_DATE", tiOpiExtendedDCS.getReleaseEnd()+" 23:59:59"));
+			assist.setRequires(Assist.andGte("RELEASE_DATE", tiOpiExtendedDCS.getReleaseStart()+" 00:00:00"));
 		}
 
 		if (tiOpiExtendedDCS.getSalesStart() != null && !"".equals(tiOpiExtendedDCS.getSalesStart())
 				&& tiOpiExtendedDCS.getSalesEnd() != null && !"".equals(tiOpiExtendedDCS.getSalesEnd())) {
-			assist.setRequires(Assist.andLte("SALES_DATE_END", tiOpiExtendedDCS.getSalesEnd()));
-			assist.setRequires(Assist.andGte("SALES_DATE_START", tiOpiExtendedDCS.getSalesStart()));
+			assist.setRequires(Assist.andLte("SALES_DATE_END", tiOpiExtendedDCS.getSalesEnd()+" 23:59:59"));
+			assist.setRequires(Assist.andGte("SALES_DATE_START", tiOpiExtendedDCS.getSalesStart()+" 00:00:00"));
 		}
 
 		assist.setOrder("PRODUCT_NO,PRODUCT_ID", true);
@@ -346,7 +347,7 @@ public class ProductDcsController {
 				assist.setRequires(Assist.andEq("PRODUCT_ID", tiOpiExtendedDCS.getPRODUCT_ID()));
 			}
 
-			if (tiOpiExtendedDCS.getPRODUCT_NAME() != null && !"".equals(tiOpiExtendedDCS.getPRODUCT_NAME())) {
+			/*if (tiOpiExtendedDCS.getPRODUCT_NAME() != null && !"".equals(tiOpiExtendedDCS.getPRODUCT_NAME())) {
 				assist.setRequires(Assist.andLike("PRODUCT_NAME", "%" + tiOpiExtendedDCS.getPRODUCT_NAME() + "%"));
 			}
 
@@ -374,7 +375,7 @@ public class ProductDcsController {
 			if (productFiat != 0) {
 				assist.setRequires(Assist.andEq("PRODUCT_CJD", productCjd));
 			}
-
+*/
 			/*
 			 * double dnpPrice = tiOpiExtendedDCS.getDNP_PRICE();
 			 * assist.setRequires(Assist.andEq("DNP_PRICE", dnpPrice)); double msrpPrice =
@@ -652,6 +653,10 @@ public class ProductDcsController {
 			if (tiOpiExtendedDCS.getPRODUCT_CJD() == 0) {
 				tiOpiExtendedDCS.setPRODUCT_CJD(12781002);
 			}
+			
+			/*if(tiOpiExtendedDCS.getPRODUCT_MODEL() != null && !"".equals(tiOpiExtendedDCS.getPRODUCT_MODEL())) {
+				
+			}*/
 
 			productService.updateAndAddProduct(tiOpiExtendedDCS);
 			productService.updateAndAddProductModel(tiOpiExtendedDCS);

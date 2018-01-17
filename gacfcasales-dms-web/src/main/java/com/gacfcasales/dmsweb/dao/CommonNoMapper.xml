@@ -149,12 +149,13 @@
 		AND m2.GROUP_TYPE =90081002) brand
 		ON series.BRAND_ID_SERIES
 		= brand.BRAND_ID) BSM
-		
+
 		<if test="require!=null">
 			<include refid="Assist" />
 		</if>
 		ORDER BY BSM.MODEL_CODE,BSM.MODEL_NAME DESC
-		LIMIT #{startRow},#{rowSize}
+		LIMIT
+		#{startRow},#{rowSize}
 	</select>
 
 	<select id="getModelTableRowCount" parameterType="com.gacfcasales.common.Assist"
@@ -278,12 +279,13 @@
 		AND m2.GROUP_TYPE =90081002) brand
 		ON series.BRAND_ID_SERIES
 		= brand.BRAND_ID) BSM
-		
+
 		<if test="require!=null">
 			<include refid="Assist" />
 		</if>
 		ORDER BY BSM.SERIES_CODE,BSM.SERIES_NAME DESC
-		LIMIT #{startRow},#{rowSize}
+		LIMIT
+		#{startRow},#{rowSize}
 	</select>
 
 	<select id="getSeriesTableRowCount" parameterType="com.gacfcasales.common.Assist"
@@ -339,6 +341,65 @@
 		ON series.BRAND_ID_SERIES
 		= brand.BRAND_ID) BSM
 		<!-- ORDER BY BSM.SERIES_CODE,BSM.SERIES_NAME DESC -->
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+	</select>
+
+	<select id="getVehicleList" parameterType="com.gacfcasales.common.Assist"
+		resultType="map">
+		select * from
+		(select
+		tmv.VIN,tmv.DEALER_CODE,tmv.OWNER_NO,tmv.LICENSE,tmv.YEAR_MODEL,tmv.BRAND,tmv.SERIES,tmv.MODEL,tmv.COLOR,tmv.APACKAGE,
+		DATE_FORMAT(tsi.INVOICE_DATE,'%Y-%m-%d') INVOICE_DATE,
+		tmo.OWNER_NAME,tmo.PHONE,tmo.MOBILE,tvmg1.GROUP_NAME
+		BRAND_NAME,tvmg1.GROUP_ID BRAND_ID,tvmg2.GROUP_NAME SERIES_NAME,tvmg2.GROUP_ID SERIES_ID,tvmg3.GROUP_NAME	MODEL_NAME
+	 ,tvmg3.GROUP_ID MODEL_ID,tvmg4.GROUP_NAME APACKAGE_NAME ,tvmg4.GROUP_ID  APACKAGE_ID
+		from TM_VEHICLE tmv INNER
+		JOIN TM_OWNER tmo
+		ON tmv.OWNER_NO = tmo.OWNER_NO AND tmv.DEALER_CODE =
+		tmo.DEALER_CODE
+		INNER JOIN TT_SO_INVOICE tsi
+		ON tmv.VIN = tsi.VIN AND
+		tmo.DEALER_CODE=tsi.DEALER_CODE
+		LEFT JOIN tm_vhcl_material_group tvmg1
+		ON tmv.BRAND = tvmg1.GROUP_CODE
+		LEFT JOIN tm_vhcl_material_group tvmg2
+		ON tmv.SERIES = tvmg2.GROUP_CODE
+		LEFT JOIN tm_vhcl_material_group tvmg3
+		ON tmv.MODEL = tvmg3.GROUP_CODE
+		LEFT JOIN tm_vhcl_material_group tvmg4
+		ON tmv.APACKAGE = tvmg4.GROUP_CODE) bsm
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+		LIMIT #{startRow},#{rowSize}
+	</select>
+
+	<select id="getVehicleRowCount" parameterType="com.gacfcasales.common.Assist"
+		resultType="java.lang.Long">
+		select count(*) from
+		(select
+		tmv.VIN,tmv.DEALER_CODE,tmv.OWNER_NO,tmv.LICENSE,tmv.YEAR_MODEL,tmv.BRAND,tmv.SERIES,tmv.MODEL,tmv.COLOR,tmv.APACKAGE,
+		DATE_FORMAT(tsi.INVOICE_DATE,'%Y-%m-%d') INVOICE_DATE,
+		tmo.OWNER_NAME,tmo.PHONE,tmo.MOBILE,tvmg1.GROUP_NAME
+		BRAND_NAME,tvmg1.GROUP_ID BRAND_ID,tvmg2.GROUP_NAME SERIES_NAME,tvmg2.GROUP_ID SERIES_ID,tvmg3.GROUP_NAME	MODEL_NAME
+	 ,tvmg3.GROUP_ID MODEL_ID,tvmg4.GROUP_NAME APACKAGE_NAME ,tvmg4.GROUP_ID  APACKAGE_ID
+		from TM_VEHICLE tmv INNER
+		JOIN TM_OWNER tmo
+		ON tmv.OWNER_NO = tmo.OWNER_NO AND tmv.DEALER_CODE =
+		tmo.DEALER_CODE
+		INNER JOIN TT_SO_INVOICE tsi
+		ON tmv.VIN = tsi.VIN AND
+		tmo.DEALER_CODE=tsi.DEALER_CODE
+		LEFT JOIN tm_vhcl_material_group tvmg1
+		ON tmv.BRAND = tvmg1.GROUP_CODE
+		LEFT JOIN tm_vhcl_material_group tvmg2
+		ON tmv.SERIES = tvmg2.GROUP_CODE
+		LEFT JOIN tm_vhcl_material_group tvmg3
+		ON tmv.MODEL = tvmg3.GROUP_CODE
+		LEFT JOIN tm_vhcl_material_group tvmg4
+		ON tmv.APACKAGE = tvmg4.GROUP_CODE) bsm
 		<if test="require!=null">
 			<include refid="Assist" />
 		</if>

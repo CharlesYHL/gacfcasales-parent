@@ -18,6 +18,14 @@ public class TiExtendedPage implements Serializable {
 	private String PRODUCT_JEEP;
 	private String PRODUCT_CJD;
 	private String PRODUCT_DESCRIBTION;
+	private String PRODUCT_MODEL;
+	
+	public String getPRODUCT_MODEL() {
+		return PRODUCT_MODEL;
+	}
+	public void setPRODUCT_MODEL(String pRODUCT_MODEL) {
+		PRODUCT_MODEL = pRODUCT_MODEL;
+	}
 	public String getPRODUCT_ID() {
 		return PRODUCT_ID;
 	}

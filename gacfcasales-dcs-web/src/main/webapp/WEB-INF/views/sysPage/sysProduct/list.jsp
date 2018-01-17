@@ -124,10 +124,10 @@
 	<div v-show="showList" class="box box-custom collapsed-box"
 		style="margin-bottom: 0;">
 		<div class="box-header">
-			<button id="btn_add" type="button" class="btn btn-primary"
+			<!-- <button id="btn_add" type="button" class="btn btn-primary"
 				style="margin-right: 2px;" onclick="addProduct();">
 				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增
-			</button>
+			</button> -->
 			
 			<button id="btn_add" type="button" class="btn btn-primary"
 				style="margin-right: 2px;" onclick="releaseBatch();">

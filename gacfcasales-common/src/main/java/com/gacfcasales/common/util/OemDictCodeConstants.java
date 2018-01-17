@@ -3081,5 +3081,14 @@ public class OemDictCodeConstants {
 	public final static int PRODUCT_RELEASE_STATUS_02 = 54011002;//已发布
 	public final static int PRODUCT_RELEASE_STATUS_03 = 54011003;//已取消
 	
+	
+	/**
+	 * 销售单状态
+	 * 
+	 */
+	public final static int PRODUCT_SALES_STATUS_01 = 55011001;//已保存
+	public final static int PRODUCT_SALES_STATUS_02 = 55011002;//已结案
+	public final static int PRODUCT_SALES_STATUS_03 = 55011003;//扣款失败
+	public final static int PRODUCT_SALES_STATUS_04 = 55011004;//已作废
 }
 

@@ -26,5 +26,9 @@ public interface CommoNoDao {
 	 List<ModelPage> getSeriesTableList(Assist assist);
 	 long getSeriesTableRowCount(Assist assist);
 	 
+	 //车主车辆信息查询
+	 List<Map> getVehicleList(Assist assist);
+	 long getVehicleRowCount(Assist assist);
+	 
 	 
 }

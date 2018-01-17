@@ -121,6 +121,14 @@
 						</div>
 						<div style="height: 3px;"></div>
 						<div>
+						<div class="input-group input-group-sm"
+								style="margin-right: 16px; width: 240px;">
+								<span class="input-group-addon" style="width: 50px;">适用车型</span>
+								<input type="text" class="form-control" name="productModel"
+									id="productModel"
+									value="${requestScope.tiOpiExtendedDCS.PRODUCT_MODEL }"
+									placeholder="请输入产品属性" />
+							</div>
 							<div class="input-group input-group-sm"
 								style="margin-right: 16px; width: 600px;">
 								<span class="input-group-addon" style="width: 150px;">产品说明</span>

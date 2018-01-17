@@ -418,4 +418,16 @@ public class CommonNoServiceImpl implements CommonNoService {
 		return commoNoDao.getSeriesTableRowCount(assist);
 	}
 
+	@Override
+	public List<Map> getVehicleList(Assist assist) {
+		// TODO Auto-generated method stub
+		return commoNoDao.getVehicleList(assist);
+	}
+
+	@Override
+	public long getVehicleRowCount(Assist assist) {
+		// TODO Auto-generated method stub
+		return commoNoDao.getVehicleRowCount(assist);
+	}
+
 }

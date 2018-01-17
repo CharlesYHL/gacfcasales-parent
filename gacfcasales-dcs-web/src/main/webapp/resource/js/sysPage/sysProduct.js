@@ -53,7 +53,7 @@ function addProduct() {
 	globe_index = layer.open({
 		title : '新增产品',
 		type : 2,
-		area : [ '85%', '65%' ],
+		area : [ '90%', '100%' ],
 		fixed : true, // 固定
 		maxmin : false,
 		content : ctx + '/sysProduct/ajax/addProduct'
@@ -144,12 +144,12 @@ var vm = new Vue({
 			index = layer.open({
 				title : '新增产品',
 				type : 2,
-				area : [ '700px', '450px' ],
+				area : [ '90%', '100%' ],
 				fixed : true, // 不固定
 				maxmin : false,
 				content : ctx + '/sysProduct/ajax/addProduct'
 			});
-			parent.layer.close(index);
+			//parent.layer.close(index);
 		},
 		addPart : function() {
 			showOperPart();
@@ -398,7 +398,7 @@ var TableInit = function() {
 										align : 'center',
 										valign : 'middle'
 									}, {
-										field : 'SALES_DATE',
+										field : 'SALES_DATE_ALL',
 										title : '销售时间',
 										align : 'center',
 										valign : 'middle'
@@ -560,7 +560,7 @@ function edit(productId) {
 	globe_index = layer.open({
 		title : '产品编辑',
 		type : 2,
-		area : [ '85%', '65%' ],
+		area : [ '90%', '100%' ],
 		fixed : true, // 固定
 		maxmin : false,
 		content : ctx + '/sysProduct/ajax/toEditProduct?productId='+productId
@@ -574,7 +574,7 @@ function detail(productId) {
 	globe_index = layer.open({
 		title : '产品明细',
 		type : 2,
-		area : [ '85%', '65%' ],
+		area : [ '90%', '100%' ],
 		fixed : true, // 固定
 		maxmin : false,
 		content : ctx + '/sysProduct/ajax/detailProduct?productId='+productId

@@ -55,7 +55,7 @@ function addPart() {
 	index = parent.layer.open({
 		title : '新增产品',
 		type : 2,
-		area : [ '80%', '66%' ],
+		area : [ '90%', '100%' ],
 		fixed : true, // 固定
 		maxmin : false,
 		content : ctx + '/sysProduct/ajax/partInfo?partNo=' + partNo,
@@ -64,8 +64,8 @@ function addPart() {
 		}
 	});
 	// parent.layer.close(index);
-	var index1 = parent.layer.getFrameIndex(window.name);
-	parent.layer.close(index1)
+	//var index1 = parent.layer.getFrameIndex(window.name);
+	//parent.layer.close(index1)
 };
 
 var vm = new Vue(
@@ -138,7 +138,7 @@ var vm = new Vue(
 						parent.layer.open({
 							title : '新增产品',
 							type : 2,
-							area : [ '80%', '66%' ],
+							area : [ '90%', '100%' ],
 							fixed : true, // 固定
 							maxmin : false,
 							content : ctx
@@ -148,8 +148,8 @@ var vm = new Vue(
 								i = 0;
 							}
 						});
-						var index1 = parent.layer.getFrameIndex(window.name);
-						parent.layer.close(index1)
+						//var index1 = parent.layer.getFrameIndex(window.name);
+						//parent.layer.close(index1)
 					} else {
 						alert("请先去选择产品信息");
 					}
@@ -276,6 +276,7 @@ var TableInit = function() {
 			pageNumber : 1, // 初始化加载第一页，默认第一页
 			pageSize : 10, // 每页的记录行数（*）
 			pageList : [ 10, 20, 50, 100 ], // 可供选择的每页的行数（*）
+			height : 450,
 			uniqueId : "id", // 每一行的唯一标识，一般为主键列
 			showRefresh : false, // 是否显示刷新按钮
 			showToggle : false, // 是否显示详细视图和列表视图的切换按钮

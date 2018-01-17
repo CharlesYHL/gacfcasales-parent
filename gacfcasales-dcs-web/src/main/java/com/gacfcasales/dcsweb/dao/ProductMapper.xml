@@ -69,7 +69,24 @@
 				DATE_FORMAT(SALES_DATE_START,'%Y-%m-%d %H:%m:%s')
 				SALES_DATE_START,
 				DATE_FORMAT(SALES_DATE_END,'%Y-%m-%d %H:%m:%s')
-				SALES_DATE_END
+				SALES_DATE_END,
+				(
+				CASE
+				WHEN 1 = 1 THEN
+				concat(
+				DATE_FORMAT(
+				SALES_DATE_START,
+				'%Y-%m-%d'
+				),
+				'--',
+				DATE_FORMAT(SALES_DATE_END,
+				'%Y-%m-%d')
+				)
+				ELSE
+				''
+				END
+				)
+				SALES_DATE_ALL
 			</otherwise>
 		</choose>
 		from TI_OPI_EXTENDED_DCS
@@ -128,7 +145,23 @@
 		ELSE '' END ) PRODUCT_DATE,
 		PRODUCT_MODEL,
 		DATE_FORMAT(SALES_DATE_START,'%Y-%m-%d %H:%m:%s') SALES_DATE_START,
-		DATE_FORMAT(SALES_DATE_END,'%Y-%m-%d %H:%m:%s') SALES_DATE_END
+		DATE_FORMAT(SALES_DATE_END,'%Y-%m-%d %H:%m:%s') SALES_DATE_END,
+		(
+		CASE
+		WHEN 1 = 1 THEN
+		concat(
+		DATE_FORMAT(
+		SALES_DATE_START,
+		'%Y-%m-%d'
+		),
+		'--',
+		DATE_FORMAT(SALES_DATE_END, '%Y-%m-%d')
+		)
+		ELSE
+		''
+		END
+		)
+		SALES_DATE_ALL
 		from
 		TI_OPI_EXTENDED_DCS
 		<where>
@@ -255,7 +288,7 @@
 
 	<select id="getPartInfoRowCount" parameterType="com.gacfcasales.common.Assist"
 		resultType="java.lang.Long">
-		select count(*) from 
+		select count(*) from
 		(select PART_NO,PART_NAME from TM_PART_INFO
 		<if test="require!=null">
 			<include refid="Assist" />
@@ -495,26 +528,38 @@
 		(SELECT @i := 0) AS it,
 		(SELECT
 		td.DEALER_CODE,td.DEALER_NAME,
-		(CASE WHEN td.IS_K4 =10041001 THEN '是' ELSE '否' END) IS_K4,
-		(CASE WHEN td.IS_FIAT =10041001 THEN '是' ELSE '否' END) IS_FIAT,
-		(CASE WHEN td.IS_CJD =10041001 THEN '是' ELSE '否' END ) IS_CJD,
-		(CASE WHEN toed.PRODUCT_JEEP =10041001 THEN '是' ELSE '否' END) PRODUCT_JEEP,
-		(CASE WHEN toed.PRODUCT_FAIT =10041001 THEN '是' ELSE '否' END) PRODUCT_FAIT,
-		(CASE WHEN toed.PRODUCT_CJD =10041001 THEN '是' ELSE '否' END)  PRODUCT_CJD,toed.PRODUCT_ID,topd.BRAND_NAME
+		(CASE WHEN
+		td.IS_K4 =10041001 THEN '是' ELSE '否' END) IS_K4,
+		(CASE WHEN td.IS_FIAT
+		=10041001 THEN '是' ELSE '否' END) IS_FIAT,
+		(CASE WHEN td.IS_CJD
+		=10041001 THEN '是' ELSE '否' END ) IS_CJD,
+		(CASE WHEN toed.PRODUCT_JEEP
+		=10041001 THEN '是' ELSE '否' END) PRODUCT_JEEP,
+		(CASE WHEN
+		toed.PRODUCT_FAIT =10041001 THEN '是' ELSE '否' END) PRODUCT_FAIT,
+		(CASE
+		WHEN toed.PRODUCT_CJD =10041001 THEN '是' ELSE '否' END)
+		PRODUCT_CJD,toed.PRODUCT_ID,topd.BRAND_NAME
 		from TM_DEALER td
-		LEFT JOIN TI_OPI_EXTENDED_DCS toed
+		LEFT JOIN
+		TI_OPI_EXTENDED_DCS toed
 		ON td.IS_K4 =
-		toed.PRODUCT_JEEP OR td.IS_FIAT = toed.PRODUCT_FAIT OR
+		toed.PRODUCT_JEEP OR td.IS_FIAT =
+		toed.PRODUCT_FAIT OR
 		td.IS_CJD =
 		toed.PRODUCT_CJD
-		LEFT JOIN TI_OPI_EXTENDED_MODEL topd ON
+		LEFT JOIN
+		TI_OPI_EXTENDED_MODEL topd ON
 		toed.PRODUCT_ID = topd.PRODUCT_ID
-		WHERE toed.PRODUCT_ID=#{PRODUCT_ID}
+		WHERE
+		toed.PRODUCT_ID=#{PRODUCT_ID}
 		AND td.IS_DEL = 0
 		GROUP BY
 		td.DEALER_CODE,td.DEALER_NAME,toed.PRODUCT_ID,topd.BRAND_NAME) tx
+		where tx.IS_K4 = '是' OR tx.IS_FIAT = '是' OR tx.IS_CJD='是'
 	</select>
-	
+
 	<update id="updateAndAddProductModel" parameterType="com.gacfcasales.common.entity.TiOpiExtendedDCS">
 		UPDATE
 		TI_OPI_EXTENDED_MODEL
@@ -524,8 +569,9 @@
 		IS_VALID=12781001,UPDATED_AT=now(),
 		PRODUCT_FAIT=#{PRODUCT_FAIT},
 		PRODUCT_JEEP=#{PRODUCT_JEEP},PRODUCT_CJD=#{PRODUCT_CJD}
-		WHERE PRODUCT_ID = #{PRODUCT_ID}
+		WHERE
+		PRODUCT_ID = #{PRODUCT_ID}
 	</update>
-	
-	
+
+
 </mapper>
