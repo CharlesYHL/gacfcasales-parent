@@ -404,5 +404,17 @@
 			<include refid="Assist" />
 		</if>
 	</select>
-
+	
+	<select id="getTmUserId" parameterType="map" resultType="map">
+		select * from tm_user where DEALER_CODE=#{dealerCode} and EMPLOYEE_NO =#{employeeNo} limit 1
+	</select>
+	
+	<select id="getTcUserId" parameterType="map" resultType="map">
+		select * from tc_user where ACNT =#{employeeNo} limit 1
+	</select>
+	
+	
+	<select id="getDealerCodeAndName" parameterType="java.lang.String" resultType="map">
+		select * from tm_vhcl_material_group where GROUP_ID = #{groupId}
+	</select>
 </mapper>

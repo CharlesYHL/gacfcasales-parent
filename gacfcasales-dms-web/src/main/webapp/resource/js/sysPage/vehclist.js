@@ -40,6 +40,7 @@ var vm = new Vue({
 
 			var params = {
 				VIN : selected[0].VIN,
+				LICENSE : selected[0].LICENSE,
 				BRAND : selected[0].BRAND,
 				BRAND_ID : selected[0].BRAND_ID,
 				BRAND_NAME : selected[0].BRAND_NAME,
@@ -147,6 +148,12 @@ var TableInit = function() {
 			}, {
 				field : 'BRAND_ID',
 				title : 'BRAND_ID',
+				align : 'center',
+				valign : 'middle',
+				visible : false
+			}, {
+				field : 'LICENSE',
+				title : 'LICENSE',
 				align : 'center',
 				valign : 'middle',
 				visible : false

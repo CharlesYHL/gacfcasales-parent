@@ -31,4 +31,10 @@ public interface CommoNoDao {
 	 long getVehicleRowCount(Assist assist);
 	 
 	 
+	 //查询店端用户ID
+	 Map getTmUserId(Map map);
+	 //查询厂端用户ID
+	 Map getTcUserId(Map map);
+	 
+	 Map getDealerCodeAndName(String groupId);
 }

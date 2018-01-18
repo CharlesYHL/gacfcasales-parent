@@ -38,6 +38,7 @@ public class DmsSalesPage implements Serializable {
 	private String TERMINAL_SALES_PRICE;
 	private String TAKE_EFFECT_START;
 	private String TAKE_EFFECT_END;
+
 	
 
 	public String getSaleOrderId() {

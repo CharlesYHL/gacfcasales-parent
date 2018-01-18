@@ -62,7 +62,7 @@ function exportExcel() {
 			+ encodeURI(encodeURI(salesEnd));
 }
 
-function reset(){
+function reset() {
 	console.log("=================");
 	$("#productNo").val('');
 	$("#productName").val('');
@@ -76,12 +76,11 @@ function reset(){
 	vm.reload();
 }
 
-function query(){
+function query() {
 	var oTable = new TableInit();
 	oTable.Init();
 	vm.reload();
 }
-
 
 var vm = new Vue({
 	el : '#productApp',
@@ -149,14 +148,13 @@ var vm = new Vue({
 		},
 		reset : function() {
 			$("#productNo").val('');
-			/*$("#productName").val('');
-			$('#productDate').selectpicker('val', '0');
-			$('#releaseStatus').selectpicker('val', '0');
-			$("#productModel").val('');
-			$("#releaseStart").val('');
-			$("#releaseEnd").val('');
-			$("#salesStart").val('');
-			$("#salesEnd").val('');*/
+			/*
+			 * $("#productName").val(''); $('#productDate').selectpicker('val',
+			 * '0'); $('#releaseStatus').selectpicker('val', '0');
+			 * $("#productModel").val(''); $("#releaseStart").val('');
+			 * $("#releaseEnd").val(''); $("#salesStart").val('');
+			 * $("#salesEnd").val('');
+			 */
 			vm.reload();
 		},
 		exportExcel : function() {
@@ -214,6 +212,7 @@ var TableInit = function() {
 							pageNumber : 1, // 初始化加载第一页，默认第一页
 							pageSize : 10, // 每页的记录行数（*）
 							pageList : [ 10, 20, 50, 100 ], // 可供选择的每页的行数（*）
+							//height : 450,
 							uniqueId : "id", // 每一行的唯一标识，一般为主键列
 							showRefresh : false, // 是否显示刷新按钮
 							showToggle : false, // 是否显示详细视图和列表视图的切换按钮
@@ -228,10 +227,9 @@ var TableInit = function() {
 										formatter : function(value, row, index) {
 											return index + 1;
 										}
-									}/*,
-									{
-										checkbox : true
-									}*/,
+									}/*
+										 * , { checkbox : true }
+										 */,
 									{
 										field : '操作',
 										title : '操作',
@@ -373,9 +371,9 @@ function detail(productId) {
 	globe_index = layer.open({
 		title : '产品明细',
 		type : 2,
-		area : [ '85%', '65%' ],
+		area : [ '90%', '100%' ],
 		fixed : true, // 固定
 		maxmin : false,
-		content : ctx + '/dmsProduct/ajax/detailProduct?productId='+productId
+		content : ctx + '/dmsProduct/ajax/detailProduct?productId=' + productId
 	});
 }

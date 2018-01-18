@@ -33,6 +33,17 @@ function getChildValues(values){
 	$("#ownerPhone").val(params.PHONE);
 	$("#ownerMobile").val(params.MOBILE);
 	$("#yearModel").val(params.YEAR_MODEL);
+	$("#liceseNo").val(params.LICENSE);
+	
+	$("#brandCode").val(params.BRAND);
+	$("#seriesCode").val(params.SERIES);
+	$("#modelCode").val(params.MODEL);
+	$("#apackageCode").val(params.APACKAGE);
+	
+	$("#brandName").val(params.BRAND_NAME);
+	$("#seriesName").val(params.SERIES_NAME);
+	$("#modelName").val(params.MODEL_NAME);
+	$("#apackageName").val(params.APACKAGE_NAME);
 	
 	if(params.BRAND != ''){
 		console.log(params.BRAND);
@@ -64,7 +75,7 @@ function getChildValues(values){
 function getProductChild(values){
 	params = values;
 	console.log("接受到PRODUCT数据："+JSON.stringify(params));
-	
+	$("#productId").val(params.PRODUCT_ID);
 	$("#productNo").val(params.PRODUCT_NO);
 	$("#productName").val(params.PRODUCT_NAME);
 	$("#productDate").val(params.PRODUCT_DATE);
@@ -185,7 +196,7 @@ function getDay(a, b) {
      // var year = Math.floor(d / 365);//
 		// 不整除取最小的年数或者直接进位（Math.ceil），或者四舍五入Math.round，自己改这个罗
      var year = Math.ceil(d / 365)
-     alert(year)
+     // alert(year)
      if (year > 3) {
          // 大于
     	 console.log('大于');
@@ -307,7 +318,8 @@ function more3YeareEnd(){
 
 function taxSales(){
 	var actualNonSalesPrice = $("#actualNonSalesPrice").val();
-	$("#totalAmount").val(actualNonSalesPrice*1.06);
+	var totalAmount = actualNonSalesPrice*1.06;
+	$("#totalAmount").val(totalAmount.toFixed(2));
 }
 
 
@@ -331,9 +343,60 @@ function save(){
 	}else if(actualNonSalesPrice == ''){
 		alert("请输入实际不含税销售价");
 	}else{
-		//document.getElementById("btn_submit").disabled = true;
+		// document.getElementById("btn_submit").disabled = true;
 		$("#btn_submit").attr("disabled", false);
 		$("#orderStatus").val("已保存");
+		
+		var param= {
+				PRODUCT_SALES_ORDER:$("#salesOrder").val(),
+				PRODUCT_ID:$("#productId").val(),
+				PRODUCT_NO:$("#productNo").val(),
+				PRODUCT_NAME:$("#productName").val(),
+				ORDER_STATUS:$("#orderStatus").val(),
+				VIN:$("#vin").val(),
+				BILLING_AT:$("#billingAt").val(),
+				LICENSE_NO:$("#liceseNo").val(),
+				OWNER_NO:$("#ownerNo").val(),
+				OWNER_NAME:$("#ownerName").val(),
+				OWNER_PHONE:$("#ownerPhone").val(),
+				OWNER_MOBILE:$("#ownerMobile").val(),
+				CUSTOMER_NAME:$("#customerName").val(),
+				CUSTOMER_CONTACT:$("#customerContact").val(),
+				BRAND_CODE:$("#brandCode").val(),
+				BRAND_NAME:$("#brandName").val(),
+				SERIES_CODE:$("#seriesCode").val(),
+				SERIES_NAME:$("#seriesName").val(),
+				MODEL_CODE:$("#modelCode").val(),
+				MODEL_NAME:$("#modelName").val(),
+				APACKAGE:$("#apackageCode").val(),
+				YEAR_MODEL:$("#yearModel").val(),
+				TAKE_EFFECT_START:$("#takeEffectStart").val(),
+				TAKE_EFFECT_END:$("#takeEffectEnd").val(),
+				PURCHASE_NUMBER:$("#purchaseNumber").val(),
+				TERMINAL_NON_SALES_PRICE:$("#terminalNonSalesPrice").val(),
+				TERMINAL_SALES_PRICE:$("#terminalSalesPrice").val(),
+				ACTUAL_NON_SALES_PRICE:$("#actualNonSalesPrice").val(),
+				TOTAL_AMOUNT:$("#totalAmount").val()
+		};
+		
+		$.ajax({
+			type : "GET",
+			url : ctx + "/dmsSales/ajax/createSales",
+			contentType : "application/json",
+			dataType : "json",
+			data : param,
+			cache : false,
+			success : function(data) {
+				console.log("返回参数:" + data);
+				if (data == '0') {
+					alert("销售单新增成功");
+				}
+			},
+			error : function(data) {
+				console.log(data);
+			}
+		});
+		
 	}
 	
 }

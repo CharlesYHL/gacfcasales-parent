@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gacfcasales.common.Assist;
+import com.gacfcasales.common.entity.TtOpiExtendedSales;
 import com.gacfcasales.dmsweb.dao.DmsSalesDao;
 import com.gacfcasales.dmsweb.service.DmsSalesService;
 
@@ -41,6 +42,30 @@ public class DmsSalesServiceImpl implements DmsSalesService {
 	public long getProductRowCount(Assist assist) {
 		// TODO Auto-generated method stub
 		return dmsSalesDao.getProductRowCount(assist);
+	}
+
+	@Override
+	public void insertSales(TtOpiExtendedSales ttOpiExtendedSales) {
+		// TODO Auto-generated method stub
+		dmsSalesDao.insertSales(ttOpiExtendedSales);
+	}
+
+	@Override
+	public List<Map> getSalesList(Assist assist) {
+		// TODO Auto-generated method stub
+		return dmsSalesDao.getSalesList(assist);
+	}
+
+	@Override
+	public long getSalesRowCount(Assist assist) {
+		// TODO Auto-generated method stub
+		return dmsSalesDao.getSalesRowCount(assist);
+	}
+
+	@Override
+	public List<Map> exportSalesExcel(Assist assist) {
+		// TODO Auto-generated method stub
+		return dmsSalesDao.exportSalesExcel(assist);
 	}
 
 }

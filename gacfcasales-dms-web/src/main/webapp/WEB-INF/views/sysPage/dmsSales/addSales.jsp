@@ -30,11 +30,15 @@
 		value="${requestScope.dmsSalesDto.SERIES_NAME}" hidden="hidden" />
 		<input
 		type="text" id="modelName" name="modelName"
-		value="${requestScope.dmsSalesDto.MODEL_NAME}" hidden="hidden" />
+		value="" hidden="hidden" />
 		<input
 		type="text" id="apackageName" name="apackageName"
-		value="${requestScope.dmsSalesDto.APACKAGE_NAME}" hidden="hidden" />
+		value="" hidden="hidden" />
 		
+		<input type="text" id="productId" name="productId"
+		value="" hidden="hidden" />
+		<input type="text" id="liceseNo" name="liceseNo"
+		value="" hidden="hidden" />
 		
 		
 		<input
@@ -82,7 +86,7 @@
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">创建时间</span>
-								<input id="createAt" name="createAt" type="text"
+								<input id="createAt" name="createAt" type="text" disabled="disabled"
 									class="form-control" value="${requestScope.dmsSalesDto.createAt}" placeholder="请输入创建时间" />
 							</div>
 						</div>

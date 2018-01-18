@@ -46,4 +46,11 @@ public interface CommonNoService {
 	 //车主车辆信息查询
 	 List<Map> getVehicleList(Assist assist);
 	 long getVehicleRowCount(Assist assist);
+	 
+	 //查询店端用户ID
+	 Map getTmUserId(Map map);
+	 //查询厂端用户ID
+	 Map getTcUserId(Map map);
+	 
+	 Map getDealerCodeAndName(String groupId);
 }

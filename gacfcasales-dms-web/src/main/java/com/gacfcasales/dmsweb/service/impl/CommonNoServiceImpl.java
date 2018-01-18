@@ -430,4 +430,22 @@ public class CommonNoServiceImpl implements CommonNoService {
 		return commoNoDao.getVehicleRowCount(assist);
 	}
 
+	@Override
+	public Map getTmUserId(Map map) {
+		// TODO Auto-generated method stub
+		return commoNoDao.getTmUserId(map);
+	}
+
+	@Override
+	public Map getTcUserId(Map map) {
+		// TODO Auto-generated method stub
+		return commoNoDao.getTcUserId(map);
+	}
+
+	@Override
+	public Map getDealerCodeAndName(String groupId) {
+		// TODO Auto-generated method stub
+		return commoNoDao.getDealerCodeAndName(groupId);
+	}
+
 }
