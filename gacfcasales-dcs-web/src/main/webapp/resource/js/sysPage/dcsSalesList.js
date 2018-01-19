@@ -1,5 +1,39 @@
 $(function() {
 	getBigOrg();
+	getBrand();
+
+	// 产品有效期
+	jQuery("#productDate").append("<option value='0'>请选择</option>");
+	jQuery("#productDate").append("<option value='12'>12个月</option>");
+	jQuery("#productDate").append("<option value='24'>24个月</option>");
+	jQuery("#productDate").append("<option value='36'>36个月</option>");
+
+	// 设置日期控件
+	$('#createStart').datetimepicker({
+		lang : "ch",
+		timepicker : false,
+		format : 'Y-m-d'
+	});
+	$('#createEnd').datetimepicker({
+		lang : "ch",
+		timepicker : false,
+		format : 'Y-m-d'
+	});
+
+	$('#closedStart').datetimepicker({
+		lang : "ch",
+		timepicker : false,
+		format : 'Y-m-d'
+	});
+	$('#closedEnd').datetimepicker({
+		lang : "ch",
+		timepicker : false,
+		format : 'Y-m-d'
+	});
+
+	var oTable = new TableInit();
+	oTable.Init();
+
 });
 
 function getBigOrg() {
@@ -54,6 +88,88 @@ function getSmallOrg() {
 	});
 }
 
+function getBrand() {
+	$.ajax({
+		type : "GET",
+		url : ctx + "/dmsSales/ajax/getBrandList",
+		contentType : "application/json",
+		dataType : "json",
+		cache : false,
+		success : function(data) {
+			if (data.length > 0) {
+				var optionstring = "<option value='0'>请选择</option>";
+				for ( var item in data) {
+					console.log(data[item]);
+					optionstring += "<option value='" + data[item].BRAND_ID
+							+ "'>" + data[item].BRAND_NAME + "</option>";
+				}
+				$("#brandId").html(optionstring);
+				$("#brandId").selectpicker('refresh');
+			}
+		},
+		error : function(data) {
+
+		}
+	});
+}
+
+function getSeries() {
+	var groupId = $("#brandId").val();
+	$("#modelId").empty();
+	$("#modelId").selectpicker('refresh');
+	$.ajax({
+		type : "GET",
+		url : ctx + "/dmsSales/ajax/getSeriesList?groupId=" + groupId,
+		contentType : "application/json",
+		data : JSON.stringify(vm.sysUser),
+		dataType : "json",
+		cache : false,
+		success : function(data) {
+			if (data.length > 0) {
+				var optionstring = "<option value='0'>请选择</option>";
+				for ( var item in data) {
+					console.log(data[item]);
+					optionstring += "<option value='" + data[item].SERIES_ID
+							+ "'>" + data[item].SERIES_NAME + "</option>";
+				}
+				$("#seriesId").html(optionstring);
+				$("#seriesId").selectpicker('refresh');
+				// $("#modelId").selectpicker('refresh');
+			}
+		},
+		error : function(data) {
+
+		}
+	});
+}
+
+function getModel() {
+	var groupId = $("#seriesId").val();
+	$.ajax({
+		type : "GET",
+		url : ctx + "/dmsSales/ajax/getModelList?groupId=" + groupId,
+		contentType : "application/json",
+		data : JSON.stringify(vm.sysUser),
+		dataType : "json",
+		cache : false,
+		success : function(data) {
+			if (data.length > 0) {
+				var optionstring = "<option value='0'>请选择</option>";
+				for ( var item in data) {
+					console.log(data[item]);
+					optionstring += "<option value='" + data[item].MODEL_ID
+							+ "'>" + data[item].MODEL_NAME + "</option>";
+				}
+				$("#modelId").html(optionstring);
+				$("#modelId").selectpicker('refresh');
+			}
+		},
+		error : function(data) {
+
+		}
+	});
+}
+
 function queryDealer() {
 	globe_index = layer.open({
 		id : 'queryDealer',
@@ -73,30 +189,6 @@ function getProductChild(values) {
 	// params = params.Substring(0,params.Length-1);
 	console.log("=========" + values);
 	$("#dealerCode").val(values);
-}
-
-function reset() {
-	function reset() {
-		$('#bigOrg').selectpicker('val', '0');
-		$('#smallOrg').selectpicker('val', '0');
-		$("#dealerCode").val('');
-		$("#dealerName").val('');
-		$("#productSalesOrder").val('');
-		$("#productNo").val('');
-		$("#productName").val('');
-		$('#productDate').selectpicker('val', '0');
-		$('#brandId').selectpicker('val', '0');
-		$('#seriesId').selectpicker('val', '0');
-		$('#modelId').selectpicker('val', '0');
-		$("#vin").val('');
-		$("#licenseNo").val();
-		$("#customerName").val();
-		$("#createStart").val('');
-		$("#createEnd").val('');
-		$("#closedStart").val('');
-		$("#closedEnd").val('');
-
-	}
 }
 
 var vm = new Vue({
@@ -190,57 +282,54 @@ var TableInit = function() {
 													+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
 											return operate;
 										}
-									},
-									{
+									}, {
 										field : 'PRODUCT_SALES_ID',
 										title : '主键ID',
 										align : 'center',
 										valign : 'middle',
 										visible : false
-									},
-									{
+									}, {
 										field : 'PRODUCT_ID',
 										title : '产品ID',
 										align : 'center',
 										valign : 'middle',
 										visible : false
-									},{
-										field : 'BIG_NAME',
+									}, {
+										field : 'BIG_ORG',
 										title : '大区',
 										align : 'center',
 										valign : 'middle'
-									},{
-										field : 'SMALL_NAME',
+									}, {
+										field : 'SMALL_ORG',
 										title : '小区',
 										align : 'center',
 										valign : 'middle'
-									},{
+									}, {
 										field : 'DEALER_CODE',
 										title : '经销商代码',
 										align : 'center',
 										valign : 'middle'
-									},{
+									}, {
 										field : 'DEALER_NAME',
 										title : '经销商名称',
 										align : 'center',
 										valign : 'middle'
-									},{
+									}, {
 										field : 'PRODUCT_SALES_ORDER',
 										title : '销售单编号',
 										align : 'center',
 										valign : 'middle'
-									},{
+									}, {
 										field : 'SAP_SALES_ORDER',
 										title : 'SAP订单号',
 										align : 'center',
 										valign : 'middle'
-									},
-									{
+									}, {
 										field : 'ORDER_STATUS',
 										title : '单据状态',
 										align : 'center',
 										valign : 'middle'
-									},{
+									}, {
 										field : 'PRODUCT_NO',
 										title : '产品编号',
 										align : 'center',
@@ -437,3 +526,32 @@ var TableInit = function() {
 	return oTableInit;
 
 };
+
+function reset() {
+	$('#bigOrg').selectpicker('val', '0');
+	$('#smallOrg').selectpicker('val', '0');
+	$("#dealerCode").val('');
+	$("#dealerName").val('');
+	$("#productSalesOrder").val('');
+	$("#productNo").val('');
+	$("#productName").val('');
+	$('#productDate').selectpicker('val', '0');
+	$('#brandId').selectpicker('val', '0');
+	$('#seriesId').selectpicker('val', '0');
+	$('#modelId').selectpicker('val', '0');
+	$("#vin").val('');
+	$("#licenseNo").val();
+	$("#customerName").val();
+	$("#createStart").val('');
+	$("#createEnd").val('');
+	$("#closedStart").val('');
+	$("#closedEnd").val('');
+	vm.reload();
+
+}
+
+function query() {
+	var oTable = new TableInit();
+	oTable.Init();
+	vm.reload();
+}

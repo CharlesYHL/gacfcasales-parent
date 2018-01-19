@@ -256,6 +256,10 @@ public class Assist {
 	public static <T> WhereRequire<T> orLike(String column, T req) {
 		return new Assist().new WhereRequire<T>("or " + column + " like ", req);
 	}
+	
+	/*public static <T> WhereRequire<T> andIn(String column, T req) {
+		return new Assist().new WhereRequire<T>("and " + column + " in ", req);
+	}*/
 
 	public static <T> WhereRequire<T> andIn(String column, T req) {
 		return new Assist().new WhereRequire<T>("and " + column + " in ( ", req, " )");

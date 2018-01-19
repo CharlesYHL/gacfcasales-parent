@@ -444,4 +444,10 @@ public class CommonNoServiceImpl implements CommonNoService {
 		return commoNoDao.selectDealerArrRowCount(assist);
 	}
 
+	@Override
+	public Map getDealerCodeAndName(String groupId) {
+		// TODO Auto-generated method stub
+		return commoNoDao.getDealerCodeAndName(groupId);
+	}
+
 }

@@ -406,6 +406,10 @@
 			<include refid="Assist" />
 		</if>
 	</select>
-
+	
+	<select id="getDealerCodeAndName" parameterType="java.lang.String" resultType="map">
+		select * from tm_vhcl_material_group where GROUP_ID = #{groupId}
+	</select>
+	
 
 </mapper>

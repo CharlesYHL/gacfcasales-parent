@@ -54,5 +54,7 @@ public interface CommonNoService {
 	 //查询经销商
 	 List<Map> selectDealerAll(Assist assist);
 	 long selectDealerArrRowCount(Assist assist);
+	 
+	 Map getDealerCodeAndName(String groupId);
 	
 }

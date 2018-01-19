@@ -2,7 +2,7 @@ package com.gacfcasales.common.util;
 
 public class DealerCodeUtil {
 	
-	private String getDealerCodes(String dealerCode) {
+	private static String getDealerCodes(String dealerCode) {
 		String dealers = "";
 		dealerCode = dealerCode.replaceAll("，", ",");
 		dealerCode = dealerCode.replaceAll("\\n", ",");
