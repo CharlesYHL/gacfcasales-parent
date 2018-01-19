@@ -262,31 +262,63 @@ var TableInit = function() {
 										width : '120',
 										formatter : function(value, row, index) {
 											var operate = '<div style="width:120px;">'
-
-											operate += '<button class="btn btn-primary btn-xs" href="#" onclick="detail(\''
-													+ row.PRODUCT_SALES_ID
-													+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
-
-											operate += '</div>';
+											if (row.ORDER_STATUS == '已结案'
+													|| row.ORDER_STATUS == "已作废") {
+												operate += '<button class="btn btn-primary btn-xs" style="display:none" href="#" onclick="edit(\''
+														+ row.PRODUCT_SALES_ID
+														+ '\')"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></button> '
+												operate += '<button class="btn btn-primary btn-xs" href="#" onclick="detail(\''
+														+ row.PRODUCT_SALES_ID
+														+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
+												operate += '<button class="btn btn-primary btn-xs" style="display:none"  href="#" onclick="invalid(\''
+														+ row.PRODUCT_SALES_ID
+														+ '\')"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i></button> '
+											}
+											if (row.ORDER_STATUS == '已保存'
+													|| row.ORDER_STATUS == "扣款失败") {
+												operate += '<button class="btn btn-primary btn-xs" href="#" onclick="edit(\''
+														+ row.PRODUCT_SALES_ID
+														+ '\')"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></button> '
+												operate += '<button class="btn btn-primary btn-xs" href="#" onclick="detail(\''
+														+ row.PRODUCT_SALES_ID
+														+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
+												operate += '<button class="btn btn-primary btn-xs"  href="#" onclick="invalid(\''
+														+ row.PRODUCT_SALES_ID
+														+ '\')"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i></button> '
+											}
 											return operate;
 										}
-									}, {
+									},
+									{
 										field : 'PRODUCT_SALES_ID',
 										title : '主键ID',
 										align : 'center',
 										valign : 'middle',
 										visible : false
-									}, {
+									},
+									{
 										field : 'PRODUCT_ID',
 										title : '产品ID',
 										align : 'center',
 										valign : 'middle',
 										visible : false
-									}, {
+									},
+									{
 										field : 'ORDER_STATUS',
 										title : '单据状态',
 										align : 'center',
-										valign : 'middle'
+										valign : 'middle',
+										formatter : function(value, row, index) {
+											var a = "";
+											if (value == "扣款失败"
+													|| value == "已作废") {
+												a = '<span style="color:#F00">'
+														+ value + '</span>';
+											} else {
+												a = value;
+											}
+											return a;
+										}
 									}, {
 										field : 'PRODUCT_SALES_ORDER',
 										title : '销售单编号',
@@ -552,4 +584,69 @@ function exportExcel() {
 			+ encodeURI(encodeURI(CREATED_AT_END)) + '&CLOSED_AT_START='
 			+ encodeURI(encodeURI(CLOSED_AT_START)) + '&CLOSED_AT_END='
 			+ encodeURI(encodeURI(CLOSED_AT_END))
+}
+
+function detail(productSalesId) {
+	console.log("进入明细页面" + productSalesId);
+	globe_index = layer.open({
+		title : '销售单明细',
+		type : 2,
+		area : [ '90%', '100%' ],
+		fixed : true, // 固定
+		maxmin : false,
+		content : ctx + '/dmsSales/ajax/toSalesDetail?productSalesId='
+				+ productSalesId
+	});
+}
+
+function edit(productSalesId) {
+	console.log("进入编辑页面" + productSalesId);
+	globe_index = layer.open({
+		title : '销售单编辑',
+		type : 2,
+		area : [ '90%', '100%' ],
+		fixed : true, // 固定
+		maxmin : false,
+		content : ctx + '/dmsSales/ajax/toSalesEdit?productSalesId='
+				+ productSalesId
+	});
+}
+
+
+function invalid(productSalesId) {
+	console.log("进入作废功能" + productSalesId);
+
+	layer.confirm('请确认是否作废销售单据？', {
+		btn : [ '确定', '取消' ]
+	// 按钮
+	}, function() {
+		$.ajax({
+			type: "GET",
+		    url: ctx + "/dmsSales/ajax/invalidSales?productSalesId="+productSalesId,
+	        contentType: "application/json",
+		    dataType: "json",
+			cache: false,
+		    success: function(data){
+		    	console.log("返回参数:"+data);
+		    	if(data == 0){
+		    		alert("作废成功!");
+		    		vm.reload();
+		    	}else{
+		    		alert("作废失败!");
+		    	}
+			},error :function(data){
+				console.log(data);
+			}
+		});
+		
+		/*layer.msg('的确很重要', {
+			icon : 1
+		});*/
+	}, function() {
+		/*layer.msg('也可以这样', {
+			time : 20000, // 20s后自动关闭
+			btn : [ '明白了', '知道了' ]
+		});*/
+	});
+
 }

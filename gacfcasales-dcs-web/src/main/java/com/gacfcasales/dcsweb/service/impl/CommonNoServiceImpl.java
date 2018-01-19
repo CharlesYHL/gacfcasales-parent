@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gacfcasales.common.Assist;
+import com.gacfcasales.common.dto.DealerDto;
 import com.gacfcasales.common.entity.ModelPage;
 import com.gacfcasales.common.exception.ServiceBizException;
 import com.gacfcasales.common.util.CommonConstants;
@@ -417,6 +418,30 @@ public class CommonNoServiceImpl implements CommonNoService {
 	public long getSeriesTableRowCount(Assist assist) {
 		// TODO Auto-generated method stub
 		return commoNoDao.getSeriesTableRowCount(assist);
+	}
+
+	@Override
+	public List<Map> selectMaxDistrict() {
+		// TODO Auto-generated method stub
+		return commoNoDao.selectMaxDistrict();
+	}
+
+	@Override
+	public List<Map> selectMinDistrict(String bigOrg) {
+		// TODO Auto-generated method stub
+		return commoNoDao.selectMinDistrict(bigOrg);
+	}
+
+	@Override
+	public List<Map> selectDealerAll(Assist assist) {
+		// TODO Auto-generated method stub
+		return commoNoDao.selectDealerAll(assist);
+	}
+
+	@Override
+	public long selectDealerArrRowCount(Assist assist) {
+		// TODO Auto-generated method stub
+		return commoNoDao.selectDealerArrRowCount(assist);
 	}
 
 }

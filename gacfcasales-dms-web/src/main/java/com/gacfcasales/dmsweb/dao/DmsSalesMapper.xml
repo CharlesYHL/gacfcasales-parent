@@ -193,7 +193,10 @@
 		ACTUAL_NON_SALES_PRICE,
 		TOTAL_AMOUNT,
 		CREATED_BY,
-		CREATED_AT,DEALER_CODE)
+		CREATED_AT,DEALER_CODE,
+		NON_TAX_COST_PRICE,
+		TAX_COST_PRICE
+		)
 		values
 		(#{PRODUCT_SALES_ID},
 		#{PRODUCT_SALES_ORDER},
@@ -226,7 +229,9 @@
 		#{ACTUAL_NON_SALES_PRICE},
 		#{TOTAL_AMOUNT},
 		#{CREATED_BY},
-		now(),#{DEALER_CODE})
+		now(),#{DEALER_CODE},
+		#{NON_TAX_COST_PRICE},
+		#{TAX_COST_PRICE} )
 
 	</insert>
 
@@ -240,12 +245,15 @@
 		ttes.PRODUCT_ID,
 		(CASE WHEN
 		ttes.ORDER_STATUS=55011001 THEN '已保存'
-		WHEN ttes.ORDER_STATUS=55011002
+		WHEN
+		ttes.ORDER_STATUS=55011002
 		THEN '已结案'
-		WHEN ttes.ORDER_STATUS=55011003 THEN '扣款失败'
+		WHEN ttes.ORDER_STATUS=55011003
+		THEN '扣款失败'
 		WHEN
 		ttes.ORDER_STATUS=55011004 THEN '已作废'
-		ELSE '' END) ORDER_STATUS,
+		ELSE '' END)
+		ORDER_STATUS,
 		ttes.PRODUCT_SALES_ORDER,
 		ttes.SAP_SALES_ORDER,
 		ttes.PRODUCT_NO,
@@ -275,18 +283,21 @@
 		ttes.MODEL_CODE,
 		ttes.APACKAGE,
 		ttes.YEAR_MODEL,
-		DATE_FORMAT(ttes.TAKE_EFFECT_START,'%Y-%m-%d %H:%m:%s')
+		DATE_FORMAT(ttes.TAKE_EFFECT_START,'%Y-%m-%d
+		%H:%m:%s')
 		TAKE_EFFECT_START,
 		DATE_FORMAT(ttes.TAKE_EFFECT_END,'%Y-%m-%d
 		%H:%m:%s') TAKE_EFFECT_END,
 		ctu.USER_NAME CREATE_NAME,
-		DATE_FORMAT(ttes.CREATED_AT,'%Y-%m-%d %H:%m:%s') CREATED_AT,
+		DATE_FORMAT(ttes.CREATED_AT,'%Y-%m-%d
+		%H:%m:%s') CREATED_AT,
 		ttes.PURCHASE_NUMBER,
 		ttes.TERMINAL_NON_SALES_PRICE,
 		ttes.TERMINAL_SALES_PRICE,
 		ttes.ACTUAL_NON_SALES_PRICE,
 		ttes.TOTAL_AMOUNT,
-		ltu.USER_NAME CLOSED_NAME,
+		ltu.USER_NAME
+		CLOSED_NAME,
 		DATE_FORMAT(ttes.CLOSED_AT,'%Y-%m-%d %H:%m:%s') CLOSED_AT,
 		itu.USER_NAME INVALID_NAME,
 		DATE_FORMAT(ttes.INVALID_AT,'%Y-%m-%d
@@ -354,18 +365,21 @@
 		ttes.MODEL_CODE,
 		ttes.APACKAGE,
 		ttes.YEAR_MODEL,
-		DATE_FORMAT(ttes.TAKE_EFFECT_START,'%Y-%m-%d %H:%m:%s')
+		DATE_FORMAT(ttes.TAKE_EFFECT_START,'%Y-%m-%d
+		%H:%m:%s')
 		TAKE_EFFECT_START,
 		DATE_FORMAT(ttes.TAKE_EFFECT_END,'%Y-%m-%d
 		%H:%m:%s') TAKE_EFFECT_END,
 		ctu.USER_NAME CREATE_NAME,
-		DATE_FORMAT(ttes.CREATED_AT,'%Y-%m-%d %H:%m:%s') CREATED_AT,
+		DATE_FORMAT(ttes.CREATED_AT,'%Y-%m-%d
+		%H:%m:%s') CREATED_AT,
 		ttes.PURCHASE_NUMBER,
 		ttes.TERMINAL_NON_SALES_PRICE,
 		ttes.TERMINAL_SALES_PRICE,
 		ttes.ACTUAL_NON_SALES_PRICE,
 		ttes.TOTAL_AMOUNT,
-		ltu.USER_NAME CLOSED_NAME,
+		ltu.USER_NAME
+		CLOSED_NAME,
 		DATE_FORMAT(ttes.CLOSED_AT,'%Y-%m-%d %H:%m:%s') CLOSED_AT,
 		itu.USER_NAME INVALID_NAME,
 		DATE_FORMAT(ttes.INVALID_AT,'%Y-%m-%d
@@ -387,7 +401,7 @@
 			<include refid="Assist" />
 		</if>
 	</select>
-	
+
 	<select id="exportSalesExcel" parameterType="com.gacfcasales.common.Assist"
 		resultType="map">
 
@@ -397,12 +411,15 @@
 		ttes.PRODUCT_ID,
 		(CASE WHEN
 		ttes.ORDER_STATUS=55011001 THEN '已保存'
-		WHEN ttes.ORDER_STATUS=55011002
+		WHEN
+		ttes.ORDER_STATUS=55011002
 		THEN '已结案'
-		WHEN ttes.ORDER_STATUS=55011003 THEN '扣款失败'
+		WHEN ttes.ORDER_STATUS=55011003
+		THEN '扣款失败'
 		WHEN
 		ttes.ORDER_STATUS=55011004 THEN '已作废'
-		ELSE '' END) ORDER_STATUS,
+		ELSE '' END)
+		ORDER_STATUS,
 		ttes.PRODUCT_SALES_ORDER,
 		ttes.SAP_SALES_ORDER,
 		ttes.PRODUCT_NO,
@@ -432,18 +449,21 @@
 		ttes.MODEL_CODE,
 		ttes.APACKAGE,
 		ttes.YEAR_MODEL,
-		DATE_FORMAT(ttes.TAKE_EFFECT_START,'%Y-%m-%d %H:%m:%s')
+		DATE_FORMAT(ttes.TAKE_EFFECT_START,'%Y-%m-%d
+		%H:%m:%s')
 		TAKE_EFFECT_START,
 		DATE_FORMAT(ttes.TAKE_EFFECT_END,'%Y-%m-%d
 		%H:%m:%s') TAKE_EFFECT_END,
 		ctu.USER_NAME CREATE_NAME,
-		DATE_FORMAT(ttes.CREATED_AT,'%Y-%m-%d %H:%m:%s') CREATED_AT,
+		DATE_FORMAT(ttes.CREATED_AT,'%Y-%m-%d
+		%H:%m:%s') CREATED_AT,
 		ttes.PURCHASE_NUMBER,
 		ttes.TERMINAL_NON_SALES_PRICE,
 		ttes.TERMINAL_SALES_PRICE,
 		ttes.ACTUAL_NON_SALES_PRICE,
 		ttes.TOTAL_AMOUNT,
-		ltu.USER_NAME CLOSED_NAME,
+		ltu.USER_NAME
+		CLOSED_NAME,
 		DATE_FORMAT(ttes.CLOSED_AT,'%Y-%m-%d %H:%m:%s') CLOSED_AT,
 		itu.USER_NAME INVALID_NAME,
 		DATE_FORMAT(ttes.INVALID_AT,'%Y-%m-%d
@@ -465,5 +485,183 @@
 			<include refid="Assist" />
 		</if>
 	</select>
+
+
+	<select id="selectTtOpiExtendedSales" parameterType="java.lang.String"
+		resultType="com.gacfcasales.common.entity.TtOpiExtendedSales">
+		SELECT
+		*
+		FROM
+		(
+		SELECT
+		ttes.PRODUCT_SALES_ID,
+		ttes.PRODUCT_ID,
+		(
+		CASE
+		WHEN ttes.ORDER_STATUS = 55011001 THEN
+		'已保存'
+		WHEN ttes.ORDER_STATUS
+		= 55011002 THEN
+		'已结案'
+		WHEN ttes.ORDER_STATUS = 55011003 THEN
+		'扣款失败'
+		WHEN
+		ttes.ORDER_STATUS = 55011004 THEN
+		'已作废'
+		ELSE
+		''
+		END
+		) ORDER_STATUS,
+		ttes.PRODUCT_SALES_ORDER,
+		ttes.SAP_SALES_ORDER,
+		ttes.PRODUCT_NO,
+		ttes.PRODUCT_NAME,
+		toed.PRODUCT_DESCRIBTION,
+		(
+		CASE
+		WHEN toed.PRODUCT_DATE
+		= 12 THEN
+		'12个月'
+		WHEN toed.PRODUCT_DATE = 24 THEN
+		'24个月'
+		WHEN
+		toed.PRODUCT_DATE = 36 THEN
+		'36个月'
+		ELSE
+		''
+		END
+		) PRODUCT_DATE,
+		ttes.CUSTOMER_NAME,
+		ttes.CUSTOMER_CONTACT,
+		ttes.VIN,
+		DATE_FORMAT(
+		ttes.BILLING_AT,
+		'%Y-%m-%d %H:%m:%s'
+		) BILLING_AT,
+		ttes.LICENSE_NO,
+		ttes.OWNER_NO,
+		ttes.OWNER_NAME,
+		ttes.OWNER_PHONE,
+		ttes.OWNER_MOBILE,
+		tmg1.GROUP_ID BRAND_ID,
+		ttes.BRAND_NAME,
+		ttes.BRAND_CODE,
+		tmg2.GROUP_ID
+		SERIES_ID,
+		ttes.SERIES_NAME,
+		ttes.SERIES_CODE,
+		tmg3.GROUP_ID MODEL_ID,
+		ttes.MODEL_NAME,
+		ttes.MODEL_CODE,
+		tmg4.GROUP_ID APACKAGE_ID,
+		tmg4.GROUP_NAME APACKAGE_NAME,
+		ttes.APACKAGE,
+		ttes.YEAR_MODEL,
+		DATE_FORMAT(
+		ttes.TAKE_EFFECT_START,
+		'%Y-%m-%d %H:%m:%s'
+		)
+		TAKE_EFFECT_START,
+		DATE_FORMAT(
+		ttes.TAKE_EFFECT_END,
+		'%Y-%m-%d %H:%m:%s'
+		) TAKE_EFFECT_END,
+		ctu.USER_NAME CREATE_NAME,
+		DATE_FORMAT(
+		ttes.CREATED_AT,
+		'%Y-%m-%d %H:%m:%s'
+		) CREATED_AT,
+		ttes.PURCHASE_NUMBER,
+		ttes.TERMINAL_NON_SALES_PRICE,
+		ttes.TERMINAL_SALES_PRICE,
+		ttes.ACTUAL_NON_SALES_PRICE,
+		ttes.TOTAL_AMOUNT,
+		ltu.USER_NAME
+		CLOSED_NAME,
+		DATE_FORMAT(
+		ttes.CLOSED_AT,
+		'%Y-%m-%d %H:%m:%s'
+		) CLOSED_AT,
+		itu.USER_NAME INVALID_NAME,
+		DATE_FORMAT(
+		ttes.INVALID_AT,
+		'%Y-%m-%d
+		%H:%m:%s'
+		) INVALID_AT
+		FROM
+		tt_opi_extended_sales ttes
+		LEFT JOIN
+		ti_opi_extended_dcs toed ON ttes.PRODUCT_ID =
+		toed.PRODUCT_ID
+		LEFT JOIN
+		tm_user ctu ON ttes.CREATED_BY = ctu.USER_ID
+		LEFT JOIN tm_user ltu ON
+		ttes.CLOSED_BY = ltu.USER_ID
+		LEFT JOIN tm_user
+		itu ON ttes.INVALID_BY =
+		itu.USER_ID
+		LEFT JOIN tm_vhcl_material_group
+		tmg1 ON
+		ttes.BRAND_NAME=tmg1.GROUP_NAME AND ttes.BRAND_CODE =
+		tmg1.GROUP_CODE
+		LEFT JOIN tm_vhcl_material_group tmg2 ON
+		ttes.SERIES_NAME=tmg2.GROUP_NAME AND ttes.SERIES_CODE =
+		tmg2.GROUP_CODE
+		LEFT JOIN tm_vhcl_material_group tmg3 ON
+		ttes.MODEL_NAME=tmg3.GROUP_NAME AND ttes.MODEL_CODE = tmg3.GROUP_CODE
+		LEFT JOIN tm_vhcl_material_group tmg4 ON ttes.APACKAGE=tmg4.GROUP_CODE
+		) bsm
+		WHERE
+		bsm.PRODUCT_SALES_ID = #{PRODUCT_SALES_ID}
+		limit 1
+	</select>
+
+	<update id="updateSalesInvalid" parameterType="map">
+		update tt_opi_extended_sales
+		set ORDER_STATUS=55011004,INVALID_BY=#{INVALID_BY},INVALID_AT=now()
+		where PRODUCT_SALES_ID =#{PRODUCT_SALES_ID}
+	</update>
+
+
+
+	<update id="updateSales" parameterType="com.gacfcasales.common.entity.TtOpiExtendedSales">
+		update
+		TT_OPI_EXTENDED_SALES
+		SET
+		PRODUCT_SALES_ORDER=#{PRODUCT_SALES_ORDER},
+		PRODUCT_ID=#{PRODUCT_ID},
+		PRODUCT_NO=#{PRODUCT_NO},
+		PRODUCT_NAME=#{PRODUCT_NAME},
+		ORDER_STATUS=#{ORDER_STATUS_T},
+		VIN=#{VIN},
+		BILLING_AT=#{BILLING_AT},
+		LICENSE_NO=#{LICENSE_NO},
+		OWNER_NO=#{OWNER_NO},
+		OWNER_NAME=#{OWNER_NAME},
+		OWNER_PHONE=#{OWNER_PHONE},
+		OWNER_MOBILE=#{OWNER_MOBILE},
+		CUSTOMER_NAME=#{CUSTOMER_NAME},
+		CUSTOMER_CONTACT=#{CUSTOMER_CONTACT},
+		BRAND_CODE=#{BRAND_CODE},
+		BRAND_NAME=#{BRAND_NAME},
+		SERIES_CODE=#{SERIES_CODE},
+		SERIES_NAME=#{SERIES_NAME},
+		MODEL_CODE=#{MODEL_CODE},
+		MODEL_NAME=#{MODEL_NAME},
+		APACKAGE=#{APACKAGE},
+		YEAR_MODEL=#{YEAR_MODEL},
+		TAKE_EFFECT_START=#{TAKE_EFFECT_START},
+		TAKE_EFFECT_END=#{TAKE_EFFECT_END},
+		PURCHASE_NUMBER=#{PURCHASE_NUMBER},
+		TERMINAL_NON_SALES_PRICE=#{TERMINAL_NON_SALES_PRICE},
+		TERMINAL_SALES_PRICE=#{TERMINAL_SALES_PRICE},
+		ACTUAL_NON_SALES_PRICE=#{ACTUAL_NON_SALES_PRICE},
+		TOTAL_AMOUNT=#{TOTAL_AMOUNT},
+		UPDATED_BY=#{UPDATED_BY},
+		UPDATED_AT=now(),
+		DEALER_CODE=#{DEALER_CODE}
+		WHERE PRODUCT_SALES_ID=#{PRODUCT_SALES_ID}
+	</update>
+
 
 </mapper>

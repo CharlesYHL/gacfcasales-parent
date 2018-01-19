@@ -46,12 +46,30 @@ public class DmsSalesDto {
 	private String PRODUCT_DESCRIBTION;
 	private String TERMINAL_NON_SALES_PRICE;
 	private String TERMINAL_SALES_PRICE;
+	private String NON_TAX_COST_PRICE;
+	private String TAX_COST_PRICE;
 	private String SALES_DATE_START;
 	private String SALES_DATE_END;
 	
 	private String PURCHASE_NUMBER;
 	private String ACTUAL_NON_SALES_PRICE;
 	private String TOTAL_AMOUNT;
+	
+	
+	
+	
+	public String getNON_TAX_COST_PRICE() {
+		return NON_TAX_COST_PRICE;
+	}
+	public void setNON_TAX_COST_PRICE(String nON_TAX_COST_PRICE) {
+		NON_TAX_COST_PRICE = nON_TAX_COST_PRICE;
+	}
+	public String getTAX_COST_PRICE() {
+		return TAX_COST_PRICE;
+	}
+	public void setTAX_COST_PRICE(String tAX_COST_PRICE) {
+		TAX_COST_PRICE = tAX_COST_PRICE;
+	}
 	public String getVIN() {
 		return VIN;
 	}

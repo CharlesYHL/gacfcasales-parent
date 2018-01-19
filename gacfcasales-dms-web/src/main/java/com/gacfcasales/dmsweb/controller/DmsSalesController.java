@@ -284,7 +284,7 @@ public class DmsSalesController {
 		return "1";
 	}
 
-	// 车主车辆信息查询
+	// 车主车辆信息查询createSales
 	@RequestMapping(value = "/ajax/getSalesList", method = RequestMethod.POST)
 	@ResponseBody
 	public Result<TtOpiExtendedSales> getSalesList(TtOpiExtendedSales ttOpiExtendedSales,
@@ -301,6 +301,9 @@ public class DmsSalesController {
 			assist.setRowSize(pageSize);
 		}
 
+		if (map != null) {
+			assist.setRequires(Assist.andEq("bsm.DEALER_CODE", map.get("ENTITY_CODE").toString()));
+		}
 		if (ttOpiExtendedSales.getPRODUCT_DATE() != null && !"0".equals(ttOpiExtendedSales.getPRODUCT_DATE())) {
 			assist.setRequires(Assist.andEq("bsm.PRODUCT_DATE", ttOpiExtendedSales.getPRODUCT_DATE()));
 		}
@@ -389,17 +392,18 @@ public class DmsSalesController {
 			@RequestParam(required = false) String CLOSED_AT_START,
 			@RequestParam(required = false) String CLOSED_AT_END, HttpServletRequest request,
 			HttpServletResponse response, HttpSession httpSession) {
-		
+
 		TmUser tmUser = (TmUser) httpSession.getAttribute("users");
 		Map map = dmsSalesService.getEntityCode(tmUser.getDEALER_CODE());
 		Assist assist = new Assist();
+		if (map != null) {
+			assist.setRequires(Assist.andEq("bsm.DEALER_CODE", map.get("ENTITY_CODE").toString()));
+		}
 		if (PRODUCT_DATE != null && !"0".equals(PRODUCT_DATE)) {
 			assist.setRequires(Assist.andEq("bsm.PRODUCT_DATE", PRODUCT_DATE));
 		}
-		if (PRODUCT_SALES_ORDER != null
-				&& !"".equals(PRODUCT_SALES_ORDER)) {
-			assist.setRequires(
-					Assist.andLike("bsm.PRODUCT_SALES_ORDER", "%" + PRODUCT_SALES_ORDER + "%"));
+		if (PRODUCT_SALES_ORDER != null && !"".equals(PRODUCT_SALES_ORDER)) {
+			assist.setRequires(Assist.andLike("bsm.PRODUCT_SALES_ORDER", "%" + PRODUCT_SALES_ORDER + "%"));
 		}
 		if (PRODUCT_NO != null && !"".equals(PRODUCT_NO)) {
 			assist.setRequires(Assist.andLike("bsm.PRODUCT_NO", "%" + PRODUCT_NO + "%"));
@@ -443,22 +447,21 @@ public class DmsSalesController {
 			assist.setRequires(Assist.andEq("bsm.ORDER_STATUS", ORDER_STATUS));
 		}
 
-		if (CREATED_AT_START != null && !"".equals(CREATED_AT_START)
-				&& CREATED_AT_END != null
+		if (CREATED_AT_START != null && !"".equals(CREATED_AT_START) && CREATED_AT_END != null
 				&& !"".equals(CREATED_AT_END)) {
 			assist.setRequires(Assist.andLte("bsm.CREATED_AT", CREATED_AT_END));
 			assist.setRequires(Assist.andGte("bsm.CREATED_AT", CREATED_AT_START));
 		}
 
-		if (CLOSED_AT_START != null && !"".equals(CLOSED_AT_START)
-				&& CLOSED_AT_END != null && !"".equals(CLOSED_AT_END)) {
+		if (CLOSED_AT_START != null && !"".equals(CLOSED_AT_START) && CLOSED_AT_END != null
+				&& !"".equals(CLOSED_AT_END)) {
 			assist.setRequires(Assist.andLte("bsm.CLOSED_AT", CLOSED_AT_END));
 			assist.setRequires(Assist.andGte("bsm.CLOSED_AT", CLOSED_AT_START));
 			// assist.setRequires(Assist.andEq("bsm.CREATED_AT",
 			// ttOpiExtendedSales.getORDER_STATUS()));
 		}
 		assist.setOrder("bsm.PRODUCT_SALES_ID,bsm.PRODUCT_SALES_ORDER", true);
-		
+
 		ExportExcel exportExcel = new ExportExcel();
 
 		List<Map> resultList = dmsSalesService.exportSalesExcel(assist);
@@ -468,42 +471,117 @@ public class DmsSalesController {
 
 		List<ExcelExportColumn> exportColumnList = new ArrayList<ExcelExportColumn>();
 
-		exportColumnList.add(new ExcelExportColumn("ORDER_STATUS","单据状态"));
-		exportColumnList.add(new ExcelExportColumn("PRODUCT_SALES_ORDER","销售单编号"));
-		exportColumnList.add(new ExcelExportColumn("SAP_SALES_ORDER","SAP订单号"));
-		exportColumnList.add(new ExcelExportColumn("PRODUCT_NO","产品编号"));
-		exportColumnList.add(new ExcelExportColumn("PRODUCT_NAME","产品名称"));
-		exportColumnList.add(new ExcelExportColumn("PRODUCT_DESCRIBTION","产品说明"));
-		exportColumnList.add(new ExcelExportColumn("PRODUCT_DATE","产品有效期"));
-		exportColumnList.add(new ExcelExportColumn("CUSTOMER_NAME","客户姓名"));
-		exportColumnList.add(new ExcelExportColumn("CUSTOMER_CONTACT","客户联系方式"));
-		exportColumnList.add(new ExcelExportColumn("VIN","VIN"));
-		exportColumnList.add(new ExcelExportColumn("BILLING_AT","开票日期"));
-		exportColumnList.add(new ExcelExportColumn("LICENSE_NO","车牌号"));
-		exportColumnList.add(new ExcelExportColumn("OWNER_NO","车主编号"));
-		exportColumnList.add(new ExcelExportColumn("OWNER_NAME","车主姓名"));
-		exportColumnList.add(new ExcelExportColumn("OWNER_PHONE","车主电话"));
-		exportColumnList.add(new ExcelExportColumn("OWNER_MOBILE","车主手机"));
-		exportColumnList.add(new ExcelExportColumn("BRAND_NAME","品牌"));
-		exportColumnList.add(new ExcelExportColumn("SERIES_NAME","车系"));
-		exportColumnList.add(new ExcelExportColumn("MODEL_NAME","车型"));
-		exportColumnList.add(new ExcelExportColumn("APACKAGE","配置"));
-		exportColumnList.add(new ExcelExportColumn("YEAR_MODEL","年款"));
-		exportColumnList.add(new ExcelExportColumn("TAKE_EFFECT_START","生效开始时间"));
-		exportColumnList.add(new ExcelExportColumn("TAKE_EFFECT_END","生效结束时间"));
-		exportColumnList.add(new ExcelExportColumn("CREATE_NAME","创建人"));
-		exportColumnList.add(new ExcelExportColumn("CREATED_AT","创建时间"));
-		exportColumnList.add(new ExcelExportColumn("PURCHASE_NUMBER","购买数量"));
-		exportColumnList.add(new ExcelExportColumn("TERMINAL_NON_SALES_PRICE","终端不含税销售价"));
-		exportColumnList.add(new ExcelExportColumn("TERMINAL_SALES_PRICE","终端含税销售价（6%）"));
-		exportColumnList.add(new ExcelExportColumn("ACTUAL_NON_SALES_PRICE","实际不含税销售价"));
-		exportColumnList.add(new ExcelExportColumn("TOTAL_AMOUNT","含税总额（6%）"));
-		exportColumnList.add(new ExcelExportColumn("CLOSED_NAME","结案人"));
-		exportColumnList.add(new ExcelExportColumn("CLOSED_AT","结案时间"));
-		exportColumnList.add(new ExcelExportColumn("INVALID_NAME","作废人"));
-		exportColumnList.add(new ExcelExportColumn("INVALID_AT","作废时间"));
+		exportColumnList.add(new ExcelExportColumn("ORDER_STATUS", "单据状态"));
+		exportColumnList.add(new ExcelExportColumn("PRODUCT_SALES_ORDER", "销售单编号"));
+		exportColumnList.add(new ExcelExportColumn("SAP_SALES_ORDER", "SAP订单号"));
+		exportColumnList.add(new ExcelExportColumn("PRODUCT_NO", "产品编号"));
+		exportColumnList.add(new ExcelExportColumn("PRODUCT_NAME", "产品名称"));
+		exportColumnList.add(new ExcelExportColumn("PRODUCT_DESCRIBTION", "产品说明"));
+		exportColumnList.add(new ExcelExportColumn("PRODUCT_DATE", "产品有效期"));
+		exportColumnList.add(new ExcelExportColumn("CUSTOMER_NAME", "客户姓名"));
+		exportColumnList.add(new ExcelExportColumn("CUSTOMER_CONTACT", "客户联系方式"));
+		exportColumnList.add(new ExcelExportColumn("VIN", "VIN"));
+		exportColumnList.add(new ExcelExportColumn("BILLING_AT", "开票日期"));
+		exportColumnList.add(new ExcelExportColumn("LICENSE_NO", "车牌号"));
+		exportColumnList.add(new ExcelExportColumn("OWNER_NO", "车主编号"));
+		exportColumnList.add(new ExcelExportColumn("OWNER_NAME", "车主姓名"));
+		exportColumnList.add(new ExcelExportColumn("OWNER_PHONE", "车主电话"));
+		exportColumnList.add(new ExcelExportColumn("OWNER_MOBILE", "车主手机"));
+		exportColumnList.add(new ExcelExportColumn("BRAND_NAME", "品牌"));
+		exportColumnList.add(new ExcelExportColumn("SERIES_NAME", "车系"));
+		exportColumnList.add(new ExcelExportColumn("MODEL_NAME", "车型"));
+		exportColumnList.add(new ExcelExportColumn("APACKAGE", "配置"));
+		exportColumnList.add(new ExcelExportColumn("YEAR_MODEL", "年款"));
+		exportColumnList.add(new ExcelExportColumn("TAKE_EFFECT_START", "生效开始时间"));
+		exportColumnList.add(new ExcelExportColumn("TAKE_EFFECT_END", "生效结束时间"));
+		exportColumnList.add(new ExcelExportColumn("CREATE_NAME", "创建人"));
+		exportColumnList.add(new ExcelExportColumn("CREATED_AT", "创建时间"));
+		exportColumnList.add(new ExcelExportColumn("PURCHASE_NUMBER", "购买数量"));
+		exportColumnList.add(new ExcelExportColumn("TERMINAL_NON_SALES_PRICE", "终端不含税销售价"));
+		exportColumnList.add(new ExcelExportColumn("TERMINAL_SALES_PRICE", "终端含税销售价（6%）"));
+		exportColumnList.add(new ExcelExportColumn("ACTUAL_NON_SALES_PRICE", "实际不含税销售价"));
+		exportColumnList.add(new ExcelExportColumn("TOTAL_AMOUNT", "含税总额（6%）"));
+		exportColumnList.add(new ExcelExportColumn("CLOSED_NAME", "结案人"));
+		exportColumnList.add(new ExcelExportColumn("CLOSED_AT", "结案时间"));
+		exportColumnList.add(new ExcelExportColumn("INVALID_NAME", "作废人"));
+		exportColumnList.add(new ExcelExportColumn("INVALID_AT", "作废时间"));
 		exportExcel.generateExcelForDms(excelData, exportColumnList, "销售单信息.xls", request, response);
-		
+
 	}
 
+	// 销售单明细
+	@RequestMapping(value = "/ajax/toSalesDetail", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView toSalesDetail(@RequestParam String productSalesId) {
+		ModelAndView mav = new ModelAndView("sysPage/dmsSales/detailSales");
+
+		if (productSalesId != null && !"".equals(productSalesId)) {
+			mav.addObject("ttOpiExtendedSales", dmsSalesService.selectTtOpiExtendedSales(productSalesId));
+		}
+
+		return mav;
+	}
+
+	@RequestMapping(value = "/ajax/invalidSales", method = RequestMethod.GET)
+	@ResponseBody
+	public String invalidSales(@RequestParam String productSalesId, HttpSession httpSession) {
+		TmUser tmUser = (TmUser) httpSession.getAttribute("users");
+		Map invalidMap = new HashMap();
+		Map map = dmsSalesService.getEntityCode(tmUser.getDEALER_CODE());
+		//Map mapUser = dmsSalesService.getUserName(map.get("ENTITY_CODE").toString(), tmUser.getEMPLOYEE_NO());
+		Map mapId = new HashMap();
+		mapId.put("dealerCode", map.get("ENTITY_CODE").toString());
+		mapId.put("employeeNo", tmUser.getEMPLOYEE_NO());
+		if (productSalesId != null && !"".equals(productSalesId)) {
+			invalidMap.put("PRODUCT_SALES_ID", productSalesId);
+		}
+		invalidMap.put("INVALID_BY", commonNoService.getTmUserId(mapId).get("USER_ID").toString());
+
+		if (invalidMap != null) {
+			dmsSalesService.updateSalesInvalid(invalidMap);
+			return "0";
+		}
+		return "1";
+	}
+	
+	
+	//销售单编辑 
+	@RequestMapping(value = "/ajax/toSalesEdit", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView toSalesEdit(@RequestParam String productSalesId) {
+		ModelAndView mav = new ModelAndView("sysPage/dmsSales/editSales");
+
+		if (productSalesId != null && !"".equals(productSalesId)) {
+			mav.addObject("ttOpiExtendedSales", dmsSalesService.selectTtOpiExtendedSales(productSalesId));
+		}
+
+		return mav;
+	}
+	
+	//编辑销售订单
+	@RequestMapping(value = "/ajax/editSales", method = RequestMethod.GET)
+	@ResponseBody
+	public String editSales(TtOpiExtendedSales ttOpiExtendedSales, HttpSession httpSession) {
+		TmUser tmUser = (TmUser) httpSession.getAttribute("users");
+		Map mapCode = dmsSalesService.getEntityCode(tmUser.getDEALER_CODE());
+		if (tmUser.getDEALER_CODE() != null && !"".equals(tmUser.getDEALER_CODE())) {
+			Map map = new HashMap();
+			map.put("dealerCode", mapCode.get("ENTITY_CODE").toString());
+			map.put("employeeNo", tmUser.getEMPLOYEE_NO());
+			// commonNoService.getTmUserId(map);
+			//ttOpiExtendedSales.setPRODUCT_SALES_ID(commonNoService.getId("ID", mapCode.get("ENTITY_CODE").toString()));
+			ttOpiExtendedSales.setDEALER_CODE(mapCode.get("ENTITY_CODE").toString());
+
+			if (ttOpiExtendedSales.getORDER_STATUS() != null && !"".equals(ttOpiExtendedSales.getORDER_STATUS())) {
+				ttOpiExtendedSales.setORDER_STATUS_T(OemDictCodeConstants.PRODUCT_SALES_STATUS_01);
+			}
+
+			ttOpiExtendedSales.setUPDATED_BY(commonNoService.getTmUserId(map).get("USER_ID").toString());
+			dmsSalesService.updateSales(ttOpiExtendedSales);
+			return "0";
+		}
+		return "1";
+	}
+	
+	
 }

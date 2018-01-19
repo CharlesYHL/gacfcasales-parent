@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.gacfcasales.common.Assist;
+import com.gacfcasales.common.dto.DealerDto;
 import com.gacfcasales.common.entity.ModelPage;
 import com.gacfcasales.common.exception.ServiceBizException;
 
@@ -42,5 +43,16 @@ public interface CommonNoService {
 	//按车系查询
 	 List<ModelPage> getSeriesTableList(Assist assist);
 	 long getSeriesTableRowCount(Assist assist);
+	 
+	 
+	 //查询所有有效的大区
+	 List<Map> selectMaxDistrict();
+	 
+	 //查询所有有效的小区
+	 List<Map> selectMinDistrict(String bigOrg);
+	 
+	 //查询经销商
+	 List<Map> selectDealerAll(Assist assist);
+	 long selectDealerArrRowCount(Assist assist);
 	
 }

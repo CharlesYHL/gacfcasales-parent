@@ -31,6 +31,8 @@ public class TtOpiExtendedSales implements Serializable {
 	private String MODEL_ID;
 	private String MODEL_CODE;
 	private String MODEL_NAME;
+	private String APACKAGE_ID;
+	private String APACKAGE_NAME;
 	private String APACKAGE;
 	private String YEAR_MODEL;
 	private String TAKE_EFFECT_START;
@@ -58,12 +60,60 @@ public class TtOpiExtendedSales implements Serializable {
 	private String CREATE_NAME;
 	private String CLOSED_NAME;
 	private String INVALID_NAME;
-	
+
 	private String CREATED_AT_START;
 	private String CREATED_AT_END;
 	private String CLOSED_AT_START;
 	private String CLOSED_AT_END;
 	
+	private String NON_TAX_COST_PRICE;
+	private String TAX_COST_PRICE;
+	
+	private String BIG_ORG;
+	private String SMALL_ORG;
+	private String DEALER_NAME;
+	
+	
+
+	public String getBIG_ORG() {
+		return BIG_ORG;
+	}
+
+	public void setBIG_ORG(String bIG_ORG) {
+		BIG_ORG = bIG_ORG;
+	}
+
+	public String getSMALL_ORG() {
+		return SMALL_ORG;
+	}
+
+	public void setSMALL_ORG(String sMALL_ORG) {
+		SMALL_ORG = sMALL_ORG;
+	}
+
+	public String getDEALER_NAME() {
+		return DEALER_NAME;
+	}
+
+	public void setDEALER_NAME(String dEALER_NAME) {
+		DEALER_NAME = dEALER_NAME;
+	}
+
+	public String getNON_TAX_COST_PRICE() {
+		return NON_TAX_COST_PRICE;
+	}
+
+	public void setNON_TAX_COST_PRICE(String nON_TAX_COST_PRICE) {
+		NON_TAX_COST_PRICE = nON_TAX_COST_PRICE;
+	}
+
+	public String getTAX_COST_PRICE() {
+		return TAX_COST_PRICE;
+	}
+
+	public void setTAX_COST_PRICE(String tAX_COST_PRICE) {
+		TAX_COST_PRICE = tAX_COST_PRICE;
+	}
 
 	public Long getPRODUCT_SALES_ID() {
 		return PRODUCT_SALES_ID;
@@ -527,6 +577,22 @@ public class TtOpiExtendedSales implements Serializable {
 
 	public void setCLOSED_AT_END(String cLOSED_AT_END) {
 		CLOSED_AT_END = cLOSED_AT_END;
+	}
+
+	public String getAPACKAGE_ID() {
+		return APACKAGE_ID;
+	}
+
+	public void setAPACKAGE_ID(String aPACKAGE_ID) {
+		APACKAGE_ID = aPACKAGE_ID;
+	}
+
+	public String getAPACKAGE_NAME() {
+		return APACKAGE_NAME;
+	}
+
+	public void setAPACKAGE_NAME(String aPACKAGE_NAME) {
+		APACKAGE_NAME = aPACKAGE_NAME;
 	}
 
 }

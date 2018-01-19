@@ -149,12 +149,13 @@
 		AND m2.GROUP_TYPE =90081002) brand
 		ON series.BRAND_ID_SERIES
 		= brand.BRAND_ID) BSM
-		
+
 		<if test="require!=null">
 			<include refid="Assist" />
 		</if>
 		ORDER BY BSM.MODEL_CODE,BSM.MODEL_NAME DESC
-		LIMIT #{startRow},#{rowSize}
+		LIMIT
+		#{startRow},#{rowSize}
 	</select>
 
 	<select id="getModelTableRowCount" parameterType="com.gacfcasales.common.Assist"
@@ -278,12 +279,13 @@
 		AND m2.GROUP_TYPE =90081002) brand
 		ON series.BRAND_ID_SERIES
 		= brand.BRAND_ID) BSM
-		
+
 		<if test="require!=null">
 			<include refid="Assist" />
 		</if>
 		ORDER BY BSM.SERIES_CODE,BSM.SERIES_NAME DESC
-		LIMIT #{startRow},#{rowSize}
+		LIMIT
+		#{startRow},#{rowSize}
 	</select>
 
 	<select id="getSeriesTableRowCount" parameterType="com.gacfcasales.common.Assist"
@@ -343,5 +345,67 @@
 			<include refid="Assist" />
 		</if>
 	</select>
+
+	<select id="selectMaxDistrict" resultType="map">
+		SELECT DISTINCT
+		ORG1.ORG_ID BIG_ORG,ORG1.ORG_NAME BIG_ORG_NAME FROM TM_ORG ORG1
+		,TM_ORG ORG2
+		WHERE ORG1.ORG_ID = ORG2.PARENT_ORG_ID
+		AND ORG1.DUTY_TYPE =
+		10431003 AND ORG1.ORG_LEVEL = 2 AND ORG1.IS_DEL=0
+	</select>
+
+	<select id="selectMinDistrict" parameterType="java.lang.String"
+		resultType="map">
+		SELECT ORG2.ORG_ID SMALL_ORG,ORG2.ORG_NAME
+		SMALL_ORG_NAME
+		FROM TM_ORG ORG1 ,TM_ORG ORG2
+		WHERE ORG1.ORG_ID =
+		ORG2.PARENT_ORG_ID
+		AND
+		ORG2.DUTY_TYPE = 10431004 AND ORG2.ORG_LEVEL = 3
+		AND ORG1.ORG_ID
+		=#{bigOrg}
+	</select>
+
+
+	<select id="selectDealerAll" parameterType="com.gacfcasales.common.Assist"
+		resultType="map">
+		select * from
+		(SELECT
+		td.COMPANY_ID,td.DEALER_ID,td.DEALER_CODE,td.DEALER_SHORTNAME,td.MARKETING,td.DEALER_NAME,td.STATUS,td.DEALER_LEVEL,td.ADDRESS,td.DEALER_TYPE
+		,ORG2.ORG_NAME AS BIG_ORG,ORG2.ORG_ID AS BIG_ORG_ID,ORG1.ORG_NAME AS SMALL_ORG,ORG1.ORG_ID AS SMALL_ORG_ID
+		FROM tm_dealer td
+		LEFT JOIN tm_dealer_org_relation tdor ON tdor.DEALER_ID = td.DEALER_ID
+		LEFT JOIN tm_org ORG1 ON ORG1.ORG_ID = TDOR.ORG_ID
+		LEFT JOIN tm_org
+		ORG2 ON ORG2.ORG_ID = ORG1.PARENT_ORG_ID
+		WHERE td.STATUS = 10011001)
+		bsm
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+		LIMIT
+		#{startRow},#{rowSize}
+	</select>
+
+	<select id="selectDealerArrRowCount" parameterType="com.gacfcasales.common.Assist"
+		resultType="java.lang.Long">
+		select count(*) from
+		(SELECT
+		td.COMPANY_ID,td.DEALER_ID,td.DEALER_CODE,td.DEALER_SHORTNAME,td.MARKETING,td.DEALER_NAME,td.STATUS,td.DEALER_LEVEL,td.ADDRESS,td.DEALER_TYPE
+		,ORG2.ORG_NAME AS BIG_ORG,ORG2.ORG_ID AS BIG_ORG_ID,ORG1.ORG_NAME AS SMALL_ORG,ORG1.ORG_ID AS SMALL_ORG_ID
+		FROM tm_dealer td
+		LEFT JOIN tm_dealer_org_relation tdor ON tdor.DEALER_ID = td.DEALER_ID
+		LEFT JOIN tm_org ORG1 ON ORG1.ORG_ID = TDOR.ORG_ID
+		LEFT JOIN tm_org
+		ORG2 ON ORG2.ORG_ID = ORG1.PARENT_ORG_ID
+		WHERE td.STATUS = 10011001)
+		bsm
+		<if test="require!=null">
+			<include refid="Assist" />
+		</if>
+	</select>
+
 
 </mapper>

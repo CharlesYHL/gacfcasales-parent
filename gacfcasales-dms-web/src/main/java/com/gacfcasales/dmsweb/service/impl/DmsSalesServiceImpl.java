@@ -68,4 +68,22 @@ public class DmsSalesServiceImpl implements DmsSalesService {
 		return dmsSalesDao.exportSalesExcel(assist);
 	}
 
+	@Override
+	public TtOpiExtendedSales selectTtOpiExtendedSales(String PRODUCT_SALES_ID) {
+		// TODO Auto-generated method stub
+		return dmsSalesDao.selectTtOpiExtendedSales(PRODUCT_SALES_ID);
+	}
+
+	@Override
+	public void updateSalesInvalid(Map map) {
+		// TODO Auto-generated method stub
+		dmsSalesDao.updateSalesInvalid(map);
+	}
+
+	@Override
+	public void updateSales(TtOpiExtendedSales ttOpiExtendedSales) {
+		// TODO Auto-generated method stub
+		dmsSalesDao.updateSales(ttOpiExtendedSales);
+	}
+
 }

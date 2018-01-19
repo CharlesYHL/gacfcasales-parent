@@ -11,10 +11,32 @@ $(function() {
 		format : 'Y-m-d'
 	});
 	
-	jQuery("#brandId").append("<option value='0'>请选择</option>");
-	jQuery("#seriesId").append("<option value='0'>请选择</option>");
-	jQuery("#modelId").append("<option value='0'>请选择</option>");
-	jQuery("#apackage").append("<option value='0'>请选择</option>");
+	var rtbrandId = $("#rtbrandId").val();
+	var rtbrandCode = $("#rtbrandCode").val();
+	var rtbrandName = $("#rtbrandName").val();
+	var rtseriesId = $("#rtseriesId").val();
+	var rtseriesCode = $("#rtseriesCode").val();
+	var rtseriesName = $("#rtseriesName").val();
+	var rtmodelId = $("#rtmodelId").val();
+	var rtmodelName = $("#rtmodelName").val();
+	var rtmodelCode = $("#rtmodelCode").val();
+	var rtapackageId = $("#rtapackageId").val();
+	var rtapackage = $("#rtapackage").val();
+	var rtapackageName = $("#rtbrandName").val();
+	
+	
+	if(rtbrandId != ''){
+		$("#brandId").append("<option selected='selected' value='"+rtbrandId+"'>"+rtbrandName+"</option>");
+	}
+	if(rtseriesId != ''){
+		$("#seriesId").append("<option selected='selected' value='"+rtseriesId+"'>"+rtseriesName+"</option>");
+	}
+	if(rtmodelId != ''){
+		$("#modelId").append("<option selected='selected' value='"+rtmodelId+"'>"+rtmodelName+"</option>");
+	}
+	if(rtapackageId != ''){
+		$("#apackage").append("<option selected='selected' value='"+rtapackageId+"'>"+rtapackageName+"</option>");
+	}
 	
 
 });
@@ -82,9 +104,6 @@ function getProductChild(values){
 	$("#productDescribtion").val(params.PRODUCT_DESCRIBTION);
 	$("#terminalNonSalesPrice").val(params.TERMINAL_NON_SALES_PRICE);
 	$("#terminalSalesPrice").val(params.TERMINAL_SALES_PRICE);
-	
-	$("#nonTaxCostPrice").val(params.NON_TAX_COST_PRICE);
-	$("#taxCostPrice").val(params.TAX_COST_PRICE);
 	
 	var nowDate = getNowDate();
 	var invoiceDate = $("#billingAt").val();
@@ -351,6 +370,7 @@ function save(){
 		$("#orderStatus").val("已保存");
 		
 		var param= {
+				PRODUCT_SALES_ID : $("#productSalesId").val(),
 				PRODUCT_SALES_ORDER:$("#salesOrder").val(),
 				PRODUCT_ID:$("#productId").val(),
 				PRODUCT_NO:$("#productNo").val(),
@@ -379,14 +399,12 @@ function save(){
 				TERMINAL_NON_SALES_PRICE:$("#terminalNonSalesPrice").val(),
 				TERMINAL_SALES_PRICE:$("#terminalSalesPrice").val(),
 				ACTUAL_NON_SALES_PRICE:$("#actualNonSalesPrice").val(),
-				TOTAL_AMOUNT:$("#totalAmount").val(),
-				NON_TAX_COST_PRICE:$("#nonTaxCostPrice").val(),
-				TAX_COST_PRICE:$("#taxCostPrice").val()
+				TOTAL_AMOUNT:$("#totalAmount").val()
 		};
 		
 		$.ajax({
 			type : "GET",
-			url : ctx + "/dmsSales/ajax/createSales",
+			url : ctx + "/dmsSales/ajax/editSales",
 			contentType : "application/json",
 			dataType : "json",
 			data : param,
@@ -394,7 +412,9 @@ function save(){
 			success : function(data) {
 				console.log("返回参数:" + data);
 				if (data == '0') {
-					alert("销售单新增成功");
+					alert("销售单编辑成功");
+				}else{
+					alert("销售单编辑失败");
 				}
 			},
 			error : function(data) {

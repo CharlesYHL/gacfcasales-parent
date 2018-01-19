@@ -31,7 +31,8 @@ public class Assist {
 		private String require;
 		private T value;
 		private String suffix;
-		
+		private String prefix;
+
 		public WhereRequire(String require, T value) {
 			super();
 			this.require = require;
@@ -45,6 +46,21 @@ public class Assist {
 			this.suffix = suffix;
 		}
 
+		public WhereRequire(String require, String suffix, T value, String prefix) {
+			super();
+			this.require = require;
+			this.value = value;
+			this.suffix = suffix;
+			this.prefix = prefix;
+		}
+
+		public String getPrefix() {
+			return prefix;
+		}
+
+		public void setPrefix(String prefix) {
+			this.prefix = prefix;
+		}
 
 		public String getRequire() {
 			return require;
@@ -69,7 +85,6 @@ public class Assist {
 		public void setSuffix(String suffix) {
 			this.suffix = suffix;
 		}
-		
 
 	}
 
@@ -242,24 +257,30 @@ public class Assist {
 		return new Assist().new WhereRequire<T>("or " + column + " like ", req);
 	}
 
+	public static <T> WhereRequire<T> andIn(String column, T req) {
+		return new Assist().new WhereRequire<T>("and " + column + " in ( ", req, " )");
+	}
+
 	/**
-	 * 自定义查询条件 :参数(自定义开头语句)1    参数(条件值)2     参数(自定义结尾语句)3 ;如果表中存在相同列名使用表名.列名,如果不存在相同列名可以直接列名<br>
-	 * 示例子查询:<br> 
+	 * 自定义查询条件 :参数(自定义开头语句)1 参数(条件值)2 参数(自定义结尾语句)3
+	 * ;如果表中存在相同列名使用表名.列名,如果不存在相同列名可以直接列名<br>
+	 * 示例子查询:<br>
 	 * 参数1= 列名 in (select 返回列名 from 表名 where 列名 = <br>
 	 * 参数2= 123456<br>
 	 * 参数3= ) <br>
 	 * 假设有一张user表,里面有id列结果为:<br>
 	 * select * from user where id in (select id from user where id=123456)<br>
 	 * <b>需要特别注意的是,当where中不止一个条件的时候需要加上and或者or,根据自己的情况而定</b>
+	 * 
 	 * @param prefix
 	 * @param value
 	 * @param suffix
 	 * @return
 	 */
-	public static <T> WhereRequire<T> customRequire(String prefix, T value,String suffix) {
-		return new Assist().new WhereRequire<T>(prefix, value,suffix);
+	public static <T> WhereRequire<T> customRequire(String prefix, T value, String suffix) {
+		return new Assist().new WhereRequire<T>(prefix, value, suffix);
 	}
-	
+
 	/**
 	 * 将(列名)参数1 按 参数2排序(true=ASC/false=DESC)
 	 * ;如果表中存在相同列名,列名为XML配置文件中的列名:一般为:表名.列名/实体类名+列名
@@ -388,5 +409,3 @@ public class Assist {
 		}
 	}
 }
-
-

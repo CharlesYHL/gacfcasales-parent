@@ -2,43 +2,19 @@
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <%@ include file="/WEB-INF/views/include/base.jsp"%>
 
-<div id="addSalesApp" v-cloak>
-	<input type="text" id="saleOrderId" name="saleOrderId"
-		value="${requestScope.dmsSalesDto.saleOrderId}" hidden="hidden" /> <input
-		type="text" id="employeeName" name="employeeName"
-		value="${requestScope.dmsSalesDto.employeeName}" hidden="hidden" /> <input
-		type="text" id="brandCode" name="brandCode"
-		value="${requestScope.dmsSalesDto.BRAND}" hidden="hidden" /> <input
-		type="text" id="seriesCode" name="seriesCode"
-		value="${requestScope.dmsSalesDto.SERIES}" hidden="hidden" /> <input
-		type="text" id="modelCode" name="modelCode"
-		value="${requestScope.dmsSalesDto.MODEL}" hidden="hidden" /> <input
-		type="text" id="apackageCode" name="apackageCode"
-		value="${requestScope.dmsSalesDto.APACKAGE}" hidden="hidden" /> <input
-		type="text" id="brandName" name="brandName"
-		value="${requestScope.dmsSalesDto.BRAND_NAME}" hidden="hidden" /> <input
-		type="text" id="seriesName" name="seriesName"
-		value="${requestScope.dmsSalesDto.SERIES_NAME}" hidden="hidden" /> <input
-		type="text" id="modelName" name="modelName" value="" hidden="hidden" />
-	<input type="text" id="apackageName" name="apackageName" value=""
-		hidden="hidden" /> <input type="text" id="productId" name="productId"
-		value="" hidden="hidden" /> <input type="text" id="liceseNo"
-		name="liceseNo" value="" hidden="hidden" /> <input type="text"
-		id="rBrandId" name="rBrandId"
-		value="${requestScope.dmsSalesDto.BRAND_ID}" hidden="hidden" /> <input
-		type="text" id="rSeriesId" name="rSeriesId"
-		value="${requestScope.dmsSalesDto.SERIES_ID}" hidden="hidden" /> <input
-		type="text" id="rModelId" name="rModelId"
-		value="${requestScope.dmsSalesDto.MODEL_ID}" hidden="hidden" /> <input
-		type="text" id="rApackageId" name="rApackageId"
-		value="${requestScope.dmsSalesDto.APACKAGE_ID}" hidden="hidden" /> <input
-		type="text" id="nonTaxCostPrice" name="nonTaxCostPrice"
-		value="${requestScope.dmsSalesDto.NON_TAX_COST_PRICE}" hidden="hidden" />
-	<input type="text" id="taxCostPrice" name="taxCostPrice"
-		value="${requestScope.dmsSalesDto.TAX_COST_PRICE}" hidden="hidden" />
-
-
-
+<div id="detailSalesApp" v-cloak>
+	<input type="text" id="rbrandId" name="rbrandId" value="${requestScope.ttOpiExtendedSales.BRAND_ID}" hidden="hidden" />
+	<input type="text" id="rbrandName" name="rbrandName" value="${requestScope.ttOpiExtendedSales.BRAND_NAME}" hidden="hidden" />
+	<input type="text" id="rbrandCode" name="rbrandCode" value="${requestScope.ttOpiExtendedSales.BRAND_CODE}" hidden="hidden" />
+	<input type="text" id="rseriesId" name="rseriesId" value="${requestScope.ttOpiExtendedSales.SERIES_ID}" hidden="hidden" />
+	<input type="text" id="rseriesName" name="rseriesName" value="${requestScope.ttOpiExtendedSales.SERIES_NAME}" hidden="hidden" />
+	<input type="text" id="rseriesCode" name="rseriesCode" value="${requestScope.ttOpiExtendedSales.SERIES_CODE}" hidden="hidden" />
+	<input type="text" id="rmodelId" name="rmodelId" value="${requestScope.ttOpiExtendedSales.MODEL_ID}" hidden="hidden" />
+	<input type="text" id="rmodelName" name="rmodelName" value="${requestScope.ttOpiExtendedSales.MODEL_NAME}" hidden="hidden" />
+	<input type="text" id="rmodelCode" name="rmodelCode" value="${requestScope.ttOpiExtendedSales.MODEL_CODE}" hidden="hidden" />
+	<input type="text" id="rapackageId" name="rapackageId" value="${requestScope.ttOpiExtendedSales.APACKAGE_ID}" hidden="hidden" />
+	<input type="text" id="rapackage" name="rapackage" value="${requestScope.ttOpiExtendedSales.APACKAGE}" hidden="hidden" />
+	<input type="text" id="rapackageName" name="rapackageName" value="${requestScope.ttOpiExtendedSales.APACKAGE_NAME}" hidden="hidden" />
 	<div v-show="showList">
 		<div class="row">
 			<div class="col-xs-offset-1 col-xs-10">
@@ -54,27 +30,23 @@
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">销售单编号</span>
-								<input type="text" class="form-control" name="salesOrder"
+								<input type="text" class="form-control" name="salesOrder" 
 									disabled="disabled" id="salesOrder"
-									value="${requestScope.dmsSalesDto.saleOrderId}"
-									placeholder="请输入销售单编号" />
+									value="${requestScope.ttOpiExtendedSales.PRODUCT_SALES_ORDER}" placeholder="请输入销售单编号" />
 							</div>
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">创建人</span>
 								<input type="text" class="form-control" name="createdBy"
 									disabled="disabled" id="createdBy"
-									value="${requestScope.dmsSalesDto.employeeName}"
-									placeholder="请输入创建人" />
+									value="${requestScope.ttOpiExtendedSales.CREATE_NAME}" placeholder="请输入创建人" />
 							</div>
 
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">创建时间</span>
-								<input id="createAt" name="createAt" type="text"
-									disabled="disabled" class="form-control"
-									value="${requestScope.dmsSalesDto.createAt}"
-									placeholder="请输入创建时间" />
+								<input id="createAt" name="createAt" type="text" disabled="disabled"
+									class="form-control" value="${requestScope.ttOpiExtendedSales.CREATED_AT}" placeholder="请输入创建时间" />
 							</div>
 						</div>
 						<div style="height: 3px;"></div>
@@ -83,30 +55,24 @@
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">客户姓名</span>
-								<input type="text" class="form-control" name="customerName"
-									id="customerName"
-									value="${requestScope.dmsSalesDto.customerName}"
-									placeholder="请输入客户姓名" /> <span class="input-group-addon"
-									style="color: red">*</span>
+								<input type="text" class="form-control" name="customerName" disabled="disabled"
+									id="customerName" value="${requestScope.ttOpiExtendedSales.CUSTOMER_NAME}" placeholder="请输入客户姓名" /> <span
+									class="input-group-addon" style="color: red">*</span>
 							</div>
 
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">联系方式</span>
-								<input type="text" class="form-control" name="customerContact"
-									id="customerContact"
-									value="${requestScope.dmsSalesDto.customerContact}"
-									placeholder="请输入联系方式" /> <span class="input-group-addon"
-									style="color: red">*</span>
+								<input type="text" class="form-control" name="customerContact" disabled="disabled"
+									id="customerContact" value="${requestScope.ttOpiExtendedSales.CUSTOMER_CONTACT}" placeholder="请输入联系方式" /> <span
+									class="input-group-addon" style="color: red">*</span>
 							</div>
 
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">单据状态</span>
-								<input type="text" class="form-control" name="orderStatus"
-									disabled="disabled" id="orderStatus"
-									value="${requestScope.dmsSalesDto.orderStatus}"
-									placeholder="请输入单据状态" />
+								<input type="text" class="form-control" name="orderStatus" disabled="disabled"
+									id="orderStatus" value="${requestScope.ttOpiExtendedSales.ORDER_STATUS}" placeholder="请输入单据状态" />
 								<!-- <select name="orderStatus" id="orderStatus" class="selectpicker"></select> -->
 							</div>
 
@@ -120,12 +86,11 @@
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">VIN</span>
-								<input type="text" class="form-control" name="vin" id="vin"
-									value="${requestScope.dmsSalesDto.VIN}" placeholder="请输入VIN" />
-								<span class="input-group-btn">
-									<button class="btn default btn-sm" onclick="queryVin()">
+								<input type="text" class="form-control" name="vin" id="vin" disabled="disabled"
+									value="${requestScope.ttOpiExtendedSales.VIN}" placeholder="请输入VIN" /> <span class="input-group-btn">
+									<!-- <button class="btn default btn-sm" onclick="queryVin()">
 										<i class="glyphicon glyphicon-search"></i>
-									</button>
+									</button> -->
 								</span>
 							</div>
 							<div class="input-group input-group-sm"
@@ -163,9 +128,7 @@
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">年款</span> <input
 									type="text" class="form-control" name="yearModel"
-									disabled="disabled" id="yearModel"
-									value="${requestScope.dmsSalesDto.YEAR_MODEL}"
-									placeholder="请输入年款" />
+									disabled="disabled" id="yearModel" value="${requestScope.ttOpiExtendedSales.YEAR_MODEL}" placeholder="请输入年款" />
 							</div>
 
 						</div>
@@ -176,25 +139,19 @@
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">开票日期</span>
 								<input id="billingAt" name="billingAt" type="text"
-									class="form-control"
-									value="${requestScope.dmsSalesDto.INVOICE_DATE}"
-									placeholder="请输入开票日期" />
+									class="form-control" value="${requestScope.ttOpiExtendedSales.BILLING_AT}" placeholder="请输入开票日期" />
 							</div>
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">车主编号</span>
-								<input type="text" class="form-control" name="ownerNo"
-									disabled="disabled" id="ownerNo"
-									value="${requestScope.dmsSalesDto.OWNER_NO}"
-									placeholder="请输入车主编号" />
+								<input type="text" class="form-control" name="ownerNo" disabled="disabled"
+									id="ownerNo" value="${requestScope.ttOpiExtendedSales.OWNER_NO}" placeholder="请输入车主编号" />
 							</div>
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">车主姓名</span>
-								<input type="text" class="form-control" name="ownerName"
-									disabled="disabled" id="ownerName"
-									value="${requestScope.dmsSalesDto.OWNER_NAME}"
-									placeholder="请输入车主姓名" />
+								<input type="text" class="form-control" name="ownerName" disabled="disabled"
+									id="ownerName" value="${requestScope.ttOpiExtendedSales.OWNER_NAME}" placeholder="请输入车主姓名" />
 							</div>
 						</div>
 						<div style="height: 3px;"></div>
@@ -203,17 +160,14 @@
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">车主电话</span>
-								<input type="text" class="form-control" name="ownerPhone"
-									disabled="disabled" id="ownerPhone"
-									value="${requestScope.dmsSalesDto.PHONE}" placeholder="请输入车主电话" />
+								<input type="text" class="form-control" name="ownerPhone" disabled="disabled"
+									id="ownerPhone" value="${requestScope.ttOpiExtendedSales.OWNER_PHONE}" placeholder="请输入车主电话" />
 							</div>
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">车主手机</span>
-								<input type="text" class="form-control" name="ownerMobile"
-									disabled="disabled" id="ownerMobile"
-									value="${requestScope.dmsSalesDto.MOBILE}"
-									placeholder="请输入车主手机" />
+								<input type="text" class="form-control" name="ownerMobile" disabled="disabled"
+									id="ownerMobile" value="${requestScope.ttOpiExtendedSales.OWNER_MOBILE}" placeholder="请输入车主手机" />
 							</div>
 						</div>
 
@@ -226,29 +180,25 @@
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">产品编号</span>
 								<input type="text" class="form-control" name="productNo"
-									id="productNo" value="${requestScope.dmsSalesDto.PRODUCT_NO}"
-									placeholder="请输入产品编号" /> <span class="input-group-btn">
-									<button class="btn default btn-sm" onclick="addProduct();">
+									id="productNo" value="${requestScope.ttOpiExtendedSales.PRODUCT_NO}" placeholder="请输入产品编号" /> <span
+									class="input-group-btn">
+									<!-- <button class="btn default btn-sm" onclick="addProduct();">
 										<i class="glyphicon glyphicon-search"></i>
-									</button>
+									</button> -->
 								</span>
 							</div>
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">产品名称</span>
-								<input type="text" class="form-control" name="productName"
-									disabled="disabled" id="productName"
-									value="${requestScope.dmsSalesDto.PRODUCT_NAME}"
-									placeholder="请输入产品名称" />
+								<input type="text" class="form-control" name="productName" disabled="disabled"
+									id="productName" value="${requestScope.ttOpiExtendedSales.PRODUCT_NAME}" placeholder="请输入产品名称" />
 							</div>
 
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">产品有效期</span>
-								<input type="text" class="form-control" name="productDate"
-									disabled="disabled" id="productDate"
-									value="${requestScope.dmsSalesDto.PRODUCT_DATE}"
-									placeholder="请输入产品有效期" />
+								<input type="text" class="form-control" name="productDate" disabled="disabled"
+									id="productDate" value="${requestScope.ttOpiExtendedSales.PRODUCT_DATE}" placeholder="请输入产品有效期" />
 							</div>
 
 						</div>
@@ -260,25 +210,21 @@
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">产品说明</span>
 								<input type="text" class="form-control" disabled="disabled"
-									name="productDescribtion" id="productDescribtion"
-									value="${requestScope.dmsSalesDto.PRODUCT_DESCRIBTION}"
+									name="productDescribtion" id="productDescribtion" value="${requestScope.ttOpiExtendedSales.PRODUCT_DESCRIBTION}"
 									placeholder="请输入产品说明" />
 							</div>
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">终端不含税销售价</span>
 								<input type="text" class="form-control"
-									name="terminalNonSalesPrice" id="terminalNonSalesPrice"
-									disabled="disabled"
-									value="${requestScope.dmsSalesDto.TERMINAL_NON_SALES_PRICE}"
-									placeholder="请输入终端不含税销售价" />
+									name="terminalNonSalesPrice" id="terminalNonSalesPrice" disabled="disabled"
+									value="${requestScope.ttOpiExtendedSales.TERMINAL_NON_SALES_PRICE}" placeholder="请输入终端不含税销售价" />
 							</div>
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">终端含税销售价</span>
 								<input type="text" class="form-control" disabled="disabled"
-									name="terminalSalesPrice" id="terminalSalesPrice"
-									value="${requestScope.dmsSalesDto.TERMINAL_SALES_PRICE}"
+									name="terminalSalesPrice" id="terminalSalesPrice" value="${requestScope.ttOpiExtendedSales.TERMINAL_SALES_PRICE}"
 									placeholder="请输入终端含税销售价" />
 							</div>
 
@@ -289,18 +235,14 @@
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">生效开始时间</span>
-								<input type="text" class="form-control" name="takeEffectStart"
-									id="takeEffectStart"
-									value="${requestScope.dmsSalesDto.SALES_DATE_START}"
-									placeholder="请输入生效开始时间" />
+								<input type="text" class="form-control" name="takeEffectStart" disabled="disabled"
+									id="takeEffectStart" value="${requestScope.ttOpiExtendedSales.TAKE_EFFECT_START}" placeholder="请输入生效开始时间" />
 							</div>
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">生效结束时间</span>
-								<input type="text" class="form-control" name="takeEffectEnd"
-									id="takeEffectEnd"
-									value="${requestScope.dmsSalesDto.SALES_DATE_END}"
-									placeholder="请输入生效结束时间" />
+								<input type="text" class="form-control" name="takeEffectEnd" disabled="disabled"
+									id="takeEffectEnd" value="${requestScope.ttOpiExtendedSales.TAKE_EFFECT_END}" placeholder="请输入生效结束时间" />
 							</div>
 						</div>
 
@@ -313,34 +255,29 @@
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">购买数量</span>
-								<input type="text" class="form-control" name="purchaseNumber"
-									disabled="disabled" id="purchaseNumber" value="1"
-									placeholder="请输入购买数量" />
+								<input type="text" class="form-control" name="purchaseNumber" disabled="disabled"
+									id="purchaseNumber" value="${requestScope.ttOpiExtendedSales.PURCHASE_NUMBER}" placeholder="请输入购买数量" />
 							</div>
 
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">实际不含税销售价</span>
-								<input type="text" class="form-control"
-									name="actualNonSalesPrice" id="actualNonSalesPrice"
-									onkeyup="taxSales()"
-									value="${requestScope.dmsSalesDto.ACTUAL_NON_SALES_PRICE}"
+								<input type="text" class="form-control" disabled="disabled"
+									name="actualNonSalesPrice" id="actualNonSalesPrice" value="${requestScope.ttOpiExtendedSales.ACTUAL_NON_SALES_PRICE}"
 									placeholder="请输入实际不含税销售价" />
 							</div>
 
 							<div class="input-group input-group-sm"
 								style="margin-right: 19px; width: 240px;">
 								<span class="input-group-addon" style="width: 50px;">含税总额(6%)</span>
-								<input type="text" class="form-control" name="totalAmount"
-									disabled="disabled" id="totalAmount"
-									value="${requestScope.dmsSalesDto.TOTAL_AMOUNT}"
-									placeholder="请输入含税总额" />
+								<input type="text" class="form-control" name="totalAmount" disabled="disabled"
+									id="totalAmount" value="${requestScope.ttOpiExtendedSales.TOTAL_AMOUNT}" placeholder="请输入含税总额" />
 							</div>
 
 						</div>
 
 						<div style="height: 3px;"></div>
-						<div>
+						<!-- <div>
 							<div class="input-group input-group-sm"
 								style="margin-left: 40%;; margin-right: 8px;">
 								<button id="btn_save" type="button"
@@ -372,14 +309,13 @@
 								</button>
 							</div>
 						</div>
-
+ -->
 					</div>
 				</div>
 			</div>
 		</div>
 
 	</div>
-
 </div>
 
-<script src="${ctx}/resource/js/sysPage/addSales.js"></script>
+<script src="${ctx}/resource/js/sysPage/detailSales.js"></script>

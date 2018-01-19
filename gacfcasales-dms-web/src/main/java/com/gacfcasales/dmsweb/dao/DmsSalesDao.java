@@ -28,4 +28,12 @@ public interface DmsSalesDao {
 	 //导出销售单信息
 	 List<Map> exportSalesExcel(Assist assist);
 	 
+	 TtOpiExtendedSales selectTtOpiExtendedSales(String PRODUCT_SALES_ID);
+	 
+	 //作废销售单
+	 void updateSalesInvalid(Map map);
+	 
+	 //编辑销售单
+	 void updateSales(TtOpiExtendedSales ttOpiExtendedSales);
+	 
 }

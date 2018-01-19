@@ -20,10 +20,19 @@ public interface DmsSalesService {
 	// 保存销售单
 	void insertSales(TtOpiExtendedSales ttOpiExtendedSales);
 
-	//查询销售单信息
+	// 查询销售单信息
 	List<Map> getSalesList(Assist assist);
+
 	long getSalesRowCount(Assist assist);
-	
-	//导出销售单信息
+
+	// 导出销售单信息
 	List<Map> exportSalesExcel(Assist assist);
+
+	TtOpiExtendedSales selectTtOpiExtendedSales(String PRODUCT_SALES_ID);
+
+	// 作废销售单
+	void updateSalesInvalid(Map map);
+
+	// 编辑销售单
+	void updateSales(TtOpiExtendedSales ttOpiExtendedSales);
 }

@@ -37,7 +37,9 @@ var vm = new Vue({
 				PRODUCT_DESCRIBTION:selected[0].PRODUCT_DESCRIBTION,
 				PRODUCT_DATE:selected[0].PRODUCT_DATE,
 				TERMINAL_NON_SALES_PRICE:selected[0].TERMINAL_NON_SALES_PRICE,
-				TERMINAL_SALES_PRICE:selected[0].TERMINAL_SALES_PRICE
+				TERMINAL_SALES_PRICE:selected[0].TERMINAL_SALES_PRICE,
+				NON_TAX_COST_PRICE:selected[0].NON_TAX_COST_PRICE,
+				TAX_COST_PRICE:selected[0].TAX_COST_PRICE
 			};
 			
 			parent.getProductChild(params);
@@ -145,6 +147,18 @@ var TableInit = function() {
 				title : '含税终端销售价(6%)',
 				align : 'center',
 				valign : 'middle'
+			}, {
+				field : 'NON_TAX_COST_PRICE',
+				title : '不含税成本价',
+				align : 'center',
+				valign : 'middle',
+				visible : false
+			}, {
+				field : 'TAX_COST_PRICE',
+				title : '含税成本价(6%)',
+				align : 'center',
+				valign : 'middle',
+				visible : false
 			}
 
 			]

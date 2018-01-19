@@ -36,10 +36,26 @@ public class DmsSalesPage implements Serializable {
 	private String PRODUCT_DESCRIBTION;
 	private String TERMINAL_NON_SALES_PRICE;
 	private String TERMINAL_SALES_PRICE;
+	private String NON_TAX_COST_PRICE;
+	private String TAX_COST_PRICE;
 	private String TAKE_EFFECT_START;
 	private String TAKE_EFFECT_END;
 
-	
+	public String getNON_TAX_COST_PRICE() {
+		return NON_TAX_COST_PRICE;
+	}
+
+	public void setNON_TAX_COST_PRICE(String nON_TAX_COST_PRICE) {
+		NON_TAX_COST_PRICE = nON_TAX_COST_PRICE;
+	}
+
+	public String getTAX_COST_PRICE() {
+		return TAX_COST_PRICE;
+	}
+
+	public void setTAX_COST_PRICE(String tAX_COST_PRICE) {
+		TAX_COST_PRICE = tAX_COST_PRICE;
+	}
 
 	public String getSaleOrderId() {
 		return saleOrderId;
