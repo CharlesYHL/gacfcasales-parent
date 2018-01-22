@@ -28,9 +28,15 @@ public class SalesDcsServiceImpl implements SalesDcsService {
 	}
 
 	@Override
-	public List<Map> getSalesListExport(Assist assist) {
+	public List<Map> getSalesListExport(Map map) {
 		// TODO Auto-generated method stub
-		return salesDcsDao.getSalesListExport(assist);
+		return salesDcsDao.getSalesListExport(map);
+	}
+
+	@Override
+	public Map getSalesFindBySalesId(String PRODUCT_SALES_ID) {
+		// TODO Auto-generated method stub
+		return salesDcsDao.getSalesFindBySalesId(PRODUCT_SALES_ID);
 	}
 
 }

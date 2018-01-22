@@ -12,6 +12,9 @@ public interface SalesDcsService {
 	long getSalesRowCount(Map map);
 
 	// 导出Excel
-	List<Map> getSalesListExport(Assist assist);
+	List<Map> getSalesListExport(Map map);
+	
+	//明细
+	Map getSalesFindBySalesId(String PRODUCT_SALES_ID);
 
 }

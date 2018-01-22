@@ -91,7 +91,7 @@ function getSmallOrg() {
 function getBrand() {
 	$.ajax({
 		type : "GET",
-		url : ctx + "/dmsSales/ajax/getBrandList",
+		url : ctx + "/dcsSales/ajax/getBrandList",
 		contentType : "application/json",
 		dataType : "json",
 		cache : false,
@@ -119,7 +119,7 @@ function getSeries() {
 	$("#modelId").selectpicker('refresh');
 	$.ajax({
 		type : "GET",
-		url : ctx + "/dmsSales/ajax/getSeriesList?groupId=" + groupId,
+		url : ctx + "/dcsSales/ajax/getSeriesList?groupId=" + groupId,
 		contentType : "application/json",
 		data : JSON.stringify(vm.sysUser),
 		dataType : "json",
@@ -147,7 +147,7 @@ function getModel() {
 	var groupId = $("#seriesId").val();
 	$.ajax({
 		type : "GET",
-		url : ctx + "/dmsSales/ajax/getModelList?groupId=" + groupId,
+		url : ctx + "/dcsSales/ajax/getModelList?groupId=" + groupId,
 		contentType : "application/json",
 		data : JSON.stringify(vm.sysUser),
 		dataType : "json",
@@ -554,4 +554,61 @@ function query() {
 	var oTable = new TableInit();
 	oTable.Init();
 	vm.reload();
+}
+
+function exportExcel() {
+	var BIG_ORG = $("#bigOrg").val();
+	var SMALL_ORG = $("#smallOrg").val();
+	var DEALER_CODE = $("#dealerCode").val();
+	var DEALER_NAME = $("#dealerName").val();
+	var PRODUCT_SALES_ORDER = $("#productSalesOrder").val();
+	var PRODUCT_NO = $("#productNo").val();
+	var PRODUCT_NAME = $("#productName").val();
+	var PRODUCT_DATE = $("#productDate").val();
+	var BRAND_ID = $("#brandId").val();
+	var SERIES_ID = $("#seriesId").val();
+	var MODEL_ID = $("#modelId").val();
+	var VIN = $("#vin").val();
+	var LICENSE_NO = $("#licenseNo").val();
+	var CUSTOMER_NAME = $("#customerName").val();
+	var CREATED_AT_START = $("#createStart").val();
+	var CREATED_AT_END = $("#createEnd").val();
+	var CLOSED_AT_START = $("#closedStart").val();
+	var CLOSED_AT_END = $("#closedEnd").val();
+
+	window.location.href = ctx + '/dcsSales/ajax/exportSalesExcel?BIG_ORG='
+			+ encodeURI(encodeURI(BIG_ORG)) + '&SMALL_ORG='
+			+ encodeURI(encodeURI(SMALL_ORG)) + '&DEALER_CODE='
+			+ encodeURI(encodeURI(DEALER_CODE)) + '&DEALER_NAME='
+			+ encodeURI(encodeURI(DEALER_NAME)) + '&PRODUCT_SALES_ORDER='
+			+ encodeURI(encodeURI(PRODUCT_SALES_ORDER)) + '&PRODUCT_NO='
+			+ encodeURI(encodeURI(PRODUCT_NO)) + '&PRODUCT_NAME='
+			+ encodeURI(encodeURI(PRODUCT_NAME)) + '&PRODUCT_DATE='
+			+ encodeURI(encodeURI(PRODUCT_DATE)) + '&BRAND_ID='
+			+ encodeURI(encodeURI(BRAND_ID)) + '&SERIES_ID='
+			+ encodeURI(encodeURI(SERIES_ID)) + '&MODEL_ID='
+			+ encodeURI(encodeURI(MODEL_ID)) + '&VIN='
+			+ encodeURI(encodeURI(VIN)) + '&LICENSE_NO='
+			+ encodeURI(encodeURI(LICENSE_NO)) + '&CUSTOMER_NAME='
+			+ encodeURI(encodeURI(CUSTOMER_NAME)) + '&CREATED_AT_START='
+			+ encodeURI(encodeURI(CREATED_AT_START)) + '&CREATED_AT_END='
+			+ encodeURI(encodeURI(CREATED_AT_END)) + '&CLOSED_AT_START='
+			+ encodeURI(encodeURI(CLOSED_AT_START)) + '&CLOSED_AT_END='
+			+ encodeURI(encodeURI(CLOSED_AT_END))
+
+}
+
+
+function detail(productSalesId){
+	if(productSalesId != '' ){
+		globe_index = layer.open({
+			id : 'detailSales',
+			title : '销售订单明细',
+			type : 2,
+			area : [ '90%', '100%' ],
+			fixed : true, // 固定
+			maxmin : false,
+			content : ctx + '/dcsSales/ajax/detailSales?PRODUCT_SALES_ID='+productSalesId
+		});
+	}
 }
