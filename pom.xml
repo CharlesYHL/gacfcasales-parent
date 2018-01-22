@@ -21,7 +21,7 @@
 		<shiro.version>1.3.2</shiro.version>
 		<mail.version>1.4</mail.version>
 		<validation.version>1.0.0.GA</validation.version>
-		<axis2.version>1.7.4</axis2.version>
+		<axis2.version>1.7.5</axis2.version>
 		<poi.version>3.14</poi.version>
 	</properties>
 	

@@ -35,4 +35,6 @@ public interface DmsSalesService {
 
 	// 编辑销售单
 	void updateSales(TtOpiExtendedSales ttOpiExtendedSales);
+	Map selectDataToSap(String PRODUCT_SALES_ORDER);
+	void updateSapData(Map map);
 }

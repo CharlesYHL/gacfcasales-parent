@@ -407,11 +407,43 @@ function save(){
 }
 
 function submit(){
-	$("#orderStatus").val("已提交");
-	var orderStatus = $("#orderStatus").val();
+	//$("#orderStatus").val("已提交");
+	/*var orderStatus = $("#orderStatus").val();
 	if(orderStatus == '扣款成功'){
 		$("#btn_print").attr("disabled", false);
-	}
+	}*/
+	var productSalesOrder = $("#salesOrder").val();
+	layer.confirm('销售单据一旦提交，不可作废，请再次确认是否提交？', {
+		btn : [ '确定', '取消' ]
+	// 按钮
+	}, function() {
+		$.ajax({
+			type: "GET",
+		    url: ctx + "/dmsSales/ajax/submitSales?productSalesOrder="+productSalesOrder,
+	        contentType: "application/json",
+		    dataType: "json",
+			cache: false,
+		    success: function(data){
+		    	console.log("返回参数:"+data);
+		    	if(data == 0){
+		    		alert("扣款成功!");
+		    		$("#btn_print").attr("disabled", false);
+		    		//vm.reload();
+		    	}else{
+		    		alert("扣款失败!");
+		    	}
+			},error :function(data){
+				console.log(data);
+			}
+		});
+		
+		/*layer.msg('的确很重要', {
+			icon : 1
+		});*/
+	}, function() {
+
+	});
+	
 }
 
 

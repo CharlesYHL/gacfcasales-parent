@@ -37,6 +37,7 @@ import com.gacfcasales.common.util.DateTimeUtil;
 import com.gacfcasales.common.util.OemDictCodeConstants;
 import com.gacfcasales.dmsweb.service.CommonNoService;
 import com.gacfcasales.dmsweb.service.DmsSalesService;
+import com.gacfcasales.dmsweb.webservice.ssrtosap.Sdsd001Main;
 
 @Controller
 @RequestMapping("/dmsSales")
@@ -581,6 +582,46 @@ public class DmsSalesController {
 			return "0";
 		}
 		return "1";
+	}
+	
+	
+	//提交销售订单到SAP
+	@RequestMapping(value = "/ajax/submitSales", method = RequestMethod.GET)
+	@ResponseBody
+	public String submitSales(@RequestParam String productSalesOrder,HttpSession httpSession) {
+		TmUser tmUser = (TmUser) httpSession.getAttribute("users");
+		Map mapt = dmsSalesService.getEntityCode(tmUser.getDEALER_CODE());
+		Map mapId = new HashMap();
+		mapId.put("dealerCode", mapt.get("ENTITY_CODE").toString());
+		mapId.put("employeeNo", tmUser.getEMPLOYEE_NO());
+		if (productSalesOrder != null && !"".equals(productSalesOrder)) {
+			Map map = dmsSalesService.selectDataToSap(productSalesOrder);
+			if(map != null) {
+				Map returnMap = Sdsd001Main.Sdsd001ToSap(map);
+				if(returnMap != null) {
+					returnMap.put("PRODUCT_SALES_ORDER", map.get("PRODUCT_SALES_ORDER"));
+					returnMap.put("PRODUCT_SALES_ID", map.get("PRODUCT_SALES_ID"));
+					if("S".equals(returnMap.get("IS_RESULT"))) {
+						returnMap.put("ORDER_STATUS", 55011002);
+						returnMap.put("CLOSED_BY", commonNoService.getTmUserId(mapId).get("USER_ID").toString());
+						returnMap.put("CLOSED_AT", new Date());
+					}else {
+						returnMap.put("ORDER_STATUS", 55011003);
+						returnMap.put("CLOSED_BY", null);
+						returnMap.put("CLOSED_AT", null);
+					}
+					
+					dmsSalesService.updateSapData(returnMap);
+					
+					if("S".equals(returnMap.get("IS_RESULT"))) {
+						return "0";
+					}
+					
+				}
+			}
+		}
+		return "1";
+		
 	}
 	
 	
