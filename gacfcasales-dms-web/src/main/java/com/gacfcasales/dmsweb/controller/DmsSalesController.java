@@ -87,10 +87,12 @@ public class DmsSalesController {
 		dmsSalesDto.setEMPLOYEE_NO(tmUser.getEMPLOYEE_NO());
 		Map map = dmsSalesService.getEntityCode(tmUser.getDEALER_CODE());
 		if (map != null) {
-			Long salesOrderId = commonNoService.getId("SO", map.get("ENTITY_CODE").toString());
+			// Long salesOrderId = commonNoService.getId("SO",
+			// map.get("ENTITY_CODE").toString());
+
 			// Long salesOrderId = commonNoService.getIds("ID", "999999");
 			// mav.addObject("salesOrderId", salesOrderId);
-			dmsSalesDto.setSaleOrderId(salesOrderId.toString());
+			dmsSalesDto.setSaleOrderId(commonNoService.getSystemOrderNo("SO", map.get("ENTITY_CODE").toString()));
 		}
 		Map mapUser = dmsSalesService.getUserName(map.get("ENTITY_CODE").toString(), tmUser.getEMPLOYEE_NO());
 		if (mapUser != null) {
@@ -274,9 +276,10 @@ public class DmsSalesController {
 			ttOpiExtendedSales.setPRODUCT_SALES_ID(commonNoService.getId("ID", mapCode.get("ENTITY_CODE").toString()));
 			ttOpiExtendedSales.setDEALER_CODE(mapCode.get("ENTITY_CODE").toString());
 
-			if (ttOpiExtendedSales.getORDER_STATUS() != null && !"".equals(ttOpiExtendedSales.getORDER_STATUS())) {
-				ttOpiExtendedSales.setORDER_STATUS_T(OemDictCodeConstants.PRODUCT_SALES_STATUS_01);
-			}
+			// if (ttOpiExtendedSales.getORDER_STATUS() != null &&
+			// !"".equals(ttOpiExtendedSales.getORDER_STATUS())) {
+			ttOpiExtendedSales.setORDER_STATUS_T(OemDictCodeConstants.PRODUCT_SALES_STATUS_01);
+			// }
 
 			ttOpiExtendedSales.setCREATED_BY(commonNoService.getTmUserId(map).get("USER_ID").toString());
 			dmsSalesService.insertSales(ttOpiExtendedSales);
@@ -371,7 +374,7 @@ public class DmsSalesController {
 			// assist.setRequires(Assist.andEq("bsm.CREATED_AT",
 			// ttOpiExtendedSales.getORDER_STATUS()));
 		}
-		assist.setOrder("bsm.PRODUCT_SALES_ID,bsm.PRODUCT_SALES_ORDER", true);
+		assist.setOrder("bsm.PRODUCT_SALES_ID,bsm.PRODUCT_SALES_ORDER,bsm.CREATED_AT", true);
 		long count = dmsSalesService.getSalesRowCount(assist);
 		List<Map> list = dmsSalesService.getSalesList(assist);
 		result.setTotalCount(count);
@@ -529,7 +532,8 @@ public class DmsSalesController {
 		TmUser tmUser = (TmUser) httpSession.getAttribute("users");
 		Map invalidMap = new HashMap();
 		Map map = dmsSalesService.getEntityCode(tmUser.getDEALER_CODE());
-		//Map mapUser = dmsSalesService.getUserName(map.get("ENTITY_CODE").toString(), tmUser.getEMPLOYEE_NO());
+		// Map mapUser = dmsSalesService.getUserName(map.get("ENTITY_CODE").toString(),
+		// tmUser.getEMPLOYEE_NO());
 		Map mapId = new HashMap();
 		mapId.put("dealerCode", map.get("ENTITY_CODE").toString());
 		mapId.put("employeeNo", tmUser.getEMPLOYEE_NO());
@@ -544,9 +548,8 @@ public class DmsSalesController {
 		}
 		return "1";
 	}
-	
-	
-	//销售单编辑 
+
+	// 销售单编辑
 	@RequestMapping(value = "/ajax/toSalesEdit", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView toSalesEdit(@RequestParam String productSalesId) {
@@ -558,8 +561,8 @@ public class DmsSalesController {
 
 		return mav;
 	}
-	
-	//编辑销售订单
+
+	// 编辑销售订单
 	@RequestMapping(value = "/ajax/editSales", method = RequestMethod.GET)
 	@ResponseBody
 	public String editSales(TtOpiExtendedSales ttOpiExtendedSales, HttpSession httpSession) {
@@ -570,7 +573,8 @@ public class DmsSalesController {
 			map.put("dealerCode", mapCode.get("ENTITY_CODE").toString());
 			map.put("employeeNo", tmUser.getEMPLOYEE_NO());
 			// commonNoService.getTmUserId(map);
-			//ttOpiExtendedSales.setPRODUCT_SALES_ID(commonNoService.getId("ID", mapCode.get("ENTITY_CODE").toString()));
+			// ttOpiExtendedSales.setPRODUCT_SALES_ID(commonNoService.getId("ID",
+			// mapCode.get("ENTITY_CODE").toString()));
 			ttOpiExtendedSales.setDEALER_CODE(mapCode.get("ENTITY_CODE").toString());
 
 			if (ttOpiExtendedSales.getORDER_STATUS() != null && !"".equals(ttOpiExtendedSales.getORDER_STATUS())) {
@@ -583,12 +587,11 @@ public class DmsSalesController {
 		}
 		return "1";
 	}
-	
-	
-	//提交销售订单到SAP
+
+	// 提交销售订单到SAP
 	@RequestMapping(value = "/ajax/submitSales", method = RequestMethod.GET)
 	@ResponseBody
-	public String submitSales(@RequestParam String productSalesOrder,HttpSession httpSession) {
+	public String submitSales(@RequestParam String productSalesOrder, HttpSession httpSession) {
 		TmUser tmUser = (TmUser) httpSession.getAttribute("users");
 		Map mapt = dmsSalesService.getEntityCode(tmUser.getDEALER_CODE());
 		Map mapId = new HashMap();
@@ -596,33 +599,46 @@ public class DmsSalesController {
 		mapId.put("employeeNo", tmUser.getEMPLOYEE_NO());
 		if (productSalesOrder != null && !"".equals(productSalesOrder)) {
 			Map map = dmsSalesService.selectDataToSap(productSalesOrder);
-			if(map != null) {
+			if (map != null) {
 				Map returnMap = Sdsd001Main.Sdsd001ToSap(map);
-				if(returnMap != null) {
+				if (returnMap != null) {
 					returnMap.put("PRODUCT_SALES_ORDER", map.get("PRODUCT_SALES_ORDER"));
 					returnMap.put("PRODUCT_SALES_ID", map.get("PRODUCT_SALES_ID"));
-					if("S".equals(returnMap.get("IS_RESULT"))) {
+					if ("S".equals(returnMap.get("IS_RESULT"))) {
 						returnMap.put("ORDER_STATUS", 55011002);
 						returnMap.put("CLOSED_BY", commonNoService.getTmUserId(mapId).get("USER_ID").toString());
 						returnMap.put("CLOSED_AT", new Date());
-					}else {
+					} else {
 						returnMap.put("ORDER_STATUS", 55011003);
 						returnMap.put("CLOSED_BY", null);
 						returnMap.put("CLOSED_AT", null);
 					}
-					
+
 					dmsSalesService.updateSapData(returnMap);
-					
-					if("S".equals(returnMap.get("IS_RESULT"))) {
+
+					if ("S".equals(returnMap.get("IS_RESULT"))) {
 						return "0";
 					}
-					
+
 				}
 			}
 		}
 		return "1";
-		
+
 	}
-	
-	
+
+	// 销售单打印
+
+	@RequestMapping(value = "/ajax/toSalesPrint", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView toSalesPrint(@RequestParam String productSalesOrder) {
+		ModelAndView mav = new ModelAndView("sysPage/dmsSales/printSales");
+
+		if (productSalesOrder != null && !"".equals(productSalesOrder)) {
+			mav.addObject("ttOpiExtendedSales", dmsSalesService.selectTtOpiExtendedSalesPrint(productSalesOrder));
+		}
+
+		return mav;
+	}
+
 }

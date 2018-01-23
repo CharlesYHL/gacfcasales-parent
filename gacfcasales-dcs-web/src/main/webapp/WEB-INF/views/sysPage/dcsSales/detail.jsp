@@ -264,7 +264,7 @@
 								<span class="input-group-addon" style="width: 50px;">生效开始时间</span>
 								<input type="text" class="form-control" name="takeEffectStart"
 									id="takeEffectStart" disabled="disabled"
-									value="${requestScope.ttOpiSalesAll.SALES_DATE_START}"
+									value="${requestScope.ttOpiSalesAll.TAKE_EFFECT_START}"
 									placeholder="请输入生效开始时间" />
 							</div>
 							<div class="input-group input-group-sm"
@@ -272,7 +272,7 @@
 								<span class="input-group-addon" style="width: 50px;">生效结束时间</span>
 								<input type="text" class="form-control" name="takeEffectEnd"
 									id="takeEffectEnd" disabled="disabled"
-									value="${requestScope.ttOpiSalesAll.SALES_DATE_END}"
+									value="${requestScope.ttOpiSalesAll.TAKE_EFFECT_END}"
 									placeholder="请输入生效结束时间" />
 							</div>
 							<div class="input-group input-group-sm"

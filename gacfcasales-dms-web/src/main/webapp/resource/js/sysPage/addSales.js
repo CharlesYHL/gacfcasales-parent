@@ -347,9 +347,6 @@ function save(){
 		alert("请输入实际不含税销售价");
 	}else{
 		// document.getElementById("btn_submit").disabled = true;
-		$("#btn_submit").attr("disabled", false);
-		$("#orderStatus").val("已保存");
-		
 		var param= {
 				PRODUCT_SALES_ORDER:$("#salesOrder").val(),
 				PRODUCT_ID:$("#productId").val(),
@@ -394,6 +391,8 @@ function save(){
 			success : function(data) {
 				console.log("返回参数:" + data);
 				if (data == '0') {
+					$("#btn_submit").attr("disabled", false);
+					$("#orderStatus").val("已保存");
 					alert("销售单新增成功");
 				}
 			},
@@ -446,4 +445,19 @@ function submit(){
 	
 }
 
+
+function print(){
+	//alert("11111111");
+	var productSalesOrder = $("#salesOrder").val();
+	console.log("进入打印页面" + productSalesOrder);
+	globe_index = layer.open({
+		title : '销售单打印',
+		type : 2,
+		area : [ '80%', '100%' ],
+		fixed : true, // 固定
+		maxmin : false,
+		content : ctx + '/dmsSales/ajax/toSalesPrint?productSalesOrder='
+				+ productSalesOrder
+	});
+}
 

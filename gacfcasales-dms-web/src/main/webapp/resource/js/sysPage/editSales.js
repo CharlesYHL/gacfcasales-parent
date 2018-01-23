@@ -38,6 +38,11 @@ $(function() {
 		$("#apackage").append("<option selected='selected' value='"+rtapackageId+"'>"+rtapackageName+"</option>");
 	}
 	
+	var orderStatus = $("#orderStatus").val();
+	if(orderStatus == '已保存'){
+		$("#btn_submit").attr("disabled", false);
+	}
+	
 
 });
 var index;
@@ -427,11 +432,55 @@ function save(){
 }
 
 function submit(){
-	$("#orderStatus").val("已提交");
-	var orderStatus = $("#orderStatus").val();
-	if(orderStatus == '扣款成功'){
-		$("#btn_print").attr("disabled", false);
-	}
+	/*
+	 * $("#orderStatus").val("已提交"); var orderStatus = $("#orderStatus").val();
+	 * if(orderStatus == '扣款成功'){ $("#btn_print").attr("disabled", false); }
+	 */
+	
+	var productSalesOrder = $("#salesOrder").val();
+	layer.confirm('销售单据一旦提交，不可作废，请再次确认是否提交？', {
+		btn : [ '确定', '取消' ]
+	// 按钮
+	}, function() {
+		$.ajax({
+			type: "GET",
+		    url: ctx + "/dmsSales/ajax/submitSales?productSalesOrder="+productSalesOrder,
+	        contentType: "application/json",
+		    dataType: "json",
+			cache: false,
+		    success: function(data){
+		    	console.log("返回参数:"+data);
+		    	if(data == 0){
+		    		alert("扣款成功!");
+		    		$("#btn_print").attr("disabled", false);
+		    		// vm.reload();
+		    	}else{
+		    		alert("扣款失败!");
+		    	}
+			},error :function(data){
+				console.log(data);
+			}
+		});
+		
+	}, function() {
+
+	});
+	
+}
+
+function print(){
+	//alert("11111111");
+	var productSalesOrder = $("#salesOrder").val();
+	console.log("进入打印页面" + productSalesOrder);
+	globe_index = layer.open({
+		title : '销售单打印',
+		type : 2,
+		area : [ '80%', '100%' ],
+		fixed : true, // 固定
+		maxmin : false,
+		content : ctx + '/dmsSales/ajax/toSalesPrint?productSalesOrder='
+				+ productSalesOrder
+	});
 }
 
 

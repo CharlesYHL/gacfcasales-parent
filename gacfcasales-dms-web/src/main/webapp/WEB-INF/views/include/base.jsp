@@ -25,6 +25,7 @@
 <script type="text/javascript">var ctx = '${ctx}'</script>
 <script src="${ctx }/resource/plugins/toastr/toastr.min.js"></script>
 <script src="${ctx }/resource/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="${ctx }/resource/plugins/jQuery/jquery-2.2.3.js"></script>
 <script src="${ctx }/resource/bootstrap/js/bootstrap.min.js"></script>
 <script src="${ctx }/resource/AdminLTE-2.3.11/js/app.js"></script>
 <script src="${ctx }/resource/layui/layui.all.js"></script>

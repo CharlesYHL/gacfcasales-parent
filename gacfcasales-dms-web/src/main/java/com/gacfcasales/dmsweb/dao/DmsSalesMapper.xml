@@ -269,7 +269,7 @@
 		ttes.CUSTOMER_NAME,
 		ttes.CUSTOMER_CONTACT,
 		ttes.VIN,
-		DATE_FORMAT(ttes.BILLING_AT,'%Y-%m-%d %H:%m:%s') BILLING_AT,
+		DATE_FORMAT(ttes.BILLING_AT,'%Y-%m-%d') BILLING_AT,
 		ttes.LICENSE_NO,
 		ttes.OWNER_NO,
 		ttes.OWNER_NAME,
@@ -283,14 +283,12 @@
 		ttes.MODEL_CODE,
 		ttes.APACKAGE,
 		ttes.YEAR_MODEL,
-		DATE_FORMAT(ttes.TAKE_EFFECT_START,'%Y-%m-%d
-		%H:%m:%s')
+		DATE_FORMAT(ttes.TAKE_EFFECT_START,'%Y-%m-%d')
 		TAKE_EFFECT_START,
-		DATE_FORMAT(ttes.TAKE_EFFECT_END,'%Y-%m-%d
-		%H:%m:%s') TAKE_EFFECT_END,
+		DATE_FORMAT(ttes.TAKE_EFFECT_END,'%Y-%m-%d') TAKE_EFFECT_END,
 		ctu.USER_NAME CREATE_NAME,
-		DATE_FORMAT(ttes.CREATED_AT,'%Y-%m-%d
-		%H:%m:%s') CREATED_AT,
+		DATE_FORMAT(ttes.CREATED_AT,'%Y-%m-%d')
+		CREATED_AT,
 		ttes.PURCHASE_NUMBER,
 		ttes.TERMINAL_NON_SALES_PRICE,
 		ttes.TERMINAL_SALES_PRICE,
@@ -298,17 +296,19 @@
 		ttes.TOTAL_AMOUNT,
 		ltu.USER_NAME
 		CLOSED_NAME,
-		DATE_FORMAT(ttes.CLOSED_AT,'%Y-%m-%d %H:%m:%s') CLOSED_AT,
-		itu.USER_NAME INVALID_NAME,
-		DATE_FORMAT(ttes.INVALID_AT,'%Y-%m-%d
-		%H:%m:%s') INVALID_AT
+		DATE_FORMAT(ttes.CLOSED_AT,'%Y-%m-%d') CLOSED_AT,
+		itu.USER_NAME
+		INVALID_NAME,
+		DATE_FORMAT(ttes.INVALID_AT,'%Y-%m-%d') INVALID_AT
 		from
 		tt_opi_extended_sales ttes LEFT JOIN
 		ti_opi_extended_dcs toed
-		ON ttes.PRODUCT_ID = toed.PRODUCT_ID
+		ON
+		ttes.PRODUCT_ID = toed.PRODUCT_ID
 		LEFT JOIN
 		tm_user ctu
-		ON ttes.CREATED_BY=ctu.USER_ID
+		ON
+		ttes.CREATED_BY=ctu.USER_ID
 		LEFT JOIN tm_user ltu
 		ON
 		ttes.CLOSED_BY=ltu.USER_ID
@@ -351,7 +351,7 @@
 		ttes.CUSTOMER_NAME,
 		ttes.CUSTOMER_CONTACT,
 		ttes.VIN,
-		DATE_FORMAT(ttes.BILLING_AT,'%Y-%m-%d %H:%m:%s') BILLING_AT,
+		DATE_FORMAT(ttes.BILLING_AT,'%Y-%m-%d') BILLING_AT,
 		ttes.LICENSE_NO,
 		ttes.OWNER_NO,
 		ttes.OWNER_NAME,
@@ -365,14 +365,12 @@
 		ttes.MODEL_CODE,
 		ttes.APACKAGE,
 		ttes.YEAR_MODEL,
-		DATE_FORMAT(ttes.TAKE_EFFECT_START,'%Y-%m-%d
-		%H:%m:%s')
+		DATE_FORMAT(ttes.TAKE_EFFECT_START,'%Y-%m-%d')
 		TAKE_EFFECT_START,
-		DATE_FORMAT(ttes.TAKE_EFFECT_END,'%Y-%m-%d
-		%H:%m:%s') TAKE_EFFECT_END,
+		DATE_FORMAT(ttes.TAKE_EFFECT_END,'%Y-%m-%d') TAKE_EFFECT_END,
 		ctu.USER_NAME CREATE_NAME,
-		DATE_FORMAT(ttes.CREATED_AT,'%Y-%m-%d
-		%H:%m:%s') CREATED_AT,
+		DATE_FORMAT(ttes.CREATED_AT,'%Y-%m-%d')
+		CREATED_AT,
 		ttes.PURCHASE_NUMBER,
 		ttes.TERMINAL_NON_SALES_PRICE,
 		ttes.TERMINAL_SALES_PRICE,
@@ -380,17 +378,19 @@
 		ttes.TOTAL_AMOUNT,
 		ltu.USER_NAME
 		CLOSED_NAME,
-		DATE_FORMAT(ttes.CLOSED_AT,'%Y-%m-%d %H:%m:%s') CLOSED_AT,
-		itu.USER_NAME INVALID_NAME,
-		DATE_FORMAT(ttes.INVALID_AT,'%Y-%m-%d
-		%H:%m:%s') INVALID_AT
+		DATE_FORMAT(ttes.CLOSED_AT,'%Y-%m-%d') CLOSED_AT,
+		itu.USER_NAME
+		INVALID_NAME,
+		DATE_FORMAT(ttes.INVALID_AT,'%Y-%m-%d') INVALID_AT
 		from
 		tt_opi_extended_sales ttes LEFT JOIN
 		ti_opi_extended_dcs toed
-		ON ttes.PRODUCT_ID = toed.PRODUCT_ID
+		ON
+		ttes.PRODUCT_ID = toed.PRODUCT_ID
 		LEFT JOIN
 		tm_user ctu
-		ON ttes.CREATED_BY=ctu.USER_ID
+		ON
+		ttes.CREATED_BY=ctu.USER_ID
 		LEFT JOIN tm_user ltu
 		ON
 		ttes.CLOSED_BY=ltu.USER_ID
@@ -435,7 +435,7 @@
 		ttes.CUSTOMER_NAME,
 		ttes.CUSTOMER_CONTACT,
 		ttes.VIN,
-		DATE_FORMAT(ttes.BILLING_AT,'%Y-%m-%d %H:%m:%s') BILLING_AT,
+		DATE_FORMAT(ttes.BILLING_AT,'%Y-%m-%d') BILLING_AT,
 		ttes.LICENSE_NO,
 		ttes.OWNER_NO,
 		ttes.OWNER_NAME,
@@ -449,14 +449,12 @@
 		ttes.MODEL_CODE,
 		ttes.APACKAGE,
 		ttes.YEAR_MODEL,
-		DATE_FORMAT(ttes.TAKE_EFFECT_START,'%Y-%m-%d
-		%H:%m:%s')
+		DATE_FORMAT(ttes.TAKE_EFFECT_START,'%Y-%m-%d')
 		TAKE_EFFECT_START,
-		DATE_FORMAT(ttes.TAKE_EFFECT_END,'%Y-%m-%d
-		%H:%m:%s') TAKE_EFFECT_END,
+		DATE_FORMAT(ttes.TAKE_EFFECT_END,'%Y-%m-%d') TAKE_EFFECT_END,
 		ctu.USER_NAME CREATE_NAME,
-		DATE_FORMAT(ttes.CREATED_AT,'%Y-%m-%d
-		%H:%m:%s') CREATED_AT,
+		DATE_FORMAT(ttes.CREATED_AT,'%Y-%m-%d')
+		CREATED_AT,
 		ttes.PURCHASE_NUMBER,
 		ttes.TERMINAL_NON_SALES_PRICE,
 		ttes.TERMINAL_SALES_PRICE,
@@ -464,17 +462,19 @@
 		ttes.TOTAL_AMOUNT,
 		ltu.USER_NAME
 		CLOSED_NAME,
-		DATE_FORMAT(ttes.CLOSED_AT,'%Y-%m-%d %H:%m:%s') CLOSED_AT,
-		itu.USER_NAME INVALID_NAME,
-		DATE_FORMAT(ttes.INVALID_AT,'%Y-%m-%d
-		%H:%m:%s') INVALID_AT
+		DATE_FORMAT(ttes.CLOSED_AT,'%Y-%m-%d') CLOSED_AT,
+		itu.USER_NAME
+		INVALID_NAME,
+		DATE_FORMAT(ttes.INVALID_AT,'%Y-%m-%d') INVALID_AT
 		from
 		tt_opi_extended_sales ttes LEFT JOIN
 		ti_opi_extended_dcs toed
-		ON ttes.PRODUCT_ID = toed.PRODUCT_ID
+		ON
+		ttes.PRODUCT_ID = toed.PRODUCT_ID
 		LEFT JOIN
 		tm_user ctu
-		ON ttes.CREATED_BY=ctu.USER_ID
+		ON
+		ttes.CREATED_BY=ctu.USER_ID
 		LEFT JOIN tm_user ltu
 		ON
 		ttes.CLOSED_BY=ltu.USER_ID
@@ -536,14 +536,15 @@
 		ttes.VIN,
 		DATE_FORMAT(
 		ttes.BILLING_AT,
-		'%Y-%m-%d %H:%m:%s'
+		'%Y-%m-%d'
 		) BILLING_AT,
 		ttes.LICENSE_NO,
 		ttes.OWNER_NO,
 		ttes.OWNER_NAME,
 		ttes.OWNER_PHONE,
 		ttes.OWNER_MOBILE,
-		tmg1.GROUP_ID BRAND_ID,
+		tmg1.GROUP_ID
+		BRAND_ID,
 		ttes.BRAND_NAME,
 		ttes.BRAND_CODE,
 		tmg2.GROUP_ID
@@ -559,18 +560,19 @@
 		ttes.YEAR_MODEL,
 		DATE_FORMAT(
 		ttes.TAKE_EFFECT_START,
-		'%Y-%m-%d %H:%m:%s'
+		'%Y-%m-%d'
 		)
 		TAKE_EFFECT_START,
 		DATE_FORMAT(
 		ttes.TAKE_EFFECT_END,
-		'%Y-%m-%d %H:%m:%s'
+		'%Y-%m-%d'
 		) TAKE_EFFECT_END,
 		ctu.USER_NAME CREATE_NAME,
 		DATE_FORMAT(
 		ttes.CREATED_AT,
-		'%Y-%m-%d %H:%m:%s'
-		) CREATED_AT,
+		'%Y-%m-%d'
+		)
+		CREATED_AT,
 		ttes.PURCHASE_NUMBER,
 		ttes.TERMINAL_NON_SALES_PRICE,
 		ttes.TERMINAL_SALES_PRICE,
@@ -580,31 +582,36 @@
 		CLOSED_NAME,
 		DATE_FORMAT(
 		ttes.CLOSED_AT,
-		'%Y-%m-%d %H:%m:%s'
+		'%Y-%m-%d'
 		) CLOSED_AT,
 		itu.USER_NAME INVALID_NAME,
 		DATE_FORMAT(
 		ttes.INVALID_AT,
-		'%Y-%m-%d
-		%H:%m:%s'
+		'%Y-%m-%d'
 		) INVALID_AT
 		FROM
 		tt_opi_extended_sales ttes
 		LEFT JOIN
-		ti_opi_extended_dcs toed ON ttes.PRODUCT_ID =
+		ti_opi_extended_dcs toed ON
+		ttes.PRODUCT_ID =
 		toed.PRODUCT_ID
 		LEFT JOIN
-		tm_user ctu ON ttes.CREATED_BY = ctu.USER_ID
+		tm_user ctu ON
+		ttes.CREATED_BY = ctu.USER_ID
 		LEFT JOIN tm_user ltu ON
-		ttes.CLOSED_BY = ltu.USER_ID
+		ttes.CLOSED_BY =
+		ltu.USER_ID
 		LEFT JOIN tm_user
 		itu ON ttes.INVALID_BY =
 		itu.USER_ID
-		LEFT JOIN tm_vhcl_material_group
+		LEFT
+		JOIN tm_vhcl_material_group
 		tmg1 ON
-		ttes.BRAND_NAME=tmg1.GROUP_NAME AND ttes.BRAND_CODE =
+		ttes.BRAND_NAME=tmg1.GROUP_NAME AND
+		ttes.BRAND_CODE =
 		tmg1.GROUP_CODE
-		LEFT JOIN tm_vhcl_material_group tmg2 ON
+		LEFT JOIN tm_vhcl_material_group tmg2
+		ON
 		ttes.SERIES_NAME=tmg2.GROUP_NAME AND ttes.SERIES_CODE =
 		tmg2.GROUP_CODE
 		LEFT JOIN tm_vhcl_material_group tmg3 ON
@@ -669,35 +676,180 @@
 
 	<select id="selectDataToSap" parameterType="java.lang.String"
 		resultType="map">
-		select tedc.DEALER_CODE,(CASE WHEN 1=1 THEN REPLACE(tcpy.CTCAI_CODE,'CJ','')
+		select tedc.DEALER_CODE,(CASE WHEN 1=1 THEN
+		REPLACE(tcpy.CTCAI_CODE,'CJ','')
 		ELSE '' END )
 		CTCAI_CODE,toes.PRODUCT_SALES_ID,toes.PRODUCT_SALES_ORDER,toes.VIN,toes.OWNER_PHONE,toes.LICENSE_NO,toes.PURCHASE_NUMBER,toed.PRODUCT_NO,toed.PRODUCT_DESCRIBTION
 		from
 		tt_opi_extended_sales toes LEFT JOIN ti_opi_extended_dcs toed
-		ON toes.PRODUCT_ID = toed.PRODUCT_ID
-		LEFT JOIN TM_ENTITY_DEALER_CHANGE tedc ON
+		ON
+		toes.PRODUCT_ID = toed.PRODUCT_ID
+		LEFT JOIN TM_ENTITY_DEALER_CHANGE
+		tedc ON
 		tedc.ENTITY_CODE = toes.DEALER_CODE
 		LEFT JOIN TM_COMPANY tcpy ON
 		tedc.DEALER_CODE = tcpy.COMPANY_CODE
-		where toes.PRODUCT_SALES_ORDER=#{PRODUCT_SALES_ORDER}
+		where
+		toes.PRODUCT_SALES_ORDER=#{PRODUCT_SALES_ORDER}
 		limit 1
 	</select>
-	
+
 	<!-- 更新SAP信息 -->
 	<select id="updateSapData" parameterType="map">
-		UPDATE tt_opi_extended_sales
+		UPDATE
+		tt_opi_extended_sales
 		SET SAP_SALES_ORDER = #{VBELN},
-			IS_RESULT = #{IS_RESULT},
-			IS_MESSAGE = #{IS_MESSAGE},
-			VBELN = #{VBELN},
-			KBETR_YJ = #{KBETR_YJ},
-			KBETR_ZK = #{KBETR_ZK},
-			KBETR_JJ = #{KBETR_JJ},
-			KBETR_HS = #{KBETR_HS},
-			ORDER_STATUS = #{ORDER_STATUS},
-			CLOSED_BY = #{CLOSED_BY},
-			CLOSED_AT = #{CLOSED_AT}
+		IS_RESULT = #{IS_RESULT},
+		IS_MESSAGE = #{IS_MESSAGE},
+		VBELN = #{VBELN},
+		KBETR_YJ = #{KBETR_YJ},
+		KBETR_ZK = #{KBETR_ZK},
+		KBETR_JJ = #{KBETR_JJ},
+		KBETR_HS = #{KBETR_HS},
+		ORDER_STATUS = #{ORDER_STATUS},
+		CLOSED_BY = #{CLOSED_BY},
+		CLOSED_AT = #{CLOSED_AT}
 		WHERE PRODUCT_SALES_ORDER=#{PRODUCT_SALES_ORDER}
-			
+
 	</select>
+
+
+	<select id="selectTtOpiExtendedSalesPrint" parameterType="java.lang.String"
+		resultType="com.gacfcasales.common.entity.TtOpiExtendedSales">
+		SELECT
+		*
+		FROM
+		(
+		SELECT
+		ttes.PRODUCT_SALES_ID,
+		ttes.PRODUCT_ID,
+		(
+		CASE
+		WHEN ttes.ORDER_STATUS = 55011001 THEN
+		'已保存'
+		WHEN ttes.ORDER_STATUS
+		= 55011002 THEN
+		'已结案'
+		WHEN ttes.ORDER_STATUS = 55011003 THEN
+		'扣款失败'
+		WHEN
+		ttes.ORDER_STATUS = 55011004 THEN
+		'已作废'
+		ELSE
+		''
+		END
+		) ORDER_STATUS,
+		ttes.PRODUCT_SALES_ORDER,
+		ttes.SAP_SALES_ORDER,
+		ttes.PRODUCT_NO,
+		ttes.PRODUCT_NAME,
+		toed.PRODUCT_DESCRIBTION,
+		(
+		CASE
+		WHEN toed.PRODUCT_DATE
+		= 12 THEN
+		'12个月'
+		WHEN toed.PRODUCT_DATE = 24 THEN
+		'24个月'
+		WHEN
+		toed.PRODUCT_DATE = 36 THEN
+		'36个月'
+		ELSE
+		''
+		END
+		) PRODUCT_DATE,
+		ttes.CUSTOMER_NAME,
+		ttes.CUSTOMER_CONTACT,
+		ttes.VIN,
+		DATE_FORMAT(
+		ttes.BILLING_AT,
+		'%Y-%m-%d'
+		) BILLING_AT,
+		ttes.LICENSE_NO,
+		ttes.OWNER_NO,
+		ttes.OWNER_NAME,
+		ttes.OWNER_PHONE,
+		ttes.OWNER_MOBILE,
+		tmg1.GROUP_ID
+		BRAND_ID,
+		ttes.BRAND_NAME,
+		ttes.BRAND_CODE,
+		tmg2.GROUP_ID
+		SERIES_ID,
+		ttes.SERIES_NAME,
+		ttes.SERIES_CODE,
+		tmg3.GROUP_ID MODEL_ID,
+		ttes.MODEL_NAME,
+		ttes.MODEL_CODE,
+		tmg4.GROUP_ID APACKAGE_ID,
+		tmg4.GROUP_NAME APACKAGE_NAME,
+		ttes.APACKAGE,
+		ttes.YEAR_MODEL,
+		DATE_FORMAT(
+		ttes.TAKE_EFFECT_START,
+		'%Y-%m-%d'
+		)
+		TAKE_EFFECT_START,
+		DATE_FORMAT(
+		ttes.TAKE_EFFECT_END,
+		'%Y-%m-%d'
+		) TAKE_EFFECT_END,
+		ctu.USER_NAME CREATE_NAME,
+		DATE_FORMAT(
+		ttes.CREATED_AT,
+		'%Y-%m-%d'
+		)
+		CREATED_AT,
+		ttes.PURCHASE_NUMBER,
+		ttes.TERMINAL_NON_SALES_PRICE,
+		ttes.TERMINAL_SALES_PRICE,
+		ttes.ACTUAL_NON_SALES_PRICE,
+		ttes.TOTAL_AMOUNT,
+		ltu.USER_NAME
+		CLOSED_NAME,
+		DATE_FORMAT(
+		ttes.CLOSED_AT,
+		'%Y-%m-%d'
+		) CLOSED_AT,
+		itu.USER_NAME INVALID_NAME,
+		DATE_FORMAT(
+		ttes.INVALID_AT,
+		'%Y-%m-%d'
+		) INVALID_AT
+		FROM
+		tt_opi_extended_sales ttes
+		LEFT JOIN
+		ti_opi_extended_dcs toed ON
+		ttes.PRODUCT_ID =
+		toed.PRODUCT_ID
+		LEFT JOIN
+		tm_user ctu ON
+		ttes.CREATED_BY = ctu.USER_ID
+		LEFT JOIN tm_user ltu ON
+		ttes.CLOSED_BY =
+		ltu.USER_ID
+		LEFT JOIN tm_user
+		itu ON ttes.INVALID_BY =
+		itu.USER_ID
+		LEFT
+		JOIN tm_vhcl_material_group
+		tmg1 ON
+		ttes.BRAND_NAME=tmg1.GROUP_NAME AND
+		ttes.BRAND_CODE =
+		tmg1.GROUP_CODE
+		LEFT JOIN tm_vhcl_material_group tmg2
+		ON
+		ttes.SERIES_NAME=tmg2.GROUP_NAME AND ttes.SERIES_CODE =
+		tmg2.GROUP_CODE
+		LEFT JOIN tm_vhcl_material_group tmg3 ON
+		ttes.MODEL_NAME=tmg3.GROUP_NAME AND ttes.MODEL_CODE = tmg3.GROUP_CODE
+		LEFT JOIN tm_vhcl_material_group tmg4 ON ttes.APACKAGE=tmg4.GROUP_CODE
+		) bsm
+		WHERE
+		bsm.PRODUCT_SALES_ORDER = #{PRODUCT_SALES_ORDER}
+		limit 1
+	</select>
+
+
+
 </mapper>

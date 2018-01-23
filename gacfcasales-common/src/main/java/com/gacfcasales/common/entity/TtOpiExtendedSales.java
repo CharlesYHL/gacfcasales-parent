@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class TtOpiExtendedSales implements Serializable {
 	private Long PRODUCT_SALES_ID;
-	private Long PRODUCT_SALES_ORDER;
+	private String PRODUCT_SALES_ORDER;
 	private String DEALER_CODE;
 	private String SAP_SALES_ORDER;
 	private String PRODUCT_ID;
@@ -123,11 +123,11 @@ public class TtOpiExtendedSales implements Serializable {
 		PRODUCT_SALES_ID = pRODUCT_SALES_ID;
 	}
 
-	public Long getPRODUCT_SALES_ORDER() {
+	public String getPRODUCT_SALES_ORDER() {
 		return PRODUCT_SALES_ORDER;
 	}
 
-	public void setPRODUCT_SALES_ORDER(Long pRODUCT_SALES_ORDER) {
+	public void setPRODUCT_SALES_ORDER(String pRODUCT_SALES_ORDER) {
 		PRODUCT_SALES_ORDER = pRODUCT_SALES_ORDER;
 	}
 

@@ -98,4 +98,10 @@ public class DmsSalesServiceImpl implements DmsSalesService {
 		dmsSalesDao.updateSapData(map);
 	}
 
+	@Override
+	public TtOpiExtendedSales selectTtOpiExtendedSalesPrint(String PRODUCT_SALES_ORDER) {
+		// TODO Auto-generated method stub
+		return dmsSalesDao.selectTtOpiExtendedSalesPrint(PRODUCT_SALES_ORDER);
+	}
+
 }

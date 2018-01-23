@@ -351,9 +351,10 @@
 									提交
 								</button>
 							</div>
+							<!--  -->
 							<div class="input-group input-group-sm"
 								style="margin-right: 8px;">
-								<button id="btn_print" type="button" disabled="disabled"
+								<button id="btn_print" type="button"  disabled="disabled"
 									class="btn btn-primary btn-sm" onclick="print()">
 									<span class="glyphicon glyphicon-print" aria-hidden="true"></span>
 									打印
