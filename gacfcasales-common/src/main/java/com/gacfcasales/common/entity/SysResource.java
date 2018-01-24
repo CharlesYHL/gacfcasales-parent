@@ -20,6 +20,7 @@ public class SysResource implements Serializable {
     private String status;
     
     private String appId;
+    private String dmsAppId;
     
     public SysResource() {
         super();
@@ -150,5 +151,11 @@ public class SysResource implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+	public String getDmsAppId() {
+		return dmsAppId;
+	}
+	public void setDmsAppId(String dmsAppId) {
+		this.dmsAppId = dmsAppId;
+	}
 
 }

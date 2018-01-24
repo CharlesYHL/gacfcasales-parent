@@ -11,6 +11,7 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +37,9 @@ import com.gacfcasales.common.util.UUIDutil;
 public class SysResourceController {
 	
 	private static Logger logger = LoggerFactory.getLogger(SysResourceController.class);
+	
+	@Value("${security.appkey}")
+	private String appKey;
 	
 	@Autowired
 	private SysResourceService sysResourceService;
@@ -72,6 +76,12 @@ public class SysResourceController {
 		if(sysResource.getName() != null && !"".equals(sysResource.getName())){
 			assist.setRequires(Assist.andLike("name", "%"+sysResource.getName()+"%"));
 		}
+		if (assist.getRowSize() == null) {
+			assist.setRequires(Assist.andEq("a.app_id", appKey));
+		} else {
+			assist.setRequires(Assist.andEq("app_id", appKey));
+		}
+		
 		assist.setOrder("level,pid", true);
 		long count = sysResourceService.getSysResourceRowCount(assist);
 		List<SysResource> list =  sysResourceService.selectSysResourceList(assist);

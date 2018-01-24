@@ -54,7 +54,7 @@
 
     <!--获得类名为:SysResource对应的数据库表的数据总行数 -->
     <select id="getSysResourceRowCount" parameterType="com.gacfcasales.common.Assist" resultType="java.lang.Long">
-        select count(id) from sys_rescue_resource
+        select count(id) from sys_rescue_resource a
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
     <!-- 获得类名为:SysResource对应数据库中表的数据集合 -->
@@ -172,6 +172,7 @@
             <if test="createUser != null">create_user,</if>
             <if test="updateTime != null">update_time,</if>
             <if test="status != null">status,</if>
+             <if test="dmsAppId != null">dms_app_id,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null"> #{id},</if>
@@ -186,6 +187,7 @@
             <if test="createUser != null"> #{createUser},</if>
             <if test="updateTime != null"> #{updateTime},</if>
             <if test="status != null"> #{status},</if>
+             <if test="dmsAppId != null">#{dmsAppId},</if>
         </trim>
     </insert>
 

@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gacfcasales.dmsweb.dao.ProfitDmsDao">
+
+	<!-- Assist用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+	<sql id="Assist">
+		<where>
+			<foreach collection="require" item="req" separator=" ">
+				${req.require} #{req.value}
+				<if test="req.suffix != null"> ${req.suffix}</if>
+			</foreach>
+		</where>
+	</sql>
+
+	<!-- updateAssist用于更新数据的使用它拓展自Assist,用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+	<sql id="updateAssist">
+		<where>
+			<foreach collection="assist.require" item="req" separator=" ">
+				${req.require} #{req.value}
+				<if test="req.suffix != null"> ${req.suffix}</if>
+			</foreach>
+		</where>
+	</sql>
+
+	<select id="getProfitList" parameterType="map" resultType="map">
+		select * from
+		(SELECT
+		ttes.PRODUCT_SALES_ID,
+		ttes.DEALER_CODE AS
+		DEALER_CODE_TTES,
+		TEDC.DEALER_CODE AS DEALER_CODE_TEDC,
+		tmd.DEALER_CODE,
+		tmd.DEALER_NAME,
+		tmd.DEALER_SHORTNAME,
+		tmd.COMPANY_ID,
+		tmd.DEALER_ID,
+		tmd.MARKETING,
+		tmd.STATUS,
+		tmd.DEALER_LEVEL,
+		tmd.ADDRESS,
+		tmd.DEALER_TYPE,
+		ttes.PRODUCT_ID,
+		ORG2.ORG_NAME AS BIG_ORG,
+		ORG2.ORG_ID
+		AS BIG_ORG_ID,
+		ORG1.ORG_NAME AS SMALL_ORG,
+		ORG1.ORG_ID AS SMALL_ORG_ID,
+		(
+		CASE
+		WHEN ttes.ORDER_STATUS = 55011001 THEN
+		'已保存'
+		WHEN ttes.ORDER_STATUS
+		= 55011002 THEN
+		'已结案'
+		WHEN ttes.ORDER_STATUS = 55011003 THEN
+		'扣款失败'
+		WHEN
+		ttes.ORDER_STATUS = 55011004 THEN
+		'已作废'
+		ELSE
+		''
+		END
+		) ORDER_STATUS,
+		ttes.PRODUCT_SALES_ORDER,
+		ttes.SAP_SALES_ORDER,
+		ttes.PRODUCT_NO,
+		ttes.PRODUCT_NAME,
+		toed.PRODUCT_DESCRIBTION,
+		(
+		CASE
+		WHEN toed.PRODUCT_DATE
+		= 12 THEN
+		'12个月'
+		WHEN toed.PRODUCT_DATE = 24 THEN
+		'24个月'
+		WHEN
+		toed.PRODUCT_DATE = 36 THEN
+		'36个月'
+		ELSE
+		''
+		END
+		) PRODUCT_DATE,
+		ttes.CUSTOMER_NAME,
+		ttes.CUSTOMER_CONTACT,
+		ttes.VIN,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.BILLING_AT,'%Y-%m-%d') ELSE
+		'' END )
+		BILLING_AT,
+		ttes.LICENSE_NO,
+		ttes.OWNER_NO,
+		ttes.OWNER_NAME,
+		ttes.OWNER_PHONE,
+		ttes.OWNER_MOBILE,
+		ttes.BRAND_NAME,
+		ttes.BRAND_CODE,
+		ttes.SERIES_NAME,
+		ttes.SERIES_CODE,
+		ttes.MODEL_NAME,
+		ttes.MODEL_CODE,
+		ttes.APACKAGE,
+		ttes.YEAR_MODEL,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.TAKE_EFFECT_START,'%Y-%m-%d')
+		ELSE '' END )
+		TAKE_EFFECT_START,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.TAKE_EFFECT_END,'%Y-%m-%d')
+		ELSE '' END )
+		TAKE_EFFECT_END,
+		ctu.USER_NAME CREATE_NAME,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.CREATED_AT,'%Y-%m-%d') ELSE
+		'' END )
+		CREATED_AT,
+		ttes.PURCHASE_NUMBER,
+		ttes.TERMINAL_NON_SALES_PRICE,
+		ttes.TERMINAL_SALES_PRICE,
+		ttes.ACTUAL_NON_SALES_PRICE,
+		ttes.TOTAL_AMOUNT,
+		ltu.USER_NAME CLOSED_NAME,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.CLOSED_AT,'%Y-%m-%d') ELSE ''
+		END )
+		CLOSED_AT,
+		itu.USER_NAME INVALID_NAME,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.INVALID_AT,'%Y-%m-%d') ELSE
+		'' END )
+		INVALID_AT,
+		ttes.COST_PROFIT,
+		ttes.NON_TAX_COST_PRICE,
+		ttes.TAX_COST_PRICE
+		FROM
+		tt_opi_extended_sales ttes
+		LEFT JOIN ti_opi_extended_dcs
+		toed ON ttes.PRODUCT_ID = toed.PRODUCT_ID
+		LEFT JOIN tm_user ctu ON
+		ttes.CREATED_BY = ctu.USER_ID
+		LEFT JOIN tm_user ltu ON ttes.CLOSED_BY =
+		ltu.USER_ID
+		LEFT JOIN tm_user itu ON ttes.INVALID_BY = itu.USER_ID
+		LEFT
+		JOIN TM_ENTITY_DEALER_CHANGE TEDC ON ttes.DEALER_CODE =
+		TEDC.ENTITY_CODE
+		LEFT JOIN tm_dealer tmd ON TEDC.DEALER_CODE = tmd.DEALER_CODE
+		LEFT JOIN tm_dealer_org_relation tdor ON
+		tdor.DEALER_ID = tmd.DEALER_ID
+		LEFT JOIN tm_org ORG1 ON ORG1.ORG_ID =
+		tdor.ORG_ID
+		LEFT JOIN tm_org ORG2 ON ORG2.ORG_ID = ORG1.PARENT_ORG_ID)
+		bsm
+		where 1=1 and bsm.ORDER_STATUS= '已结案'
+		<if test="PRODUCT_DATE != null and PRODUCT_DATE != '' ">AND bsm.PRODUCT_DATE =#{PRODUCT_DATE}  </if>
+		<if test="PRODUCT_SALES_ORDER != null and PRODUCT_SALES_ORDER != '' ">AND bsm.PRODUCT_SALES_ORDER LIKE
+			CONCAT('%',#{PRODUCT_SALES_ORDER},'%')  </if>
+		<if test="PRODUCT_NO != null and PRODUCT_NO != '' ">AND bsm.PRODUCT_NO LIKE CONCAT('%',#{PRODUCT_NO},'%')  </if>
+		<if test="PRODUCT_NAME != null and PRODUCT_NAME != '' ">AND bsm.PRODUCT_NAME LIKE CONCAT('%',#{PRODUCT_NAME},'%')
+		</if>
+		<if test="VIN != null and VIN != '' ">AND bsm.VIN LIKE CONCAT('%',#{VIN},'%')  </if>
+		<if test="LICENSE_NO != null and LICENSE_NO != '' ">AND bsm.LICENSE_NO LIKE CONCAT('%',#{LICENSE_NO},'%')  </if>
+		<if test="CUSTOMER_NAME != null and CUSTOMER_NAME != '' ">AND bsm.CUSTOMER_NAME LIKE
+			CONCAT('%',#{CUSTOMER_NAME},'%')  </if>
+
+		<if
+			test="CREATED_AT_START != null and CREATED_AT_START != '' and CREATED_AT_END !=null and CREATED_AT_END != '' ">
+			AND bsm.CREATED_AT between #{CREATED_AT_START} and
+			#{CREATED_AT_END}
+		</if>
+		<if
+			test="CLOSED_AT_START != null and CLOSED_AT_START != '' and CLOSED_AT_END !=null and CLOSED_AT_END != '' ">
+			AND bsm.CLOSED_AT between #{CLOSED_AT_START} and
+			#{CLOSED_AT_END}
+		</if>
+
+		LIMIT #{startRow},#{rowSize}
+	</select>
+
+	<select id="getProfitRowCount" parameterType="map" resultType="java.lang.Long">
+
+		select count(*) from
+		(SELECT
+		ttes.PRODUCT_SALES_ID,
+		ttes.DEALER_CODE AS
+		DEALER_CODE_TTES,
+		TEDC.DEALER_CODE AS DEALER_CODE_TEDC,
+		tmd.DEALER_CODE,
+		tmd.DEALER_NAME,
+		tmd.DEALER_SHORTNAME,
+		tmd.COMPANY_ID,
+		tmd.DEALER_ID,
+		tmd.MARKETING,
+		tmd.STATUS,
+		tmd.DEALER_LEVEL,
+		tmd.ADDRESS,
+		tmd.DEALER_TYPE,
+		ttes.PRODUCT_ID,
+		ORG2.ORG_NAME AS BIG_ORG,
+		ORG2.ORG_ID
+		AS BIG_ORG_ID,
+		ORG1.ORG_NAME AS SMALL_ORG,
+		ORG1.ORG_ID AS SMALL_ORG_ID,
+		(
+		CASE
+		WHEN ttes.ORDER_STATUS = 55011001 THEN
+		'已保存'
+		WHEN ttes.ORDER_STATUS
+		= 55011002 THEN
+		'已结案'
+		WHEN ttes.ORDER_STATUS = 55011003 THEN
+		'扣款失败'
+		WHEN
+		ttes.ORDER_STATUS = 55011004 THEN
+		'已作废'
+		ELSE
+		''
+		END
+		) ORDER_STATUS,
+		ttes.PRODUCT_SALES_ORDER,
+		ttes.SAP_SALES_ORDER,
+		ttes.PRODUCT_NO,
+		ttes.PRODUCT_NAME,
+		toed.PRODUCT_DESCRIBTION,
+		(
+		CASE
+		WHEN toed.PRODUCT_DATE
+		= 12 THEN
+		'12个月'
+		WHEN toed.PRODUCT_DATE = 24 THEN
+		'24个月'
+		WHEN
+		toed.PRODUCT_DATE = 36 THEN
+		'36个月'
+		ELSE
+		''
+		END
+		) PRODUCT_DATE,
+		ttes.CUSTOMER_NAME,
+		ttes.CUSTOMER_CONTACT,
+		ttes.VIN,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.BILLING_AT,'%Y-%m-%d') ELSE
+		'' END )
+		BILLING_AT,
+		ttes.LICENSE_NO,
+		ttes.OWNER_NO,
+		ttes.OWNER_NAME,
+		ttes.OWNER_PHONE,
+		ttes.OWNER_MOBILE,
+		ttes.BRAND_NAME,
+		ttes.BRAND_CODE,
+		ttes.SERIES_NAME,
+		ttes.SERIES_CODE,
+		ttes.MODEL_NAME,
+		ttes.MODEL_CODE,
+		ttes.APACKAGE,
+		ttes.YEAR_MODEL,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.TAKE_EFFECT_START,'%Y-%m-%d')
+		ELSE '' END )
+		TAKE_EFFECT_START,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.TAKE_EFFECT_END,'%Y-%m-%d')
+		ELSE '' END )
+		TAKE_EFFECT_END,
+		ctu.USER_NAME CREATE_NAME,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.CREATED_AT,'%Y-%m-%d') ELSE
+		'' END )
+		CREATED_AT,
+		ttes.PURCHASE_NUMBER,
+		ttes.TERMINAL_NON_SALES_PRICE,
+		ttes.TERMINAL_SALES_PRICE,
+		ttes.ACTUAL_NON_SALES_PRICE,
+		ttes.TOTAL_AMOUNT,
+		ltu.USER_NAME CLOSED_NAME,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.CLOSED_AT,'%Y-%m-%d') ELSE ''
+		END )
+		CLOSED_AT,
+		itu.USER_NAME INVALID_NAME,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.INVALID_AT,'%Y-%m-%d') ELSE
+		'' END )
+		INVALID_AT,
+		ttes.COST_PROFIT,
+		ttes.NON_TAX_COST_PRICE,
+		ttes.TAX_COST_PRICE
+		FROM
+		tt_opi_extended_sales ttes
+		LEFT JOIN ti_opi_extended_dcs
+		toed ON ttes.PRODUCT_ID = toed.PRODUCT_ID
+		LEFT JOIN tm_user ctu ON
+		ttes.CREATED_BY = ctu.USER_ID
+		LEFT JOIN tm_user ltu ON ttes.CLOSED_BY =
+		ltu.USER_ID
+		LEFT JOIN tm_user itu ON ttes.INVALID_BY = itu.USER_ID
+		LEFT
+		JOIN TM_ENTITY_DEALER_CHANGE TEDC ON ttes.DEALER_CODE =
+		TEDC.ENTITY_CODE
+		LEFT JOIN tm_dealer tmd ON TEDC.DEALER_CODE = tmd.DEALER_CODE
+		LEFT JOIN tm_dealer_org_relation tdor ON
+		tdor.DEALER_ID = tmd.DEALER_ID
+		LEFT JOIN tm_org ORG1 ON ORG1.ORG_ID =
+		tdor.ORG_ID
+		LEFT JOIN tm_org ORG2 ON ORG2.ORG_ID = ORG1.PARENT_ORG_ID)
+		bsm
+		where 1=1 and bsm.ORDER_STATUS= '已结案'
+		<if test="PRODUCT_DATE != null and PRODUCT_DATE != '' ">AND bsm.PRODUCT_DATE =#{PRODUCT_DATE}  </if>
+		<if test="PRODUCT_SALES_ORDER != null and PRODUCT_SALES_ORDER != '' ">AND bsm.PRODUCT_SALES_ORDER LIKE
+			CONCAT('%',#{PRODUCT_SALES_ORDER},'%')  </if>
+		<if test="PRODUCT_NO != null and PRODUCT_NO != '' ">AND bsm.PRODUCT_NO LIKE CONCAT('%',#{PRODUCT_NO},'%')  </if>
+		<if test="PRODUCT_NAME != null and PRODUCT_NAME != '' ">AND bsm.PRODUCT_NAME LIKE CONCAT('%',#{PRODUCT_NAME},'%')
+		</if>
+		<if test="VIN != null and VIN != '' ">AND bsm.VIN LIKE CONCAT('%',#{VIN},'%')  </if>
+		<if test="LICENSE_NO != null and LICENSE_NO != '' ">AND bsm.LICENSE_NO LIKE CONCAT('%',#{LICENSE_NO},'%')  </if>
+		<if test="CUSTOMER_NAME != null and CUSTOMER_NAME != '' ">AND bsm.CUSTOMER_NAME LIKE
+			CONCAT('%',#{CUSTOMER_NAME},'%')  </if>
+
+		<if
+			test="CREATED_AT_START != null and CREATED_AT_START != '' and CREATED_AT_END !=null and CREATED_AT_END != '' ">
+			AND bsm.CREATED_AT between #{CREATED_AT_START} and
+			#{CREATED_AT_END}
+		</if>
+		<if
+			test="CLOSED_AT_START != null and CLOSED_AT_START != '' and CLOSED_AT_END !=null and CLOSED_AT_END != '' ">
+			AND bsm.CLOSED_AT between #{CLOSED_AT_START} and
+			#{CLOSED_AT_END}
+		</if>
+
+
+		<!-- <if test="require!=null"> <include refid="Assist" /> </if> -->
+
+	</select>
+
+
+
+	<select id="getProfitListExport" parameterType="java.util.HashMap"
+		resultType="map">
+		select * from
+		(SELECT
+		ttes.PRODUCT_SALES_ID,
+		ttes.DEALER_CODE AS
+		DEALER_CODE_TTES,
+		TEDC.DEALER_CODE AS DEALER_CODE_TEDC,
+		tmd.DEALER_CODE,
+		tmd.DEALER_NAME,
+		tmd.DEALER_SHORTNAME,
+		tmd.COMPANY_ID,
+		tmd.DEALER_ID,
+		tmd.MARKETING,
+		tmd.STATUS,
+		tmd.DEALER_LEVEL,
+		tmd.ADDRESS,
+		tmd.DEALER_TYPE,
+		ttes.PRODUCT_ID,
+		ORG2.ORG_NAME AS BIG_ORG,
+		ORG2.ORG_ID
+		AS BIG_ORG_ID,
+		ORG1.ORG_NAME AS SMALL_ORG,
+		ORG1.ORG_ID AS SMALL_ORG_ID,
+		(
+		CASE
+		WHEN ttes.ORDER_STATUS = 55011001 THEN
+		'已保存'
+		WHEN ttes.ORDER_STATUS
+		= 55011002 THEN
+		'已结案'
+		WHEN ttes.ORDER_STATUS = 55011003 THEN
+		'扣款失败'
+		WHEN
+		ttes.ORDER_STATUS = 55011004 THEN
+		'已作废'
+		ELSE
+		''
+		END
+		) ORDER_STATUS,
+		ttes.PRODUCT_SALES_ORDER,
+		ttes.SAP_SALES_ORDER,
+		ttes.PRODUCT_NO,
+		ttes.PRODUCT_NAME,
+		toed.PRODUCT_DESCRIBTION,
+		(
+		CASE
+		WHEN toed.PRODUCT_DATE
+		= 12 THEN
+		'12个月'
+		WHEN toed.PRODUCT_DATE = 24 THEN
+		'24个月'
+		WHEN
+		toed.PRODUCT_DATE = 36 THEN
+		'36个月'
+		ELSE
+		''
+		END
+		) PRODUCT_DATE,
+		ttes.CUSTOMER_NAME,
+		ttes.CUSTOMER_CONTACT,
+		ttes.VIN,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.BILLING_AT,'%Y-%m-%d') ELSE
+		'' END )
+		BILLING_AT,
+		ttes.LICENSE_NO,
+		ttes.OWNER_NO,
+		ttes.OWNER_NAME,
+		ttes.OWNER_PHONE,
+		ttes.OWNER_MOBILE,
+		ttes.BRAND_NAME,
+		ttes.BRAND_CODE,
+		ttes.SERIES_NAME,
+		ttes.SERIES_CODE,
+		ttes.MODEL_NAME,
+		ttes.MODEL_CODE,
+		ttes.APACKAGE,
+		ttes.YEAR_MODEL,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.TAKE_EFFECT_START,'%Y-%m-%d')
+		ELSE '' END )
+		TAKE_EFFECT_START,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.TAKE_EFFECT_END,'%Y-%m-%d')
+		ELSE '' END )
+		TAKE_EFFECT_END,
+		ctu.USER_NAME CREATE_NAME,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.CREATED_AT,'%Y-%m-%d') ELSE
+		'' END )
+		CREATED_AT,
+		ttes.PURCHASE_NUMBER,
+		ttes.TERMINAL_NON_SALES_PRICE,
+		ttes.TERMINAL_SALES_PRICE,
+		ttes.ACTUAL_NON_SALES_PRICE,
+		ttes.TOTAL_AMOUNT,
+		ltu.USER_NAME CLOSED_NAME,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.CLOSED_AT,'%Y-%m-%d') ELSE ''
+		END )
+		CLOSED_AT,
+		itu.USER_NAME INVALID_NAME,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.INVALID_AT,'%Y-%m-%d') ELSE
+		'' END )
+		INVALID_AT,
+		ttes.COST_PROFIT,
+		ttes.NON_TAX_COST_PRICE,
+		ttes.TAX_COST_PRICE
+		FROM
+		tt_opi_extended_sales ttes
+		LEFT JOIN ti_opi_extended_dcs
+		toed ON ttes.PRODUCT_ID = toed.PRODUCT_ID
+		LEFT JOIN tm_user ctu ON
+		ttes.CREATED_BY = ctu.USER_ID
+		LEFT JOIN tm_user ltu ON ttes.CLOSED_BY =
+		ltu.USER_ID
+		LEFT JOIN tm_user itu ON ttes.INVALID_BY = itu.USER_ID
+		LEFT
+		JOIN TM_ENTITY_DEALER_CHANGE TEDC ON ttes.DEALER_CODE =
+		TEDC.ENTITY_CODE
+		LEFT JOIN tm_dealer tmd ON TEDC.DEALER_CODE = tmd.DEALER_CODE
+		LEFT JOIN tm_dealer_org_relation tdor ON
+		tdor.DEALER_ID = tmd.DEALER_ID
+		LEFT JOIN tm_org ORG1 ON ORG1.ORG_ID =
+		tdor.ORG_ID
+		LEFT JOIN tm_org ORG2 ON ORG2.ORG_ID = ORG1.PARENT_ORG_ID)
+		bsm
+		where 1=1 and bsm.ORDER_STATUS= '已结案'
+		<if test="PRODUCT_DATE != null and PRODUCT_DATE != '' ">AND bsm.PRODUCT_DATE =#{PRODUCT_DATE}  </if>
+		<if test="PRODUCT_SALES_ORDER != null and PRODUCT_SALES_ORDER != '' ">AND bsm.PRODUCT_SALES_ORDER LIKE
+			CONCAT('%',#{PRODUCT_SALES_ORDER},'%')  </if>
+		<if test="PRODUCT_NO != null and PRODUCT_NO != '' ">AND bsm.PRODUCT_NO LIKE CONCAT('%',#{PRODUCT_NO},'%')  </if>
+		<if test="PRODUCT_NAME != null and PRODUCT_NAME != '' ">AND bsm.PRODUCT_NAME LIKE CONCAT('%',#{PRODUCT_NAME},'%')
+		</if>
+		<if test="VIN != null and VIN != '' ">AND bsm.VIN LIKE CONCAT('%',#{VIN},'%')  </if>
+		<if test="LICENSE_NO != null and LICENSE_NO != '' ">AND bsm.LICENSE_NO LIKE CONCAT('%',#{LICENSE_NO},'%')  </if>
+		<if test="CUSTOMER_NAME != null and CUSTOMER_NAME != '' ">AND bsm.CUSTOMER_NAME LIKE
+			CONCAT('%',#{CUSTOMER_NAME},'%')  </if>
+
+		<if
+			test="CREATED_AT_START != null and CREATED_AT_START != '' and CREATED_AT_END !=null and CREATED_AT_END != '' ">
+			AND bsm.CREATED_AT between #{CREATED_AT_START} and
+			#{CREATED_AT_END}
+		</if>
+		<if
+			test="CLOSED_AT_START != null and CLOSED_AT_START != '' and CLOSED_AT_END !=null and CLOSED_AT_END != '' ">
+			AND bsm.CLOSED_AT between #{CLOSED_AT_START} and
+			#{CLOSED_AT_END}
+		</if>
+		
+		LIMIT #{startRow},#{rowSize}
+	</select>
+	
+	
+	<select id="getProfitFindBySalesId" parameterType="java.lang.String" resultType="map">
+	
+	select * from
+		(SELECT
+		ttes.PRODUCT_SALES_ID,
+		ttes.DEALER_CODE AS
+		DEALER_CODE_TTES,
+		TEDC.DEALER_CODE AS DEALER_CODE_TEDC,
+		tmd.DEALER_CODE,
+		tmd.DEALER_NAME,
+		tmd.DEALER_SHORTNAME,
+		tmd.COMPANY_ID,
+		tmd.DEALER_ID,
+		tmd.MARKETING,
+		tmd.STATUS,
+		tmd.DEALER_LEVEL,
+		tmd.ADDRESS,
+		tmd.DEALER_TYPE,
+		ttes.PRODUCT_ID,
+		ORG2.ORG_NAME AS BIG_ORG,
+		ORG2.ORG_ID
+		AS BIG_ORG_ID,
+		ORG1.ORG_NAME AS SMALL_ORG,
+		ORG1.ORG_ID AS SMALL_ORG_ID,
+		(
+		CASE
+		WHEN ttes.ORDER_STATUS = 55011001 THEN
+		'已保存'
+		WHEN ttes.ORDER_STATUS
+		= 55011002 THEN
+		'已结案'
+		WHEN ttes.ORDER_STATUS = 55011003 THEN
+		'扣款失败'
+		WHEN
+		ttes.ORDER_STATUS = 55011004 THEN
+		'已作废'
+		ELSE
+		''
+		END
+		) ORDER_STATUS,
+		ttes.PRODUCT_SALES_ORDER,
+		ttes.SAP_SALES_ORDER,
+		ttes.PRODUCT_NO,
+		ttes.PRODUCT_NAME,
+		toed.PRODUCT_DESCRIBTION,
+		toed.PRODUCT_CATEGORY,
+		toed.PRODUCT_PROPERTY,
+		(
+		CASE
+		WHEN toed.PRODUCT_DATE
+		= 12 THEN
+		'12个月'
+		WHEN toed.PRODUCT_DATE = 24 THEN
+		'24个月'
+		WHEN
+		toed.PRODUCT_DATE = 36 THEN
+		'36个月'
+		ELSE
+		''
+		END
+		) PRODUCT_DATE,
+		ttes.CUSTOMER_NAME,
+		ttes.CUSTOMER_CONTACT,
+		ttes.VIN,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.BILLING_AT,'%Y-%m-%d') ELSE
+		'' END )
+		BILLING_AT,
+		ttes.LICENSE_NO,
+		ttes.OWNER_NO,
+		ttes.OWNER_NAME,
+		ttes.OWNER_PHONE,
+		ttes.OWNER_MOBILE,
+		ttes.BRAND_NAME,
+		ttes.BRAND_CODE,
+		ttes.SERIES_NAME,
+		ttes.SERIES_CODE,
+		ttes.MODEL_NAME,
+		ttes.MODEL_CODE,
+		ttes.APACKAGE,
+		ttes.YEAR_MODEL,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.TAKE_EFFECT_START,'%Y-%m-%d')
+		ELSE '' END )
+		TAKE_EFFECT_START,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.TAKE_EFFECT_END,'%Y-%m-%d')
+		ELSE '' END )
+		TAKE_EFFECT_END,
+		ctu.USER_NAME CREATE_NAME,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.CREATED_AT,'%Y-%m-%d') ELSE
+		'' END )
+		CREATED_AT,
+		ttes.PURCHASE_NUMBER,
+		ttes.TERMINAL_NON_SALES_PRICE,
+		ttes.TERMINAL_SALES_PRICE,
+		ttes.ACTUAL_NON_SALES_PRICE,
+		ttes.TOTAL_AMOUNT,
+		ltu.USER_NAME CLOSED_NAME,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.CLOSED_AT,'%Y-%m-%d') ELSE ''
+		END )
+		CLOSED_AT,
+		itu.USER_NAME INVALID_NAME,
+		(CASE WHEN 1=1 THEN
+		DATE_FORMAT(ttes.INVALID_AT,'%Y-%m-%d') ELSE
+		'' END )
+		INVALID_AT,
+		ttes.COST_PROFIT,
+		ttes.NON_TAX_COST_PRICE,
+		ttes.TAX_COST_PRICE
+		FROM
+		tt_opi_extended_sales ttes
+		LEFT JOIN ti_opi_extended_dcs
+		toed ON ttes.PRODUCT_ID = toed.PRODUCT_ID
+		LEFT JOIN tm_user ctu ON
+		ttes.CREATED_BY = ctu.USER_ID
+		LEFT JOIN tm_user ltu ON ttes.CLOSED_BY =
+		ltu.USER_ID
+		LEFT JOIN tm_user itu ON ttes.INVALID_BY = itu.USER_ID
+		LEFT
+		JOIN TM_ENTITY_DEALER_CHANGE TEDC ON ttes.DEALER_CODE =
+		TEDC.ENTITY_CODE
+		LEFT JOIN tm_dealer tmd ON TEDC.DEALER_CODE = tmd.DEALER_CODE
+		LEFT JOIN tm_dealer_org_relation tdor ON
+		tdor.DEALER_ID = tmd.DEALER_ID
+		LEFT JOIN tm_org ORG1 ON ORG1.ORG_ID =
+		tdor.ORG_ID
+		LEFT JOIN tm_org ORG2 ON ORG2.ORG_ID = ORG1.PARENT_ORG_ID)
+		bsm
+		where bsm.PRODUCT_SALES_ID=#{PRODUCT_SALES_ID} and bsm.ORDER_STATUS= '已结案'
+		GROUP BY PRODUCT_SALES_ID
+	</select>
+
+</mapper>

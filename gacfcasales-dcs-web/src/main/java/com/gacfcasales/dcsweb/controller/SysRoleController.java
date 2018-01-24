@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,9 @@ import com.gacfcasales.common.util.UUIDutil;
 @Controller
 @RequestMapping("/sysRole")
 public class SysRoleController {
+	
+	@Value("${security.appkey}")
+	private String appKey;
 	
 	@Autowired
 	private SysRoleService sysRoleService;
@@ -59,6 +63,7 @@ public class SysRoleController {
 		if(null != name && !"".equals(name)){
 			assist.setRequires(Assist.andLike("name", "%"+name+"%"));
 		}
+		assist.setRequires(Assist.andEq("app_id", appKey));
 		long count = sysRoleService.getSysRoleRowCount(assist);
 		List<SysRole> list =  sysRoleService.selectSysRole(assist);
 		result.setTotalCount(count);
