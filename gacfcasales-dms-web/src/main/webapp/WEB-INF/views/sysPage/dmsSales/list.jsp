@@ -174,7 +174,7 @@
 <script src="${ctx}/resource/plugins/treegrid/tree.table.js"></script>
 <script src="${ctx}/resource/plugins/ztree/jquery.ztree.all.min.js"></script>
 <script src="${ctx }/resource/plugins/toastr/toastr.min.js"></script>
-<script src="${ctx}/resource/js/sysPage/dmsSales.js"></script>
+<script src="${ctx}/resource/js/sysPage/dmsSales/dmsSales.js"></script>
 
 <!-- 日期控件 -->
 <script type="text/javascript"

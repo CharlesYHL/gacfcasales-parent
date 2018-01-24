@@ -164,6 +164,6 @@
 
 
 
-<script src="${ctx}/resource/js/sysPage/addProduct.js"></script>
+<script src="${ctx}/resource/js/sysPage/dcsProduct/addProduct.js"></script>
 
 

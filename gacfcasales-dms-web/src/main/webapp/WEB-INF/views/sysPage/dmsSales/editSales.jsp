@@ -377,4 +377,4 @@
 
 </div>
 
-<script src="${ctx}/resource/js/sysPage/editSales.js"></script>
+<script src="${ctx}/resource/js/sysPage/dmsSales/editSales.js"></script>

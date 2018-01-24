@@ -111,4 +111,4 @@
 
 </div>
 
-<script src="${ctx}/resource/js/sysPage/partInfo.js"></script>
+<script src="${ctx}/resource/js/sysPage/dcsProduct/partInfo.js"></script>

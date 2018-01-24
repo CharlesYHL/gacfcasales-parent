@@ -608,10 +608,16 @@ public class DmsSalesController {
 						returnMap.put("ORDER_STATUS", 55011002);
 						returnMap.put("CLOSED_BY", commonNoService.getTmUserId(mapId).get("USER_ID").toString());
 						returnMap.put("CLOSED_AT", new Date());
+						
+						double totalAmount = Double.parseDouble(map.get("TOTAL_AMOUNT").toString());
+						double taxCostPrice =  Double.parseDouble(map.get("TAX_COST_PRICE").toString());
+						double costProfit = (totalAmount - taxCostPrice);
+						returnMap.put("COST_PROFIT", costProfit);
 					} else {
 						returnMap.put("ORDER_STATUS", 55011003);
 						returnMap.put("CLOSED_BY", null);
 						returnMap.put("CLOSED_AT", null);
+						returnMap.put("COST_PROFIT", null);
 					}
 
 					dmsSalesService.updateSapData(returnMap);

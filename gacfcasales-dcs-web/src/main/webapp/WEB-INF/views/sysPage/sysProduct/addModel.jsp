@@ -94,4 +94,4 @@
 </div>
 </div>
 
-<script src="${ctx}/resource/js/sysPage/addModel.js"></script>
+<script src="${ctx}/resource/js/sysPage/dcsProduct/addModel.js"></script>

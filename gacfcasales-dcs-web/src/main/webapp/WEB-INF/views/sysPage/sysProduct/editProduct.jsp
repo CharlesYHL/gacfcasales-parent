@@ -188,6 +188,6 @@
 
 
 
-<script src="${ctx}/resource/js/sysPage/editProduct.js"></script>
+<script src="${ctx}/resource/js/sysPage/dcsProduct/editProduct.js"></script>
 
 

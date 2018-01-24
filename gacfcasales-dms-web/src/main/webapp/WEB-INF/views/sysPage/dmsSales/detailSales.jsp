@@ -318,4 +318,4 @@
 	</div>
 </div>
 
-<script src="${ctx}/resource/js/sysPage/detailSales.js"></script>
+<script src="${ctx}/resource/js/sysPage/dmsSales/detailSales.js"></script>

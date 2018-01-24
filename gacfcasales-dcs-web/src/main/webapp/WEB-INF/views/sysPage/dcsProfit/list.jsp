@@ -15,7 +15,7 @@
 	</c:param>
 </c:import>
 
-<div id="salesListApp" v-cloak>
+<div id="profitListApp" v-cloak>
 
 	<div v-show="showList" class="box box-custom collapsed-box"
 		style="margin-bottom: 8px;">
@@ -77,37 +77,18 @@
 				</div>
 				<div class="input-group input-group-sm"
 					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">产品有效期</span> <select
-						name="productDate" id="productDate" class="selectpicker"></select>
-				</div>
-				<div class="input-group input-group-sm"
-					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">品牌</span> <select
-						name="brandId" id="brandId" class="selectpicker"
-						onchange="getSeries()"></select>
-				</div>
-			</div>
-			<div style="height: 3px;"></div>
-			<div>
-				<div class="input-group input-group-sm"
-					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">车系</span> <select
-						name="seriesId" id="seriesId" class="selectpicker"
-						onchange="getModel()"></select>
-				</div>
-				<div class="input-group input-group-sm"
-					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">车型</span> <select
-						name="modelId" id="modelId" class="selectpicker"></select>
-				</div>
-				<div class="input-group input-group-sm"
-					style="margin-right: 16px; width: 320px;">
 					<span class="input-group-addon" style="width: 60px;">VIN</span> <input
 						type="text" class="form-control" name="vin" id="vin" value=""
 						placeholder="请输入VIN编号" />
 				</div>
-
-				<div style="height: 3px;"></div>
+				<div class="input-group input-group-sm"
+					style="margin-right: 16px; width: 320px;">
+					<span class="input-group-addon" style="width: 60px;">产品有效期</span> <select
+						name="productDate" id="productDate" class="selectpicker"></select>
+				</div>
+				
+			</div>
+			<div>
 				<div>
 					<div class="input-group input-group-sm"
 						style="margin-right: 16px; width: 320px;">
@@ -178,6 +159,10 @@
 		</div>
 	</div>
 </div>
+
+
+
+
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 <script src="${ctx }/resource/bootstrap/js/vue1.0.26.js"></script>
 <script src="${ctx }/resource/bootstrap/js/vue-validator2.1.6.js"></script>
@@ -189,7 +174,7 @@
 <script src="${ctx}/resource/plugins/treegrid/tree.table.js"></script>
 <script src="${ctx}/resource/plugins/ztree/jquery.ztree.all.min.js"></script>
 <script src="${ctx }/resource/plugins/toastr/toastr.min.js"></script>
-<script src="${ctx}/resource/js/sysPage/dcsSales/dcsSalesList.js"></script>
+<script src="${ctx}/resource/js/sysPage/dcsProfit/dcsProfitList.js"></script>
 
 <!-- 日期控件 -->
 <script type="text/javascript"

@@ -70,4 +70,4 @@
 	</div>
 </div>
 
-<script src="${ctx}/resource/js/sysPage/productList.js"></script>
+<script src="${ctx}/resource/js/sysPage/dmsSales/productList.js"></script>

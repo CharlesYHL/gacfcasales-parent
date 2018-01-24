@@ -382,4 +382,4 @@
 
 </div>
 
-<script src="${ctx}/resource/js/sysPage/addSales.js"></script>
+<script src="${ctx}/resource/js/sysPage/dmsSales/addSales.js"></script>

@@ -153,4 +153,4 @@
 
 </div>
 
-<script src="${ctx}/resource/js/sysPage/detailProduct.js"></script>
+<script src="${ctx}/resource/js/sysPage/dmsProduct/detailProduct.js"></script>

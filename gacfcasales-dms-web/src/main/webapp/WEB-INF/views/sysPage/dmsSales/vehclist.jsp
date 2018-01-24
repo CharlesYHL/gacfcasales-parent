@@ -80,4 +80,4 @@
 
 </div>
 
-<script src="${ctx}/resource/js/sysPage/vehclist.js"></script>
+<script src="${ctx}/resource/js/sysPage/dmsSales/vehclist.js"></script>

@@ -89,4 +89,4 @@
 	</div>
 
 </div>
-<script src="${ctx}/resource/js/sysPage/dealerList.js"></script>
+<script src="${ctx}/resource/js/sysPage/dcsSales/dealerList.js"></script>

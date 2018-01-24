@@ -264,7 +264,7 @@
 
 	</div>
 </div>
-<script src="${ctx}/resource/js/sysPage/printSales.js"></script>
+<script src="${ctx}/resource/js/sysPage/dmsSales/printSales.js"></script>
 
 
 <script type="text/javascript">
