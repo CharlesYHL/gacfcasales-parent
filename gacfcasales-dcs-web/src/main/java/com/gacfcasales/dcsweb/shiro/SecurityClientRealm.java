@@ -54,6 +54,7 @@ public class SecurityClientRealm  extends CasRealm {
 	    		Long roleId = sysRoleService.selectTmUserRoleByMap(roleMap);
 	    		tcUser.setRoleId(roleId);
 	    		session.setAttribute("users", tcUser);
+	    		session.setAttribute("userName", map.get("NAME").toString());
 	     }
 	     
         authorizationInfo.addStringPermission("/home");

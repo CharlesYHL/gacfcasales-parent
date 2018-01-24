@@ -58,8 +58,8 @@ public class SecurityClientRealm  extends CasRealm {
 	    		Long roleId = sysRoleService.selectTmUserRoleByMap(roleMap);
 	    		tmUser.setRoleId(roleId);
 	    		session.setAttribute("users", tmUser);
+	    		session.setAttribute("userName", map.get("USER_NAME").toString());
 	     }
-
         authorizationInfo.addStringPermission("/home");
 		authorizationInfo.addStringPermissions(remoteSecurityService.getPermissions(appKey, tmUser));
         return authorizationInfo;

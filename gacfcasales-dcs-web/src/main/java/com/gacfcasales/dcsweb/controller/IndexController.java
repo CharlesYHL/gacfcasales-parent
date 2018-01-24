@@ -1,5 +1,7 @@
 package com.gacfcasales.dcsweb.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -9,6 +11,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +28,11 @@ public class IndexController {
 	
 	private static Logger logger = LoggerFactory.getLogger(IndexController.class);
 	
+	@Value("${sso.server.url}")
+	private String serverUrl;
+	
+	@Value("${sso.client.url}")
+	private String clientUrl;
 	
 	@RequestMapping("/")
 	public String index() {
@@ -82,11 +90,15 @@ public class IndexController {
 		return "index";
 	}
 	*/
-	/*@RequestMapping("/loginout")
-	public String loginout(){
-		Subject subject = SecurityUtils.getSubject();
-		subject.logout();
-		return "/home";
-	}*/
+	@RequestMapping("/loginout")
+	public String loginout(HttpSession session){
+		//Subject subject = SecurityUtils.getSubject();
+		//subject.logout();
+		 session.invalidate();
+		 //session.
+		// String url = "redirect:"+serverUrl+"/login?service="+clientUrl+"/cas";
+		 String url = "redirect:"+serverUrl+"/logout";
+		return url;
+	}
 	
 }
