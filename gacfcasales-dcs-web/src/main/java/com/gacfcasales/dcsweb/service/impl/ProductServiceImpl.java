@@ -151,6 +151,12 @@ public class ProductServiceImpl implements ProductService {
 		productDao.updateAndAddProductModel(tiOpiExtendedDCS);
 	}
 
+	@Override
+	public void updateReleaseStatus(Map map) {
+		// TODO Auto-generated method stub
+		productDao.updateReleaseStatus(map);
+	}
+
 	
 
 }

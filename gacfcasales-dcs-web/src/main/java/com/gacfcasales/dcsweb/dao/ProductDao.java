@@ -63,4 +63,7 @@ public interface ProductDao {
 	 
 	 List<Map> getDealerListAll(String PRODUCT_ID);
 	 
+	 //更新到期的产品为已取消
+	 void updateReleaseStatus(Map map);
+	 
 }

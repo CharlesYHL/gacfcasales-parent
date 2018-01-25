@@ -574,4 +574,14 @@
 	</update>
 
 
+	<update id="updateReleaseStatus" parameterType="map">
+		UPDATE
+		ti_opi_extended_dcs
+		SET RELEASE_STATUS = 54011003,IS_C_SALE =
+		12781002,RELEASE_DATE = NULL
+		WHERE SALES_DATE_END &lt; #{SALES_DATE_END}
+		and RELEASE_STATUS = '54011002' AND IS_C_SALE = '12781001'
+
+	</update>
+
 </mapper>

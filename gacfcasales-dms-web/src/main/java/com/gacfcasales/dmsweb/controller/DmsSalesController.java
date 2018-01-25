@@ -33,6 +33,7 @@ import com.gacfcasales.common.entity.TtOpiExtendedSales;
 import com.gacfcasales.common.excel.ExcelExportColumn;
 import com.gacfcasales.common.excel.ExportExcel;
 import com.gacfcasales.common.util.ApplicationContextHelper;
+import com.gacfcasales.common.util.CommonConstants;
 import com.gacfcasales.common.util.DateTimeUtil;
 import com.gacfcasales.common.util.OemDictCodeConstants;
 import com.gacfcasales.dmsweb.service.CommonNoService;
@@ -234,7 +235,7 @@ public class DmsSalesController {
 		if (dmsSalesPage.getPRODUCT_NAME() != null && !"".equals(dmsSalesPage.getPRODUCT_NAME())) {
 			assist.setRequires(Assist.andLike("tipe.PRODUCT_NAME", "%" + dmsSalesPage.getPRODUCT_NAME() + "%"));
 		}
-
+		assist.setRequires(Assist.andEq("tipe.IS_C_SALE", CommonConstants.DICT_IS_YES));
 		assist.setOrder("tipe.PRODUCT_NO,tipe.PRODUCT_NAME", true);
 		long count = dmsSalesService.getProductRowCount(assist);
 		List<Map> list = dmsSalesService.getProductList(assist);

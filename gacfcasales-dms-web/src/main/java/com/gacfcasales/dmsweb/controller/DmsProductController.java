@@ -30,6 +30,7 @@ import com.gacfcasales.common.entity.TmUser;
 import com.gacfcasales.common.excel.ExcelExportColumn;
 import com.gacfcasales.common.excel.ExportExcel;
 import com.gacfcasales.common.util.ApplicationContextHelper;
+import com.gacfcasales.common.util.OemDictCodeConstants;
 import com.gacfcasales.dmsweb.service.CommonNoService;
 import com.gacfcasales.dmsweb.service.DmsProductService;
 
@@ -164,7 +165,7 @@ public class DmsProductController {
 			assist.setRequires(Assist.andLte("tipe.SALES_DATE_END", tiOpiExtendedDCS.getSalesEnd()));
 			assist.setRequires(Assist.andGte("tipe.SALES_DATE_START", tiOpiExtendedDCS.getSalesStart()));
 		}
-		
+		//assist.setRequires(Assist.andEq("tipe.RELEASE_STATUS", OemDictCodeConstants.PRODUCT_RELEASE_STATUS_02));
 		assist.setRequires(Assist.andEq("tmd.DEALER_CODE", tmUser.getDEALER_CODE()));
 		
 		assist.setOrder("PRODUCT_NO,PRODUCT_ID", true);

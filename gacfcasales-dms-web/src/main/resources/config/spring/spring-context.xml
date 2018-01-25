@@ -25,6 +25,9 @@
 
 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" /> 
 	
+	<task:annotation-driven scheduler="dmsScheduler"/>
+    <task:scheduler id="dmsScheduler" pool-size="10"/>
+	
 	<import resource="classpath:/config/spring/springmvc-datasource.xml" />
 	<import resource="classpath:/config/spring/spring-context-shiro.xml" />
 	<import resource="classpath:/config/spring/spring-security-client.xml" />

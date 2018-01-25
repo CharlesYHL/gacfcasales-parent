@@ -7,7 +7,7 @@ $(function() {
 
 	// 发布状态
 	jQuery("#releaseStatus").append("<option value='0'>请选择</option>");
-	jQuery("#releaseStatus").append("<option value='54011001'>未发布</option>");
+	/*jQuery("#releaseStatus").append("<option value='54011001'>未发布</option>");*/
 	jQuery("#releaseStatus").append("<option value='54011002'>已发布</option>");
 	jQuery("#releaseStatus").append("<option value='54011003'>已取消</option>");
 
