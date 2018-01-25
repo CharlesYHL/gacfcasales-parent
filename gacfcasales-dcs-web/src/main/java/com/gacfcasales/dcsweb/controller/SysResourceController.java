@@ -101,9 +101,11 @@ public class SysResourceController {
 					sysResource.setIsMenu(0);
 				}
 				sysResource.setCreateTime(new Date());
+				sysResource.setAppId(appKey);
 				sysResourceService.insertNonEmptySysResource(sysResource);
 			}else{
 				sysResource.setUpdateTime(new Date());
+				sysResource.setAppId(appKey);
 				sysResourceService.updateSysResourceById(sysResource);
 			}
 		} catch (Exception e) {

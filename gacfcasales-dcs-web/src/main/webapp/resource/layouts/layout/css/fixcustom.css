@@ -1,0 +1,274 @@
+/* -------------------------------样式修复参考----------------------------*/
+/* 修复内容区域滚动时不能遮盖头部区域问题 */
+.fix-top-header{
+	background-color:#707b88; 
+}
+
+/* 菜单之前增加线进行分割 */
+/* #menus>li{
+	border-bottom:1px solid #838483;
+} */
+
+/* 菜单层级之间字体大小区分 */
+#menus>li.nav-item>a.nav-link>span.title,
+#menus>li.nav-item>ul.sub-menu>li.nav-item>a.nav-link,
+#menus>li.nav-item>ul.sub-menu>li.nav-item>ul.sub-menu>li.nav-item>a.nav-link{
+    font-weight: 300;
+}
+
+#menus>li.nav-item>a.nav-link>span.title{
+    font-size: 14px;
+}
+#menus>li.nav-item>ul.sub-menu>li.nav-item>a.nav-link{
+    font-size: 13px;
+}
+
+#menus>li.nav-item>ul.sub-menu>li.nav-item>ul.sub-menu>li.nav-item>a.nav-link{
+    font-size: 12px;
+}
+
+/* 弹出窗相对与内容区域居中 */
+.modal-content{
+    transform: translateX(100px);
+    -webkit-transform: translateX(100px);
+    -ms-transform: translateX(100px);
+    -o-transform: translateX(100px);
+    -moz-transform: translateX(100px);
+}
+
+/* 弹出窗头部颜色与字体颜色做调整 */
+
+/* .modal .modal-header{
+	background-color: #3698dc;
+	color: #fff;
+	margin-top:-5px;
+} */
+
+.modal .modal-header>.modal-title{
+	font-size: 15px;
+}
+
+/* 弹出窗三段区分 */
+.modal-body{
+    background-color: #fff;
+}
+
+/* tab 页签类chrome样式 */
+#dmsTabDiv>.nav-tabs>li:before{
+	content: " ";
+    display: block;
+    border-bottom: 25px solid #cfcece;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    position: absolute;
+    bottom: 0px;
+    width: 105%;
+    height: 100%;
+    top: 0px;
+    transform: translateX(-5%);
+    -webkit-transform: translateX(-5%);
+    -ms-transform: translateX(-5%);
+    -o-transform: translateX(-5%);
+    -moz-transform: translateX(-5%);
+}
+#dmsTabDiv>.nav-tabs>li.dropdown.tabdrop:before{
+	content: " ";
+    border-bottom: 0px solid transparent;
+}
+
+
+#dmsTabDiv>.nav>li>a:hover{
+    background: transparent;
+    border-color: transparent;
+}
+
+#dmsTabDiv>.nav > li > a{
+    padding-top: 7px;
+}
+#dmsTabDiv>.nav-tabs > li.active > a >i,
+#dmsTabDiv>.nav-tabs > li > a >i{
+    color:#7b7b7b;
+}
+
+#dmsTabDiv>.nav-tabs > li.active > a,#dmsTabDiv>.nav-tabs > li > a{
+    font-weight: normal;
+    font-size: 14px;
+    color: #615f5f;
+}
+#dmsTabDiv>.nav-tabs>li.active>a, 
+#dmsTabDiv>.nav-tabs>li.active>a:focus, 
+#dmsTabDiv>.nav-tabs>li.active>a:hover{
+    background-color: transparent;
+    border: none;
+}
+
+#dmsTabDiv>.nav-tabs>li.active:before{
+	content: " ";
+    display: block;
+    border-bottom: 25px solid #eeeded;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    position: absolute;
+    bottom: 0px;
+    width: 105%;
+    height: 100%;
+    top: 1px;
+    transform: translateX(-5%);
+}
+
+/* 头部与左侧菜单样式调整示例，双击网页头部有效果*/
+a {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+  }
+body.theme-Nov{
+    background-color: #3d3d3d;
+}
+.theme-Nov .page-header.navbar
+{
+    background-color: #1f1f1f;
+}
+
+.theme-Nov .page-header.navbar .top-menu .navbar-nav > li.dropdown.open .dropdown-toggle,
+.theme-Nov .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle:hover
+{
+    background-color: #474747;
+}
+
+.theme-Nov .page-sidebar,
+.theme-Nov.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover
+{
+    background-color: #3d3d3d;
+}
+
+.theme-Nov #menus>li{
+	border-bottom:1px solid #484848;
+}
+
+.theme-Nov .page-sidebar .page-sidebar-menu>li.open>a, 
+.theme-Nov .page-sidebar .page-sidebar-menu>li:hover>a, 
+.theme-Nov .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.open>a, 
+.theme-Nov .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li:hover>a{
+    background: #303030;
+    color: #d9d9d9;
+}
+
+
+
+.theme-Nov .page-sidebar .page-sidebar-menu .sub-menu li>a,
+.theme-Nov .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li>a{
+    background-color: #3d3d3d
+}
+
+.theme-Nov.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu.page-sidebar-menu-light > li .sub-menu, 
+.page-sidebar .page-sidebar-menu.page-sidebar-menu-light > li .sub-menu{
+    background-color: transparent;
+}
+
+.theme-Nov .page-sidebar .page-sidebar-menu.page-sidebar-menu-light > li .sub-menu > li.active > a,
+.theme-Nov .page-sidebar .page-sidebar-menu.page-sidebar-menu-light > li.active > a,
+.theme-Nov .page-sidebar .page-sidebar-menu.page-sidebar-menu-light > li .sub-menu > li:hover > a,
+.theme-Nov .page-sidebar .page-sidebar-menu.page-sidebar-menu-light > li.active.open > a {
+    background: #474747!important;
+}
+
+
+.theme-Nov.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu.page-sidebar-menu-light > li .sub-menu > li:hover > a,
+.theme-Nov.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu.page-sidebar-menu-light > li .sub-menu > li.open > a, 
+.theme-Nov.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu.page-sidebar-menu-light > li .sub-menu > li.active > a
+{
+    background: #474747!important;
+}
+
+.theme-Nov.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu.page-sidebar-menu-light > li:hover > a,
+.theme-Nov .page-sidebar .page-sidebar-menu.page-sidebar-menu-light > li:hover > a,
+.theme-Nov.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu.page-sidebar-menu-light > li.open > a,
+.theme-Nov .page-sidebar .page-sidebar-menu.page-sidebar-menu-light > li.open > a{
+    background: #474747!important;
+}
+
+
+
+
+/*示例结束*/
+
+/* dropdown tab切换 */
+#dmsBreadcrumb{
+    display: none;
+}
+.icon-checkbox{
+    margin-right: 9px !important;
+}
+
+.icon-checkbox+label{
+    margin-bottom:0;
+    font-size: 14px;
+    font-weight: 300;
+    color: #555;
+}
+/*------------------begin css font-size:12px---------------*/
+#dmsTabDiv>.nav-tabs > li.active > a, #dmsTabDiv>.nav-tabs > li > a{
+font-size:12px;
+}
+.panel .panel-body{
+font-size:12px;
+}
+
+.btn{
+font-size:12px;
+}
+
+body{
+font-size:12px;
+}
+
+.table thead tr th{
+font-size:12px;
+}
+
+.table td{
+font-size:12px;
+}
+
+.panel.table-panel .panel-body{
+font-size:12px;
+}
+
+.form-control.required, .form-group .required{
+font-size:12px;
+}
+
+.form-control{
+font-size:12px;
+}
+
+.dropdown-menu{
+font-size:12px;
+}
+
+.nav-tabs > li.active > a{
+font-size:12px;
+}
+
+.nav-pills>li>a, .nav-tabs>li>a{
+font-size:12px;
+}
+
+.panel > .panel-heading > .pannel-tips .mt-element-step .step-background-thin .mt-step-title{
+font-size:12px;
+}
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle > .username{
+font-size:12px;
+}
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-menu > li > a{
+font-size:12px;
+}
+.page-quick-sidebar-wrapper .page-quick-sidebar .nav-tabs > li > a{
+ font-size:12px;
+}
+/*-----------------end font-size:12px-----------------*/
+
+

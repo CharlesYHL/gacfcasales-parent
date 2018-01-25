@@ -94,9 +94,9 @@
     </select> 
 
 	<insert id="insertResources" parameterType="map">
-		insert into sys_role_rescue_resource (role_id, resource_id) values
+		insert into sys_role_rescue_resource (role_id, resource_id,app_id) values
 		<foreach collection="resourceIds" item="resourceId" separator=",">
-			(#{roleId}, #{resourceId})
+			(#{roleId}, #{resourceId},#{appId})
 		</foreach>
 	</insert>
 	

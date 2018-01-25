@@ -142,6 +142,7 @@ public class SysRoleController {
 			sysRoleService.deleteResources(role.getId());
 		}
 		paramMap.put("roleId", role.getId());
+		paramMap.put("dmsAppId", appKey);
 		sysRoleService.insertResources(paramMap);
 		return result;
 	}
