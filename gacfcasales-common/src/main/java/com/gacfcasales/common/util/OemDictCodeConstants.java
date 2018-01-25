@@ -1,6 +1,5 @@
 package com.gacfcasales.common.util;
 
-
 public class OemDictCodeConstants {
 
 	/*********************************************************************************************************/
@@ -839,11 +838,11 @@ public class OemDictCodeConstants {
 	public final static String TECH_ORDER_PRE = "4TL31Q";// 技术连线工单前缀
 
 	/*
-	 * public final static Integer REPAIR_TYPE = 4001;//售后维修类型 public final
-	 * static Integer REPAIR_TYPE_01 = 40011001; //标准维修 public final static
-	 * Integer REPAIR_TYPE_02 = 40011002; //售前维修 public final static Integer
-	 * REPAIR_TYPE_03 = 40011003; //返修 public final static Integer
-	 * REPAIR_TYPE_04 = 40011004; //服务活动
+	 * public final static Integer REPAIR_TYPE = 4001;//售后维修类型 public final static
+	 * Integer REPAIR_TYPE_01 = 40011001; //标准维修 public final static Integer
+	 * REPAIR_TYPE_02 = 40011002; //售前维修 public final static Integer REPAIR_TYPE_03
+	 * = 40011003; //返修 public final static Integer REPAIR_TYPE_04 = 40011004;
+	 * //服务活动
 	 */
 
 	public final static Integer REPAIR_FIXED_TYPE = 4100;// 售后维修类型(固化后)16种
@@ -879,9 +878,9 @@ public class OemDictCodeConstants {
 	public final static Integer REPAIR_ORD_DEAL_TYPE_06 = 40031006; // 检测和更换
 
 	/*
-	 * 原来的 public final static Integer REPAIR_ORD_TYPE = 4004;//维修工单类型 public
-	 * final static Integer REPAIR_ORD_TYPE_01 = 40041001; //保养工单 public final
-	 * static Integer REPAIR_ORD_TYPE_02 = 40041002; //维修工单
+	 * 原来的 public final static Integer REPAIR_ORD_TYPE = 4004;//维修工单类型 public final
+	 * static Integer REPAIR_ORD_TYPE_01 = 40041001; //保养工单 public final static
+	 * Integer REPAIR_ORD_TYPE_02 = 40041002; //维修工单
 	 */
 	// 固化后
 	public final static Integer REPAIR_ORD_TYPE = 4004;// 维修工单类型
@@ -2237,8 +2236,8 @@ public class OemDictCodeConstants {
 	public final static Integer OP_RETURN_STATUS_NO_DESPATCH = 91161001; // 未发运
 	public final static Integer OP_RETURN_STATUS_DESPATCH = 91161002; // 已发运
 	/*
-	 * public final static Integer OP_RETURN_STATUS_RECEIVE = 91161003; //已清点
-	 * public final static Integer OP_RETURN_STATUS_AUDIT = 91161004; //
+	 * public final static Integer OP_RETURN_STATUS_RECEIVE = 91161003; //已清点 public
+	 * final static Integer OP_RETURN_STATUS_AUDIT = 91161004; //
 	 */
 
 	// 扫描登录权限
@@ -2623,12 +2622,12 @@ public class OemDictCodeConstants {
 	public final static Integer EC_ORDER_STATUS_03 = 70371003;// 默认值
 
 	/**
-	 * 维修工时参数CJD,FIAT,GS4 
+	 * 维修工时参数CJD,FIAT,GS4
 	 */
 	public final static Integer BRAND_GROUP_TYPE = 7039;
 	public final static Integer BRAND_GROUP_TYPE_01 = 70391001;// CJD
 	public final static Integer BRAND_GROUP_TYPE_02 = 70391002;// FIAT
-	public final static Integer BRAND_GROUP_TYPE_03 = 70391003;// GS4  
+	public final static Integer BRAND_GROUP_TYPE_03 = 70391003;// GS4
 
 	/**
 	 * 开票类型
@@ -2954,7 +2953,7 @@ public class OemDictCodeConstants {
 	public final static Integer STATION_PROPERTY_1 = 17011001;// 关键岗位
 	public final static Integer STATION_PROPERTY_2 = 17011002;// 重要岗位
 	public final static Integer STATION_PROPERTY_3 = 17011003;// 一般岗位
-	
+
 	/**
 	 * 配置月份
 	 */
@@ -2972,25 +2971,25 @@ public class OemDictCodeConstants {
 	public final static Integer MONTH_NUMBER11 = 900910011;
 	public final static Integer MONTH_NUMBER12 = 900910012;
 	/**
-	 * GS4-新能源索赔  新能源索赔状态
+	 * GS4-新能源索赔 新能源索赔状态
 	 */
 	public final static Integer GS4_WARRANTY_STATUS = 9301;
-	public final static Integer GS4_WARRANTY_STATUS_01 = 93010001;//待提交
-	public final static Integer GS4_WARRANTY_STATUS_02 = 93010002;//已提交
-	public final static Integer GS4_WARRANTY_STATUS_03 = 93010003;//作废
-	public final static Integer GS4_WARRANTY_STATUS_04 = 93010004;//审核作废
-	
+	public final static Integer GS4_WARRANTY_STATUS_01 = 93010001;// 待提交
+	public final static Integer GS4_WARRANTY_STATUS_02 = 93010002;// 已提交
+	public final static Integer GS4_WARRANTY_STATUS_03 = 93010003;// 作废
+	public final static Integer GS4_WARRANTY_STATUS_04 = 93010004;// 审核作废
+
 	/**
-	 * GS4-新能源索赔  新能源审核状态
+	 * GS4-新能源索赔 新能源审核状态
 	 */
 	public final static Integer GS4_ADUIT_STATUS = 9902;
-	public final static Integer GS4_ADUIT_STATUS_01 = 99020001;//20-通过后被删除的保修单
-	public final static Integer GS4_ADUIT_STATUS_02 = 99020002;//21-通过的保修单
-	public final static Integer GS4_ADUIT_STATUS_03 = 99020003;//22-需经销商修订的保修单
-	public final static Integer GS4_ADUIT_STATUS_04 = 99020004;//23-待人工审核
-	public final static Integer GS4_ADUIT_STATUS_05 = 99020005;//29-被系统拒绝的保修单
-	public final static Integer GS4_ADUIT_STATUS_06 = 99020006;//30-拒绝作废
-	
+	public final static Integer GS4_ADUIT_STATUS_01 = 99020001;// 20-通过后被删除的保修单
+	public final static Integer GS4_ADUIT_STATUS_02 = 99020002;// 21-通过的保修单
+	public final static Integer GS4_ADUIT_STATUS_03 = 99020003;// 22-需经销商修订的保修单
+	public final static Integer GS4_ADUIT_STATUS_04 = 99020004;// 23-待人工审核
+	public final static Integer GS4_ADUIT_STATUS_05 = 99020005;// 29-被系统拒绝的保修单
+	public final static Integer GS4_ADUIT_STATUS_06 = 99020006;// 30-拒绝作废
+
 	/**
 	 * 车辆阶段(经销商库存)
 	 */
@@ -2998,7 +2997,7 @@ public class OemDictCodeConstants {
 	public final static Integer VEHICLE_PHASE_TYPE_01 = 20241001;// 待发运
 	public final static Integer VEHICLE_PHASE_TYPE_02 = 20241002;// 在途
 	public final static Integer VEHICLE_PHASE_TYPE_03 = 20241003;// 在库
-	
+
 	/**
 	 * 财务报表单据类型
 	 */
@@ -3007,88 +3006,102 @@ public class OemDictCodeConstants {
 	public final static Integer KPI_REPORT_TYPE_02 = 90291002;// 店面数据运营统计表
 	public final static Integer KPI_REPORT_TYPE_03 = 90291003;// 资产负债表
 	public final static Integer KPI_REPORT_TYPE_04 = 90291004;// 现金流量表
-	
+
 	/**
 	 * 激活状态
 	 */
 	public final static Integer ACTIVATE_STATUS = 9032;
 	public final static Integer ACTIVATE_STATUS_01 = 90321001;// 未激活
 	public final static Integer ACTIVATE_STATUS_02 = 90321002;// 已激活
-	
+
 	/**
 	 * 赠品订单：货运单类型
 	 */
 	public final static Integer WAYBILL_TYPE = 7892;
 	public final static Integer WAYBILL_TYPE_01 = 78921001;// SAP货运单
 	public final static Integer WAYBILL_TYPE_02 = 78921002;// 赠品货运单
-	
+
 	/**
 	 * 配件促销保养套餐维护：有效时间
 	 */
 	public final static Integer EFFECTIVE_TIME = 5300;
-	public final static Integer EFFECTIVE_TIME_01 = 53001001;//12个月
-	public final static Integer EFFECTIVE_TIME_02 = 53001002;//18个月
-	public final static Integer EFFECTIVE_TIME_03 = 53001003;//24个月
-	public final static Integer EFFECTIVE_TIME_04 = 53001004;//30个月
-	public final static Integer EFFECTIVE_TIME_05 = 53001005;//36个月
-	public final static Integer EFFECTIVE_TIME_06 = 53001006;//42个月
-	public final static Integer EFFECTIVE_TIME_07 = 53001007;//48个月
-	
+	public final static Integer EFFECTIVE_TIME_01 = 53001001;// 12个月
+	public final static Integer EFFECTIVE_TIME_02 = 53001002;// 18个月
+	public final static Integer EFFECTIVE_TIME_03 = 53001003;// 24个月
+	public final static Integer EFFECTIVE_TIME_04 = 53001004;// 30个月
+	public final static Integer EFFECTIVE_TIME_05 = 53001005;// 36个月
+	public final static Integer EFFECTIVE_TIME_06 = 53001006;// 42个月
+	public final static Integer EFFECTIVE_TIME_07 = 53001007;// 48个月
+
 	/**
 	 * 配件促销保养套餐维护：发布状态
 	 */
 	public final static Integer PART_RELEASE_STATUS = 5310;
-	public final static Integer PART_RELEASE_STATUS_01 = 53101001;//未发布
-	public final static Integer PART_RELEASE_STATUS_02 = 53101002;//已发布
-	public final static Integer PART_RELEASE_STATUS_03 = 53101003;//已停用
-	
+	public final static Integer PART_RELEASE_STATUS_01 = 53101001;// 未发布
+	public final static Integer PART_RELEASE_STATUS_02 = 53101002;// 已发布
+	public final static Integer PART_RELEASE_STATUS_03 = 53101003;// 已停用
+
 	/**
 	 * 经销商账单核对：核对结果
 	 */
 	public final static Integer DEALER_BILL_RESULT = 8101;
-	public final static Integer DEALER_BILL_RESULT_01 = 81011001;//核对相符
-	public final static Integer DEALER_BILL_RESULT_02 = 81011002;//核对不符
-	public final static Integer DEALER_BILL_RESULT_03 = 81011003;//自动相符
-	
+	public final static Integer DEALER_BILL_RESULT_01 = 81011001;// 核对相符
+	public final static Integer DEALER_BILL_RESULT_02 = 81011002;// 核对不符
+	public final static Integer DEALER_BILL_RESULT_03 = 81011003;// 自动相符
+
 	/**
 	 * CJD索赔单提报阀值
 	 */
 	public final static Integer ClAIM_SEND_LIMIT = 9401;
-	public final static Integer ClAIM_SEND_LIMIT_01 = 94011001;//一次提报经销商数量
-	public final static Integer ClAIM_SEND_LIMIT_02 = 94011002;//每个经销商一次提报索赔单数量
-	
+	public final static Integer ClAIM_SEND_LIMIT_01 = 94011001;// 一次提报经销商数量
+	public final static Integer ClAIM_SEND_LIMIT_02 = 94011002;// 每个经销商一次提报索赔单数量
+
 	/**
 	 * 配件发货日配件类型
 	 */
 	public final static int PDD_PART_TYPE = 5312;
-	public final static int PDD_PART_TYPE_01 = 53121001;//进口
-	public final static int PDD_PART_TYPE_02 = 53121002;//国产
-	public final static int PDD_PART_TYPE_03 = 53121003;//第三方
-	
+	public final static int PDD_PART_TYPE_01 = 53121001;// 进口
+	public final static int PDD_PART_TYPE_02 = 53121002;// 国产
+	public final static int PDD_PART_TYPE_03 = 53121003;// 第三方
+
 	/**
 	 * 配件发货日发布状态
 	 */
 	public final static int PDD_RELEASE_STATUS = 5311;
-	public final static int PDD_RELEASE_STATUS_01 = 53111001;//未发布
-	public final static int PDD_RELEASE_STATUS_02 = 53111002;//已发布
-	
+	public final static int PDD_RELEASE_STATUS_01 = 53111001;// 未发布
+	public final static int PDD_RELEASE_STATUS_02 = 53111002;// 已发布
+
 	/**
 	 * 产品发布状态
 	 *
 	 */
-	
-	public final static int PRODUCT_RELEASE_STATUS_01 = 54011001;//未发布
-	public final static int PRODUCT_RELEASE_STATUS_02 = 54011002;//已发布
-	public final static int PRODUCT_RELEASE_STATUS_03 = 54011003;//已取消
-	
-	
+
+	public final static int PRODUCT_RELEASE_STATUS_01 = 54011001;// 未发布
+	public final static int PRODUCT_RELEASE_STATUS_02 = 54011002;// 已发布
+	public final static int PRODUCT_RELEASE_STATUS_03 = 54011003;// 已取消
+
 	/**
 	 * 销售单状态
 	 * 
 	 */
-	public final static int PRODUCT_SALES_STATUS_01 = 55011001;//已保存
-	public final static int PRODUCT_SALES_STATUS_02 = 55011002;//已结案
-	public final static int PRODUCT_SALES_STATUS_03 = 55011003;//扣款失败
-	public final static int PRODUCT_SALES_STATUS_04 = 55011004;//已作废
-}
+	public final static int PRODUCT_SALES_STATUS_01 = 55011001;// 已保存
+	public final static int PRODUCT_SALES_STATUS_02 = 55011002;// 已结案
+	public final static int PRODUCT_SALES_STATUS_03 = 55011003;// 扣款失败
+	public final static int PRODUCT_SALES_STATUS_04 = 55011004;// 已作废
 
+	// 状态信息，0 成功 1 失败
+	public final static Integer STATUS_SUCCESS = 0;
+	public final static Integer STATUS_ERROR = 1;
+
+	// 提交状态说明
+	public final static String EMPTYMSG_ERROR = "空信息";
+	public final static String PARSEMSG_ERROR = "解析数据失败";
+	public final static String REQUIREDNULL_ERROR = "数据中存在必填项为空的状态";
+	public final static String INSETMYSQL_ERROR = "插入数据时失败";
+	public final static String TOTNUMISNULL_ERROR = "合计项为空";
+	public final static String NOMETHOD_ERROR = "没有对应的action处理";
+	public final static String ERROR = "未知错误，请联系管理员";
+	public final static String SUCCESS = "";
+	public static final String UPDATEMYSQL_ERROR = "插入数据成功，更新其他表中字段时失败！";
+
+}

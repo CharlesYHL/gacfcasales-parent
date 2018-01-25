@@ -264,13 +264,13 @@ var TableInit = function() {
 											var operate = '<div style="width:120px;">'
 											if (row.ORDER_STATUS == '已结案'
 													|| row.ORDER_STATUS == "已作废") {
-												operate += '<button class="btn btn-primary btn-xs" style="display:none" href="#" onclick="edit(\''
+												operate += '<button class="btn btn-primary btn-xs" disabled="disabled" href="#" onclick="edit(\''
 														+ row.PRODUCT_SALES_ID
 														+ '\')"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></button> '
 												operate += '<button class="btn btn-primary btn-xs" href="#" onclick="detail(\''
 														+ row.PRODUCT_SALES_ID
 														+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs" style="display:none"  href="#" onclick="invalid(\''
+												operate += '<button class="btn btn-primary btn-xs" disabled="disabled"  href="#" onclick="invalid(\''
 														+ row.PRODUCT_SALES_ID
 														+ '\')"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i></button> '
 											}

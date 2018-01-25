@@ -72,6 +72,8 @@
         <script src="${ctx }/resource/global/plugins/amcharts/amcharts/themes/light.js" type="text/javascript"></script>
         <script src="${ctx }/resource/global/plugins/amcharts/amcharts/themes/patterns.js" type="text/javascript"></script>
         <script src="${ctx }/resource/global/plugins/amcharts/amcharts/themes/chalk.js" type="text/javascript"></script>
+<!--         <script src="${ctx }/resource/global/plugins/amcharts/ammap/ammap.js" type="text/javascript"></script> -->
+<!--         <script src="${ctx }/resource/global/plugins/amcharts/ammap/maps/js/worldLow.js" type="text/javascript"></script> -->
         <script src="${ctx }/resource/global/plugins/amcharts/amstockcharts/amstock.js" type="text/javascript"></script>
         <script src="${ctx }/resource/global/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
         <!-- PLOT CHAT ，考虑后续CHAT的选型 -->
@@ -80,10 +82,20 @@
         <script src="${ctx }/resource/global/plugins/flot/jquery.flot.categories.min.js" type="text/javascript"></script>
         <script src="${ctx }/resource/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js" type="text/javascript"></script>
         <script src="${ctx }/resource/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+<!--         <script src="${ctx }/resource/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script> -->
+<!--         <script src="${ctx }/resource/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script> -->
+<!--         <script src="${ctx }/resource/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script> -->
+<!--         <script src="${ctx }/resource/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script> -->
+<!--         <script src="${ctx }/resource/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script> -->
+<!--         <script src="${ctx }/resource/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script> -->
+<!--         <script src="${ctx }/resource/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script> -->
 
  		<script src="${ctx }/resource/global/plugins/boostrap-table/bootstrap-table.js" type="text/javascript"></script>
  		<SCRIPT SRC="${ctx }/resource/global/plugins/boostrap-table/bootstrap-table-fixed-columns.js" TYPE="TEXT/JAVASCRIPT"></SCRIPT>
  		<script src="${ctx }/resource/global/scripts/datatable_bt.js?Version=5" type="text/javascript"></script>
+<!--  		<script src="${ctx }/resource/global/scripts/treegrid.js" type="text/javascript"></script>
+ --><!--  		<script src="${ctx }/resource/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script> -->
+<!--         <script src="${ctx }/resource/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script> -->
  		<script src="${ctx }/resource/global/plugins/bootstrap-confirmation/bootstrap-confirmation.js" type="text/javascript"></script>
  		<script src="${ctx }/resource/global/plugins/bootstrap-toastr/toastr.min.js" type="text/javascript"></script>
  		<script src="${ctx }/resource/global/plugins/bootstrap-select/js/bootstrap-select.js" type="text/javascript"></script>
@@ -116,8 +128,8 @@
         <script src="${ctx }/resource/ztree/jquery.ztree.excheck.js" type="text/javascript"></script>
         <script src="${ctx }/resource/ztree/jquery.ztree.exedit.js" type="text/javascript"></script>
         
-       <%--  <!-- 图片插件 -->
-        <script src="${ctx }/resource/picPlay/js/viewer.min.js" type="text/javascript"></script>
+        <!-- 图片插件 -->
+        <%-- <script src="${ctx }/resource/picPlay/js/viewer.min.js" type="text/javascript"></script>
         
         <script src="${ctx }/resource/SweetAlert/js/dialog.js"></script> --%>
         <!-- 多页签 -->
