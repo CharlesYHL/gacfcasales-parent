@@ -290,18 +290,18 @@ var TableInit = function() {
 												operate += '<button class="btn btn-primary btn-xs" href="#" onclick="release(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs" style="border-color:#dd4b39;background-color:#dd4b39;display:none;" href="#" onclick="cancel(\''
+												operate += '<button class="btn btn-primary btn-xs" disabled="disabled" style="border-color:#dd4b39;background-color:#dd4b39;" href="#" onclick="cancel(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></button> '
 											}
 											if (row.RELEASE_STATUS == '已发布') {
-												operate += '<button class="btn btn-primary btn-xs" style="display:none" href="#" onclick="edit(\''
+												operate += '<button class="btn btn-primary btn-xs" disabled="disabled" href="#" onclick="edit(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></button> '
 												operate += '<button class="btn btn-primary btn-xs" href="#" onclick="detail(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs" style="display:none" href="#" onclick="release(\''
+												operate += '<button class="btn btn-primary btn-xs" disabled="disabled" href="#" onclick="release(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></button> '
 												operate += '<button class="btn btn-primary btn-xs" style="border-color:#dd4b39;background-color:#dd4b39" href="#" onclick="cancel(\''
@@ -319,7 +319,7 @@ var TableInit = function() {
 												operate += '<button class="btn btn-primary btn-xs" style=""href="#" onclick="release(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs" style="border-color:#dd4b39;background-color:#dd4b39;display:none;" href="#" onclick="cancel(\''
+												operate += '<button class="btn btn-primary btn-xs" disabled="disabled" style="border-color:#dd4b39;background-color:#dd4b39;" href="#" onclick="cancel(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></button> '
 											}
