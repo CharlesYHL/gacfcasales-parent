@@ -100,7 +100,7 @@
 		<div class="box-header">
 			<button id="btn_export" type="button" class="btn btn-primary"
 				onclick="exportExcel()">
-				<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+				<!-- <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> -->
 				导出
 			</button>
 		</div>

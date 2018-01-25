@@ -145,11 +145,11 @@
 		<div class="box-header">
 			<button id="btn_add" type="button" class="btn btn-primary"
 				style="margin-right: 2px;" onclick="addSales();">
-				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增
+				<!-- <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> --> 新增
 			</button>
 			<button id="btn_export" type="button" class="btn btn-primary"
 				onclick="exportExcel()">
-				<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+				<!-- <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> -->
 				导出
 			</button>
 		</div>
