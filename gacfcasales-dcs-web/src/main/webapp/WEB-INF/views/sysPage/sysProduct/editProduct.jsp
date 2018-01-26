@@ -7,142 +7,207 @@
 		<input type="text" id="productId" name="productId"
 			value="${requestScope.tiOpiExtendedDCS.PRODUCT_ID }" hidden="hidden" />
 		<input type="text" id="productFait" name="productFait"
-			value="${requestScope.tiOpiExtendedDCS.PRODUCT_FAIT }" hidden="hidden" />
-		<input type="text" id="productJeep" name="productJeep"
-			value="${requestScope.tiOpiExtendedDCS.PRODUCT_JEEP }" hidden="hidden" />
-		<input type="text" id="productCjd" name="productCjd"
+			value="${requestScope.tiOpiExtendedDCS.PRODUCT_FAIT }"
+			hidden="hidden" /> <input type="text" id="productJeep"
+			name="productJeep"
+			value="${requestScope.tiOpiExtendedDCS.PRODUCT_JEEP }"
+			hidden="hidden" /> <input type="text" id="productCjd"
+			name="productCjd"
 			value="${requestScope.tiOpiExtendedDCS.PRODUCT_CJD }" hidden="hidden" />
 		<input type="text" id="productDateRet" name="productDateRet"
-			value="${requestScope.tiOpiExtendedDCS.PRODUCT_DATE }" hidden="hidden" />
-		<div class="row">
-			<div class="col-xs-offset-1 col-xs-10">
-				<div class="panel panel-default">
-					<!-- <div class="panel-heading">
-						<h3 class="panel-title">新增产</h3>
-					</div> -->
-					<div class="box-header with-border form-inline">
-						<div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">产品编号</span>
-								<input type="text" class="form-control" name="productNo"
-									id="productNo"
-									value="${requestScope.tiOpiExtendedDCS.PRODUCT_NO }"
-									placeholder="请输入产品编号" />
-								<!-- <span class="input-group-btn">
-									<button class="btn default btn-sm" onclick="addPart();">
-										<i class="fa fa-list-alt"></i>
-									</button>
-								</span> -->
+			value="${requestScope.tiOpiExtendedDCS.PRODUCT_DATE }"
+			hidden="hidden" />
+		<form class="form-horizontal">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5">产品编号</label>
+								<div class="col-xs-7 ">
+									<div class="input-group">
+										<input type="text"
+											value="${requestScope.tiOpiExtendedDCS.PRODUCT_NO }"
+											class="form-control" id="productNo" name="productNo" />
+										<!-- <span
+											class="input-group-addon" onclick="addPart();"> <i
+											class="fa fa-list-alt"></i>
+										</span> -->
+									</div>
+								</div>
 							</div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">产品名称</span>
-								<input type="text" class="form-control" name="productName"
-									id="productName"
-									value="${requestScope.tiOpiExtendedDCS.PRODUCT_NAME }"
-									placeholder="请输入产品编号" />
-							</div>
+						</div>
 
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">产品类别</span>
-								<input type="text" class="form-control" name="productCategory"
-									id="productCategory"
-									value="${requestScope.tiOpiExtendedDCS.PRODUCT_CATEGORY }"
-									placeholder="请输入产品类别" />
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5">产品名称</label>
+								<div class="col-xs-7 ">
+									<div class="input-group">
+										<input type="text"
+											value="${requestScope.tiOpiExtendedDCS.PRODUCT_NAME }"
+											class="form-control" id="productName" name="productName" />
+									</div>
+								</div>
 							</div>
 						</div>
-						<div style="height: 3px;"></div>
-						<div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">产品属性</span>
-								<input type="text" class="form-control" name="productProperty"
-									id="productProperty"
-									value="${requestScope.tiOpiExtendedDCS.PRODUCT_PROPERTY }"
-									placeholder="请输入产品属性" />
-							</div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">产品有效期</span>
-								<select name="productDate" id="productDate" class="selectpicker" onchange="getProductDate()"></select>
-							</div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">DNP价格</span>
-								<input type="text" class="form-control" name="dnpPrice"
-									id="dnpPrice"
-									value="${requestScope.tiOpiExtendedDCS.DNP_PRICE }"
-									placeholder="请输入DNP价格" />
-							</div>
-						</div>
-						<div style="height: 3px;"></div>
-						<div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">MSRP价格</span>
-								<input type="text" class="form-control" name="msrpPrice"
-									id="msrpPrice"
-									value="${requestScope.tiOpiExtendedDCS.MSRP_PRICE }"
-									placeholder="请输入产品属性" />
-							</div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 330px;">
-								<span class="input-group-addon" style="width: 50px;">销售时间</span>
-								<input id="salesStart" name="salesStart" type="text"
-									class="form-control"
-									value="${requestScope.tiOpiExtendedDCS.SALES_DATE_START }"
-									placeholder="请输入开始日期" /> <span class="input-group-addon">
-									- </span> <input id="salesEnd" name="salesEnd" type="text"
-									class="form-control"
-									value="${requestScope.tiOpiExtendedDCS.SALES_DATE_END }"
-									placeholder="请输入结束日期" />
-							</div>
-						</div>
-						<div style="height: 3px;"></div>
-						<div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">是否FIAT授权</span>
-								<select name="isFiat" id="isFiat" class="selectpicker"></select>
-							</div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">是否国产JEEP授权</span>
-								<select name="isJeep" id="isJeep" class="selectpicker"></select>
-							</div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">是否CJD授权</span>
-								<select name="isCjd" id="isCjd" class="selectpicker"></select>
-							</div>
 
-						</div>
-						<div style="height: 3px;"></div>
-						<div>
-						<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">适用车型</span>
-								<input type="text" class="form-control" name="productModel"
-									id="productModel"
-									value="${requestScope.tiOpiExtendedDCS.PRODUCT_MODEL }"
-									placeholder="请输入产品属性" />
-							</div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 600px;">
-								<span class="input-group-addon" style="width: 150px;">产品说明</span>
-								<input type="text" class="form-control"
-									name="productDescribtion" style="height: 50px;"
-									id="productDescribtion"
-									value="${requestScope.tiOpiExtendedDCS.PRODUCT_DESCRIBTION }"
-									placeholder="产品说明" />
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5">产品类别</label>
+								<div class="col-xs-7 ">
+									<div class="input-group">
+										<input type="text"
+											value="${requestScope.tiOpiExtendedDCS.PRODUCT_CATEGORY }"
+											class="form-control" id="productCategory"
+											name="productCategory" />
+									</div>
+								</div>
 							</div>
 						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5">产品属性</label>
+								<div class="col-xs-7 ">
+									<div class="input-group">
+										<input type="text"
+											value="${requestScope.tiOpiExtendedDCS.PRODUCT_PROPERTY }"
+											class="form-control" id="productProperty"
+											name="productProperty" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5">产品属性</label>
+								<div class="col-xs-7 ">
+									<div class="input-group">
+										<input type="text"
+											value="${requestScope.tiOpiExtendedDCS.PRODUCT_PROPERTY }"
+											class="form-control" id="productProperty"
+											name="productProperty" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">产品有效期</label>
+								<div class="col-xs-7">
+									<select name="productDate" id="productDate"
+										class="bs-select form-control" onchange="getProductDate()"></select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5">DNP价格</label>
+								<div class="col-xs-7 ">
+									<div class="input-group">
+										<input type="text"
+											value="${requestScope.tiOpiExtendedDCS.DNP_PRICE }"
+											class="form-control" id="dnpPrice" name="dnpPrice" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5">MSRP价格</label>
+								<div class="col-xs-7 ">
+									<div class="input-group">
+										<input type="text"
+											value="${requestScope.tiOpiExtendedDCS.MSRP_PRICE }"
+											class="form-control" id="msrpPrice" name="msrpPrice" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">是否FIAT授权</label>
+								<div class="col-xs-7">
+									<select name="isFiat" id="isFiat"
+										class="bs-select form-control"></select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">是否JEEP授权</label>
+								<div class="col-xs-7">
+									<select name="isJeep" id="isJeep"
+										class="bs-select form-control"></select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">是否CJD授权</label>
+								<div class="col-xs-7">
+									<select name="isCjd" id="isCjd" class="bs-select form-control"></select>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5">适用车型</label>
+								<div class="col-xs-7 ">
+									<div class="input-group">
+										<input type="text"
+											value="${requestScope.tiOpiExtendedDCS.PRODUCT_MODEL }"
+											class="form-control" id="productModel" name="productModel" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-5">
+							<div class="form-group">
+								<label class="control-label col-xs-3">销售时间</label>
+								<div class="col-xs-6 col-sm-8">
+									<div class="input-group input-daterange">
+										<input id="salesStart" name="salesStart" type="text"
+											class="form-control" placeholder="请输入开始日期"
+											value="${requestScope.tiOpiExtendedDCS.SALES_DATE_START }" />
+										<span class="input-group-addon"> - </span> <input
+											id="salesEnd" name="salesEnd" type="text"
+											class="form-control"
+											value="${requestScope.tiOpiExtendedDCS.SALES_DATE_END }"
+											placeholder="请输入结束日期" />
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品说明</label>
+								<div class="col-xs-8">
+									<textarea id="productDescribtion" name="productDescribtion" class="form-control" rows="3" value="${requestScope.tiOpiExtendedDCS.PRODUCT_DESCRIBTION }"></textarea>
+									<%-- <input id="productDescribtion" name="productDescribtion"
+										class="form-control" type="text"
+										value="${requestScope.tiOpiExtendedDCS.PRODUCT_DESCRIBTION }" /> --%>
+								</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
+
 	</div>
 
 	<div v-show="showOper" class="box box-custom collapsed-box"

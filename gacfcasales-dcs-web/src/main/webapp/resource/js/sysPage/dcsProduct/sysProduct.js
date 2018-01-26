@@ -129,11 +129,15 @@ var vm = new Vue({
 			$("#productName").val('');
 			$("#productCategory").val('');
 			$("#productProperty").val('');
-			$('#isValid').selectpicker('val', '0');
-			$('#productDate').selectpicker('val', '0');
-			$('#releaseStatus').selectpicker('val', '0');
+			$('#isValid').val('0');
+			$('#productDate').val('0');
+			$('#releaseStatus').val('0')
+			$('#isCSales').val('0');
+			//$('#isValid').selectpicker('val', '0');
+			//$('#productDate').selectpicker('val', '0');
+			//$('#releaseStatus').selectpicker('val', '0');
 			$("#productModel").val('');
-			$('#isCSales').selectpicker('val', '0');
+			//$('#isCSales').selectpicker('val', '0');
 			$("#releaseStart").val('');
 			$("#releaseEnd").val('');
 			$("#salesStart").val('');
