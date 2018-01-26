@@ -271,13 +271,13 @@
 	$("#btn_print").click(function(event) {
 		console.log("======================");
 		/* Act on the event */
-		$("#printSales").printThis({
+		var tt = $("#printSales").printThis({
 			debug : false,
 			importCSS : false,
 			importStyle : false,
 			printContainer : true,
 			// loadCSS:  "${ctx}/resource/css/common.css",  
-			pageTitle : "二维码",
+			pageTitle : "道路救援延长服务确认单",
 			removeInline : false,
 			printDelay : 333,
 			header : null,
@@ -288,6 +288,6 @@
 				khxx
 			}
 		} */
-		//  alert("等待打印");  
+		console.log(tt);
 	});
 </script>

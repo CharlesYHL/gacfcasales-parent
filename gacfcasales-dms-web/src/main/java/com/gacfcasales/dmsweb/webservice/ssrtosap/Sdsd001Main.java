@@ -35,13 +35,26 @@ public class Sdsd001Main {
 			auth.setPassword(pp.getProperty("ZSDSD001.password").toString());
 			stub._getServiceClient().getOptions().setProperty(HTTPConstants.AUTHENTICATE, auth);  
 			ZSdSd001 zSdSd001 = new ZSdSd001();
-			zSdSd001.setINote(getChar200(params.get("PRODUCT_DESCRIBTION").toString()));
+			if(params.get("PRODUCT_DESCRIBTION") != null && !"".equals(params.get("PRODUCT_DESCRIBTION"))) {
+				zSdSd001.setINote(getChar200(params.get("PRODUCT_DESCRIBTION").toString()));
+			}else {
+				zSdSd001.setINote(getChar200(""));
+			}
+			
 			zSdSd001.setIOrderType(getChar2("SS"));
 			zSdSd001.setIPartNo(getChar18(params.get("PRODUCT_NO").toString()));
 			zSdSd001.setIRefNumber(getChar35(params.get("PRODUCT_SALES_ORDER").toString()));
 			zSdSd001.setIReqQty(getNumeric4(params.get("PURCHASE_NUMBER").toString()));
-			zSdSd001.setISigni(getChar20(params.get("LICENSE_NO").toString()));
-			zSdSd001.setITel(getChar20(params.get("OWNER_PHONE").toString()));
+			if(params.get("LICENSE_NO") !=null && !"".equals(params.get("LICENSE_NO"))) {
+				zSdSd001.setISigni(getChar20(params.get("LICENSE_NO").toString()));
+			}else {
+				zSdSd001.setISigni(getChar20(params.get("无牌照").toString()));
+			}
+			if(params.get("OWNER_PHONE") != null && !"".equals(params.get("OWNER_PHONE"))) {
+				zSdSd001.setITel(getChar20(params.get("OWNER_PHONE").toString()));
+			}else {
+				zSdSd001.setITel(getChar20(""));
+			}
 			zSdSd001.setIVinCode(getChar35(params.get("VIN").toString()));
 			zSdSd001.setIWerks(getChar4("3210"));
 			zSdSd001.setIZzcliente(getChar7(params.get("CTCAI_CODE").toString()));
