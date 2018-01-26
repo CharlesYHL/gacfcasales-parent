@@ -18,6 +18,7 @@ import com.gacfcasales.common.exception.ServiceBizException;
 import com.gacfcasales.common.util.CommonConstants;
 import com.gacfcasales.common.util.CommonUtils;
 import com.gacfcasales.common.util.StringUtils;
+import com.gacfcasales.dmsweb.aspect.DataSourceAnnotation;
 import com.gacfcasales.dmsweb.dao.CommoNoDao;
 import com.gacfcasales.dmsweb.service.CommonNoService;
 
@@ -28,6 +29,7 @@ public class CommonNoServiceImpl implements CommonNoService {
 	@Autowired CommoNoDao commoNoDao;
 	
 	@Override
+	@DataSourceAnnotation(value="write")
 	public String getSystemOrderNo(String orderPrefix, String dealerCode) throws ServiceBizException {
 		// TODO Auto-generated method stub
 		synchronized (this) {
@@ -106,6 +108,7 @@ public class CommonNoServiceImpl implements CommonNoService {
 	}
 
 	@Override
+	@DataSourceAnnotation(value="write")
 	public String getWSOrderNo(String orderPrefix, String entityCode) throws ServiceBizException {
 		// TODO Auto-generated method stub
 		try {
@@ -175,6 +178,7 @@ public class CommonNoServiceImpl implements CommonNoService {
 	}
 
 	@Override
+	@DataSourceAnnotation(value="read")
 	public long getTimeDiff(String type, Date t1, Date t2) throws ServiceBizException {
 		// TODO Auto-generated method stub
 		long time1 = t1.getTime();
@@ -202,6 +206,7 @@ public class CommonNoServiceImpl implements CommonNoService {
 	}
 
 	@Override
+	@DataSourceAnnotation(value="write")
 	public long getId(String type, String dealerCode) throws ServiceBizException {
 		// TODO Auto-generated method stub
 
@@ -297,6 +302,7 @@ public class CommonNoServiceImpl implements CommonNoService {
 	}
 
 	@Override
+	@DataSourceAnnotation(value="write")
 	public long getIds(String type, String dealerCode) throws ServiceBizException {
 		// TODO Auto-generated method stub
 		try {
@@ -377,72 +383,84 @@ public class CommonNoServiceImpl implements CommonNoService {
 	}
 
 	@Override
+	@DataSourceAnnotation(value="read")
 	public List<Map> getBrandList() {
 		// TODO Auto-generated method stub
 		return commoNoDao.getBrandList();
 	}
 
 	@Override
+	@DataSourceAnnotation(value="read")
 	public List<Map> getSeriesList(String groupId) {
 		// TODO Auto-generated method stub
 		return commoNoDao.getSeriesList(groupId);
 	}
 
 	@Override
+	@DataSourceAnnotation(value="read")
 	public List<Map> getModelList(String groupId) {
 		// TODO Auto-generated method stub
 		return commoNoDao.getModelList(groupId);
 	}
 
 	@Override
+	@DataSourceAnnotation(value="read")
 	public List<ModelPage> getModelTableList(Assist assist) {
 		// TODO Auto-generated method stub
 		return commoNoDao.getModelTableList(assist);
 	}
 
 	@Override
+	@DataSourceAnnotation(value="read")
 	public long getModelTableRowCount(Assist assist) {
 		// TODO Auto-generated method stub
 		return commoNoDao.getModelTableRowCount(assist);
 	}
 
 	@Override
+	@DataSourceAnnotation(value="read")
 	public List<ModelPage> getSeriesTableList(Assist assist) {
 		// TODO Auto-generated method stub
 		return commoNoDao.getSeriesTableList(assist);
 	}
 
 	@Override
+	@DataSourceAnnotation(value="read")
 	public long getSeriesTableRowCount(Assist assist) {
 		// TODO Auto-generated method stub
 		return commoNoDao.getSeriesTableRowCount(assist);
 	}
 
 	@Override
+	@DataSourceAnnotation(value="read")
 	public List<Map> getVehicleList(Assist assist) {
 		// TODO Auto-generated method stub
 		return commoNoDao.getVehicleList(assist);
 	}
 
 	@Override
+	@DataSourceAnnotation(value="read")
 	public long getVehicleRowCount(Assist assist) {
 		// TODO Auto-generated method stub
 		return commoNoDao.getVehicleRowCount(assist);
 	}
 
 	@Override
+	@DataSourceAnnotation(value="read")
 	public Map getTmUserId(Map map) {
 		// TODO Auto-generated method stub
 		return commoNoDao.getTmUserId(map);
 	}
 
 	@Override
+	@DataSourceAnnotation(value="read")
 	public Map getTcUserId(Map map) {
 		// TODO Auto-generated method stub
 		return commoNoDao.getTcUserId(map);
 	}
 
 	@Override
+	@DataSourceAnnotation(value="read")
 	public Map getDealerCodeAndName(String groupId) {
 		// TODO Auto-generated method stub
 		return commoNoDao.getDealerCodeAndName(groupId);
