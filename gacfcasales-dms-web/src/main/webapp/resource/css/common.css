@@ -10,3 +10,15 @@ table tbody tr td{
 	white-space:nowrap;
 }
 
+.dms-search, .dms-add, .dms-edit, .dms-detail,.dms-delete {
+	margin-top: 5px;
+}
+.dms-search .row,.dms-detail .row {
+	margin-bottom: 5px;
+	text-align: center;
+	margin-top: 10px;
+}
+.form-control{
+	width:150px;
+	height:30px;
+}

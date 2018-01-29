@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="${ctx }/resource/layui/css/layui.css">
 		<link rel="stylesheet"
 			href="${ctx}/resource/plugins/toastr/toastr.min.css">
+		<link ref="stylesheet" href="${ctx}/resource/css/common.css" >
 	</c:param>
 </c:import>
 
