@@ -137,6 +137,30 @@ var vm = new Vue({
 			oTable.Init();
 			vm.reload();
 		},
+		reset : function(){
+			//alert("===================");
+			$("#bigOrg").val('0');  
+			$("#bigOrg").selectpicker('refresh');
+			
+			$("#smallOrg").empty();  
+			$("#smallOrg").selectpicker('refresh');
+			
+			$("#dealerCode").val('');
+			$("#dealerName").val('');
+			$("#productSalesOrder").val('');
+			$("#productNo").val('');
+			$("#productName").val('');
+			$('#productDate').val('0');
+			$("#productDate").selectpicker('refresh');
+			$("#vin").val('');
+			$("#licenseNo").val('');
+			$("#customerName").val('');
+			$("#createStart").val('');
+			$("#createEnd").val('');
+			$("#closedStart").val('');
+			$("#closedEnd").val('');
+			vm.reload();
+		},
 		reload : function() {
 			vm.showList = true;
 			$('#table').bootstrapTable('refresh');
@@ -414,18 +438,23 @@ var TableInit = function() {
 };
 
 
-function reset() {
-	$('#bigOrg').selectpicker('val', '0');
-	$('#smallOrg').selectpicker('val', '0');
+function resetqq() {
+	$("#bigOrg").val('0');  
+	$("#bigOrg").selectpicker('refresh');
+	
+	$("#smallOrg").empty();  
+	$("#smallOrg").selectpicker('refresh');
+	
 	$("#dealerCode").val('');
 	$("#dealerName").val('');
 	$("#productSalesOrder").val('');
 	$("#productNo").val('');
 	$("#productName").val('');
-	$('#productDate').selectpicker('val', '0');
+	$('#productDate').val('0');
+	$("#productDate").selectpicker('refresh');
 	$("#vin").val('');
-	$("#licenseNo").val();
-	$("#customerName").val();
+	$("#licenseNo").val('');
+	$("#customerName").val('');
 	$("#createStart").val('');
 	$("#createEnd").val('');
 	$("#closedStart").val('');
