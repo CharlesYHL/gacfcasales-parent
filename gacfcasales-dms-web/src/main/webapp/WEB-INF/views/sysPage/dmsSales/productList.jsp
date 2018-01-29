@@ -4,48 +4,54 @@
 
 
 <div id=productApp " v-cloak>
-	<div v-show="showOperPart">
-		<div class="row">
-			<div class="col-xs-offset-1 col-xs-10">
-				<div class="panel panel-default">
-					<div class="box-header with-border form-inline">
-						<div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">产品编号</span>
-								<input type="text" class="form-control" name="productNo"
-									id="productNo" value="${requestScope.productNo }" placeholder="请输入产品编号" />
-							</div>
+	<div v-show="showOperPart" class="dms-search">
 
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">产品名称</span> <input
-									type="text" class="form-control" name="productName"
-									id="productName" value="" placeholder="请输入产品名称" />
-							</div>
-
-						</div>
-						<div style="height: 3px;"></div>
-						<div>
-							<div class="input-group input-group-sm"
-								style="margin-left: 40%;; margin-right: 8px;">
-								<button id="btn_add_product" type="button"
-									class="btn btn-primary btn-sm" @click="query">
-									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-									查询
-								</button>
-							</div>
-							<div class="input-group input-group-sm">
-								<button id="btn_add_product" type="button"
-									class="btn btn-primary btn-sm" @click="reset">
-									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;&nbsp;重置
-								</button>
+		<form class="form-horizontal">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">产品编号</label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control" name="productNo"
+										id="productNo" value="${requestScope.productNo }"
+										placeholder="请输入产品编号" />
+								</div>
 							</div>
 						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">产品名称</label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control" name="productName"
+										id="productName" value="" placeholder="请输入产品名称" />
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12 ">
+								<div class="query-btn">
+									<button id="btn_add_product" type="button"
+										class="btn btn-primary btn-sm" @click="query">
+										<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+										查询
+									</button>
+									<button id="btn_add_product" type="button"
+										class="btn btn-primary btn-sm" @click="reset">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;&nbsp;重置
+									</button>
+
+								</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
+
 	</div>
 
 	<div v-show="showOperPart" class="box box-custom collapsed-box"

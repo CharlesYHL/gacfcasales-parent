@@ -154,24 +154,30 @@ function getNowDate() {
 	return str;
 }
 
-function reset() {
+function resetASC() {
 	$("#salesNo").val('');
 	$("#productNo").val('');
 	$("#productName").val('');
-	$('#productDate').selectpicker('val', '0');
+	$('#productDate').val('0');
 	// getBrand();
-	$('#brandId').selectpicker('val', '0');
-	$('#seriesId').selectpicker('val', '0');
-	$('#modelId').selectpicker('val', '0');
+	$("#brandId").val('0');  
+	$("#brandId").selectpicker('refresh');
+
+	$("#seriesId").empty();  
+	$("#seriesId").selectpicker('refresh');
+	
+	$("#modelId").empty();  
+	$("#modelId").selectpicker('refresh');
+
 	$("#vin").val('');
 	$("#licenseNo").val('');
 	$("#customerName").val('');
-	$('#orderStatus').selectpicker('val', '0');
+	$('#orderStatus').val('0');
 	$("#createStart").val('');
 	$("#createEnd").val('');
 	$("#closedStart").val('');
 	$("#closedEnd").val('');
-
+	vm.reload();
 }
 
 var vm = new Vue({

@@ -93,8 +93,9 @@ var TableInit = function() {
 			"queryParamsType" : "limit",
 			minimumCountColumns : 2,
 			pageNumber : 1, // 初始化加载第一页，默认第一页
-			pageSize : 10, // 每页的记录行数（*）
+			pageSize : 5, // 每页的记录行数（*）
 			pageList : [ 10, 20, 50, 100 ], // 可供选择的每页的行数（*）
+			height : 350,
 			uniqueId : "id", // 每一行的唯一标识，一般为主键列
 			showRefresh : false, // 是否显示刷新按钮
 			showToggle : false, // 是否显示详细视图和列表视图的切换按钮

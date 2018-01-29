@@ -186,7 +186,7 @@ var vm = new Vue({
 	}
 });
 
-function reset() {
+function resetASC() {
 	var index1 = parent.layer.getFrameIndex(window.name);
 	parent.layer.close(index1)
 }
@@ -405,7 +405,7 @@ function save(){
 	
 }
 
-function submit(){
+function submitASC(){
 	//$("#orderStatus").val("已提交");
 	/*var orderStatus = $("#orderStatus").val();
 	if(orderStatus == '扣款成功'){

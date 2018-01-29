@@ -356,7 +356,18 @@ public class DmsSalesController {
 		}
 
 		if (ttOpiExtendedSales.getORDER_STATUS() != null && !"0".equals(ttOpiExtendedSales.getORDER_STATUS())) {
-			assist.setRequires(Assist.andEq("bsm.ORDER_STATUS", ttOpiExtendedSales.getORDER_STATUS()));
+			Integer orderStatus = Integer.parseInt(ttOpiExtendedSales.getORDER_STATUS());
+			if( orderStatus == OemDictCodeConstants.PRODUCT_SALES_STATUS_01) {
+				assist.setRequires(Assist.andEq("bsm.ORDER_STATUS", "已保存"));
+			}else if(orderStatus == OemDictCodeConstants.PRODUCT_SALES_STATUS_02) {
+				assist.setRequires(Assist.andEq("bsm.ORDER_STATUS", "已结案"));
+			}else if(orderStatus == OemDictCodeConstants.PRODUCT_SALES_STATUS_03) {
+				assist.setRequires(Assist.andEq("bsm.ORDER_STATUS", "扣款失败"));
+			}else {
+				assist.setRequires(Assist.andEq("bsm.ORDER_STATUS", "已作废"));
+			}
+			
+			/*assist.setRequires(Assist.andEq("bsm.ORDER_STATUS", ttOpiExtendedSales.getORDER_STATUS()));*/
 		}
 
 		if (ttOpiExtendedSales.getCREATED_AT_START() != null && !"".equals(ttOpiExtendedSales.getCREATED_AT_START())
