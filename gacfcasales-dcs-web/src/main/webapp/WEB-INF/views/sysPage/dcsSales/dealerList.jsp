@@ -3,68 +3,82 @@
 <%@ include file="/WEB-INF/views/include/base.jsp"%>
 
 <div id="dealerListApp" v-cloak>
-	<div v-show="showOperPart">
-		<div class="row">
-			<div class="col-xs-offset-1 col-xs-10">
-				<div class="panel panel-default">
-					<div class="box-header with-border form-inline">
-						<div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">经销商代码</span>
-								<input type="text" class="form-control" name="dealerCode"
-									id="dealerCode" value="" placeholder="请输入经销商代码" />
-							</div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">经销商简称</span>
-								<input type="text" class="form-control" name="dealerShortname"
-									id="dealerShortname" value="" placeholder="请输入经销商简称" />
-							</div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">经销商名称</span>
-								<input type="text" class="form-control" name="dealerName"
-									id="dealerName" value="" placeholder="请输入经销商名称" />
+	<div v-show="showOperPart" class="dms-search">
+		<form class="form-horizontal">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">经销商代码</label>
+								<div class="col-xs-7">
+									<input type="text" class="bs-select form-control"
+										name="dealerCode" id="dealerCode" value=""
+										placeholder="请输入经销商代码" />
+								</div>
 							</div>
 						</div>
-						<div style="height: 3px;"></div>
-						<div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">大区</span> <select
-									name="bigOrg" id="bigOrg" class="selectpicker"
-									onchange="getSmallOrg()"></select>
-							</div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">小区</span> <select
-									name="smallOrg" id="smallOrg" class="selectpicker"></select>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">经销商简称</label>
+								<div class="col-xs-7">
+									<input type="text" class="bs-select form-control"
+										name="dealerShortname" id="dealerShortname" value=""
+										placeholder="请输入经销商简称" />
+								</div>
 							</div>
 						</div>
-						<div style="height: 3px;"></div>
-
-						<div>
-							<div class="input-group input-group-sm"
-								style="margin-left: 40%;; margin-right: 8px;">
-								<button id="btn_add_product" type="button"
-									class="btn btn-primary btn-sm" @click="query">
-									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-									查询
-								</button>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">经销商名称</label>
+								<div class="col-xs-7">
+									<input type="text" class="bs-select form-control"
+										name="dealerName" id="dealerName" value=""
+										placeholder="请输入经销商名称" />
+								</div>
 							</div>
-							<div class="input-group input-group-sm">
-								<button id="btn_add_product" type="button"
-									class="btn btn-primary btn-sm" @click="reset">
-									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;&nbsp;重置
-								</button>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">大区</label>
+								<div class="col-xs-7">
+									<select name="bigOrg" id="bigOrg"
+										class="bs-select form-control" onchange="getSmallOrg()"></select>
+								</div>
 							</div>
 						</div>
 
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">小区</label>
+								<div class="col-xs-7">
+									<select name="smallOrg" id="smallOrg"
+										class="bs-select form-control"></select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-xs-12 ">
+								<div class="query-btn">
+									<button id="btn_add" type="button"
+										class="btn btn-primary btn-sm" @click="query">
+										<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+										查询
+									</button>
+									<button id="btn_add" type="button"
+										class="btn btn-primary btn-sm" @click="reset">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;&nbsp;重置
+									</button>
+								</div>
+							</div>
+						</div>
+						
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 
 	<div v-show="showOperPart" class="box box-custom collapsed-box"

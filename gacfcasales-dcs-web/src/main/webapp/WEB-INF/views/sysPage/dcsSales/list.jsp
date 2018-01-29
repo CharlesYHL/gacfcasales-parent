@@ -12,157 +12,226 @@
 		<link rel="stylesheet" href="${ctx }/resource/layui/css/layui.css">
 		<link rel="stylesheet"
 			href="${ctx}/resource/plugins/toastr/toastr.min.css">
+		<link rel="stylesheet" href="${ctx }/resource/css/common.css">
 	</c:param>
 </c:import>
 
 <div id="salesListApp" v-cloak>
 
-	<div v-show="showList" class="box box-custom collapsed-box"
-		style="margin-bottom: 8px;">
-		<div class="box-header with-border form-inline">
-			<div>
-				<div class="input-group input-group-sm"
-					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">大区</span> <select
-						name="bigOrg" id="bigOrg" class="selectpicker"
-						onchange="getSmallOrg()"></select>
-				</div>
+	<div v-show="showList" class="dms-search">
+		<form class="form-horizontal">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">大区</label>
+								<div class="col-xs-7">
+									<select name="bigOrg" id="bigOrg"
+										class="bs-select form-control" onchange="getSmallOrg()"></select>
+								</div>
+							</div>
+						</div>
 
-				<div class="input-group input-group-sm"
-					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">小区</span> <select
-						name="smallOrg" id="smallOrg" class="selectpicker"></select>
-				</div>
-				<div class="input-group input-group-sm"
-					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">经销商</span> <input
-						type="text" class="form-control" name="dealerCode" id="dealerCode"
-						disabled="disabled" placeholder="请输入经销商代码" /> <span
-						class="input-group-btn">
-						<button class="btn default btn-sm" onclick="queryDealer()">
-							<i class="glyphicon glyphicon-list-alt"></i>
-						</button>
-					</span>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">小区</label>
+								<div class="col-xs-7">
+									<select name="smallOrg" id="smallOrg"
+										class="bs-select form-control"></select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-5">
+							<div class="form-group">
+								<label class="control-label col-xs-3 ">经销商</label>
+								<div class="col-xs-7">
+									<div class="input-group">
+										<div class="input-icon-group">
+											<input type="text" class="bs-select form-control"
+												name="dealerCode" id="dealerCode" value=""
+												placeholder="请输入经销商代码" />
+										</div>
+										<span class="input-group-btn" style="height: 30px;">
+											<button class="btn btn-primary" type="button"
+												style="height: 30px;" onclick="queryDealer()">
+												<i class="glyphicon glyphicon-list-alt"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">经销商名称</label>
+								<div class="col-xs-7">
+									<input type="text" class="bs-select form-control"
+										name="dealerName" id="dealerName" value=""
+										placeholder="请输入经销商名称" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">销售单编号</label>
+								<div class="col-xs-7">
+									<input type="text" class="bs-select form-control"
+										name="productSalesOrder" id="productSalesOrder" value=""
+										placeholder="请输入销售单编号" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">产品编号</label>
+								<div class="col-xs-7">
+									<input type="text" class="bs-select form-control"
+										name="productNo" id="productNo" value="" placeholder="请输入产品编号" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">产品名称</label>
+								<div class="col-xs-6">
+									<input type="text" class="bs-select form-control"
+										name="productName" id="productName" value=""
+										placeholder="请输入产品名称" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">产品有效期</label>
+								<div class="col-xs-7">
+									<select name="productDate" id="productDate"
+										class="bs-select form-control"></select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">品牌</label>
+								<div class="col-xs-7">
+									<select name="brandId" id="brandId"
+										class="bs-select form-control" onchange="getSeries()"></select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">车系</label>
+								<div class="col-xs-7">
+									<select name="seriesId" id="seriesId"
+										class="bs-select form-control" onchange="getModel()"></select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">车型</label>
+								<div class="col-xs-7">
+									<select name="modelId" id="modelId"
+										class="bs-select form-control"></select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">VIN</label>
+								<div class="col-xs-7">
+									<input type="text" class="bs-select form-control" name="vin"
+										id="vin" value="" placeholder="请输入VIN" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">车牌号</label>
+								<div class="col-xs-7">
+									<input type="text" class="bs-select form-control"
+										name="licenseNo" id="licenseNo" value="" placeholder="请输入车牌号" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">客户姓名</label>
+								<div class="col-xs-7">
+									<input type="text" class="bs-select form-control"
+										name="customerName" id="customerName" value=""
+										placeholder="请输入客户姓名" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-5">
+							<div class="form-group">
+								<label class="control-label col-xs-3">创建时间</label>
+								<div class="col-xs-6 col-sm-8">
+									<div class="input-group input-daterange">
+
+										<input id="createStart" name="createStart" type="text"
+											class="form-control" placeholder="请输入开始日期" /> <span
+											class="input-group-addon"> - </span> <input id="createEnd"
+											name="createEnd" type="text" class="form-control"
+											placeholder="请输入结束日期" />
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-5">
+							<div class="form-group">
+								<label class="control-label col-xs-3">结案时间</label>
+								<div class="col-xs-6 col-sm-8">
+									<div class="input-group input-daterange">
+
+										<input id="closedStart" name="closedStart" type="text"
+											class="form-control" placeholder="请输入开始日期" /> <span
+											class="input-group-addon"> - </span> <input id="closedEnd"
+											name="closedEnd" type="text" class="form-control"
+											placeholder="请输入结束日期" />
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12 ">
+								<div class="query-btn">
+									<button id="btn_add" type="button"
+										class="btn btn-primary btn-sm" onclick="query()">
+										<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+										查询
+									</button>
+									<button id="btn_add" type="button"
+										class="btn btn-primary btn-sm" @click="reset">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;&nbsp;重置
+									</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
 				</div>
 			</div>
-			<div style="height: 3px;"></div>
-			<div>
-				<div class="input-group input-group-sm"
-					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">经销商名称</span> <input
-						type="text" class="form-control" name="dealerName" id="dealerName"
-						value="" placeholder="请输入经销商名称" />
-				</div>
-				<div class="input-group input-group-sm"
-					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">销售单编号</span> <input
-						type="text" class="form-control" name="productSalesOrder"
-						id="productSalesOrder" value="" placeholder="请输入销售单编号" />
-				</div>
-				<div class="input-group input-group-sm"
-					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">产品编号</span> <input
-						type="text" class="form-control" name="productNo" id="productNo"
-						value="" placeholder="请输入销售单编号" />
-				</div>
-
-			</div>
-			<div style="height: 3px;"></div>
-			<div>
-				<div class="input-group input-group-sm"
-					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">产品名称</span> <input
-						type="text" class="form-control" name="productName"
-						id="productName" value="" placeholder="请输入产品名称" />
-				</div>
-				<div class="input-group input-group-sm"
-					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">产品有效期</span> <select
-						name="productDate" id="productDate" class="selectpicker"></select>
-				</div>
-				<div class="input-group input-group-sm"
-					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">品牌</span> <select
-						name="brandId" id="brandId" class="selectpicker"
-						onchange="getSeries()"></select>
-				</div>
-			</div>
-			<div style="height: 3px;"></div>
-			<div>
-				<div class="input-group input-group-sm"
-					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">车系</span> <select
-						name="seriesId" id="seriesId" class="selectpicker"
-						onchange="getModel()"></select>
-				</div>
-				<div class="input-group input-group-sm"
-					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">车型</span> <select
-						name="modelId" id="modelId" class="selectpicker"></select>
-				</div>
-				<div class="input-group input-group-sm"
-					style="margin-right: 16px; width: 320px;">
-					<span class="input-group-addon" style="width: 60px;">VIN</span> <input
-						type="text" class="form-control" name="vin" id="vin" value=""
-						placeholder="请输入VIN编号" />
-				</div>
-
-				<div style="height: 3px;"></div>
-				<div>
-					<div class="input-group input-group-sm"
-						style="margin-right: 16px; width: 320px;">
-						<span class="input-group-addon" style="width: 60px;">车牌号</span> <input
-							type="text" class="form-control" name="licenseNo" id="licenseNo"
-							value="" placeholder="请输入车牌号" />
-					</div>
-					<div class="input-group input-group-sm"
-						style="margin-right: 16px; width: 320px;">
-						<span class="input-group-addon" style="width: 60px;">客户姓名</span> <input
-							type="text" class="form-control" name="customerName"
-							id="customerName" value="" placeholder="请输入客户姓名" />
-					</div>
-					<div class="input-group input-group-sm"
-						style="margin-right: 16px; width: 320px;">
-						<span class="input-group-addon" style="width: 60px;">创建时间</span> <input
-							id="createStart" name="createStart" type="text"
-							class="form-control" placeholder="请输入创建开始日期" /> <span
-							class="input-group-addon"> - </span> <input id="createEnd"
-							name="createEnd" type="text" class="form-control"
-							placeholder="请输入创建结束日期" />
-					</div>
-				</div>
-				<div style="height: 3px;"></div>
-				<div>
-					<div class="input-group input-group-sm"
-						style="margin-right: 16px; width: 320px;">
-						<span class="input-group-addon" style="width: 60px;">结案时间</span> <input
-							id="closedStart" name="closedStart" type="text"
-							class="form-control" placeholder="请输入创建结案日期" /> <span
-							class="input-group-addon"> - </span> <input id="closedEnd"
-							name="closedEnd" type="text" class="form-control"
-							placeholder="请输入结案结束日期" />
-					</div>
-				</div>
-				<div style="height: 3px;"></div>
-				<div>
-					<div class="input-group input-group-sm"
-						style="margin-left: 40%;; margin-right: 8px;">
-						<button id="btn_add" type="button" class="btn btn-primary btn-sm"
-							onclick="query()">
-							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-							查询
-						</button>
-					</div>
-					<div class="input-group input-group-sm">
-						<button id="btn_add" type="button" class="btn btn-primary btn-sm"
-							onclick="reset()">
-							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;&nbsp;重置
-						</button>
-					</div>
-				</div>
-			</div>
-
-		</div>
+		</form>
 	</div>
 	<div v-show="showList" class="box box-custom collapsed-box"
 		style="margin-bottom: 0;">

@@ -3,65 +3,73 @@
 <%@ include file="/WEB-INF/views/include/base.jsp"%>
 
 <div id="modelApp" v-cloak>
-	<input type="text" id="productId" name="productId" value="${requestScope.productId}" hidden="hidden" />
-	<div v-show="showOperModel">
-		<div class="row">
-			<div class="col-xs-offset-1 col-xs-10">
-				<div class="panel panel-default">
-					<!-- <div class="panel-heading">
-						<h3 class="panel-title">{{title}}</h3>
-					</div> -->
-					<div class="box-header with-border form-inline">
-						<div>
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">品牌</span> <select
-									name="brandId" id="brandId" class="selectpicker"
-									onchange="getSeries()"></select>
-							</div>
-
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">车系</span> <select
-									name="seriesId" id="seriesId" class="selectpicker"
-									onchange="getModel()"></select>
-							</div>
-
-							<div class="input-group input-group-sm"
-								style="margin-right: 16px; width: 240px;">
-								<span class="input-group-addon" style="width: 50px;">车型</span> <select
-									name="modelId" id="modelId" class="selectpicker"></select>
+	<input type="text" id="productId" name="productId"
+		value="${requestScope.productId}" hidden="hidden" />
+	<div v-show="showOperModel" class="dms-search">
+		<form class="form-horizontal">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">品牌</label>
+								<div class="col-xs-7">
+									<select name="brandId" id="brandId"
+										class="bs-select form-control" onchange="getSeries()"></select>
+								</div>
 							</div>
 						</div>
-						<div style="height: 3px;"></div>
-						<div>
-							<div class="input-group input-group-sm"
-								style="margin-left: 40%;; margin-right: 8px;">
-								<button id="btn_add_product" type="button"
-									class="btn btn-primary btn-sm" @click="query">
-									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-									查询
-								</button>
-							</div>
-							<div class="input-group input-group-sm">
-								<button id="btn_add_product" type="button"
-									class="btn btn-primary btn-sm" @click="reset">
-									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;&nbsp;重置
-								</button>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">车系</label>
+								<div class="col-xs-7">
+									<select name="seriesId" id="seriesId"
+										class="bs-select form-control" onchange="getModel()"></select>
+								</div>
 							</div>
 						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">车型</label>
+								<div class="col-xs-7">
+									<select name="modelId" id="modelId"
+										class="bs-select form-control"></select>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12 ">
+								<div class="query-btn">
+									<button id="btn_add" type="button"
+										class="btn btn-primary btn-sm" @click="query">
+										<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+										查询
+									</button>
+									<button id="btn_add" type="button"
+										class="btn btn-primary btn-sm" @click="reset">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;&nbsp;重置
+									</button>
+								</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 
 	<div v-show="showOperModel" class="box box-custom collapsed-box"
 		style="margin-bottom: 0;">
 		<div class="box-body">
 			<ul id="tabUl" class="nav nav-tabs">
-				<li class="active" id="modelLi" onclick="modelClick()"><a href="#modelSelect" data-toggle="tab">按车型选择</a></li>
-				<li id="seriesLi" onclick="seriesClick()"><a href="#seriesSelect" data-toggle="tab">按车系选择</a></li>
+				<li class="active" id="modelLi" onclick="modelClick()"><a
+					href="#modelSelect" data-toggle="tab">按车型选择</a></li>
+				<li id="seriesLi" onclick="seriesClick()"><a
+					href="#seriesSelect" data-toggle="tab">按车系选择</a></li>
 			</ul>
 
 			<div id="tabContent" class="tab-content">

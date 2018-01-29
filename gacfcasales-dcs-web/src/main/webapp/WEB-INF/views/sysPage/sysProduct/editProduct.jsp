@@ -79,7 +79,7 @@
 							</div>
 						</div>
 
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<%-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
 								<label class="control-label col-xs-5">产品属性</label>
 								<div class="col-xs-7 ">
@@ -91,7 +91,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> --%>
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">

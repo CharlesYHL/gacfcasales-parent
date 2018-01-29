@@ -224,6 +224,36 @@ var vm = new Vue({
 			oTable.Init();
 			vm.reload();
 		},
+		reset : function(){
+			//alert("===================");
+			$("#bigOrg").val('0');  
+			$("#bigOrg").selectpicker('refresh');
+			
+			$("#smallOrg").empty();  
+			$("#smallOrg").selectpicker('refresh');
+			
+			$("#dealerCode").val('');
+			$("#dealerName").val('');
+			$("#productSalesOrder").val('');
+			$("#productNo").val('');
+			$("#productName").val('');
+			$('#productDate').val('0');
+			$("#productDate").selectpicker('refresh');
+			$('#brandId').val('0');
+			$("#brandId").selectpicker('refresh');
+			$('#seriesId').empty();  
+			$("#seriesId").selectpicker('refresh');
+			$('#modelId').empty();  
+			$("#modelId").selectpicker('refresh');
+			$("#vin").val('');
+			$("#licenseNo").val('');
+			$("#customerName").val('');
+			$("#createStart").val('');
+			$("#createEnd").val('');
+			$("#closedStart").val('');
+			$("#closedEnd").val('');
+			vm.reload();
+		},
 		reload : function() {
 			vm.showList = true;
 			$('#table').bootstrapTable('refresh');
@@ -528,20 +558,25 @@ var TableInit = function() {
 };
 
 function reset() {
-	$('#bigOrg').selectpicker('val', '0');
-	$('#smallOrg').selectpicker('val', '0');
+	alert("===================");
+	$("#bigOrg").empty();  
+	$("#bigOrg").selectpicker('refresh');
+	
+	$("#smallOrg").empty();  
+	$("#smallOrg").selectpicker('refresh');
+	
 	$("#dealerCode").val('');
 	$("#dealerName").val('');
 	$("#productSalesOrder").val('');
 	$("#productNo").val('');
 	$("#productName").val('');
-	$('#productDate').selectpicker('val', '0');
-	$('#brandId').selectpicker('val', '0');
-	$('#seriesId').selectpicker('val', '0');
-	$('#modelId').selectpicker('val', '0');
+	$('#productDate').val('0');
+	$('#brandId').val('0');
+	$('#seriesId').val('0');
+	$('#modelId').val('0');
 	$("#vin").val('');
-	$("#licenseNo").val();
-	$("#customerName").val();
+	$("#licenseNo").val('');
+	$("#customerName").val('');
 	$("#createStart").val('');
 	$("#createEnd").val('');
 	$("#closedStart").val('');

@@ -61,6 +61,7 @@ var vm = new Vue({
 			$("#seriesId").selectpicker('refresh');
 			$("#modelId").empty();  
 			$("#modelId").selectpicker('refresh');
+			vm.modelReload();
 		},
 		confirm : function(){
 			

@@ -156,7 +156,7 @@
 
 						<div class="row ">
 							<div class="col-xs-12 ">
-								<div class="query-btn" style="margin-left: 50%">
+								<div class="query-btn" >
 									<button id="btn_add" type="button"
 										class="btn btn-primary btn-sm" @click="query">
 										<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
