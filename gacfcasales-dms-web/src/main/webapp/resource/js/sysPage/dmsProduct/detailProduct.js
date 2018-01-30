@@ -1,4 +1,10 @@
 $(function() {
+	var productDes = $("#productDes").val();
+	console.log("产品描述："+productDes)
+	if(productDes != '' || productDes != null){
+		$("#productDescribtion").val(productDes);
+	}
+	
 	var oTable = new TableInit();
 	oTable.Init();
 });

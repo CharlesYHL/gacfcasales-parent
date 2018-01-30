@@ -260,7 +260,7 @@
 									<div class="input-group">
 										<div class="input-icon-group">
 											<input type="text" class="form-control" name="productNo"
-												disabled="disabled" id="productNo"
+												 id="productNo"
 												value="${requestScope.dmsSalesDto.PRODUCT_NO}"
 												placeholder="请输入产品编号" />
 										</div>

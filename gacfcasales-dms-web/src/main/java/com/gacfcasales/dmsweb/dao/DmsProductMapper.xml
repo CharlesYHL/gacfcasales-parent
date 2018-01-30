@@ -28,6 +28,9 @@
 		tipe.PRODUCT_ID,
 		tipe.PRODUCT_NO,
 		tipe.PRODUCT_NAME,
+		(CASE WHEN
+		tipe.PRODUCT_CATEGORY = 81021001 THEN '延保' ELSE '道路救援' END)
+		PRODUCT_CATEGORY,
 		(
 		CASE
 		WHEN
@@ -128,7 +131,7 @@
 		ti_opi_extended_dcs tipe LEFT JOIN tm_dealer tmd
 		ON (tipe.PRODUCT_JEEP
 		= tmd.IS_K4 OR tipe.PRODUCT_FAIT =tmd.IS_FIAT OR tipe.PRODUCT_CJD
-		=tmd.IS_CJD )
+		=tmd.IS_CJD ) AND (tipe.RELEASE_STATUS= 54011002 OR tipe.RELEASE_STATUS= 54011003)
 		<if test="require!=null">
 			<include refid="Assist" />
 		</if>
@@ -140,7 +143,7 @@
 		select count(PRODUCT_ID) from ti_opi_extended_dcs tipe LEFT JOIN
 		tm_dealer tmd
 		ON (tipe.PRODUCT_JEEP = tmd.IS_K4 OR tipe.PRODUCT_FAIT
-		=tmd.IS_FIAT OR tipe.PRODUCT_CJD =tmd.IS_CJD )
+		=tmd.IS_FIAT OR tipe.PRODUCT_CJD =tmd.IS_CJD ) AND (tipe.RELEASE_STATUS= 54011002 OR tipe.RELEASE_STATUS= 54011003)
 		<if test="require!=null">
 			<include refid="Assist" />
 		</if>
@@ -244,6 +247,9 @@
 		END
 		) PRODUCT_CJD,
 		tipe.PRODUCT_DESCRIBTION,
+		(CASE WHEN
+		tipe.PRODUCT_CATEGORY = 81021001 THEN '延保' ELSE '道路救援' END)
+		PRODUCT_CATEGORY,
 		tipe.NON_TAX_COST_PRICE,
 		tipe.TAX_COST_PRICE,
 		tipe.TERMINAL_NON_SALES_PRICE,
@@ -355,6 +361,9 @@
 		'否'
 		END
 		) PRODUCT_CJD,
+		(CASE WHEN
+		PRODUCT_CATEGORY = 81021001 THEN '延保' ELSE '道路救援' END)
+		PRODUCT_CATEGORY,
 		PRODUCT_DESCRIBTION,
 		NON_TAX_COST_PRICE,
 		TAX_COST_PRICE,
@@ -399,7 +408,37 @@
 	</select>
 	<select id="getProductByID" parameterType="java.lang.String"
 		resultType="com.gacfcasales.common.entity.TiOpiExtendedDCS">
-		select * from
+		select  PRODUCT_ID,
+		PRODUCT_NO,
+		(CASE WHEN
+		PRODUCT_CATEGORY = 81021001 THEN '延保' ELSE '道路救援' END)
+		PRODUCT_CATEGORY,
+		PRODUCT_NAME,
+		PRODUCT_PROPERTY,
+		DNP_PRICE,
+		MSRP_PRICE,
+		SINGLE_DISCOUNT,
+		IS_VALID,
+		CREATED_BY,
+		CREATED_AT,
+		UPDATED_BY,
+		UPDATED_AT,
+		IS_C_SALE,
+		PRODUCT_DATE,
+		PRODUCT_MODEL,
+		SALES_DATE_START,
+		SALES_DATE_END,
+		RELEASE_DATE,
+		RELEASE_STATUS,
+		STOP_DATE,
+		PRODUCT_FAIT,
+		PRODUCT_JEEP,
+		PRODUCT_CJD,
+		PRODUCT_DESCRIBTION,
+		NON_TAX_COST_PRICE,
+		TAX_COST_PRICE,
+		TERMINAL_NON_SALES_PRICE,
+		TERMINAL_SALES_PRICE from
 		TI_OPI_EXTENDED_DCS where
 		PRODUCT_ID=#{PRODUCT_ID}
 	</select>

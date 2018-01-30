@@ -32,16 +32,20 @@
 				PRODUCT_ID,
 				PRODUCT_NO,
 				PRODUCT_NAME,
+				(CASE WHEN
+				PRODUCT_CATEGORY = 81021001 THEN '延保' ELSE '道路救援' END)
 				PRODUCT_CATEGORY,
 				PRODUCT_PROPERTY,
 				DNP_PRICE,
 				MSRP_PRICE,
 				(
 				CASE
-				WHEN RELEASE_STATUS =
+				WHEN
+				RELEASE_STATUS =
 				54011001 THEN
 				'未发布'
-				WHEN RELEASE_STATUS = 54011002 THEN
+				WHEN RELEASE_STATUS = 54011002
+				THEN
 				'已发布'
 				WHEN
 				RELEASE_STATUS = 54011003 THEN
@@ -49,21 +53,27 @@
 				ELSE
 				''
 				END
-				) RELEASE_STATUS,
+				)
+				RELEASE_STATUS,
 				DATE_FORMAT(RELEASE_DATE,'%Y-%m-%d') RELEASE_DATE,
 				DATE_FORMAT(STOP_DATE,'%Y-%m-%d') STOP_DATE,
 				(CASE WHEN
-				IS_VALID = 12781001 THEN '是' WHEN IS_VALID = 12781002 THEN '否'
+				IS_VALID =
+				12781001 THEN '是' WHEN IS_VALID = 12781002 THEN '否'
 				ELSE
-				'' END) IS_VALID,
+				'' END)
+				IS_VALID,
 				(CASE WHEN IS_C_SALE = 12781001 THEN '是' WHEN
-				IS_C_SALE = 12781002 THEN
+				IS_C_SALE =
+				12781002 THEN
 				'否' ELSE '' END) IS_C_SALE,
 				(CASE WHEN
-				PRODUCT_DATE = 12 THEN '12个月'
+				PRODUCT_DATE = 12
+				THEN '12个月'
 				WHEN PRODUCT_DATE = 24 THEN '24个月'
 				WHEN
-				PRODUCT_DATE = 36 THEN '36个月'
+				PRODUCT_DATE = 36
+				THEN '36个月'
 				ELSE '' END ) PRODUCT_DATE,
 				PRODUCT_MODEL,
 				DATE_FORMAT(SALES_DATE_START,'%Y-%m-%d %H:%m:%s')
@@ -93,6 +103,7 @@
 		<if test="require!=null">
 			<include refid="Assist" />
 		</if>
+		LIMIT #{startRow},#{rowSize}
 
 		<!-- <if test="require!=null"> <include refid="Assist" /> </if> -->
 	</select>
@@ -110,7 +121,8 @@
 		select PRODUCT_ID,
 		PRODUCT_NO,
 		PRODUCT_NAME,
-		PRODUCT_CATEGORY,
+		(CASE WHEN PRODUCT_CATEGORY
+		= 81021001 THEN '延保' ELSE '道路救援' END) PRODUCT_CATEGORY,
 		PRODUCT_PROPERTY,
 		DNP_PRICE,
 		MSRP_PRICE,
@@ -131,11 +143,14 @@
 		DATE_FORMAT(RELEASE_DATE,'%Y-%m-%d') RELEASE_DATE,
 		DATE_FORMAT(STOP_DATE,'%Y-%m-%d') STOP_DATE,
 		(CASE WHEN
-		IS_VALID = 12781001 THEN '是' WHEN IS_VALID = 12781002 THEN '否'
+		IS_VALID =
+		12781001 THEN '是' WHEN IS_VALID = 12781002 THEN '否'
 		ELSE ''
-		END) IS_VALID,
+		END)
+		IS_VALID,
 		(CASE WHEN IS_C_SALE = 12781001 THEN '是' WHEN IS_C_SALE
-		= 12781002 THEN '否'
+		=
+		12781002 THEN '否'
 		ELSE '' END) IS_C_SALE,
 		(CASE WHEN PRODUCT_DATE = 12
 		THEN '12个月'
@@ -169,8 +184,7 @@
 				concat(concat('%',#{PRODUCT_NO}),'%')</if>
 			<if test="PRODUCT_NAME != null and PRODUCT_NAME != '' "> and PRODUCT_NAME LIKE
 				concat(concat('%',#{PRODUCT_NAME}),'%')</if>
-			<if test="PRODUCT_CATEGORY != null and PRODUCT_CATEGORY != '' "> and PRODUCT_CATEGORY LIKE
-				concat(concat('%',#{PRODUCT_CATEGORY}),'%')</if>
+			<if test="PRODUCT_CATEGORY != null and PRODUCT_CATEGORY != '' "> and PRODUCT_CATEGORY = #{PRODUCT_CATEGORY}</if>
 			<if test="PRODUCT_PROPERTY != null and PRODUCT_PROPERTY != '' "> and PRODUCT_PROPERTY LIKE
 				concat(concat('%',#{PRODUCT_PROPERTY}),'%')</if>
 			<if test="IS_VALID != null and IS_VALID != '0' "> and IS_VALID = #{IS_VALID}</if>
@@ -333,8 +347,7 @@
 			</if>
 			<if test="PART_NAME != null and PART_NAME != '' "> and PRODUCT_NAME LIKE
 				concat(concat('%',#{PART_NAME}),'%')</if>
-			<if test="PART_GROUP_CODE != null and PART_GROUP_CODE != '' "> and PRODUCT_CATEGORY LIKE
-				concat(concat('%',#{PART_GROUP_CODE}),'%')</if>
+			<if test="PART_GROUP_CODE != null and PART_GROUP_CODE != '' "> and PRODUCT_CATEGORY = #{PART_GROUP_CODE} </if>
 			<if test="PART_PROPERTY != null and PART_PROPERTY != '' "> and PRODUCT_PROPERTY LIKE
 				concat(concat('%',#{PART_PROPERTY}),'%')</if>
 			<if test="CLAIM_PRICE != null  "> and DNP_PRICE = #{CLAIM_PRICE}</if>
@@ -431,8 +444,39 @@
 
 	<select id="getProductByID" parameterType="java.lang.String"
 		resultType="com.gacfcasales.common.entity.TiOpiExtendedDCS">
-		select * from
-		TI_OPI_EXTENDED_DCS where
+		select PRODUCT_ID,
+		PRODUCT_NO,
+		(CASE WHEN
+		PRODUCT_CATEGORY = 81021001 THEN '延保' ELSE '道路救援' END)
+		PRODUCT_CATEGORY,
+		PRODUCT_NAME,
+		PRODUCT_PROPERTY,
+		DNP_PRICE,
+		MSRP_PRICE,
+		SINGLE_DISCOUNT,
+		IS_VALID,
+		CREATED_BY,
+		CREATED_AT,
+		UPDATED_BY,
+		UPDATED_AT,
+		IS_C_SALE,
+		PRODUCT_DATE,
+		PRODUCT_MODEL,
+		SALES_DATE_START,
+		SALES_DATE_END,
+		RELEASE_DATE,
+		RELEASE_STATUS,
+		STOP_DATE,
+		PRODUCT_FAIT,
+		PRODUCT_JEEP,
+		PRODUCT_CJD,
+		PRODUCT_DESCRIBTION,
+		NON_TAX_COST_PRICE,
+		TAX_COST_PRICE,
+		TERMINAL_NON_SALES_PRICE,
+		TERMINAL_SALES_PRICE from
+		TI_OPI_EXTENDED_DCS
+		where
 		PRODUCT_ID=#{PRODUCT_ID}
 	</select>
 
@@ -579,8 +623,10 @@
 		ti_opi_extended_dcs
 		SET RELEASE_STATUS = 54011003,IS_C_SALE =
 		12781002,RELEASE_DATE = NULL
-		WHERE SALES_DATE_END &lt; #{SALES_DATE_END}
-		and RELEASE_STATUS = '54011002' AND IS_C_SALE = '12781001'
+		WHERE SALES_DATE_END &lt;
+		#{SALES_DATE_END}
+		and RELEASE_STATUS = '54011002' AND IS_C_SALE =
+		'12781001'
 
 	</update>
 

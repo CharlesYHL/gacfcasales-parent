@@ -1,4 +1,9 @@
 $(function() {
+	var productDes = $("#productDes").val();
+	if(productDes != null || productDes != ''){
+		$("#productDescribtion").val(productDes);
+	}
+	
 	var oTable = new TableInit();
 	oTable.Init();
 });

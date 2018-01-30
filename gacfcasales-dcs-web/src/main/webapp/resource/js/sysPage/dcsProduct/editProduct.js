@@ -107,7 +107,12 @@ $(function() {
 		timepicker : false,
 		format : 'Y-m-d'
 	});
-
+	
+	var productDes = $("#productDes").val();
+	if(productDes != null || productDes != ''){
+		$("#productDescribtion").val(productDes);
+	}
+	
 	var oTable = new TableInit();
 	oTable.Init();
 });
@@ -272,6 +277,7 @@ var vm = new Vue({
 						PRODUCT_JEEP : $("#isJeep").val(),
 						PRODUCT_CJD : $("#isCjd").val(),
 						PRODUCT_MODEL : $("#productModel").val(),
+						PRODUCT_DESCRIBTION : $("#productDescribtion").val(),
 						salesStart : salesStart,
 						salesEnd : salesEnd
 					}

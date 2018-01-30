@@ -6,7 +6,9 @@
 	<div v-show="showOper" class="dms-search">
 		<input type="text" id="productId" name="productId"
 			value="${requestScope.tiOpiExtendedDCS.PRODUCT_ID }" hidden="hidden" />
-
+			<input type="text" id="productDes" name="productDes"
+			value="${requestScope.tiOpiExtendedDCS.PRODUCT_DESCRIBTION }" hidden="hidden" />
+		
 		<form class="form-horizontal">
 			<div class="panel panel-default">
 				<div class="panel-body">
@@ -146,7 +148,7 @@
 							<div class="form-group">
 								<label class="control-label col-xs-4">产品说明</label>
 								<div class="col-xs-8">
-									<textarea id="productDescribtion" name="productDescribtion" class="form-control" rows="3" disabled="disabled" value="${requestScope.tiOpiExtendedDCS.PRODUCT_DESCRIBTION }"></textarea>
+									<textarea id="productDescribtion" name="productDescribtion" class="form-control" rows="3" disabled="disabled" ></textarea>
 								</div>
 							</div>
 						</div>

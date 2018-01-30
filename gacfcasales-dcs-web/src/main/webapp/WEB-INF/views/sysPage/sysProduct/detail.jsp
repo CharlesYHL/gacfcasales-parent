@@ -6,6 +6,9 @@
 	<div v-show="showOper">
 		<input type="text" id="productId" name="productId"
 			value="${requestScope.tiOpiExtendedDCS.PRODUCT_ID }" hidden="hidden" />
+		<input type="text" id="productDes" name="productDes"
+			value="${requestScope.tiOpiExtendedDCS.PRODUCT_DESCRIBTION }"
+			hidden="hidden" />
 		<form class="form-horizontal">
 			<div class="panel panel-default">
 				<div class="panel-body">
@@ -183,8 +186,9 @@
 								<label class="control-label col-xs-3">销售时间</label>
 								<div class="col-xs-6 col-sm-8">
 									<div class="input-group input-daterange">
-										<input id="salesStart" name="salesStart" type="text" disabled="disabled"
-											class="form-control" placeholder="请输入开始日期"
+										<input id="salesStart" name="salesStart" type="text"
+											disabled="disabled" class="form-control"
+											placeholder="请输入开始日期"
 											value="${requestScope.tiOpiExtendedDCS.SALES_DATE_START }" />
 										<span class="input-group-addon"> - </span> <input
 											id="salesEnd" name="salesEnd" type="text" disabled="disabled"
@@ -201,9 +205,8 @@
 							<div class="form-group">
 								<label class="control-label col-xs-4">产品说明</label>
 								<div class="col-xs-8">
-									<textarea id="productDescribtion" name="productDescribtion" disabled="disabled"
-										class="form-control" rows="3"
-										value="${requestScope.tiOpiExtendedDCS.PRODUCT_DESCRIBTION }"></textarea>
+									<textarea id="productDescribtion" name="productDescribtion"
+										disabled="disabled" class="form-control" rows="3"></textarea>
 									<%-- <input id="productDescribtion" name="productDescribtion"
 										class="form-control" type="text"
 										value="${requestScope.tiOpiExtendedDCS.PRODUCT_DESCRIBTION }" /> --%>

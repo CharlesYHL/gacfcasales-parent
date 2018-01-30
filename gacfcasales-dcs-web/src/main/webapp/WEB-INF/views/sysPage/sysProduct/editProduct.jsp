@@ -17,6 +17,8 @@
 		<input type="text" id="productDateRet" name="productDateRet"
 			value="${requestScope.tiOpiExtendedDCS.PRODUCT_DATE }"
 			hidden="hidden" />
+			<input type="text" id="productDes" name="productDes"
+			value="${requestScope.tiOpiExtendedDCS.PRODUCT_DESCRIBTION }" hidden="hidden" />
 		<form class="form-horizontal">
 			<div class="panel panel-default">
 				<div class="panel-body">
@@ -195,7 +197,7 @@
 							<div class="form-group">
 								<label class="control-label col-xs-4">产品说明</label>
 								<div class="col-xs-8">
-									<textarea id="productDescribtion" name="productDescribtion" class="form-control" rows="3" value="${requestScope.tiOpiExtendedDCS.PRODUCT_DESCRIBTION }"></textarea>
+									<textarea id="productDescribtion" name="productDescribtion" class="form-control" rows="3"></textarea>
 									<%-- <input id="productDescribtion" name="productDescribtion"
 										class="form-control" type="text"
 										value="${requestScope.tiOpiExtendedDCS.PRODUCT_DESCRIBTION }" /> --%>

@@ -236,6 +236,7 @@ public class DmsSalesController {
 			assist.setRequires(Assist.andLike("tipe.PRODUCT_NAME", "%" + dmsSalesPage.getPRODUCT_NAME() + "%"));
 		}
 		assist.setRequires(Assist.andEq("tipe.IS_C_SALE", CommonConstants.DICT_IS_YES));
+		assist.setRequires(Assist.andEq("tipe.RELEASE_STATUS", OemDictCodeConstants.PRODUCT_RELEASE_STATUS_02));
 		assist.setOrder("tipe.PRODUCT_NO,tipe.PRODUCT_NAME", true);
 		long count = dmsSalesService.getProductRowCount(assist);
 		List<Map> list = dmsSalesService.getProductList(assist);

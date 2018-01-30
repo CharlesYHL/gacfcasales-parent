@@ -187,7 +187,12 @@ public class ProductDcsController {
 		}
 
 		if (tiOpiExtendedDCS.getPRODUCT_CATEGORY() != null && !"".equals(tiOpiExtendedDCS.getPRODUCT_CATEGORY())) {
-			assist.setRequires(Assist.andLike("PRODUCT_CATEGORY", "%" + tiOpiExtendedDCS.getPRODUCT_CATEGORY() + "%"));
+			//assist.setRequires(Assist.andLike("PRODUCT_CATEGORY", "%" + tiOpiExtendedDCS.getPRODUCT_CATEGORY() + "%"));
+			if("延保".equals(tiOpiExtendedDCS.getPRODUCT_CATEGORY())) {
+				assist.setRequires(Assist.andLike("PRODUCT_CATEGORY", "%81021001%"));
+			}else {
+				assist.setRequires(Assist.andLike("PRODUCT_CATEGORY", "%81021002%"));
+			}
 		}
 		if (tiOpiExtendedDCS.getPRODUCT_PROPERTY() != null && !"".equals(tiOpiExtendedDCS.getPRODUCT_PROPERTY())) {
 			assist.setRequires(Assist.andLike("PRODUCT_PROPERTY", "%" + tiOpiExtendedDCS.getPRODUCT_PROPERTY() + "%"));
@@ -654,9 +659,13 @@ public class ProductDcsController {
 				tiOpiExtendedDCS.setPRODUCT_CJD(12781002);
 			}
 			
-			/*if(tiOpiExtendedDCS.getPRODUCT_MODEL() != null && !"".equals(tiOpiExtendedDCS.getPRODUCT_MODEL())) {
-				
-			}*/
+			if(tiOpiExtendedDCS.getPRODUCT_CATEGORY() != null && !"".equals(tiOpiExtendedDCS.getPRODUCT_CATEGORY())) {
+				if("延保".equals(tiOpiExtendedDCS.getPRODUCT_CATEGORY())) {
+					tiOpiExtendedDCS.setPRODUCT_CATEGORY("81021001");
+				}else {
+					tiOpiExtendedDCS.setPRODUCT_CATEGORY("81021002");
+				}
+			}
 
 			productService.updateAndAddProduct(tiOpiExtendedDCS);
 			productService.updateAndAddProductModel(tiOpiExtendedDCS);
@@ -833,7 +842,12 @@ public class ProductDcsController {
 			TiExtendedPage.setPRODUCT_NO(tiOpiExtendedDCS.getPRODUCT_NO().toString());
 			TiExtendedPage.setPRODUCT_NAME(tiOpiExtendedDCS.getPRODUCT_NAME().toString());
 			TiExtendedPage.setPRODUCT_CATEGORY(tiOpiExtendedDCS.getPRODUCT_CATEGORY().toString());
-			TiExtendedPage.setPRODUCT_PROPERTY(tiOpiExtendedDCS.getPRODUCT_PROPERTY().toString());
+			if(tiOpiExtendedDCS.getPRODUCT_PROPERTY() != null ) {
+				TiExtendedPage.setPRODUCT_PROPERTY(tiOpiExtendedDCS.getPRODUCT_PROPERTY().toString());
+			}else {
+				TiExtendedPage.setPRODUCT_PROPERTY("");
+			}
+			
 			TiExtendedPage.setDNP_PRICE(tiOpiExtendedDCS.getDNP_PRICE().toString());
 			TiExtendedPage.setMSRP_PRICE(tiOpiExtendedDCS.getMSRP_PRICE().toString());
 			TiExtendedPage.setPRODUCT_DESCRIBTION(tiOpiExtendedDCS.getPRODUCT_DESCRIBTION());
@@ -850,9 +864,22 @@ public class ProductDcsController {
 			if (tiOpiExtendedDCS.getSALES_DATE_END() != null && !"".equals(tiOpiExtendedDCS.getSALES_DATE_END())) {
 				TiExtendedPage.setSALES_DATE_END(sdf.format(tiOpiExtendedDCS.getSALES_DATE_END()));
 			}
-			TiExtendedPage.setPRODUCT_FAIT(tiOpiExtendedDCS.getPRODUCT_FAIT().toString());
-			TiExtendedPage.setPRODUCT_JEEP(tiOpiExtendedDCS.getPRODUCT_JEEP().toString());
-			TiExtendedPage.setPRODUCT_CJD(tiOpiExtendedDCS.getPRODUCT_CJD().toString());
+			if(tiOpiExtendedDCS.getPRODUCT_FAIT() != null) {
+				TiExtendedPage.setPRODUCT_FAIT(tiOpiExtendedDCS.getPRODUCT_FAIT().toString());
+			}else {
+				TiExtendedPage.setPRODUCT_FAIT("0");
+			}
+			if(tiOpiExtendedDCS.getPRODUCT_JEEP() != null ) {
+				TiExtendedPage.setPRODUCT_JEEP(tiOpiExtendedDCS.getPRODUCT_JEEP().toString());
+			}else {
+				TiExtendedPage.setPRODUCT_JEEP("0");
+			}
+			if(tiOpiExtendedDCS.getPRODUCT_CJD() != null) {
+				TiExtendedPage.setPRODUCT_CJD(tiOpiExtendedDCS.getPRODUCT_CJD().toString());
+			}else {
+				TiExtendedPage.setPRODUCT_CJD("0");
+			}
+			
 
 		}
 
