@@ -31,6 +31,25 @@
 <link rel="stylesheet"
 	href="${ctx }/resource/plugins/bootstrap-select/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="${ctx }/resource/css/common.css">
+<script src="${ctx }/resource/global/plugins/jquery.js"
+	type="text/javascript"></script>
+<script type="text/javascript">
+	/* $(document).ready(function() {
+		setTimeout(function() {//两秒后跳转  
+			alert("恭喜你注册成功，两秒后跳转。");
+			//location.href = "index.php";//PC网页式跳转  
+			//$.mobile.changePage("index.php"); //手机网页式跳转   
+		}, 2000);
+	}); */
+	
+	//30*60*1000
+	
+	/* var B = setInterval(function(){
+		 alert("222222222");
+	},60*1000); */
+	
+</script>
+
 
 ${param.styles }
 <body class="hold-transition skin-blue sidebar-mini">

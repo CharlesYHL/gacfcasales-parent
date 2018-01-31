@@ -117,6 +117,12 @@ public class UserRealm extends AuthorizingRealm {
 		//Long roleId = sysRoleService.selectSysRoleByUserId(tmUser.getUSER_ID(),tmUser.getUSER_CODE());
 		Long roleId = sysRoleService.selectTmUserRoleByMap(map);
 		user.setRoleId(roleId);
+		long test = System.currentTimeMillis()-currentUser.getSession().getStartTimestamp().getTime();
+		System.out.println("返回的时长:=========="+test);
+		/*if((System.currentTimeMillis()-currentUser.getSession().getStartTimestamp().getTime())>=lengthenTimeOut-1000){
+			
+		}
+		*/
 		session.setAttribute("users", user);
 		return authenticationInfo;
 	}
