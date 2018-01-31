@@ -127,9 +127,9 @@
 							style="background: #e8e8e8; margin-left: 20px; text-align: left; font-weight: 700; font-size: 16px;">车主车辆信息</div>
 					</div>
 					<div class="row">
-						<div class="col-xs-12 col-sm-6 col-md-5">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-3 ">VIN</label>
+								<label class="control-label col-xs-5 ">VIN</label>
 								<div class="col-xs-7">
 									<div class="input-group">
 										<div class="input-icon-group">
@@ -138,12 +138,12 @@
 												value="${requestScope.ttOpiSalesAll.VIN}"
 												placeholder="请输入VIN" />
 										</div>
-										<span class="input-group-btn" style="height: 30px;">
+										 <span class="input-group-btn" style="height: 34px;">
 											<button class="btn btn-primary" type="button"
-												style="height: 30px;">
+												style="height: 34px;">
 												<i class="glyphicon glyphicon-search"></i>
 											</button>
-										</span>
+										</span> 
 									</div>
 								</div>
 							</div>
@@ -288,9 +288,9 @@
 							style="background: #e8e8e8; margin-left: 20px; text-align: left; font-weight: 700; font-size: 16px;">产品信息</div>
 					</div>
 					<div class="row">
-						<div class="col-xs-12 col-sm-6 col-md-5">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-3 ">产品编号</label>
+								<label class="control-label col-xs-5 ">产品编号</label>
 								<div class="col-xs-7">
 									<div class="input-group">
 										<div class="input-icon-group">
@@ -299,9 +299,9 @@
 												value="${requestScope.ttOpiSalesAll.PRODUCT_NO}"
 												placeholder="请输入产品编号" />
 										</div>
-										<span class="input-group-btn" style="height: 30px;">
+										 <span class="input-group-btn" style="height: 34px;">
 											<button class="btn btn-primary" type="button"
-												style="height: 30px;">
+												style="height: 34px;">
 												<i class="glyphicon glyphicon-search"></i>
 											</button>
 										</span>
@@ -394,8 +394,8 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-6 ">终端不含税销售价</label>
-								<div class="col-xs-6">
+								<label class="control-label col-xs-5 ">终端不含税销售价</label>
+								<div class="col-xs-7">
 									<input type="text" class="form-control"
 										name="terminalNonSalesPrice" id="terminalNonSalesPrice"
 										disabled="disabled"
@@ -406,8 +406,8 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-6 ">终端含税销售价</label>
-								<div class="col-xs-6">
+								<label class="control-label col-xs-5 ">终端含税销售价</label>
+								<div class="col-xs-7">
 									<input type="text" class="form-control" disabled="disabled"
 										name="terminalSalesPrice" id="terminalSalesPrice"
 										value="${requestScope.ttOpiSalesAll.TERMINAL_SALES_PRICE}"
@@ -436,8 +436,8 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-6 ">实际不含税销售价</label>
-								<div class="col-xs-6">
+								<label class="control-label col-xs-5 ">实际不含税销售价</label>
+								<div class="col-xs-7">
 									<input type="text" class="form-control" disabled="disabled"
 										name="actualNonSalesPrice" id="actualNonSalesPrice"
 										value="${requestScope.ttOpiSalesAll.ACTUAL_NON_SALES_PRICE}"

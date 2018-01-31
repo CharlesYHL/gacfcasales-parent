@@ -53,9 +53,9 @@
 												name="dealerCode" id="dealerCode" value=""
 												placeholder="请输入经销商代码" />
 										</div>
-										<span class="input-group-btn" style="height: 30px;">
+										<span class="input-group-btn" style="height: 34px;">
 											<button class="btn btn-primary" type="button"
-												style="height: 30px;" onclick="queryDealer()">
+												style="height: 34px;" onclick="queryDealer()">
 												<i class="glyphicon glyphicon-list-alt"></i>
 											</button>
 										</span>

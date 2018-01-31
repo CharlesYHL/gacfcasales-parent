@@ -517,7 +517,7 @@ function detail(productSalesId){
 			id : 'detailProfit',
 			title : '销售盈利明细',
 			type : 2,
-			area : [ '90%', '100%' ],
+			area : [ '65%', '100%' ],
 			fixed : true, // 固定
 			maxmin : false,
 			content : ctx + '/dcsProfit/ajax/detailProfit?PRODUCT_SALES_ID='+productSalesId
