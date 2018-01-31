@@ -15,17 +15,17 @@
 	<!-- <bean id="helloService" class="com.gacfcasales.dmsweb.webservice.wechat.advice.HelloWebservice" 
 		/> <jaxws:server address="HelloService" > <jaxws:serviceBean> <ref bean="helloService"/> 
 		</jaxws:serviceBean> </jaxws:server> -->
-		
-		
-	<bean id="helloService"
-		class="com.gacfcasales.dmsweb.webservice.wechat.advice.HelloWebserviceImpl" />
-	<jaxws:endpoint id="helloWService"
-		implementorClass="com.gacfcasales.dmsweb.webservice.wechat.advice.HelloWebservice"
-		address="/hellows">
-		<jaxws:implementor>
-			<ref bean="helloService" />
-		</jaxws:implementor>
-	</jaxws:endpoint>
+
+
+	<!-- <bean id="helloService" class="com.gacfcasales.dmsweb.webservice.wechat.advice.HelloWebserviceImpl" 
+		/> <jaxws:endpoint id="helloWService" implementorClass="com.gacfcasales.dmsweb.webservice.wechat.advice.HelloWebservice" 
+		address="/hellows"> <jaxws:implementor> <ref bean="helloService" /> </jaxws:implementor> 
+		</jaxws:endpoint> -->
+
+	<jaxws:endpoint id="helloService"
+		implementor="com.gacfcasales.dmsweb.webservice.wechat.advice.HelloWebserviceImpl"
+		address="/hellows" ></jaxws:endpoint>
+
 
 	<!-- <bean id="SynVehicleInfo" class="com.gfs.mdm.webservice.Impl.VehicleServiceImpl" 
 		/> <jaxws:server address="SynVehicleInfo" > <jaxws:serviceBean> <ref bean="SynVehicleInfo"/> 

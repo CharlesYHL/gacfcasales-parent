@@ -508,6 +508,7 @@ function releaseBatch(){
 		    	"listMap":selected
 		    }),
 			cache: false,
+			async:true,
 		    success: function(data){
 		    	console.log("返回参数:"+data);
 		    	if(data == 0){
@@ -541,6 +542,7 @@ function cancelBatch(){
 		    	"listMap":selected
 		    }),
 			cache: false,
+			async:true,
 		    success: function(data){
 		    	console.log("返回参数:"+data);
 		    	if(data == 0){

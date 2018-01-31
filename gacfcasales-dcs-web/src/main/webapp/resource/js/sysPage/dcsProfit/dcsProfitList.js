@@ -42,6 +42,7 @@ function getBigOrg() {
 		contentType : "application/json",
 		dataType : "json",
 		cache : false,
+		async:true,
 		success : function(data) {
 			if (data.length > 0) {
 				var optionstring = "<option value='0'>请选择</option>";
@@ -68,6 +69,7 @@ function getSmallOrg() {
 		contentType : "application/json",
 		dataType : "json",
 		cache : false,
+		async:true,
 		success : function(data) {
 			if (data.length > 0) {
 				var optionstring = "<option value='0'>请选择</option>";
@@ -107,6 +109,33 @@ function getProductChild(values) {
 	console.log("=========" + values);
 	$("#dealerCode").val(values);
 }
+
+function resetqq() {
+	$("#bigOrg").val('0');  
+	$("#bigOrg").selectpicker('refresh');
+	
+	$("#smallOrg").empty();  
+	$("#smallOrg").selectpicker('refresh');
+	
+	$("#dealerCode").val('');
+	$("#dealerName").val('');
+	$("#productSalesOrder").val('');
+	$("#productNo").val('');
+	$("#productName").val('');
+	$('#productDate').val('0');
+	$("#productDate").selectpicker('refresh');
+	$("#vin").val('');
+	$("#licenseNo").val('');
+	$("#customerName").val('');
+	$("#createStart").val('');
+	$("#createEnd").val('');
+	$("#closedStart").val('');
+	$("#closedEnd").val('');
+	vm.reload();
+
+}
+
+
 var vm = new Vue({
 	el : '#profitListApp',
 	data : {
@@ -438,30 +467,7 @@ var TableInit = function() {
 };
 
 
-function resetqq() {
-	$("#bigOrg").val('0');  
-	$("#bigOrg").selectpicker('refresh');
-	
-	$("#smallOrg").empty();  
-	$("#smallOrg").selectpicker('refresh');
-	
-	$("#dealerCode").val('');
-	$("#dealerName").val('');
-	$("#productSalesOrder").val('');
-	$("#productNo").val('');
-	$("#productName").val('');
-	$('#productDate').val('0');
-	$("#productDate").selectpicker('refresh');
-	$("#vin").val('');
-	$("#licenseNo").val('');
-	$("#customerName").val('');
-	$("#createStart").val('');
-	$("#createEnd").val('');
-	$("#closedStart").val('');
-	$("#closedEnd").val('');
-	vm.reload();
 
-}
 
 function query() {
 	var oTable = new TableInit();

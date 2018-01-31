@@ -65,7 +65,7 @@
 									style="width: 5%; font-size: 16px;">车主电话</span> <span>:</span>
 								<input type="text" class="form-control" name="ownerPhone"
 									id="ownerPhone" disabled="disabled"
-									style="width: 19.5%; background-color: white; border: 0px; font-size: 16px;"
+									style="width: 21.5%; background-color: white; border: 0px; font-size: 16px;"
 									value="${requestScope.ttOpiExtendedSales.OWNER_PHONE}" /> <span
 									style="width: 5%; font-size: 16px;">VIN</span> <span>:</span> <input
 									type="text" class="form-control" name="vin" id="vin"

@@ -48,7 +48,7 @@ public class Sdsd001Main {
 			if(params.get("LICENSE_NO") !=null && !"".equals(params.get("LICENSE_NO"))) {
 				zSdSd001.setISigni(getChar20(params.get("LICENSE_NO").toString()));
 			}else {
-				zSdSd001.setISigni(getChar20(params.get("无牌照").toString()));
+				zSdSd001.setISigni(getChar20("无牌照"));
 			}
 			if(params.get("OWNER_PHONE") != null && !"".equals(params.get("OWNER_PHONE"))) {
 				zSdSd001.setITel(getChar20(params.get("OWNER_PHONE").toString()));

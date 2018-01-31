@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+	<property name="log_dir" value="/usr/local/apache-tomcat-8.0.48/logs/gacfcasales-dms-web" />
+	<property name="maxHistory" value="30" />
 	<!-- 控制台输出 -->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-		<Encoding>UTF-8</Encoding> 
+		<Encoding>UTF-8</Encoding>
 		<!-- 日志输出编码 -->
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
-			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} [%L] - %msg%n</pattern>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}	[%L] - %msg%n</pattern>
 		</encoder>
 	</appender>
-	
+
+	<appender name="DEBUG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 过滤器，只记录DEBUG级别的日志 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- 按天回滚 daily -->
+			<fileNamePattern>${log_dir}/%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<!-- 日志最大的历史 60天 -->
+			<maxHistory>${maxHistory}</maxHistory>
+			<maxFileSize>50MB</maxFileSize>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}	[%L] - %msg%n</pattern>
+		</encoder>
+	</appender>
+
 	<root level="debug">
 		<appender-ref ref="STDOUT" />
+		<appender-ref ref="DEBUG" />
 	</root>
 </configuration>

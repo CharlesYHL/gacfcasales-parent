@@ -67,6 +67,15 @@
 		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
 	
+	<filter>
+		<filter-name>cors</filter-name>
+		<filter-class>com.gacfcasales.dcsweb.filter.CrossFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>cors</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 	<error-page>
 		<error-code>403</error-code>
 		<location>/sysPage/error/403</location>

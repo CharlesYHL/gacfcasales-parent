@@ -219,9 +219,9 @@
 												value="${requestScope.ttOpiSalesAll.VIN}"
 												placeholder="请输入VIN" />
 										</div>
-										<span class="input-group-btn" style="height: 30px;">
+										<span class="input-group-btn" style="height: 34px;">
 											<button class="btn btn-primary" type="button"
-												style="height: 30px;">
+												style="height: 34px;">
 												<i class="glyphicon glyphicon-search"></i>
 											</button>
 										</span>
@@ -369,9 +369,9 @@
 												value="${requestScope.ttOpiSalesAll.PRODUCT_NO}"
 												placeholder="请输入产品编号" />
 										</div>
-										<span class="input-group-btn" style="height: 30px;">
+										<span class="input-group-btn" style="height: 34px;">
 											<button class="btn btn-primary" type="button"
-												style="height: 30px;">
+												style="height: 34px;">
 												<i class="glyphicon glyphicon-search"></i>
 											</button>
 										</span>

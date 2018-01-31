@@ -50,6 +50,7 @@ function getBrand() {
 		contentType : "application/json",
 		dataType : "json",
 		cache : false,
+		async:true,
 		success : function(data) {
 			if (data.length > 0) {
 				var optionstring = "<option value='0'>请选择</option>";
@@ -79,6 +80,7 @@ function getSeries() {
 		data : JSON.stringify(vm.sysUser),
 		dataType : "json",
 		cache : false,
+		async:true,
 		success : function(data) {
 			if (data.length > 0) {
 				var optionstring = "<option value='0'>请选择</option>";
@@ -107,6 +109,7 @@ function getModel() {
 		data : JSON.stringify(vm.sysUser),
 		dataType : "json",
 		cache : false,
+		async:true,
 		success : function(data) {
 			if (data.length > 0) {
 				var optionstring = "<option value='0'>请选择</option>";
@@ -632,6 +635,7 @@ function invalid(productSalesId) {
 	        contentType: "application/json",
 		    dataType: "json",
 			cache: false,
+			async:true,
 		    success: function(data){
 		    	console.log("返回参数:"+data);
 		    	if(data == 0){

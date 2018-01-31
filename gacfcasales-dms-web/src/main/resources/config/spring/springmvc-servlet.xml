@@ -23,6 +23,10 @@
 	</mvc:annotation-driven>
 	<mvc:default-servlet-handler />
 	
+	<!-- <mvc:cors>
+		<mvc:mapping path="/**" />
+	</mvc:cors> -->
+	
 	<bean id="remoteSecurityServer" class="com.gacfcasales.dmsweb.remote.IRemoteSecurityServiceImpl" />
 	<bean name="/remote/securityService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">  
     	<property name="service" ref="remoteSecurityServer"/>  

@@ -388,6 +388,7 @@ function save(){
 			dataType : "json",
 			data : param,
 			cache : false,
+			async:true,
 			success : function(data) {
 				console.log("返回参数:" + data);
 				if (data == '0') {
@@ -422,11 +423,14 @@ function submitASC(){
 	        contentType: "application/json",
 		    dataType: "json",
 			cache: false,
+			async:true,
 		    success: function(data){
 		    	console.log("返回参数:"+data);
 		    	if(data == 0){
 		    		alert("扣款成功!");
 		    		$("#btn_print").attr("disabled", false);
+		    		$("#btn_submit").attr("disabled",true)
+		    		$("#btn_save").attr("disabled",true);
 		    		//vm.reload();
 		    	}else{
 		    		alert("扣款失败!");
