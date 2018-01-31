@@ -371,7 +371,7 @@ function detail(productId) {
 	globe_index = layer.open({
 		title : '产品明细',
 		type : 2,
-		area : [ '90%', '100%' ],
+		area : [ '70%', '100%' ],
 		fixed : true, // 固定
 		maxmin : false,
 		content : ctx + '/dmsProduct/ajax/detailProduct?productId=' + productId

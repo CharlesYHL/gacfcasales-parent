@@ -600,7 +600,7 @@ function detail(productSalesId) {
 	globe_index = layer.open({
 		title : '销售单明细',
 		type : 2,
-		area : [ '90%', '100%' ],
+		area : [ '80%', '100%' ],
 		fixed : true, // 固定
 		maxmin : false,
 		content : ctx + '/dmsSales/ajax/toSalesDetail?productSalesId='
@@ -613,7 +613,7 @@ function edit(productSalesId) {
 	globe_index = layer.open({
 		title : '销售单编辑',
 		type : 2,
-		area : [ '90%', '100%' ],
+		area : [ '80%', '100%' ],
 		fixed : true, // 固定
 		maxmin : false,
 		content : ctx + '/dmsSales/ajax/toSalesEdit?productSalesId='

@@ -122,10 +122,10 @@
 							style="background: #e8e8e8; margin-left: 20px; text-align: left; font-weight: 700; font-size: 16px;">车主车辆信息</div>
 					</div>
 					<div class="row">
-						<div class="col-xs-12 col-sm-6 col-md-5">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-3 ">VIN</label>
-								<div class="col-xs-6">
+								<label class="control-label col-xs-5 ">VIN</label>
+								<div class="col-xs-7">
 									<div class="input-group">
 										<div class="input-icon-group">
 											<input type="text" class="form-control" name="vin" id="vin"
@@ -142,45 +142,45 @@
 							</div>
 						</div>
 
-						<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-3 ">品牌</label>
+								<label class="control-label col-xs-5 ">品牌</label>
 								<div class="col-xs-7">
 									<select name="brandId" id="brandId"
 										class="bs-select form-control" disabled="disabled"></select>
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-3 ">车系</label>
+								<label class="control-label col-xs-5 ">车系</label>
 								<div class="col-xs-7">
 									<select name="seriesId" id="seriesId"
 										class="bs-select form-control" disabled="disabled"></select>
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-6 col-md-5 ">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
 							<div class="form-group">
-								<label class="control-label col-xs-3 ">车型</label>
+								<label class="control-label col-xs-5 ">车型</label>
 								<div class="col-xs-6">
 									<select name="modelId" id="modelId" disabled="disabled"
 										class="bs-select form-control"></select>
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-3 ">配置</label>
+								<label class="control-label col-xs-5 ">配置</label>
 								<div class="col-xs-7">
 									<select name="apackage" id="apackage" disabled="disabled"
 										class="bs-select form-control"></select>
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-3 ">年款</label>
+								<label class="control-label col-xs-5 ">年款</label>
 								<div class="col-xs-7">
 									<input type="text" class="form-control" name="yearModel"
 										id="yearModel" value="${requestScope.dmsSalesDto.YEAR_MODEL}"
@@ -189,9 +189,9 @@
 							</div>
 						</div>
 
-						<div class="col-xs-12 col-sm-6 col-md-5">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-3 ">开票日期</label>
+								<label class="control-label col-xs-5 ">开票日期</label>
 								<div class="col-xs-6">
 									<input id="billingAt" name="billingAt" type="text"
 										class="form-control"
@@ -200,7 +200,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
 								<label class="control-label col-xs-5 ">车主编号</label>
 								<div class="col-xs-7">
@@ -211,7 +211,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
 								<label class="control-label col-xs-5 ">车主电话</label>
 								<div class="col-xs-7">
@@ -222,10 +222,10 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
 								<label class="control-label col-xs-5 ">车主姓名</label>
-								<div class="col-xs-6">
+								<div class="col-xs-7">
 									<input type="text" class="form-control" name="ownerName"
 										disabled="disabled" id="ownerName"
 										value="${requestScope.dmsSalesDto.OWNER_NAME}"
@@ -233,10 +233,10 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
 								<label class="control-label col-xs-5 ">车主手机</label>
-								<div class="col-xs-6">
+								<div class="col-xs-7">
 									<input type="text" class="form-control" name="ownerMobile"
 										disabled="disabled" id="ownerMobile"
 										value="${requestScope.dmsSalesDto.MOBILE}"
@@ -253,9 +253,9 @@
 							style="background: #e8e8e8; margin-left: 20px; text-align: left; font-weight: 700; font-size: 16px;">延长服务产品信息</div>
 					</div>
 					<div class="row">
-						<div class="col-xs-12 col-sm-6 col-md-5">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-3 ">产品编号</label>
+								<label class="control-label col-xs-5 ">产品编号</label>
 								<div class="col-xs-7">
 									<div class="input-group">
 										<div class="input-icon-group">

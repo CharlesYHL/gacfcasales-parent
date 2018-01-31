@@ -20,6 +20,60 @@ public class TiExtendedPage implements Serializable {
 	private String PRODUCT_DESCRIBTION;
 	private String PRODUCT_MODEL;
 	
+	
+	private String IS_VALID;
+	private String IS_C_SALE;
+	private String NON_TAX_COST_PRICE;
+	private String TAX_COST_PRICE;
+	private String TERMINAL_NON_SALES_PRICE;
+	private String TERMINAL_SALES_PRICE;
+	private String RELEASE_STATUS;
+	
+	
+	
+	
+	public String getRELEASE_STATUS() {
+		return RELEASE_STATUS;
+	}
+	public void setRELEASE_STATUS(String rELEASE_STATUS) {
+		RELEASE_STATUS = rELEASE_STATUS;
+	}
+	public String getIS_VALID() {
+		return IS_VALID;
+	}
+	public void setIS_VALID(String iS_VALID) {
+		IS_VALID = iS_VALID;
+	}
+	public String getIS_C_SALE() {
+		return IS_C_SALE;
+	}
+	public void setIS_C_SALE(String iS_C_SALE) {
+		IS_C_SALE = iS_C_SALE;
+	}
+	public String getNON_TAX_COST_PRICE() {
+		return NON_TAX_COST_PRICE;
+	}
+	public void setNON_TAX_COST_PRICE(String nON_TAX_COST_PRICE) {
+		NON_TAX_COST_PRICE = nON_TAX_COST_PRICE;
+	}
+	public String getTAX_COST_PRICE() {
+		return TAX_COST_PRICE;
+	}
+	public void setTAX_COST_PRICE(String tAX_COST_PRICE) {
+		TAX_COST_PRICE = tAX_COST_PRICE;
+	}
+	public String getTERMINAL_NON_SALES_PRICE() {
+		return TERMINAL_NON_SALES_PRICE;
+	}
+	public void setTERMINAL_NON_SALES_PRICE(String tERMINAL_NON_SALES_PRICE) {
+		TERMINAL_NON_SALES_PRICE = tERMINAL_NON_SALES_PRICE;
+	}
+	public String getTERMINAL_SALES_PRICE() {
+		return TERMINAL_SALES_PRICE;
+	}
+	public void setTERMINAL_SALES_PRICE(String tERMINAL_SALES_PRICE) {
+		TERMINAL_SALES_PRICE = tERMINAL_SALES_PRICE;
+	}
 	public String getPRODUCT_MODEL() {
 		return PRODUCT_MODEL;
 	}

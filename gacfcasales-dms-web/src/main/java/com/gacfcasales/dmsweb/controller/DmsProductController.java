@@ -220,7 +220,49 @@ public class DmsProductController {
 		} else {
 			TiExtendedPage.setPRODUCT_CJD("否");
 		}
-
+		
+		if(tiOpiExtendedDCS.getIS_VALID() == 12781001) {
+			TiExtendedPage.setIS_VALID("是");
+		}else {
+			TiExtendedPage.setIS_VALID("否");
+		}
+		if(tiOpiExtendedDCS.getIS_C_SALE() == 12781001) {
+			TiExtendedPage.setIS_C_SALE("是");
+		}else {
+			TiExtendedPage.setIS_C_SALE("否");
+		}
+		
+		if(tiOpiExtendedDCS.getNON_TAX_COST_PRICE() != null) {
+			TiExtendedPage.setNON_TAX_COST_PRICE(tiOpiExtendedDCS.getNON_TAX_COST_PRICE().toString());
+		}else {
+			TiExtendedPage.setNON_TAX_COST_PRICE("");
+		}
+		
+		if(tiOpiExtendedDCS.getTAX_COST_PRICE() != null) {
+			TiExtendedPage.setTAX_COST_PRICE(tiOpiExtendedDCS.getTAX_COST_PRICE().toString());
+		}else {
+			TiExtendedPage.setTAX_COST_PRICE("");
+		}
+		if(tiOpiExtendedDCS.getTERMINAL_NON_SALES_PRICE() != null) {
+			TiExtendedPage.setTERMINAL_NON_SALES_PRICE(tiOpiExtendedDCS.getTERMINAL_NON_SALES_PRICE().toString());
+		}else {
+			TiExtendedPage.setTERMINAL_NON_SALES_PRICE("");
+		}
+		
+		if(tiOpiExtendedDCS.getTERMINAL_SALES_PRICE() != null) {
+			TiExtendedPage.setTERMINAL_SALES_PRICE(tiOpiExtendedDCS.getTERMINAL_SALES_PRICE().toString());
+		}else {
+			TiExtendedPage.setTERMINAL_SALES_PRICE("");
+		}
+		
+		if(tiOpiExtendedDCS.getRELEASE_STATUS() == OemDictCodeConstants.PRODUCT_RELEASE_STATUS_01) {
+			TiExtendedPage.setRELEASE_STATUS("未发布");
+		}else if(tiOpiExtendedDCS.getRELEASE_STATUS() == OemDictCodeConstants.PRODUCT_RELEASE_STATUS_02) {
+			TiExtendedPage.setRELEASE_STATUS("已发布");
+		}else {
+			TiExtendedPage.setRELEASE_STATUS("已取消");
+		}
+		
 		ModelAndView mav = new ModelAndView("sysPage/dmsProduct/detail");
 		mav.addObject("tiOpiExtendedDCS", TiExtendedPage);
 		return mav;

@@ -26,7 +26,7 @@
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
 								<label class="control-label col-xs-5 ">产品名称</label>
-								<div class="col-xs-6">
+								<div class="col-xs-7">
 									<input type="text" class="form-control" name="productName"
 									disabled="disabled" id="productName"
 									value="${requestScope.tiOpiExtendedDCS.PRODUCT_NAME }"
@@ -37,32 +37,8 @@
 						
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">产品类别</label>
-								<div class="col-xs-6">
-									<input type="text" class="form-control" name="productCategory"
-									disabled="disabled" id="productCategory"
-									value="${requestScope.tiOpiExtendedDCS.PRODUCT_CATEGORY }"
-									placeholder="请输入产品类别" />
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-							<div class="form-group">
-								<label class="control-label col-xs-5 ">产品属性</label>
-								<div class="col-xs-6">
-									<input type="text" class="form-control" name="productProperty"
-									disabled="disabled" id="productProperty"
-									value="${requestScope.tiOpiExtendedDCS.PRODUCT_PROPERTY }"
-									placeholder="请输入产品属性" />
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-							<div class="form-group">
 								<label class="control-label col-xs-5 ">产品有效期</label>
-								<div class="col-xs-6">
+								<div class="col-xs-7">
 									<input type="text" class="form-control" name="productDate"
 									disabled="disabled" id="productDate"
 									value="${requestScope.tiOpiExtendedDCS.PRODUCT_DATE }"
@@ -73,11 +49,61 @@
 						
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">DNP价格</label>
-								<div class="col-xs-6">
-									<input type="text" class="form-control" name="dnpPrice"
-									disabled="disabled" id="dnpPrice"
-									value="${requestScope.tiOpiExtendedDCS.DNP_PRICE }"
+								<label class="control-label col-xs-5 ">不含税成本价</label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control" name="nonTaxCostPrice"
+									disabled="disabled" id="nonTaxCostPrice"
+									value="${requestScope.tiOpiExtendedDCS.NON_TAX_COST_PRICE }"
+									placeholder="请输入产品类别" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">含税成本价</label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control" name="taxCostPrice"
+									disabled="disabled" id="taxCostPrice"
+									value="${requestScope.tiOpiExtendedDCS.TAX_COST_PRICE }"
+									placeholder="请输入产品属性" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">不含税终端销售价</label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control" name="terminalNonSalesPrice"
+									disabled="disabled" id="terminalNonSalesPrice"
+									value="${requestScope.tiOpiExtendedDCS.TERMINAL_NON_SALES_PRICE }"
+									placeholder="请输入产品类别" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">含税终端销售价</label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control" name="terminalSalesPrice"
+									disabled="disabled" id="terminalSalesPrice"
+									value="${requestScope.tiOpiExtendedDCS.TERMINAL_SALES_PRICE }"
+									placeholder="请输入产品属性" />
+								</div>
+							</div>
+						</div>
+						
+						
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">是否有效</label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control" name="isValid"
+									disabled="disabled" id="isValid"
+									value="${requestScope.tiOpiExtendedDCS.IS_VALID }"
 									placeholder="请输入DNP价格" />
 								</div>
 							</div>
@@ -85,19 +111,30 @@
 						
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">MSRP价格</label>
-								<div class="col-xs-6">
-									<input type="text" class="form-control" name="msrpPrice"
-									disabled="disabled" id="msrpPrice"
-									value="${requestScope.tiOpiExtendedDCS.MSRP_PRICE }"
+								<label class="control-label col-xs-5 ">发布状态</label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control" name="releaseStatus"
+									disabled="disabled" id="releaseStatus"
+									value="${requestScope.tiOpiExtendedDCS.RELEASE_STATUS }"
 									placeholder="请输入产品属性" />
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-5">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-3">销售时间</label>
-								<div class="col-xs-6 col-sm-8">
+								<label class="control-label col-xs-5 ">是否可销售</label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control" name="isCSales"
+									disabled="disabled" id="isCSales"
+									value="${requestScope.tiOpiExtendedDCS.IS_C_SALE }"
+									placeholder="请输入产品属性" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5">销售时间</label>
+								<div class="col-xs-7">
 									<div class="input-group input-daterange">
 
 										<input id="salesStart" name="salesStart" type="text" disabled="disabled"
@@ -110,44 +147,44 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<%-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
 								<label class="control-label col-xs-5 ">是否FIAT授权</label>
-								<div class="col-xs-6">
+								<div class="col-xs-7">
 									<input type="text" class="form-control" name="isFiat"
 									disabled="disabled" id="isFiat"
 									value="${requestScope.tiOpiExtendedDCS.PRODUCT_FAIT }"
 									placeholder="" />
 								</div>
 							</div>
-						</div>
+						</div> --%>
 						
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<%-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
 								<label class="control-label col-xs-5 ">是否JEEP授权</label>
-								<div class="col-xs-6">
+								<div class="col-xs-7">
 									<input type="text" class="form-control" name="isJeep"
 									disabled="disabled" id="isJeep"
 									value="${requestScope.tiOpiExtendedDCS.PRODUCT_JEEP }"
 									placeholder="" />
 								</div>
 							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						</div> --%>
+						<%-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
 								<label class="control-label col-xs-5 ">是否CJD授权</label>
-								<div class="col-xs-6">
+								<div class="col-xs-7">
 									<input type="text" class="form-control" name="isCjd"
 									disabled="disabled" id="isCjd"
 									value="${requestScope.tiOpiExtendedDCS.PRODUCT_CJD }"
 									placeholder="" />
 								</div>
 							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4">
+						</div> --%>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
 							<div class="form-group">
-								<label class="control-label col-xs-4">产品说明</label>
-								<div class="col-xs-8">
+								<label class="control-label col-xs-5">产品说明</label>
+								<div class="col-xs-7">
 									<textarea id="productDescribtion" name="productDescribtion" class="form-control" rows="3" disabled="disabled" ></textarea>
 								</div>
 							</div>

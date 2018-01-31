@@ -85,8 +85,8 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-6 ">实际不含税销售价</label>
-								<div class="col-xs-6">
+								<label class="control-label col-xs-5 ">实际不含税销售价</label>
+								<div class="col-xs-7">
 									<input type="text" class="form-control" disabled="disabled"
 										name="actualNonSalesPrice" id="actualNonSalesPrice"
 										value="${requestScope.ttOpiSalesAll.ACTUAL_NON_SALES_PRICE}"
@@ -161,9 +161,9 @@
 							style="background: #e8e8e8; margin-left: 20px; text-align: left; font-weight: 700; font-size: 16px;">车主车辆信息</div>
 					</div>
 					<div class="row">
-						<div class="col-xs-12 col-sm-6 col-md-5">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-3 ">VIN</label>
+								<label class="control-label col-xs-5 ">VIN</label>
 								<div class="col-xs-7">
 									<div class="input-group">
 										<div class="input-icon-group">
@@ -311,9 +311,9 @@
 					</div>
 					<div class="row">
 
-						<div class="col-xs-12 col-sm-6 col-md-5">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-3 ">产品编号</label>
+								<label class="control-label col-xs-5 ">产品编号</label>
 								<div class="col-xs-7">
 									<div class="input-group">
 										<div class="input-icon-group">
@@ -371,8 +371,8 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-6 ">不含税成本价</label>
-								<div class="col-xs-6">
+								<label class="control-label col-xs-5 ">不含税成本价</label>
+								<div class="col-xs-7">
 									<input type="text" class="form-control" disabled="disabled"
 										name="nonTaxCostPrice" id="nonTaxCostPrice"
 										value="${requestScope.ttOpiSalesAll.NON_TAX_COST_PRICE}"
@@ -382,8 +382,8 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-6 ">含税成本价</label>
-								<div class="col-xs-6">
+								<label class="control-label col-xs-5 ">含税成本价</label>
+								<div class="col-xs-7">
 									<input type="text" class="form-control" disabled="disabled"
 										name="taxCostPrice" id="taxCostPrice"
 										value="${requestScope.ttOpiSalesAll.TAX_COST_PRICE}"
@@ -395,8 +395,8 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-6 ">终端不含税销售价</label>
-								<div class="col-xs-6">
+								<label class="control-label col-xs-5 ">终端不含税销售价</label>
+								<div class="col-xs-7">
 									<input type="text" class="form-control"
 										name="terminalNonSalesPrice" id="terminalNonSalesPrice"
 										disabled="disabled"
@@ -407,8 +407,8 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-6 ">终端含税销售价</label>
-								<div class="col-xs-6">
+								<label class="control-label col-xs-5 ">终端含税销售价</label>
+								<div class="col-xs-7">
 									<input type="text" class="form-control" disabled="disabled"
 										name="terminalSalesPrice" id="terminalSalesPrice"
 										value="${requestScope.ttOpiSalesAll.TERMINAL_SALES_PRICE}"
