@@ -5,7 +5,7 @@
 <section class="content">
 	<div class="alert alert-danger alert-dismissible">
 		<h4><i class="icon fa fa-ban"></i>登录超时！</h4>
-		请重新登录！ <a href="https://sso.gacfcasales.com">重新登录</a>
+		请重新登录！ <a href="https://d-ssotest.gacfcasales.com">重新登录</a>
 	</div>
 </section>
 
