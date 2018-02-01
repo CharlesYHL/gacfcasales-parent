@@ -62,12 +62,12 @@ function exportExcel() {
 			+ encodeURI(encodeURI(salesEnd));
 }
 
-function reset() {
+function resetaa() {
 	console.log("=================");
 	$("#productNo").val('');
 	$("#productName").val('');
-	$('#productDate').selectpicker('val', '0');
-	$('#releaseStatus').selectpicker('val', '0');
+	$('#productDate').val('0');
+	$('#releaseStatus').val('0');
 	$("#productModel").val('');
 	$("#releaseStart").val('');
 	$("#releaseEnd").val('');

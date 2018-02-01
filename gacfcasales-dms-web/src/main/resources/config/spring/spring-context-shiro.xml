@@ -79,7 +79,7 @@
 				/remote/** = anon
 				/loginout = anon
 				/casfailed.jsp = anon
-				/**/ajax/** = user
+				/**/ajax/** = urlperms
 				/cartype/downLoadFile =anon
 				/cas = cas
 				/** = urlperms

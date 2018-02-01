@@ -55,6 +55,7 @@ public class SecurityClientRealm  extends CasRealm {
 	    		tcUser.setRoleId(roleId);
 	    		session.setAttribute("users", tcUser);
 	    		session.setAttribute("userName", map.get("NAME").toString());
+	    		session.setAttribute("expiredSign", "");
 	     }
 	     
         authorizationInfo.addStringPermission("/home");

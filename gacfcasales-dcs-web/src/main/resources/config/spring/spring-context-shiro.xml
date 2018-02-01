@@ -25,15 +25,15 @@
     </bean>
     
     <!-- 会话DAO -->
-    <!-- <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+    <!--  <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
         <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
-    </bean> -->
+    </bean>  -->
     
      <bean id="sessionDAO" class="com.gacfcasales.dcsweb.interceptor.MyCachingSessionDAO">
         <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
-    </bean> 
+    </bean>  
 
     <!-- 会话验证调度器 -->
     <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
@@ -84,7 +84,7 @@
 				/remote/** = anon
 				/loginout = anon
 				/casfailed.jsp = anon
-				/**/ajax/** = user
+				/**/ajax/** = urlperms
 				/cartype/downLoadFile =anon
 				/cas = cas
 				/** = urlperms

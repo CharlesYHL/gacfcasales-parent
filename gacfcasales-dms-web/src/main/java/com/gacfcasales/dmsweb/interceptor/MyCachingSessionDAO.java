@@ -1,4 +1,4 @@
-package com.gacfcasales.dcsweb.interceptor;
+package com.gacfcasales.dmsweb.interceptor;
 
 import java.io.Serializable;
 import java.util.HashMap;

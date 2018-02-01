@@ -310,11 +310,11 @@ var TableInit = function() {
 	return oTableInit;
 
 };
-function reset() {
+function resetaa() {
 	$("#productSalesOrder").val('');
 	$("#productNo").val('');
 	$("#productName").val('');
-	$('#productDate').selectpicker('val', '0');
+	$('#productDate').val('0');
 	$("#vin").val('');
 	$("#licenseNo").val();
 	$("#customerName").val();

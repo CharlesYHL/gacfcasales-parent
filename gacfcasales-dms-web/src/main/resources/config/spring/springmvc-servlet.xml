@@ -23,9 +23,9 @@
 	</mvc:annotation-driven>
 	<mvc:default-servlet-handler />
 	
-	<!-- <mvc:cors>
-		<mvc:mapping path="/**" />
-	</mvc:cors> -->
+	<mvc:interceptors>
+		<bean class="com.gacfcasales.dmsweb.interceptor.SessionInterceptor" />
+	</mvc:interceptors>
 	
 	<bean id="remoteSecurityServer" class="com.gacfcasales.dmsweb.remote.IRemoteSecurityServiceImpl" />
 	<bean name="/remote/securityService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">  

@@ -47,6 +47,8 @@
 	/* var B = setInterval(function(){
 		 alert("222222222");
 	},60*1000); */
+ 
+
 	
 </script>
 

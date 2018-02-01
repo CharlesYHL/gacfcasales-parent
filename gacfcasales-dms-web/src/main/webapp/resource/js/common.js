@@ -1,4 +1,24 @@
 ;(function(){
+	
+	$.ajaxSetup({
+	    complete: function (request, status) {
+	    	//console.log("00000000"+request.responseJSON.code);
+	        if (typeof (request) != 'undefined') {
+	            var responseText = request.getResponseHeader("X-Responded-JSON");
+	            //console.log("2222"+responseText)
+	            if (responseText != null) {
+	                window.tipError('系统提示', '登录超时，请重新登录', null, null, function () {
+	                    window.location.href = ctx+"/casfailed.jsp";
+	                });
+	            }
+	            if(request.responseJSON.code == 401){
+	            	console.log("====================");
+	            	 window.location.href = ctx+"/casfailed.jsp";
+	            }
+	        }
+	    }
+	});
+	
 	$.post(ctx + '/sysResource/ajax/getMenu', null, function(data) {
 		$.each(data, function(i, e) {
 			if(e.level == 1){

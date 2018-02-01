@@ -81,6 +81,15 @@
 
 
 	<filter>
+		<filter-name>ssoFilter</filter-name>
+		<filter-class>com.gacfcasales.dmsweb.shiro.SSOFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ssoFilter</filter-name>
+		<url-pattern>/casfailed.jsp</url-pattern>
+	</filter-mapping>
+	
+	<filter>
 		<filter-name>cors</filter-name>
 		<filter-class>com.gacfcasales.dmsweb.filter.CrossFilter</filter-class>
 	</filter>

@@ -69,7 +69,16 @@
 		<dispatcher>INCLUDE</dispatcher>
 		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
-
+	
+	<filter>
+		<filter-name>ssoFilter</filter-name>
+		<filter-class>com.gacfcasales.dcsweb.shiro.SSOFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ssoFilter</filter-name>
+		<url-pattern>/casfailed.jsp</url-pattern>
+	</filter-mapping>
+	
 	<filter>
 		<filter-name>cors</filter-name>
 		<filter-class>com.gacfcasales.dcsweb.filter.CrossFilter</filter-class>
@@ -78,6 +87,8 @@
 		<filter-name>cors</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	
 
 	<error-page>
 		<error-code>403</error-code>
@@ -94,7 +105,7 @@
 
 
 	<web:session-config>
-		<web:session-timeout>2</web:session-timeout>
+		<web:session-timeout>30</web:session-timeout>
 	</web:session-config>
 
 

@@ -27,6 +27,7 @@
 		<bean class="com.gacfcasales.dcsweb.interceptor.SessionInterceptor" />
 	</mvc:interceptors>
 	
+	
 	<bean id="remoteSecurityServer" class="com.gacfcasales.dcsweb.remote.IRemoteSecurityServiceImpl" />
 	<bean name="/remote/securityService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">  
     	<property name="service" ref="remoteSecurityServer"/>  

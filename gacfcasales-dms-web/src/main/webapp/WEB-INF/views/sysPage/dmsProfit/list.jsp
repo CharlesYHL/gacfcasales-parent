@@ -128,7 +128,7 @@
 										查询
 									</button>
 									<button id="btn_add" type="button"
-										class="btn btn-primary btn-sm" onclick="reset()">
+										class="btn btn-primary btn-sm" onclick="resetaa()">
 										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;&nbsp;重置
 									</button>
 								</div>

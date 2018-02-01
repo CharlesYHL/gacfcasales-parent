@@ -11,37 +11,49 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gacfcasales.common.Result;
 
 /**
- * @author longrui
- * 2017年5月16日
- *	
+ * @author longrui 2017年5月16日
+ * 
  */
 public class SecurityUtils {
-	
+
 	private static Logger logger = LoggerFactory.getLogger(SecurityUtils.class);
+	
 
 	public static boolean isAjax(HttpServletRequest request) {
-		return request.getHeader("x-requested-with") != null && request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest");
+		return request.getHeader("x-requested-with") != null
+				&& request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest");
 	}
-	
+
 	public static void sendJson(HttpServletResponse response, Result result) {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = null;
-		try{
+		try {
 			out = response.getWriter();
 			ObjectMapper mapper = new ObjectMapper();
 			out.append(mapper.writeValueAsString(result));
 			out.close();
-		}catch(IOException e) {
+		} catch (IOException e) {
 			logger.error(e.getMessage());
-		}finally {
-			if(out != null) out = null;
- 		}
+		} finally {
+			if (out != null)
+				out = null;
+		}
 	}
-	
+
+	public static String loginout() {
+		// Subject subject = SecurityUtils.getSubject();
+		// subject.logout();
+		// session.
+		// String url = "redirect:"+serverUrl+"/login?service="+clientUrl+"/cas";
+		String url = "redirect:http://10.27.196.73:1118/gacfcasales-dcs-web/logout";
+		return url;
+	}
+
 }

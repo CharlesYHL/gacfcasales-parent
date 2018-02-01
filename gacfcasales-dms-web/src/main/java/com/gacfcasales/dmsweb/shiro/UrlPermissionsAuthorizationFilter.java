@@ -69,13 +69,13 @@ public class UrlPermissionsAuthorizationFilter extends PermissionsAuthorizationF
         
         if(subject.getPrincipal() == null) {
         	if(SecurityUtils.isAjax(request)) {
-        		SecurityUtils.sendJson(response, new Result("您尚未登录或登录时间过长，请刷新页面或重新登录！"));
+        		SecurityUtils.sendJson(response, new Result(401,"您尚未登录或登录时间过长，请刷新页面或重新登录！"));
         	}else {
         		saveRequestAndRedirectToLogin(request, response);  
         	}
         }else {
         	if(SecurityUtils.isAjax(request)) {
-        		SecurityUtils.sendJson(response, new Result("您没有足够的权限执行该操作!"));
+        		SecurityUtils.sendJson(response, new Result(403,"您没有足够的权限执行该操作!"));
         	}else {
         		String unauthorizedUrl = getUnauthorizedUrl();
                 if (StringUtils.isNotEmpty(unauthorizedUrl)) {
