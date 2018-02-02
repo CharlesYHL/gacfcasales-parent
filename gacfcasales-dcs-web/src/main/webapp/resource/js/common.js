@@ -107,6 +107,8 @@ jQuery.dateFormatter = function(value,fmt) {
 	  return fmt;
 };
 
+
+
 /**
  * $.ajaxSetup({ type:'GET', error : function(XMLHttpRequest, textStatus,
  * errorThrown){ var showRequestText = function(aa){

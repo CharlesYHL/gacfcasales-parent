@@ -336,7 +336,8 @@ var vm = new Vue({
 						success : function(data) {
 							console.log("返回参数:" + data);
 							if (data == '0') {
-								alert("产品编辑成功");
+								toastr.success("产品编辑成功");
+								//alert("产品编辑成功");
 							}
 						},
 						error : function(data) {
@@ -344,10 +345,12 @@ var vm = new Vue({
 						}
 					});
 				} else {
-					alert("产品销售时间不能为空");
+					toastr.warning("产品销售时间不能为空");
+					//alert("产品销售时间不能为空");
 				}
 			} else {
-				alert("请先选择产品");
+				toastr.warning("请先选择产品");
+				//alert("请先选择产品");
 			}
 
 		},

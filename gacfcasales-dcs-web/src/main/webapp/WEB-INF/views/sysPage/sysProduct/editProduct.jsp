@@ -16,9 +16,10 @@
 			value="${requestScope.tiOpiExtendedDCS.PRODUCT_CJD }" hidden="hidden" />
 		<input type="text" id="productDateRet" name="productDateRet"
 			value="${requestScope.tiOpiExtendedDCS.PRODUCT_DATE }"
+			hidden="hidden" /> <input type="text" id="productDes"
+			name="productDes"
+			value="${requestScope.tiOpiExtendedDCS.PRODUCT_DESCRIBTION }"
 			hidden="hidden" />
-			<input type="text" id="productDes" name="productDes"
-			value="${requestScope.tiOpiExtendedDCS.PRODUCT_DESCRIBTION }" hidden="hidden" />
 		<form class="form-horizontal">
 			<div class="panel panel-default">
 				<div class="panel-body">
@@ -197,7 +198,8 @@
 							<div class="form-group">
 								<label class="control-label col-xs-4">产品说明</label>
 								<div class="col-xs-8">
-									<textarea id="productDescribtion" name="productDescribtion" class="form-control" rows="3"></textarea>
+									<textarea id="productDescribtion" name="productDescribtion"
+										class="form-control" rows="3"></textarea>
 									<%-- <input id="productDescribtion" name="productDescribtion"
 										class="form-control" type="text"
 										value="${requestScope.tiOpiExtendedDCS.PRODUCT_DESCRIBTION }" /> --%>
@@ -253,8 +255,25 @@
 
 </div>
 
-
-
+<link rel="stylesheet"
+	href="${ctx}/resource/plugins/toastr/toastr.min.css">
+<script src="${ctx }/resource/plugins/toastr/toastr.min.js"></script>
 <script src="${ctx}/resource/js/sysPage/dcsProduct/editProduct.js"></script>
 
-
+<script type="text/javascript">
+	toastr.options = {
+		closeButton : false,
+		debug : false,
+		progressBar : true,
+		positionClass : "toast-top-center",
+		onclick : null,
+		showDuration : "300",
+		hideDuration : "1000",
+		timeOut : "2000",
+		extendedTimeOut : "1000",
+		showEasing : "swing",
+		hideEasing : "linear",
+		showMethod : "fadeIn",
+		hideMethod : "fadeOut"
+	};
+</script>

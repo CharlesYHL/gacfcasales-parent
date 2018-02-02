@@ -511,10 +511,12 @@ function release(productId) {
 			function(data) {
 				// $("div").html(result);
 				if (data == '0') {
-					alert("发布成功!");
+					toastr.success('发布成功');
+					//alert("发布成功!");
 					vm.reload();
 				} else {
-					alert("发布失败!");
+					toastr.error('发布失败');
+					//alert("发布失败!");
 				}
 			});
 
@@ -525,10 +527,12 @@ function cancel(productId) {
 			function(data) {
 				// $("div").html(result);
 				if (data == '0') {
-					alert("取消发布成功!");
+					toastr.success('取消发布成功');
+					//alert("取消发布成功!");
 					vm.reload();
 				} else {
-					alert("取消发布失败!");
+					toastr.error('取消发布失败');
+					//alert("取消发布失败!");
 				}
 			});
 
@@ -554,17 +558,20 @@ function releaseBatch(){
 		    success: function(data){
 		    	console.log("返回参数:"+data);
 		    	if(data == 0){
-		    		alert("批量发布成功!");
+		    		toastr.success('批量发布成功');
+		    		//alert("批量发布成功!");
 		    		vm.reload();
 		    	}else{
-		    		alert("批量发布失败!");
+		    		toastr.error('批量发布失败');
+		    		//alert("批量发布失败!");
 		    	}
 			},error :function(data){
 				console.log(data);
 			}
 		});
 	}else{
-		alert("请选择一件产品!");
+		toastr.warning("请选择一件产品");
+		//alert("请选择一件产品!");
 	}
 	
 }
@@ -588,17 +595,20 @@ function cancelBatch(){
 		    success: function(data){
 		    	console.log("返回参数:"+data);
 		    	if(data == 0){
-		    		alert("批量取消成功!");
+		    		toastr.success("批量取消成功");
+		    		//alert("批量取消成功!");
 		    		vm.reload();
 		    	}else{
-		    		alert("批量取消失败!");
+		    		toastr.error("批量取消失败");
+		    		//alert("批量取消失败!");
 		    	}
 			},error :function(data){
 				console.log(data);
 			}
 		});
 	}else{
-		alert("请选择一件产品!");
+		toastr.warning('请选择一件产品');
+		//alert("请选择一件产品!");
 	}
 	
 	

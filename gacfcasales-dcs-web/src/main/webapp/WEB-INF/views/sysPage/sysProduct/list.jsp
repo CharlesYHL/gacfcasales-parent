@@ -16,6 +16,10 @@
 	</c:param>
 </c:import>
 
+<!-- <script type="text/javascript">
+        toastr.options.positionClass = 'toast-top-center';
+ </script> -->
+
 <div id="productApp" v-cloak>
 	<!-- <div v-show="showList" class="box box-custom collapsed-box" style="margin-bottom: 8px;">
 		<div class="box-header with-border form-inline">
@@ -156,7 +160,7 @@
 
 						<div class="row ">
 							<div class="col-xs-12 ">
-								<div class="query-btn" >
+								<div class="query-btn">
 									<button id="btn_add" type="button"
 										class="btn btn-primary btn-sm" @click="query">
 										<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -238,4 +242,23 @@
 
 <script>
 	var globe_index;
+</script>
+
+
+<script type="text/javascript">
+	toastr.options = {
+		closeButton : false,
+		debug : false,
+		progressBar : true,
+		positionClass : "toast-top-center",
+		onclick : null,
+		showDuration : "300",
+		hideDuration : "1000",
+		timeOut : "2000",
+		extendedTimeOut : "1000",
+		showEasing : "swing",
+		hideEasing : "linear",
+		showMethod : "fadeIn",
+		hideMethod : "fadeOut"
+	};
 </script>
