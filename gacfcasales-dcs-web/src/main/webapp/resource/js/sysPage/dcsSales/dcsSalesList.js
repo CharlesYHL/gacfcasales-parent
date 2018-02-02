@@ -176,15 +176,36 @@ function getModel() {
 }
 
 function queryDealer() {
-	globe_index = layer.open({
-		id : 'queryDealer',
-		title : '查询经销商',
-		type : 2,
-		area : [ '80%', '100%' ],
-		fixed : true, // 固定
-		maxmin : false,
-		content : ctx + '/dcsSales/ajax/toDealerPage'
+	$.ajax({
+		type : "GET",
+		url : ctx + "/sysProduct/ajax/getSessionSign",
+		contentType : "application/json",
+		dataType : "json",
+		cache : false,
+		async : true,
+		success : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+			if(data.code != 401){
+				globe_index = layer.open({
+					id : 'queryDealer',
+					title : '查询经销商',
+					type : 2,
+					area : [ '80%', '100%' ],
+					fixed : true, // 固定
+					maxmin : false,
+					content : ctx + '/dcsSales/ajax/toDealerPage'
+				});
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+		}
 	});
+	
 }
 
 function getProductChild(values) {
@@ -640,15 +661,36 @@ function exportExcel() {
 
 
 function detail(productSalesId){
-	if(productSalesId != '' ){
-		globe_index = layer.open({
-			id : 'detailSales',
-			title : '销售订单明细',
-			type : 2,
-			area : [ '60%', '100%' ],
-			fixed : true, // 固定
-			maxmin : false,
-			content : ctx + '/dcsSales/ajax/detailSales?PRODUCT_SALES_ID='+productSalesId
-		});
-	}
+	$.ajax({
+		type : "GET",
+		url : ctx + "/sysProduct/ajax/getSessionSign",
+		contentType : "application/json",
+		dataType : "json",
+		cache : false,
+		async : true,
+		success : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+			if(data.code != 401){
+				if(productSalesId != '' ){
+					globe_index = layer.open({
+						id : 'detailSales',
+						title : '销售订单明细',
+						type : 2,
+						area : [ '60%', '100%' ],
+						fixed : true, // 固定
+						maxmin : false,
+						content : ctx + '/dcsSales/ajax/detailSales?PRODUCT_SALES_ID='+productSalesId
+					});
+				}
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+		}
+	});
+	
 }

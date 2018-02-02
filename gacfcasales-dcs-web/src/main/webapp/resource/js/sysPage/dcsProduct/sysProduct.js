@@ -50,14 +50,35 @@ $(function() {
 /* 弹出的层级 */
 
 function addProduct() {
-	globe_index = layer.open({
-		title : '新增产品',
-		type : 2,
-		area : [ '90%', '100%' ],
-		fixed : true, // 固定
-		maxmin : false,
-		content : ctx + '/sysProduct/ajax/addProduct'
+	$.ajax({
+		type : "GET",
+		url : ctx + "/sysProduct/ajax/getSessionSign",
+		contentType : "application/json",
+		dataType : "json",
+		cache : false,
+		async : true,
+		success : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+			if(data.code != 401){
+				globe_index = layer.open({
+					title : '新增产品',
+					type : 2,
+					area : [ '90%', '100%' ],
+					fixed : true, // 固定
+					maxmin : false,
+					content : ctx + '/sysProduct/ajax/addProduct'
+				});
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+		}
 	});
+	
 };
 
 var vm = new Vue({
@@ -145,14 +166,35 @@ var vm = new Vue({
 			vm.reload();
 		},
 		addProduct : function() {
-			index = layer.open({
-				title : '新增产品',
-				type : 2,
-				area : [ '90%', '100%' ],
-				fixed : true, // 不固定
-				maxmin : false,
-				content : ctx + '/sysProduct/ajax/addProduct'
+			$.ajax({
+				type : "GET",
+				url : ctx + "/sysProduct/ajax/getSessionSign",
+				contentType : "application/json",
+				dataType : "json",
+				cache : false,
+				async : true,
+				success : function(data) {
+					console.log(data);
+					console.log(data.code);
+					console.log(data.message);
+					if(data.code != 401){
+						index = layer.open({
+							title : '新增产品',
+							type : 2,
+							area : [ '90%', '100%' ],
+							fixed : true, // 不固定
+							maxmin : false,
+							content : ctx + '/sysProduct/ajax/addProduct'
+						});
+					}
+				},
+				error : function(data) {
+					console.log(data);
+					console.log(data.code);
+					console.log(data.message);
+				}
 			});
+			
 			//parent.layer.close(index);
 		},
 		addPart : function() {
@@ -564,26 +606,66 @@ function cancelBatch(){
 
 function edit(productId) {
 	console.log("编辑动作======" + productId);
-	globe_index = layer.open({
-		title : '产品编辑',
-		type : 2,
-		area : [ '90%', '100%' ],
-		fixed : true, // 固定
-		maxmin : false,
-		content : ctx + '/sysProduct/ajax/toEditProduct?productId='+productId
+	$.ajax({
+		type : "GET",
+		url : ctx + "/sysProduct/ajax/getSessionSign",
+		contentType : "application/json",
+		dataType : "json",
+		cache : false,
+		async : true,
+		success : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+			if(data.code != 401){
+				globe_index = layer.open({
+					title : '产品编辑',
+					type : 2,
+					area : [ '90%', '100%' ],
+					fixed : true, // 固定
+					maxmin : false,
+					content : ctx + '/sysProduct/ajax/toEditProduct?productId='+productId
+				});
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+		}
 	});
+	
 }
 
 function detail(productId) {
 	console.log("明细动作======" + productId);
-	/*var selected = $('#table').bootstrapTable('getSelections');
-	console.log(selected.length);*/
-	globe_index = layer.open({
-		title : '产品明细',
-		type : 2,
-		area : [ '90%', '100%' ],
-		fixed : true, // 固定
-		maxmin : false,
-		content : ctx + '/sysProduct/ajax/detailProduct?productId='+productId
+	$.ajax({
+		type : "GET",
+		url : ctx + "/sysProduct/ajax/getSessionSign",
+		contentType : "application/json",
+		dataType : "json",
+		cache : false,
+		async : true,
+		success : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+			if(data.code != 401){
+				globe_index = layer.open({
+					title : '产品明细',
+					type : 2,
+					area : [ '90%', '100%' ],
+					fixed : true, // 固定
+					maxmin : false,
+					content : ctx + '/sysProduct/ajax/detailProduct?productId='+productId
+				});
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+		}
 	});
+	
 }

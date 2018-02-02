@@ -120,22 +120,44 @@ $(function() {
 /* 弹出的层级 */
 var index;
 function addPart() {
-	var partNo = $("#productNo").val();
-	console.log("addPart ...");
-	index = parent.layer.open({
-		title : '编辑产品',
-		type : 2,
-		area : [ '80%', '66%' ],
-		fixed : true, // 固定
-		maxmin : false,
-		content : ctx + '/sysProduct/ajax/partInfo?partNo=' + partNo,
-		end : function() {
-			i = 0;
+	$.ajax({
+		type : "GET",
+		url : ctx + "/sysProduct/ajax/getSessionSign",
+		contentType : "application/json",
+		dataType : "json",
+		cache : false,
+		async : true,
+		success : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+			if(data.code != 401){
+				var partNo = $("#productNo").val();
+				console.log("addPart ...");
+				index = parent.layer.open({
+					title : '编辑产品',
+					type : 2,
+					area : [ '80%', '66%' ],
+					fixed : true, // 固定
+					maxmin : false,
+					content : ctx + '/sysProduct/ajax/partInfo?partNo=' + partNo,
+					end : function() {
+						i = 0;
+					}
+				});
+				var index1 = parent.layer.getFrameIndex(window.name);
+				parent.layer.close(index1)
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
 		}
 	});
+	
 	// parent.layer.close(index);
-	var index1 = parent.layer.getFrameIndex(window.name);
-	parent.layer.close(index1)
+	
 };
 
 var vm = new Vue({
@@ -204,18 +226,39 @@ var vm = new Vue({
 		addProductModel : function() {
 			var productId = $("#productId").val();
 			if (productId != '') {
-				layer.open({
-					title : '车型列表',
-					type : 2,
-					area : [ '100%', '100%' ],
-					fixed : true, // 固定
-					maxmin : false,
-					content : ctx + '/sysProduct/ajax/searchModel?productId='
-							+ productId,
-					end : function() {
-						i = 0;
+				$.ajax({
+					type : "GET",
+					url : ctx + "/sysProduct/ajax/getSessionSign",
+					contentType : "application/json",
+					dataType : "json",
+					cache : false,
+					async : true,
+					success : function(data) {
+						console.log(data);
+						console.log(data.code);
+						console.log(data.message);
+						if(data.code != 401){
+							layer.open({
+								title : '车型列表',
+								type : 2,
+								area : [ '100%', '100%' ],
+								fixed : true, // 固定
+								maxmin : false,
+								content : ctx + '/sysProduct/ajax/searchModel?productId='
+										+ productId,
+								end : function() {
+									i = 0;
+								}
+							});
+						}
+					},
+					error : function(data) {
+						console.log(data);
+						console.log(data.code);
+						console.log(data.message);
 					}
 				});
+				
 				// var index1 = parent.layer.getFrameIndex(window.name);
 				// parent.layer.close(index1)
 			} else {
