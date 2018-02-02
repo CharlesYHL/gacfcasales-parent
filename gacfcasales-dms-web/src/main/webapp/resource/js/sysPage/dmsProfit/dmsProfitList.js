@@ -1,4 +1,4 @@
-$(function(){
+$(function() {
 	// 产品有效期
 	jQuery("#productDate").append("<option value='0'>请选择</option>");
 	jQuery("#productDate").append("<option value='12'>12个月</option>");
@@ -32,7 +32,6 @@ $(function(){
 	oTable.Init();
 });
 
-
 var vm = new Vue({
 	el : '#profitListApp',
 	data : {
@@ -65,7 +64,6 @@ var vm = new Vue({
 		}
 	}
 });
-
 
 var TableInit = function() {
 	var oTableInit = new Object();
@@ -345,7 +343,8 @@ function exportExcel() {
 	var CLOSED_AT_START = $("#closedStart").val();
 	var CLOSED_AT_END = $("#closedEnd").val();
 
-	window.location.href = ctx + '/dmsProfit/ajax/exportProfitExcel?PRODUCT_SALES_ORDER='
+	window.location.href = ctx
+			+ '/dmsProfit/ajax/exportProfitExcel?PRODUCT_SALES_ORDER='
 			+ encodeURI(encodeURI(PRODUCT_SALES_ORDER)) + '&PRODUCT_NO='
 			+ encodeURI(encodeURI(PRODUCT_NO)) + '&PRODUCT_NAME='
 			+ encodeURI(encodeURI(PRODUCT_NAME)) + '&PRODUCT_DATE='
@@ -360,17 +359,41 @@ function exportExcel() {
 
 }
 
-function detail(productSalesId){
-	if(productSalesId != '' ){
-		globe_index = layer.open({
-			id : 'detailProfit',
-			title : '销售盈利明细',
-			type : 2,
-			area : [ '60%', '100%' ],
-			fixed : true, // 固定
-			maxmin : false,
-			content : ctx + '/dmsProfit/ajax/detailProfit?PRODUCT_SALES_ID='+productSalesId
-		});
-	}
-}
+function detail(productSalesId) {
+	$
+			.ajax({
+				type : "GET",
+				url : ctx + "/dmsSales/ajax/getSessionSign",
+				contentType : "application/json",
+				dataType : "json",
+				cache : false,
+				async : true,
+				success : function(data) {
+					console.log(data);
+					console.log(data.code);
+					console.log(data.message);
+					if (data.code != 401) {
+						if (productSalesId != '') {
+							globe_index = layer
+									.open({
+										id : 'detailProfit',
+										title : '销售盈利明细',
+										type : 2,
+										area : [ '60%', '100%' ],
+										fixed : true, // 固定
+										maxmin : false,
+										content : ctx
+												+ '/dmsProfit/ajax/detailProfit?PRODUCT_SALES_ID='
+												+ productSalesId
+									});
+						}
+					}
+				},
+				error : function(data) {
+					console.log(data);
+					console.log(data.code);
+					console.log(data.message);
+				}
+			});
 
+}

@@ -92,49 +92,96 @@ function getProductChild(values){
 }
 
 function queryVin() {
-	index = layer.open({
-		id : 'queryVin',
-		title : '车主车辆查询',
-		type : 2,
-		area : [ '100%', '100%' ],
-		fixed : true, // 固定
-		maxmin : false,
-		content : ctx + '/dmsSales/ajax/toVehclist?vin=' + $("#vin").val(),
-		/* content : 'vehclist.jsp', */
-		/*
-		 * btn: ['确认', '返回'], yes: function(index, layero){ alert("success"); },
-		 * btn2: function(index, layero){ alert("fanhui"); },
-		 */
-		end : function() {
-			i = 0;
+	$.ajax({
+		type : "GET",
+		url : ctx + "/dmsSales/ajax/getSessionSign",
+		contentType : "application/json",
+		dataType : "json",
+		cache : false,
+		async : true,
+		success : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+			
+			if(data.code != 401){
+				index = layer.open({
+					id : 'queryVin',
+					title : '车主车辆查询',
+					type : 2,
+					area : [ '100%', '100%' ],
+					fixed : true, // 固定
+					maxmin : false,
+					content : ctx + '/dmsSales/ajax/toVehclist?vin=' + $("#vin").val(),
+					end : function() {
+						i = 0;
+					}
+				});
+			}else{
+				/*
+				 * alert("登陆超时，请重新登陆") setInterval(() => { var index1 =
+				 * parent.layer.getFrameIndex(window.name);
+				 * parent.layer.close(index1); }, 3000);
+				 */
+				
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
 		}
 	});
+	
 	console.log(window.name);
-	// var index1 = parent.layer.getFrameIndex(window.name);
-	// parent.layer.close(index1)
 }
 
 function addProduct(){
-	var billingAt= $("#billingAt").val();
-	var vin = $("#vin").val();
-	if(billingAt !='' && vin != ''){
-	index = layer.open({
-		id : 'queryProduct',
-		title : '产品信息查询',
-		type : 2,
-		area : [ '100%', '100%' ],
-		fixed : true, // 固定
-		maxmin : false,
-		content : ctx + '/dmsSales/ajax/toProductlist?productNo=' + $("#productNo").val(),
-		end : function() {
-			i = 0;
+	
+	$.ajax({
+		type : "GET",
+		url : ctx + "/dmsSales/ajax/getSessionSign",
+		contentType : "application/json",
+		dataType : "json",
+		cache : false,
+		async : true,
+		success : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+			
+			if(data.code != 401){
+				var billingAt= $("#billingAt").val();
+				var vin = $("#vin").val();
+				if(billingAt !='' && vin != ''){
+				index = layer.open({
+					id : 'queryProduct',
+					title : '产品信息查询',
+					type : 2,
+					area : [ '100%', '100%' ],
+					fixed : true, // 固定
+					maxmin : false,
+					content : ctx + '/dmsSales/ajax/toProductlist?productNo=' + $("#productNo").val(),
+					end : function() {
+						i = 0;
+					}
+				});
+				}else if(billingAt == '' && vin != ''){
+					alert("开票日期不能为空");
+				}else{
+					alert("请先选择车辆信息!");
+				}
+			}
+			
+		},
+		error : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
 		}
 	});
-	}else if(billingAt == '' && vin != ''){
-		alert("开票日期不能为空");
-	}else{
-		alert("请先选择车辆信息!");
-	}
+	
+	
 
 }
 
@@ -407,11 +454,11 @@ function save(){
 }
 
 function submitASC(){
-	//$("#orderStatus").val("已提交");
-	/*var orderStatus = $("#orderStatus").val();
-	if(orderStatus == '扣款成功'){
-		$("#btn_print").attr("disabled", false);
-	}*/
+	// $("#orderStatus").val("已提交");
+	/*
+	 * var orderStatus = $("#orderStatus").val(); if(orderStatus == '扣款成功'){
+	 * $("#btn_print").attr("disabled", false); }
+	 */
 	var productSalesOrder = $("#salesOrder").val();
 	layer.confirm('销售单据一旦提交，不可作废，请再次确认是否提交？', {
 		btn : [ '确定', '取消' ]
@@ -431,7 +478,7 @@ function submitASC(){
 		    		$("#btn_print").attr("disabled", false);
 		    		$("#btn_submit").attr("disabled",true)
 		    		$("#btn_save").attr("disabled",true);
-		    		//vm.reload();
+		    		// vm.reload();
 		    	}else{
 		    		alert("扣款失败!");
 		    	}
@@ -440,9 +487,9 @@ function submitASC(){
 			}
 		});
 		
-		/*layer.msg('的确很重要', {
-			icon : 1
-		});*/
+		/*
+		 * layer.msg('的确很重要', { icon : 1 });
+		 */
 	}, function() {
 
 	});
@@ -451,17 +498,38 @@ function submitASC(){
 
 
 function print(){
-	//alert("11111111");
-	var productSalesOrder = $("#salesOrder").val();
-	console.log("进入打印页面" + productSalesOrder);
-	globe_index = layer.open({
-		title : '销售单打印',
-		type : 2,
-		area : [ '80%', '100%' ],
-		fixed : true, // 固定
-		maxmin : false,
-		content : ctx + '/dmsSales/ajax/toSalesPrint?productSalesOrder='
-				+ productSalesOrder
+	// alert("11111111");
+	$.ajax({
+		type : "GET",
+		url : ctx + "/dmsSales/ajax/getSessionSign",
+		contentType : "application/json",
+		dataType : "json",
+		cache : false,
+		async : true,
+		success : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+			if(data.code != 401){
+				var productSalesOrder = $("#salesOrder").val();
+				console.log("进入打印页面" + productSalesOrder);
+				globe_index = layer.open({
+					title : '销售单打印',
+					type : 2,
+					area : [ '80%', '100%' ],
+					fixed : true, // 固定
+					maxmin : false,
+					content : ctx + '/dmsSales/ajax/toSalesPrint?productSalesOrder='
+							+ productSalesOrder
+				});
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+		}
 	});
+	
 }
 

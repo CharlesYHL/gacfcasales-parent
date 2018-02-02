@@ -129,7 +129,38 @@ function getModel() {
 }
 
 function addSales() {
-	globe_index = layer.open({
+	$.ajax({
+		type : "GET",
+		url : ctx + "/dmsSales/ajax/getSessionSign",
+		contentType : "application/json",
+		dataType : "json",
+		cache : false,
+		async : true,
+		success : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+			
+			if(data.code != 401){
+				globe_index = layer.open({
+					id : 'addSales',
+					title : '新增销售订单',
+					type : 2,
+					area : [ '80%', '100%' ],
+					fixed : true, // 固定
+					maxmin : false,
+					content : ctx + '/dmsSales/ajax/toAddSales'
+				});
+			}
+			
+		},
+		error : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+		}
+	});
+	/*globe_index = layer.open({
 		id : 'addSales',
 		title : '新增销售订单',
 		type : 2,
@@ -137,7 +168,7 @@ function addSales() {
 		fixed : true, // 固定
 		maxmin : false,
 		content : ctx + '/dmsSales/ajax/toAddSales'
-	});
+	});*/
 }
 
 // 获得当前日期
@@ -597,28 +628,76 @@ function exportExcel() {
 
 function detail(productSalesId) {
 	console.log("进入明细页面" + productSalesId);
-	globe_index = layer.open({
-		title : '销售单明细',
-		type : 2,
-		area : [ '80%', '100%' ],
-		fixed : true, // 固定
-		maxmin : false,
-		content : ctx + '/dmsSales/ajax/toSalesDetail?productSalesId='
-				+ productSalesId
+	$.ajax({
+		type : "GET",
+		url : ctx + "/dmsSales/ajax/getSessionSign",
+		contentType : "application/json",
+		dataType : "json",
+		cache : false,
+		async : true,
+		success : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+			
+			if(data.code != 401){
+				globe_index = layer.open({
+					title : '销售单明细',
+					type : 2,
+					area : [ '80%', '100%' ],
+					fixed : true, // 固定
+					maxmin : false,
+					content : ctx + '/dmsSales/ajax/toSalesDetail?productSalesId='
+							+ productSalesId
+				});
+			}
+			
+		},
+		error : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+		}
 	});
+	
 }
 
 function edit(productSalesId) {
 	console.log("进入编辑页面" + productSalesId);
-	globe_index = layer.open({
-		title : '销售单编辑',
-		type : 2,
-		area : [ '80%', '100%' ],
-		fixed : true, // 固定
-		maxmin : false,
-		content : ctx + '/dmsSales/ajax/toSalesEdit?productSalesId='
-				+ productSalesId
+	
+	$.ajax({
+		type : "GET",
+		url : ctx + "/dmsSales/ajax/getSessionSign",
+		contentType : "application/json",
+		dataType : "json",
+		cache : false,
+		async : true,
+		success : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+			
+			if(data.code != 401){
+				globe_index = layer.open({
+					title : '销售单编辑',
+					type : 2,
+					area : [ '80%', '100%' ],
+					fixed : true, // 固定
+					maxmin : false,
+					content : ctx + '/dmsSales/ajax/toSalesEdit?productSalesId='
+							+ productSalesId
+				});
+			}
+			
+		},
+		error : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+		}
 	});
+	
+	
 }
 
 

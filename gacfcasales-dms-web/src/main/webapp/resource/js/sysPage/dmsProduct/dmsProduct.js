@@ -367,13 +367,36 @@ var TableInit = function() {
 };
 
 function detail(productId) {
-	console.log("进入明细页面" + productId);
-	globe_index = layer.open({
-		title : '产品明细',
-		type : 2,
-		area : [ '70%', '100%' ],
-		fixed : true, // 固定
-		maxmin : false,
-		content : ctx + '/dmsProduct/ajax/detailProduct?productId=' + productId
+	
+	$.ajax({
+		type : "GET",
+		url : ctx + "/dmsSales/ajax/getSessionSign",
+		contentType : "application/json",
+		dataType : "json",
+		cache : false,
+		async : true,
+		success : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+			if(data.code != 401){
+
+				console.log("进入明细页面" + productId);
+				globe_index = layer.open({
+					title : '产品明细',
+					type : 2,
+					area : [ '70%', '100%' ],
+					fixed : true, // 固定
+					maxmin : false,
+					content : ctx + '/dmsProduct/ajax/detailProduct?productId=' + productId
+				});
+			}
+		},
+		error : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+		}
 	});
+	
 }

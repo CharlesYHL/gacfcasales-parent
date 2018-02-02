@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -896,6 +897,21 @@ public class ProductDcsController {
 		mav.addObject("tiOpiExtendedDCS", TiExtendedPage);
 		return mav;
 		// return "include/header";
+	}
+	
+	
+	@RequestMapping(value = "/ajax/getSessionSign", method = RequestMethod.GET)
+	@ResponseBody
+	public Result getSessionSign(HttpSession httpSession){
+		Result result = new Result();
+		if(httpSession != null) {
+			result.setCode(200);
+			result.setMessage("Session没有失效");
+		}else {
+			result.setCode(401);
+			result.setMessage("您尚未登录或登录时间过长，请刷新页面或重新登录！");
+		}
+		return result;
 	}
 
 }
