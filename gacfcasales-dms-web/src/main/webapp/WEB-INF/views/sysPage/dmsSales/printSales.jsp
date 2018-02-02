@@ -70,7 +70,7 @@
 									style="width: 5%; font-size: 16px;">VIN</span> <span>:</span> <input
 									type="text" class="form-control" name="vin" id="vin"
 									disabled="disabled"
-									style="width: 25%; background-color: white; border: 0px; font-size: 16px;"
+									style="width: 30%; background-color: white; border: 0px; font-size: 16px;"
 									value="${requestScope.ttOpiExtendedSales.VIN}" />
 
 							</div>
