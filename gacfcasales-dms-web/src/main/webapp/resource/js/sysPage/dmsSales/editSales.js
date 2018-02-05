@@ -477,7 +477,7 @@ function submitASC(){
 	 */
 	
 	var productSalesOrder = $("#salesOrder").val();
-	layer.confirm('销售单据一旦提交，不可作废，请再次确认是否提交？', {
+	layer.confirm('销售单据一旦提交，不可作废，请再次确认是否提交？', {icon: 1, title:'提示'}, {
 		btn : [ '确定', '取消' ]
 	// 按钮
 	}, function() {
