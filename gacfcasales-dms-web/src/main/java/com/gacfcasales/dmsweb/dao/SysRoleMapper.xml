@@ -208,19 +208,18 @@
         <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
     
-    
+    <!-- u.user_id = #{userId} and u.user_code = #{userCode} and  -->
     <select id="selectSysRoleByUserIdAndCode" parameterType="map" resultType="java.lang.Long">
     	select u.role_id as roleId from sys_user_rescue_role u left join sys_rescue_role r on u.role_id=r.id 
-    	where u.user_id = #{userId} and u.user_code = #{userCode} and u.dms_app_id=#{appId}
+    	where u.dms_app_id=#{appId} and u.role_id='8'
     </select>
 
-
+	<!-- INNER JOIN tm_user u ON p.user_id=u.USER_ID
+		INNER JOIN tm_employee tme ON u.EMPLOYEE_NO = tme.EMPLOYEE_NO -->
 	<select id="findByAppIdAndUsername" resultType="map">
 		SELECT r.* FROM sys_user_rescue_role p
-		INNER JOIN tm_user u ON p.user_id=u.USER_ID
-		INNER JOIN tm_employee tme ON u.EMPLOYEE_NO = tme.EMPLOYEE_NO
 		INNER JOIN sys_rescue_role r ON p.role_id=r.id
-		WHERE p.dms_app_id=#{appId} AND tme.EMPLOYEE_NO =#{username}
+		WHERE p.dms_app_id=#{appId} AND  p.role_id='8'
 	</select>
 	
 </mapper>

@@ -326,24 +326,25 @@
         <if test="assist.require!=null"><include refid="updateAssist" /></if>
     </update>
 
-
+	<!-- INNER JOIN tc_user tu ON surr.user_id = tu.USER_ID -->
 	<select id="findPermissionsByUsername" resultType="String">
 		select srr.url as path from sys_user_rescue_role surr 
 		INNER JOIN sys_role_rescue_resource srrr ON  surr.role_id=srrr.role_id
 		INNER JOIN sys_rescue_resource srr ON srrr.resource_id = srr.id
-		INNER JOIN tc_user tu ON surr.user_id = tu.USER_ID
+		
 
-		where tu.ACNT = #{username} AND srr.app_id=#{appId} AND length(srr.url) > 0
+		where surr.role_id = '7' AND srr.app_id=#{appId} AND length(srr.url) > 0
 		GROUP BY srr.level,srr.pid,srr.name
 	</select>
 	
+	<!-- INNER JOIN tc_user tu ON surr.user_id = tu.USER_ID -->
 	<select id="findMenusByUsername" resultType="map">
 		select srr.* from sys_user_rescue_role surr 
 		INNER JOIN sys_role_rescue_resource srrr ON  surr.role_id=srrr.role_id
 		INNER JOIN sys_rescue_resource srr ON srrr.resource_id = srr.id
-		INNER JOIN tc_user tu ON surr.user_id = tu.USER_ID
+		
 
-		where tu.ACNT = #{username} AND srr.app_id=#{appId}
+		where surr.role_id = '7' AND srr.app_id=#{appId}
 		GROUP BY srr.level,srr.pid,srr.name
 	</select>
 	
