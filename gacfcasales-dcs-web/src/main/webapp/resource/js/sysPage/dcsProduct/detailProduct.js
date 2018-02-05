@@ -67,7 +67,8 @@ var vm = new Vue({
 						+ '/sysProduct/ajax/dealerDetail?PRODUCT_ID='
 						+ productId;
 			} else {
-				alert("产品信息不存在，无法导出");
+				toastr.error("产品信息不存在，无法导出");
+				//alert("产品信息不存在，无法导出");
 			}
 
 		},

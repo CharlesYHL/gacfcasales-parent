@@ -584,7 +584,7 @@ var TableInit = function() {
 };
 
 function reset() {
-	alert("===================");
+	//alert("===================");
 	$("#bigOrg").empty();  
 	$("#bigOrg").selectpicker('refresh');
 	

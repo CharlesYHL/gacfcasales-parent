@@ -262,7 +262,8 @@ var vm = new Vue({
 				// var index1 = parent.layer.getFrameIndex(window.name);
 				// parent.layer.close(index1)
 			} else {
-				alert("请先去选择产品信息");
+				toastr.warning("请先去选择产品信息");
+				//alert("请先去选择产品信息");
 			}
 		},
 		deleteModel : function() {
@@ -296,7 +297,8 @@ var vm = new Vue({
 					}
 				});
 			} else {
-				alert("请先去选择要删除的车型!");
+				toastr.warning("请先去选择要删除的车型");
+				//alert("请先去选择要删除的车型!");
 			}
 		},
 		saveModel : function() {
