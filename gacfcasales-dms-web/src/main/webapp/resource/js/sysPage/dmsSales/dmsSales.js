@@ -718,10 +718,12 @@ function invalid(productSalesId) {
 		    success: function(data){
 		    	console.log("返回参数:"+data);
 		    	if(data == 0){
-		    		alert("作废成功!");
+		    		toastr.success("作废成功");
+		    		//alert("作废成功!");
 		    		vm.reload();
 		    	}else{
-		    		alert("作废失败!");
+		    		toastr.error("作废失败");
+		    		//alert("作废失败!");
 		    	}
 			},error :function(data){
 				console.log(data);

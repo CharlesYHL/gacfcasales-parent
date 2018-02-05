@@ -167,9 +167,11 @@ function addProduct(){
 					}
 				});
 				}else if(billingAt == '' && vin != ''){
-					alert("开票日期不能为空");
+					toastr.warning("开票日期不能为空");
+					//alert("开票日期不能为空");
 				}else{
-					alert("请先选择车辆信息!");
+					toastr.warning("请先选择车辆信息");
+					//alert("请先选择车辆信息!");
 				}
 			}
 			
@@ -381,17 +383,22 @@ function save(){
 	var billingAt = $("#billingAt").val();
 	var actualNonSalesPrice = $("#actualNonSalesPrice").val();
 	if(customerName == ''){
-		alert("客户姓名不能为空");
+		toastr.warning("客户姓名不能为空");
+		//alert("客户姓名不能为空");
 	}else if(customerContact == ''){
-		alert("客户联系方式不能为空");
+		toastr.warning("客户联系方式不能为空");
+		//alert("客户联系方式不能为空");
 	}else if(vin == ''){
-		alert("请选择车辆信息");
+		toastr.warning("请选择车辆信息");
+		//alert("请选择车辆信息");
 	}else if(billingAt == ''){
-		alert("开票日期不能为空");
+		toastr.warning("开票日期不能为空");
+		//alert("开票日期不能为空");
 	}else if(productNo == ''){
-		alert("请选择产品信息");
+		toastr.warning("请选择产品信息");
+		//alert("请选择产品信息");
 	}else if(actualNonSalesPrice == ''){
-		alert("请输入实际不含税销售价");
+		toastr.warning("请输入实际不含税销售价");
 	}else{
 		// document.getElementById("btn_submit").disabled = true;
 		var param= {
@@ -441,7 +448,8 @@ function save(){
 				if (data == '0') {
 					$("#btn_submit").attr("disabled", false);
 					$("#orderStatus").val("已保存");
-					alert("销售单新增成功");
+					toastr.success("销售单新增成功");
+					//alert("销售单新增成功");
 				}
 			},
 			error : function(data) {
@@ -474,13 +482,14 @@ function submitASC(){
 		    success: function(data){
 		    	console.log("返回参数:"+data);
 		    	if(data == 0){
-		    		alert("扣款成功!");
+		    		toastr.success("扣款成功");
+		    		//alert("扣款成功!");
 		    		$("#btn_print").attr("disabled", false);
 		    		$("#btn_submit").attr("disabled",true)
 		    		$("#btn_save").attr("disabled",true);
 		    		// vm.reload();
 		    	}else{
-		    		alert("扣款失败!");
+		    		toastr.error("扣款失败!");
 		    	}
 			},error :function(data){
 				console.log(data);

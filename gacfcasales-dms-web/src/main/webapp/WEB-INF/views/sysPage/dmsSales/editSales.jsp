@@ -477,5 +477,24 @@
 	</div>
 
 </div>
-
+<link rel="stylesheet"
+	href="${ctx}/resource/plugins/toastr/toastr.min.css">
+<script src="${ctx }/resource/plugins/toastr/toastr.min.js"></script>
 <script src="${ctx}/resource/js/sysPage/dmsSales/editSales.js"></script>
+<script type="text/javascript">
+	toastr.options = {
+		closeButton : false,
+		debug : false,
+		progressBar : true,
+		positionClass : "toast-top-center",
+		onclick : null,
+		showDuration : "300",
+		hideDuration : "1000",
+		timeOut : "2000",
+		extendedTimeOut : "1000",
+		showEasing : "swing",
+		hideEasing : "linear",
+		showMethod : "fadeIn",
+		hideMethod : "fadeOut"
+	};
+</script>
