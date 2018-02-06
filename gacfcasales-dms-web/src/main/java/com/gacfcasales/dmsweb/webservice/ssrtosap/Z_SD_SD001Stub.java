@@ -6,6 +6,10 @@
  */
 package com.gacfcasales.dmsweb.webservice.ssrtosap;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 /*
  *  Z_SD_SD001Stub java implementation
  */
@@ -21,7 +25,19 @@ public class Z_SD_SD001Stub extends org.apache.axis2.client.Stub {
 	 private String userName;
 	 private String password;
 	 
+	 private static String url;
 	 
+	 static {
+		 Properties pp = new Properties();
+		 InputStream in = Z_SD_SD001Stub.class.getClassLoader().getResourceAsStream("webservice.properties");
+		 try {
+			pp.load(in);
+			url = pp.getProperty("ZSDSD001.url");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 }
 
 	public String getUserName() {
 		return userName;
@@ -38,6 +54,9 @@ public class Z_SD_SD001Stub extends org.apache.axis2.client.Stub {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+
+
 
 	/////////////////////////////////////////////////////////////////////////
 	private javax.xml.namespace.QName[] opNameArray = null;
@@ -72,7 +91,7 @@ public class Z_SD_SD001Stub extends org.apache.axis2.client.Stub {
 	 */
 	public Z_SD_SD001Stub(org.apache.axis2.context.ConfigurationContext configurationContext)
 			throws org.apache.axis2.AxisFault {
-		this(configurationContext, "http://10.27.207.8:8081/wsProxy/DCS_SAP_JOB00111");
+		this(configurationContext, url);
 		//this.userName = "DCS_SAP_User";
 		//this.password = "A41DFD4D887B2EAFDC9BDC8DE9A45ECB";
 		
@@ -82,7 +101,7 @@ public class Z_SD_SD001Stub extends org.apache.axis2.client.Stub {
 	 * Default Constructor
 	 */
 	public Z_SD_SD001Stub() throws org.apache.axis2.AxisFault {
-		this("http://10.27.207.8:8081/wsProxy/DCS_SAP_JOB00111");
+		this(url);
 		//this.userName = "DCS_SAP_User";
 		//this.password = "A41DFD4D887B2EAFDC9BDC8DE9A45ECB";
 	}
