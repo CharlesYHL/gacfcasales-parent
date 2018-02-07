@@ -172,7 +172,8 @@ var TableInit = function() {
 			pageindex : this.pageNumber,
 			pageSize : this.pageSize,
 			PRODUCT_NO : $("#productNo").val(),
-			PRODUCT_NAME : $("#productName").val()
+			PRODUCT_NAME : $("#productName").val(),
+			MODEL_ID : $("#modelId").val()
 		}
 		return param;
 	};

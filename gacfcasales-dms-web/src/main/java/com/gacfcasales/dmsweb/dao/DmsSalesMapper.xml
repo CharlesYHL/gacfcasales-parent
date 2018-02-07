@@ -37,7 +37,8 @@
 
 	<select id="getProductList" parameterType="com.gacfcasales.common.Assist"
 		resultType="map">
-		SELECT
+		SELECT * FROM
+		(SELECT
 		tipe.PRODUCT_ID,
 		tipe.PRODUCT_NO,
 		tipe.PRODUCT_NAME,
@@ -58,13 +59,15 @@
 		ELSE
 		'否'
 		END
-		) IS_C_SALE,
+		)
+		IS_C_SALE,
 		(
 		CASE
 		WHEN
 		tipe.PRODUCT_DATE = 12 THEN
 		'12个月'
-		WHEN tipe.PRODUCT_DATE = 24 THEN
+		WHEN
+		tipe.PRODUCT_DATE = 24 THEN
 		'24个月'
 		WHEN tipe.PRODUCT_DATE = 36 THEN
 		'36个月'
@@ -136,12 +139,21 @@
 		tipe.NON_TAX_COST_PRICE,
 		tipe.TAX_COST_PRICE,
 		tipe.TERMINAL_NON_SALES_PRICE,
-		tipe.TERMINAL_SALES_PRICE
+		tipe.TERMINAL_SALES_PRICE,
+		toem.MODEL_CODE,
+		toem.MODEL_ID,
+		toem.MODEL_NAME,
+		tmd.DEALER_CODE
 		FROM
-		ti_opi_extended_dcs tipe LEFT JOIN tm_dealer tmd
+		ti_opi_extended_dcs
+		tipe LEFT JOIN tm_dealer tmd
 		ON (tipe.PRODUCT_JEEP
-		= tmd.IS_K4 OR tipe.PRODUCT_FAIT =tmd.IS_FIAT OR tipe.PRODUCT_CJD
+		= tmd.IS_K4 OR
+		tipe.PRODUCT_FAIT =tmd.IS_FIAT OR tipe.PRODUCT_CJD
 		=tmd.IS_CJD )
+		LEFT
+		JOIN ti_opi_extended_model toem ON toem.PRODUCT_ID = tipe.PRODUCT_ID
+		GROUP BY tipe.PRODUCT_NO,toem.MODEL_ID,tmd.DEALER_CODE ) tta
 		<if test="require!=null">
 			<include refid="Assist" />
 		</if>
@@ -150,10 +162,125 @@
 
 	<select id="getProductRowCount" parameterType="com.gacfcasales.common.Assist"
 		resultType="java.lang.Long">
-		select count(PRODUCT_ID) from ti_opi_extended_dcs tipe LEFT JOIN
+		SELECT COUNT(*) FROM
+		(SELECT
+		tipe.PRODUCT_ID,
+		tipe.PRODUCT_NO,
+		tipe.PRODUCT_NAME,
+		(
+		CASE
+		WHEN
+		tipe.IS_VALID = 12781001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		) IS_VALID,
+		(
+		CASE
+		WHEN
+		tipe.IS_C_SALE = 12781001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		)
+		IS_C_SALE,
+		(
+		CASE
+		WHEN
+		tipe.PRODUCT_DATE = 12 THEN
+		'12个月'
+		WHEN
+		tipe.PRODUCT_DATE = 24 THEN
+		'24个月'
+		WHEN tipe.PRODUCT_DATE = 36 THEN
+		'36个月'
+		ELSE
+		''
+		END
+		) PRODUCT_DATE,
+		tipe.PRODUCT_MODEL,
+		tipe.SALES_DATE_START,
+		tipe.SALES_DATE_END,
+		(
+		CASE
+		WHEN 1 = 1 THEN
+		concat(
+		DATE_FORMAT(
+		tipe.SALES_DATE_START,
+		'%Y-%m-%d'
+		),
+		'--',
+		DATE_FORMAT(tipe.SALES_DATE_END, '%Y-%m-%d')
+		)
+		ELSE
+		''
+		END
+		)
+		SALES_DATE_ALL,
+		DATE_FORMAT(tipe.RELEASE_DATE, '%Y-%m-%d')
+		RELEASE_DATE,
+		(
+		CASE
+		WHEN tipe.RELEASE_STATUS = 54011001 THEN
+		'未发布'
+		WHEN
+		tipe.RELEASE_STATUS = 54011002 THEN
+		'已发布'
+		WHEN tipe.RELEASE_STATUS =
+		54011003 THEN
+		'已取消'
+		ELSE
+		''
+		END
+		) RELEASE_STATUS,
+		(
+		CASE
+		WHEN
+		tipe.PRODUCT_FAIT = 10041001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		) PRODUCT_FAIT,
+		(
+		CASE
+		WHEN tipe.PRODUCT_JEEP = 10041001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		) PRODUCT_JEEP,
+		(
+		CASE
+		WHEN tipe.PRODUCT_CJD = 10041001 THEN
+		'是'
+		ELSE
+		'否'
+		END
+		) PRODUCT_CJD,
+		tipe.PRODUCT_DESCRIBTION,
+		tipe.NON_TAX_COST_PRICE,
+		tipe.TAX_COST_PRICE,
+		tipe.TERMINAL_NON_SALES_PRICE,
+		tipe.TERMINAL_SALES_PRICE,
+		toem.MODEL_CODE,
+		toem.MODEL_ID,
+		toem.MODEL_NAME,
+		tmd.DEALER_CODE
+		from ti_opi_extended_dcs
+		tipe LEFT JOIN
 		tm_dealer tmd
-		ON (tipe.PRODUCT_JEEP = tmd.IS_K4 OR tipe.PRODUCT_FAIT
-		=tmd.IS_FIAT OR tipe.PRODUCT_CJD =tmd.IS_CJD )
+		ON (tipe.PRODUCT_JEEP
+		= tmd.IS_K4 OR
+		tipe.PRODUCT_FAIT
+		=tmd.IS_FIAT OR tipe.PRODUCT_CJD
+		=tmd.IS_CJD )
+		LEFT
+		JOIN ti_opi_extended_model toem ON toem.PRODUCT_ID =
+		tipe.PRODUCT_ID
+		GROUP BY tipe.PRODUCT_NO,toem.MODEL_ID,tmd.DEALER_CODE ) tta
 		<if test="require!=null">
 			<include refid="Assist" />
 		</if>
@@ -699,18 +826,22 @@
 		UPDATE
 		tt_opi_extended_sales
 		SET SAP_SALES_ORDER = #{VBELN},
-		IS_RESULT = #{IS_RESULT},
+		IS_RESULT =
+		#{IS_RESULT},
 		IS_MESSAGE = #{IS_MESSAGE},
 		VBELN = #{VBELN},
-		KBETR_YJ = #{KBETR_YJ},
+		KBETR_YJ =
+		#{KBETR_YJ},
 		KBETR_ZK = #{KBETR_ZK},
 		KBETR_JJ = #{KBETR_JJ},
-		KBETR_HS = #{KBETR_HS},
+		KBETR_HS =
+		#{KBETR_HS},
 		ORDER_STATUS = #{ORDER_STATUS},
 		CLOSED_BY = #{CLOSED_BY},
 		CLOSED_AT = #{CLOSED_AT},
 		COST_PROFIT = #{COST_PROFIT}
-		WHERE PRODUCT_SALES_ORDER=#{PRODUCT_SALES_ORDER}
+		WHERE
+		PRODUCT_SALES_ORDER=#{PRODUCT_SALES_ORDER}
 
 	</select>
 

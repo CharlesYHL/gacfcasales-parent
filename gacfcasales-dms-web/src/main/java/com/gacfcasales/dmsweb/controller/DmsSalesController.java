@@ -88,14 +88,14 @@ public class DmsSalesController {
 		dmsSalesDto.setDEALER_CODE(tmUser.getDEALER_CODE());
 		dmsSalesDto.setEMPLOYEE_NO(tmUser.getEMPLOYEE_NO());
 		Map map = dmsSalesService.getEntityCode(tmUser.getDEALER_CODE());
-		if (map != null) {
+		/*if (map != null) {
 			// Long salesOrderId = commonNoService.getId("SO",
 			// map.get("ENTITY_CODE").toString());
 
 			// Long salesOrderId = commonNoService.getIds("ID", "999999");
 			// mav.addObject("salesOrderId", salesOrderId);
 			dmsSalesDto.setSaleOrderId(commonNoService.getSystemOrderNo("SO", map.get("ENTITY_CODE").toString()));
-		}
+		}*/
 		Map mapUser = dmsSalesService.getUserName(map.get("ENTITY_CODE").toString(), tmUser.getEMPLOYEE_NO());
 		if (mapUser != null) {
 			// mav.addObject("employeeName", mapUser.get("EMPLOYEE_NAME"));
@@ -201,11 +201,12 @@ public class DmsSalesController {
 
 	// 进入产品选择页面
 	@RequestMapping(value = "/ajax/toProductlist", method = RequestMethod.GET)
-	public ModelAndView toProductlist(@RequestParam String productNo) {
+	public ModelAndView toProductlist(@RequestParam String productNo,@RequestParam String modelId) {
 		ModelAndView mav = new ModelAndView("sysPage/dmsSales/productList");
 		DmsSalesDto dmsSalesDto = ApplicationContextHelper.getBeanByType(DmsSalesDto.class);
 		dmsSalesDto.setPRODUCT_NO(productNo);
 		mav.addObject("productNo", productNo);
+		mav.addObject("modelId", modelId);
 		return mav;
 	}
 
@@ -226,19 +227,24 @@ public class DmsSalesController {
 			assist.setRowSize(pageSize);
 		}
 		if (tmUser.getDEALER_CODE() != null && !"".equals(tmUser.getDEALER_CODE())) {
-			assist.setRequires(Assist.andEq("tmd.DEALER_CODE", tmUser.getDEALER_CODE().toString()));
+			assist.setRequires(Assist.andEq("tta.DEALER_CODE", tmUser.getDEALER_CODE().toString()));
 		}
 
 		if (dmsSalesPage.getPRODUCT_NO() != null && !"".equals(dmsSalesPage.getPRODUCT_NO())) {
-			assist.setRequires(Assist.andLike("tipe.PRODUCT_NO", "%" + dmsSalesPage.getPRODUCT_NO() + "%"));
+			assist.setRequires(Assist.andLike("tta.PRODUCT_NO", "%" + dmsSalesPage.getPRODUCT_NO() + "%"));
 		}
 
 		if (dmsSalesPage.getPRODUCT_NAME() != null && !"".equals(dmsSalesPage.getPRODUCT_NAME())) {
-			assist.setRequires(Assist.andLike("tipe.PRODUCT_NAME", "%" + dmsSalesPage.getPRODUCT_NAME() + "%"));
+			assist.setRequires(Assist.andLike("tta.PRODUCT_NAME", "%" + dmsSalesPage.getPRODUCT_NAME() + "%"));
 		}
-		assist.setRequires(Assist.andEq("tipe.IS_C_SALE", CommonConstants.DICT_IS_YES));
-		assist.setRequires(Assist.andEq("tipe.RELEASE_STATUS", OemDictCodeConstants.PRODUCT_RELEASE_STATUS_02));
-		assist.setOrder("tipe.PRODUCT_NO,tipe.PRODUCT_NAME", true);
+		if(dmsSalesPage.getMODEL_ID() !=null && !"".equals(dmsSalesPage.getMODEL_ID())) {
+			assist.setRequires(Assist.andEq("tta.MODEL_ID", dmsSalesPage.getMODEL_ID()));
+		}
+		
+		
+		assist.setRequires(Assist.andEq("tta.IS_C_SALE", "是"));
+		assist.setRequires(Assist.andEq("tta.RELEASE_STATUS", "已发布"));
+		assist.setOrder("tta.PRODUCT_NO,tta.PRODUCT_NAME", true);
 		long count = dmsSalesService.getProductRowCount(assist);
 		List<Map> list = dmsSalesService.getProductList(assist);
 		result.setTotalCount(count);
@@ -268,7 +274,8 @@ public class DmsSalesController {
 	// 创建销售单
 	@RequestMapping(value = "/ajax/createSales", method = RequestMethod.GET)
 	@ResponseBody
-	public String createSales(TtOpiExtendedSales ttOpiExtendedSales, HttpSession httpSession) {
+	public Map createSales(TtOpiExtendedSales ttOpiExtendedSales, HttpSession httpSession) {
+		Map returnMap = new HashMap<>();
 		DmsSalesDto dmsSalesDto = ApplicationContextHelper.getBeanByType(DmsSalesDto.class);
 		Map mapCode = dmsSalesService.getEntityCode(dmsSalesDto.getDEALER_CODE());
 		if (dmsSalesDto.getDEALER_CODE() != null && !"".equals(dmsSalesDto.getDEALER_CODE())) {
@@ -276,6 +283,8 @@ public class DmsSalesController {
 			map.put("dealerCode", mapCode.get("ENTITY_CODE").toString());
 			map.put("employeeNo", dmsSalesDto.getEMPLOYEE_NO());
 			// commonNoService.getTmUserId(map);
+			ttOpiExtendedSales
+					.setPRODUCT_SALES_ORDER(commonNoService.getSystemOrderNo("SO", mapCode.get("ENTITY_CODE").toString()));
 			ttOpiExtendedSales.setPRODUCT_SALES_ID(commonNoService.getId("ID", mapCode.get("ENTITY_CODE").toString()));
 			ttOpiExtendedSales.setDEALER_CODE(mapCode.get("ENTITY_CODE").toString());
 
@@ -285,10 +294,20 @@ public class DmsSalesController {
 			// }
 
 			ttOpiExtendedSales.setCREATED_BY(commonNoService.getTmUserId(map).get("USER_ID").toString());
-			dmsSalesService.insertSales(ttOpiExtendedSales);
-			return "0";
+			
+			try {
+				dmsSalesService.insertSales(ttOpiExtendedSales);
+				returnMap.put("PRODUCT_SALES_ORDER", ttOpiExtendedSales.getPRODUCT_SALES_ORDER());
+				returnMap.put("CODE", "0");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				returnMap.put("PRODUCT_SALES_ORDER", "");
+				returnMap.put("CODE", "1");
+				e.printStackTrace();
+			}
+			// return "0";
 		}
-		return "1";
+		return returnMap;
 	}
 
 	// 车主车辆信息查询createSales

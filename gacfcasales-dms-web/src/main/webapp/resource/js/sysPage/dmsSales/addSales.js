@@ -164,7 +164,7 @@ function addProduct(){
 					area : [ '100%', '100%' ],
 					fixed : true, // 固定
 					maxmin : false,
-					content : ctx + '/dmsSales/ajax/toProductlist?productNo=' + $("#productNo").val(),
+					content : ctx + '/dmsSales/ajax/toProductlist?productNo=' + $("#productNo").val()+'&modelId='+$("#modelId").val(),
 					end : function() {
 						i = 0;
 					}
@@ -448,10 +448,10 @@ function save(){
 			async:true,
 			success : function(data) {
 				console.log("返回参数:" + data);
-				if (data == '0') {
+				if (data.CODE == '0') {
 					$("#btn_submit").attr("disabled", false);
 					$("#orderStatus").val("已保存");
-					toastr.success("销售单新增成功");
+					toastr.success("销售单新增成功,销售单号:"+data.PRODUCT_SALES_ORDER);
 					//alert("销售单新增成功");
 				}
 			},

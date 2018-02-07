@@ -5,7 +5,8 @@
 
 <div id=productApp " v-cloak>
 	<div v-show="showOperPart" class="dms-search">
-
+		<input type="text" id="modelId" name="modelId"
+			value="${requestScope.modelId }" hidden="hidden" />
 		<form class="form-horizontal">
 			<div class="panel panel-default">
 				<div class="panel-body">
