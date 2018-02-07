@@ -61,7 +61,7 @@ function addProduct() {
 			console.log(data);
 			console.log(data.code);
 			console.log(data.message);
-			if(data.code != 401){
+			if (data.code != 401) {
 				globe_index = layer.open({
 					title : '新增产品',
 					type : 2,
@@ -78,7 +78,7 @@ function addProduct() {
 			console.log(data.message);
 		}
 	});
-	
+
 };
 
 var vm = new Vue({
@@ -154,11 +154,11 @@ var vm = new Vue({
 			$('#productDate').val('0');
 			$('#releaseStatus').val('0')
 			$('#isCSales').val('0');
-			//$('#isValid').selectpicker('val', '0');
-			//$('#productDate').selectpicker('val', '0');
-			//$('#releaseStatus').selectpicker('val', '0');
+			// $('#isValid').selectpicker('val', '0');
+			// $('#productDate').selectpicker('val', '0');
+			// $('#releaseStatus').selectpicker('val', '0');
 			$("#productModel").val('');
-			//$('#isCSales').selectpicker('val', '0');
+			// $('#isCSales').selectpicker('val', '0');
 			$("#releaseStart").val('');
 			$("#releaseEnd").val('');
 			$("#salesStart").val('');
@@ -177,7 +177,7 @@ var vm = new Vue({
 					console.log(data);
 					console.log(data.code);
 					console.log(data.message);
-					if(data.code != 401){
+					if (data.code != 401) {
 						index = layer.open({
 							title : '新增产品',
 							type : 2,
@@ -194,8 +194,8 @@ var vm = new Vue({
 					console.log(data.message);
 				}
 			});
-			
-			//parent.layer.close(index);
+
+			// parent.layer.close(index);
 		},
 		addPart : function() {
 			showOperPart();
@@ -269,8 +269,9 @@ var vm = new Vue({
 		},
 		reload : function() {
 			vm.showList = true;
-/*			vm.showOper = false;
-			vm.showOperPart = false;*/
+			/*
+			 * vm.showOper = false; vm.showOperPart = false;
+			 */
 			$('#table').bootstrapTable('refresh');
 		}
 	}
@@ -507,111 +508,148 @@ function resetFrom() {
 
 function release(productId) {
 	console.log("发布动作======" + productId);
-	$.get(ctx + "/sysProduct/ajax/releaseProduct?productId=" + productId,
-			function(data) {
-				// $("div").html(result);
-				if (data == '0') {
-					toastr.success('发布成功');
-					//alert("发布成功!");
-					vm.reload();
-				} else {
-					toastr.error('发布失败');
-					//alert("发布失败!");
-				}
-			});
+	layer.confirm('是否确定发布？', {
+		btn : [ '确定', '取消' ]
+	// 按钮
+	}, function(index) {
+		$.get(ctx + "/sysProduct/ajax/releaseProduct?productId=" + productId,
+				function(data) {
+					// $("div").html(result);
+					if (data == '0') {
+						toastr.success('发布成功');
+						// alert("发布成功!");
+						layer.close(index);
+						vm.reload();
+					} else {
+						toastr.error('发布失败');
+						layer.close(index);
+						// alert("发布失败!");
+					}
+				});
+	}, function() {
 
+	});
 }
 function cancel(productId) {
 	console.log("取消动作======" + productId);
-	$.get(ctx + "/sysProduct/ajax/cancelProduct?productId=" + productId,
-			function(data) {
-				// $("div").html(result);
-				if (data == '0') {
-					toastr.success('取消发布成功');
-					//alert("取消发布成功!");
-					vm.reload();
-				} else {
-					toastr.error('取消发布失败');
-					//alert("取消发布失败!");
+	layer.confirm('是否确定取消发布？', {
+		btn : [ '确定', '取消' ]
+	// 按钮
+	}, function(index) {
+		$.get(ctx + "/sysProduct/ajax/cancelProduct?productId=" + productId,
+				function(data) {
+					// $("div").html(result);
+					if (data == '0') {
+						toastr.success('取消发布成功');
+						layer.close(index);
+						// alert("取消发布成功!");
+						vm.reload();
+					} else {
+						layer.close(index);
+						toastr.error('取消发布失败');
+						// alert("取消发布失败!");
+					}
+				});
+	}, function() {
+
+	});
+
+}
+
+function releaseBatch() {
+	var selected = $('#table').bootstrapTable('getSelections');
+	console.log(selected.length);
+	for ( var item in selected) {
+		console.log(selected[item].PRODUCT_ID);
+	}
+	if (selected.length > 0) {
+		layer.confirm('是否确定批量批量发布？', {
+			btn : [ '确定', '取消' ]
+		// 按钮
+		}, function(index) {
+			$.ajax({
+				type : "POST",
+				url : ctx + "/sysProduct/ajax/releaseBatch",
+				contentType : "application/json",
+				dataType : "json",
+				data : JSON.stringify({
+					"listMap" : selected
+				}),
+				cache : false,
+				async : true,
+				success : function(data) {
+					console.log("返回参数:" + data);
+					if (data == 0) {
+						toastr.success('批量发布成功');
+						layer.close(index);
+						// alert("批量发布成功!");
+						vm.reload();
+					} else {
+						toastr.error('批量发布失败');
+						layer.close(index);
+						// alert("批量发布失败!");
+					}
+				},
+				error : function(data) {
+					console.log(data);
 				}
 			});
+		}, function() {
 
-}
-
-function releaseBatch(){
-	var selected = $('#table').bootstrapTable('getSelections');
-	console.log(selected.length);
-	for(var item in selected){
-		console.log(selected[item].PRODUCT_ID);
-	}
-	if(selected.length > 0){
-		$.ajax({
-			type: "POST",
-		    url: ctx + "/sysProduct/ajax/releaseBatch",
-	        contentType: "application/json",
-		    dataType: "json",
-		    data:JSON.stringify({
-		    	"listMap":selected
-		    }),
-			cache: false,
-			async:true,
-		    success: function(data){
-		    	console.log("返回参数:"+data);
-		    	if(data == 0){
-		    		toastr.success('批量发布成功');
-		    		//alert("批量发布成功!");
-		    		vm.reload();
-		    	}else{
-		    		toastr.error('批量发布失败');
-		    		//alert("批量发布失败!");
-		    	}
-			},error :function(data){
-				console.log(data);
-			}
 		});
-	}else{
+	} else {
 		toastr.warning("请选择一件产品");
-		//alert("请选择一件产品!");
+		// alert("请选择一件产品!");
 	}
-	
+
 }
-function cancelBatch(){
+function cancelBatch() {
 	var selected = $('#table').bootstrapTable('getSelections');
 	console.log(selected.length);
-	for(var item in selected){
+	for ( var item in selected) {
 		console.log(selected[item].PRODUCT_ID);
 	}
-	if(selected.length > 0){
-		$.ajax({
-			type: "POST",
-		    url: ctx + "/sysProduct/ajax/cancelBatch",
-	        contentType: "application/json",
-		    dataType: "json",
-		    data:JSON.stringify({
-		    	"listMap":selected
-		    }),
-			cache: false,
-			async:true,
-		    success: function(data){
-		    	console.log("返回参数:"+data);
-		    	if(data == 0){
-		    		toastr.success("批量取消成功");
-		    		//alert("批量取消成功!");
-		    		vm.reload();
-		    	}else{
-		    		toastr.error("批量取消失败");
-		    		//alert("批量取消失败!");
-		    	}
-			},error :function(data){
-				console.log(data);
-			}
+	if (selected.length > 0) {
+		layer.confirm('是否确定批量取消发布？', {
+			btn : [ '确定', '取消' ]
+		// 按钮
+		}, function(index) {
+			$.ajax({
+				type : "POST",
+				url : ctx + "/sysProduct/ajax/cancelBatch",
+				contentType : "application/json",
+				dataType : "json",
+				data : JSON.stringify({
+					"listMap" : selected
+				}),
+				cache : false,
+				async : true,
+				success : function(data) {
+					console.log("返回参数:" + data);
+					if (data == 0) {
+						toastr.success("批量取消成功");
+						layer.close(index);
+						// alert("批量取消成功!");
+						vm.reload();
+					} else {
+						toastr.error("批量取消失败");
+						layer.close(index);
+						// alert("批量取消失败!");
+					}
+				},
+				error : function(data) {
+					console.log(data);
+				}
+			});
+		}, function() {
+
 		});
-	}else{
+
+	} else {
 		toastr.warning('请选择一件产品');
-		//alert("请选择一件产品!");
+		// alert("请选择一件产品!");
 	}
-	
-	
+
 }
 
 function edit(productId) {
@@ -627,14 +665,15 @@ function edit(productId) {
 			console.log(data);
 			console.log(data.code);
 			console.log(data.message);
-			if(data.code != 401){
+			if (data.code != 401) {
 				globe_index = layer.open({
 					title : '产品编辑',
 					type : 2,
 					area : [ '80%', '100%' ],
 					fixed : true, // 固定
 					maxmin : false,
-					content : ctx + '/sysProduct/ajax/toEditProduct?productId='+productId
+					content : ctx + '/sysProduct/ajax/toEditProduct?productId='
+							+ productId
 				});
 			}
 		},
@@ -644,7 +683,7 @@ function edit(productId) {
 			console.log(data.message);
 		}
 	});
-	
+
 }
 
 function detail(productId) {
@@ -660,14 +699,15 @@ function detail(productId) {
 			console.log(data);
 			console.log(data.code);
 			console.log(data.message);
-			if(data.code != 401){
+			if (data.code != 401) {
 				globe_index = layer.open({
 					title : '产品明细',
 					type : 2,
 					area : [ '80%', '100%' ],
 					fixed : true, // 固定
 					maxmin : false,
-					content : ctx + '/sysProduct/ajax/detailProduct?productId='+productId
+					content : ctx + '/sysProduct/ajax/detailProduct?productId='
+							+ productId
 				});
 			}
 		},
@@ -677,5 +717,5 @@ function detail(productId) {
 			console.log(data.message);
 		}
 	});
-	
+
 }

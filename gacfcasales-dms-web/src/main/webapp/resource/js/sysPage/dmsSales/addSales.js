@@ -471,7 +471,7 @@ function submitASC(){
 	layer.confirm('销售单据一旦提交，不可作废，请再次确认是否提交？', {
 		btn : [ '确定', '取消' ]
 	// 按钮
-	}, function() {
+	}, function(index) {
 		$.ajax({
 			type: "GET",
 		    url: ctx + "/dmsSales/ajax/submitSales?productSalesOrder="+productSalesOrder,
@@ -487,9 +487,11 @@ function submitASC(){
 		    		$("#btn_print").attr("disabled", false);
 		    		$("#btn_submit").attr("disabled",true)
 		    		$("#btn_save").attr("disabled",true);
+		    		layer.close(index);
 		    		// vm.reload();
 		    	}else{
 		    		toastr.error("扣款失败!");
+		    		layer.close(index);
 		    	}
 			},error :function(data){
 				console.log(data);

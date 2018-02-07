@@ -98,10 +98,10 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-4 ">产品有效期</label>
+								<label class="control-label col-xs-4 ">产品有效期&nbsp;<span style="color:red">*</span></label>
 								<div class="col-xs-8">
 									<select name="productDate" id="productDate"
-										class="bs-select form-control" onchange="getProductDate()"></select>
+										class="bs-select form-control"  onchange="getProductDate()" style="border:1px solid red;"></select>
 								</div>
 							</div>
 						</div>

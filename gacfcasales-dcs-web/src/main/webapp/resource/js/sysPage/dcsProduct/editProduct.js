@@ -282,44 +282,49 @@ var vm = new Vue({
 			var isFiat = $("#isFiat").val();
 			var isJeep = $("#isJeep").val();
 			var isCjd = $("#isCjd").val();
+			var productDate = $("#productDate").val();
 			if (productId != '') {
 				if (salesStart != '' && salesEnd != '') {
-					var param = {
-						PRODUCT_ID : $("#productId").val(),
-						PRODUCT_NO : $("#productNo").val(),
-						PRODUCT_NAME : $("#productName").val(),
-						PRODUCT_CATEGORY : $("#productCategory").val(),
-						PRODUCT_PROPERTY : $("#productProperty").val(),
-						PRODUCT_DATE : $("#productDate").val(),
-						DNP_PRICE : $("#dnpPrice").val(),
-						MSRP_PRICE : $("#msrpPrice").val(),
-						PRODUCT_FAIT : $("#isFiat").val(),
-						PRODUCT_JEEP : $("#isJeep").val(),
-						PRODUCT_CJD : $("#isCjd").val(),
-						PRODUCT_MODEL : $("#productModel").val(),
-						PRODUCT_DESCRIBTION : $("#productDescribtion").val(),
-						salesStart : salesStart,
-						salesEnd : salesEnd
-					}
-					$.ajax({
-						type : "GET",
-						url : ctx + "/sysProduct/ajax/updateAndAddProduct",
-						contentType : "application/json",
-						dataType : "json",
-						data : param,
-						cache : false,
-						async:true,
-						success : function(data) {
-							console.log("返回参数:" + data);
-							if (data == '0') {
-								toastr.success("产品编辑成功");
-								//alert("产品编辑成功");
+					if(productDate != '' && productDate != '0'){
+						var param = {
+								PRODUCT_ID : $("#productId").val(),
+								PRODUCT_NO : $("#productNo").val(),
+								PRODUCT_NAME : $("#productName").val(),
+								PRODUCT_CATEGORY : $("#productCategory").val(),
+								PRODUCT_PROPERTY : $("#productProperty").val(),
+								PRODUCT_DATE : $("#productDate").val(),
+								DNP_PRICE : $("#dnpPrice").val(),
+								MSRP_PRICE : $("#msrpPrice").val(),
+								PRODUCT_FAIT : $("#isFiat").val(),
+								PRODUCT_JEEP : $("#isJeep").val(),
+								PRODUCT_CJD : $("#isCjd").val(),
+								PRODUCT_MODEL : $("#productModel").val(),
+								PRODUCT_DESCRIBTION : $("#productDescribtion").val(),
+								salesStart : salesStart,
+								salesEnd : salesEnd
 							}
-						},
-						error : function(data) {
-							console.log(data);
-						}
-					});
+							$.ajax({
+								type : "GET",
+								url : ctx + "/sysProduct/ajax/updateAndAddProduct",
+								contentType : "application/json",
+								dataType : "json",
+								data : param,
+								cache : false,
+								async:true,
+								success : function(data) {
+									console.log("返回参数:" + data);
+									if (data == '0') {
+										toastr.success("产品编辑成功");
+										//alert("产品编辑成功");
+									}
+								},
+								error : function(data) {
+									console.log(data);
+								}
+							});
+					}else{
+						toastr.warning("产品有效期不能为空");
+					}
 				} else {
 					toastr.warning("产品销售时间不能为空");
 					//alert("产品销售时间不能为空");
