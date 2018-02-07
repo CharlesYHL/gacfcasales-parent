@@ -45,6 +45,9 @@ function getChildValues(values){
 	$("#modelName").val(params.MODEL_NAME);
 	$("#apackageName").val(params.APACKAGE_NAME);
 	
+	$("#customerName").val(params.OWNER_NAME);
+	$("#customerContact").val(params.MOBILE);
+	
 	if(params.BRAND != ''){
 		console.log(params.BRAND);
 		$("#brandId").append("<option selected = 'selected' value='"+params.BRAND_ID+"'>"+params.BRAND_NAME+"</option>");

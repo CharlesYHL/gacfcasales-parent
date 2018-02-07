@@ -24,7 +24,7 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">销售单编号</label>
+								<label class="control-label col-xs-5 ">销售单号</label>
 								<div class="col-xs-7">
 									<input type="text" class="form-control"
 										name="salesNo" id=salesNo value=""
@@ -69,7 +69,7 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">车系</label>
+								<label class="control-label col-xs-5">车系</label>
 								<div class="col-xs-7">
 									<select name="seriesId" id="seriesId" class="bs-select form-control" onchange="getModel()"></select>
 								</div>
@@ -77,7 +77,7 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">车型</label>
+								<label class="control-label col-xs-5">车型</label>
 								<div class="col-xs-7">
 									<select name="modelId" id="modelId" class="bs-select form-control" ></select>
 								</div>
@@ -85,7 +85,7 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">VIN</label>
+								<label class="control-label col-xs-5">VIN</label>
 								<div class="col-xs-7">
 									<input type="text" class="form-control" name="vin" id="vin"
 										value="" placeholder="请输入VIN编号" />
@@ -94,7 +94,7 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">车牌号</label>
+								<label class="control-label col-xs-5">车牌号</label>
 								<div class="col-xs-7">
 									<input type="text" class="form-control" name="licenseNo"
 										id="licenseNo" value="" placeholder="请输入车牌号" />
@@ -103,7 +103,7 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">客户姓名</label>
+								<label class="control-label col-xs-5">客户姓名</label>
 								<div class="col-xs-7">
 									<input type="text" class="form-control" name="customerName"
 										id="customerName" value="" placeholder="请输入客户姓名" />
@@ -112,17 +112,17 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">单据状态</label>
+								<label class="control-label col-xs-5">单据状态</label>
 								<div class="col-xs-7">
 									<select name="orderStatus" id="orderStatus"	class="bs-select form-control" ></select>
 								</div>
 							</div>
 						</div>
 						
-						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-5">
+						<div class="col-xs-12 col-sm-6 ">
 							<div class="form-group">
-								<label class="control-label col-xs-3">创建时间</label>
-								<div class="col-xs-6 col-sm-8">
+								<label class="control-label col-xs-5">创建时间</label>
+								<div class="col-xs-7">
 									<div class="input-group input-daterange">
 
 										<input id="createStart" name="createStart" type="text"
@@ -135,10 +135,10 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-5">
+						<div class="col-xs-12 col-sm-6">
 							<div class="form-group">
-								<label class="control-label col-xs-3">结案时间</label>
-								<div class="col-xs-6 col-sm-8">
+								<label class="control-label col-xs-5">结案时间</label>
+								<div class="col-xs-7">
 									<div class="input-group input-daterange">
 
 										<input id="closedStart" name="closedStart" type="text"
