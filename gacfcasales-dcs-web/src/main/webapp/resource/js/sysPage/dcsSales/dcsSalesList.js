@@ -678,7 +678,7 @@ function detail(productSalesId){
 						id : 'detailSales',
 						title : '销售订单明细',
 						type : 2,
-						area : [ '60%', '100%' ],
+						area : [ '65%', '100%' ],
 						fixed : true, // 固定
 						maxmin : false,
 						content : ctx + '/dcsSales/ajax/detailSales?PRODUCT_SALES_ID='+productSalesId

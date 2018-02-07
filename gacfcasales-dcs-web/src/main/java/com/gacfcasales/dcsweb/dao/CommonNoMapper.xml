@@ -541,7 +541,7 @@
 		LEFT JOIN tm_org
 		ORG2 ON
 		ORG2.ORG_ID = ORG1.PARENT_ORG_ID
-		WHERE td.STATUS = 10011001)
+		WHERE td.STATUS = 10011001 and td.DEALER_TYPE=10771001 )
 		bsm
 		<if test="require!=null">
 			<include refid="Assist" />
@@ -565,7 +565,7 @@
 		LEFT JOIN tm_org
 		ORG2 ON
 		ORG2.ORG_ID = ORG1.PARENT_ORG_ID
-		WHERE td.STATUS = 10011001)
+		WHERE td.STATUS = 10011001 and td.DEALER_TYPE=10771001 )
 		bsm
 		<if test="require!=null">
 			<include refid="Assist" />
