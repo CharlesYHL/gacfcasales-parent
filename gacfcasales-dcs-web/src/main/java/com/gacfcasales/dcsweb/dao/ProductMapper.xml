@@ -496,6 +496,25 @@
 			<if test="MODEL_NAME != null and MODEL_NAME != '' "> and MODEL_NAME = #{MODEL_NAME}</if>
 		</where>
 	</select>
+	
+	<select id="getProductModelFromSeries" parameterType="com.gacfcasales.common.entity.ModelPage"
+		resultType="java.lang.Integer">
+		select count(*) from ti_opi_extended_model
+		<where>
+			<if test="PRODUCT_ID != null and PRODUCT_ID != '' "> and PRODUCT_ID = #{PRODUCT_ID}</if>
+			<if test="BRAND_ID != null and BRAND_ID != '' "> and BRAND_ID = #{BRAND_ID}</if>
+			<if test="BRAND_CODE != null and BRAND_CODE != '' "> and BRAND_CODE = #{BRAND_CODE}</if>
+			<if test="BRAND_NAME != null and BRAND_NAME != '' "> and BRAND_NAME = #{BRAND_NAME}</if>
+			<if test="SERIES_ID != null and SERIES_ID != '' "> and SERIES_ID = #{SERIES_ID}</if>
+			<if test="SERIES_CODE != null and SERIES_CODE != '' "> and SERIES_CODE = #{SERIES_CODE}</if>
+			<if test="SERIES_NAME != null and SERIES_NAME != '' "> and SERIES_NAME = #{SERIES_NAME}</if>
+		</where>
+	</select>
+	
+	<delete id="deleteProductModelFromSeries" parameterType="map">
+		delete from ti_opi_extended_model  where PRODUCT_ID =#{PRODUCT_ID} and BRAND_ID = #{BRAND_ID} and SERIES_ID = #{SERIES_ID}
+	</delete>
+	
 
 	<update id="updateAndAddProduct" parameterType="com.gacfcasales.common.entity.TiOpiExtendedDCS">
 		UPDATE

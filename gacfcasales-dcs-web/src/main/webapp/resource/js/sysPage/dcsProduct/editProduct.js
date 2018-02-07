@@ -8,64 +8,37 @@ $(function() {
 	var productDateRet = $("#productDateRet").val();
 	if (productFait != null && productFait != '') {
 		if (productFait == '10041001') {
-			jQuery("#isFiat").append("<option value='0'>请选择</option>");
-			jQuery("#isFiat")
-					.append(
-							"<option value='10041001' selected = 'selected'>是</option>");
+			/*jQuery("#isFiat").append("<option value='0'>请选择</option>");*/
+			jQuery("#isFiat").append("<option value='10041001' selected = 'selected'>是</option>");
 			jQuery("#isFiat").append("<option value='10041002'>否</option>");
-		} else if (productFait == '10041002') {
-			jQuery("#isFiat").append("<option value='0'>请选择</option>");
-			jQuery("#isFiat").append("<option value='10041001'>是</option>");
-			jQuery("#isFiat")
-					.append(
-							"<option value='10041002' selected = 'selected'>否</option>");
 		} else {
-			jQuery("#isFiat").append(
-					"<option value='0' selected = 'selected'>请选择</option>");
+			/*jQuery("#isFiat").append("<option value='0' selected = 'selected'>请选择</option>");*/
 			jQuery("#isFiat").append("<option value='10041001'>是</option>");
-			jQuery("#isFiat").append("<option value='10041002'>否</option>");
+			jQuery("#isFiat").append("<option value='10041002' selected = 'selected' >否</option>");
 		}
 	}
 
 	if (productJeep != null && productJeep != '') {
 		if (productJeep == '10041001') {
-			jQuery("#isJeep").append("<option value='0'>请选择</option>");
-			jQuery("#isJeep")
-					.append(
-							"<option value='10041001' selected = 'selected'>是</option>");
+			/*jQuery("#isJeep").append("<option value='0'>请选择</option>");*/
+			jQuery("#isJeep").append("<option value='10041001' selected = 'selected'>是</option>");
 			jQuery("#isJeep").append("<option value='10041002'>否</option>");
-		} else if (productJeep == '10041002') {
-			jQuery("#isJeep").append("<option value='0'>请选择</option>");
-			jQuery("#isJeep").append("<option value='10041001'>是</option>");
-			jQuery("#isJeep")
-					.append(
-							"<option value='10041002'  selected = 'selected'>否</option>");
 		} else {
-			jQuery("#isJeep").append(
-					"<option value='0' selected = 'selected'>请选择</option>");
+			/*jQuery("#isJeep").append("<option value='0' selected = 'selected'>请选择</option>");*/
 			jQuery("#isJeep").append("<option value='10041001'>是</option>");
-			jQuery("#isJeep").append("<option value='10041002'>否</option>");
+			jQuery("#isJeep").append("<option value='10041002' selected = 'selected' >否</option>");
 		}
 	}
 
 	if (productCjd != null && productCjd != '') {
 		if (productCjd == '10041001') {
-			jQuery("#isCjd").append("<option value='0'>请选择</option>");
-			jQuery("#isCjd")
-					.append(
-							"<option value='10041001' selected = 'selected'>是</option>");
+			/*jQuery("#isCjd").append("<option value='0'>请选择</option>");*/
+			jQuery("#isCjd").append("<option value='10041001' selected = 'selected'>是</option>");
 			jQuery("#isCjd").append("<option value='10041002'>否</option>");
-		} else if (productCjd == '10041002') {
-			jQuery("#isCjd").append("<option value='0'>请选择</option>");
-			jQuery("#isCjd").append("<option value='10041001'>是</option>");
-			jQuery("#isCjd")
-					.append(
-							"<option value='10041002'  selected = 'selected'>否</option>");
 		} else {
-			jQuery("#isCjd").append(
-					"<option value='0' selected = 'selected'>请选择</option>");
+			/*jQuery("#isCjd").append("<option value='0' selected = 'selected'>请选择</option>");*/
 			jQuery("#isCjd").append("<option value='10041001'>是</option>");
-			jQuery("#isCjd").append("<option value='10041002'>否</option>");
+			jQuery("#isCjd").append("<option value='10041002' selected = 'selected' >否</option>");
 		}
 	}
 
@@ -289,6 +262,7 @@ var vm = new Vue({
 					success : function(data) {
 						console.log("返回参数:" + data);
 						if (data == 0) {
+							toastr.success("删除车型成功");
 							vm.reload();
 						}
 					},
@@ -399,8 +373,8 @@ var TableInit = function() {
 			"queryParamsType" : "limit",
 			minimumCountColumns : 2,
 			pageNumber : 1, // 初始化加载第一页，默认第一页
-			pageSize : 5, // 每页的记录行数（*）
-			pageList : [ 10, 20, 50, 100 ], // 可供选择的每页的行数（*）
+			pageSize : 15, // 每页的记录行数（*）
+			pageList : [ 15, 25, 50, 100 ], // 可供选择的每页的行数（*）
 			uniqueId : "id", // 每一行的唯一标识，一般为主键列
 			height : 300,
 			showRefresh : false, // 是否显示刷新按钮

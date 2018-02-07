@@ -568,6 +568,105 @@ public class ProductDcsController {
 		 */
 		return "1";
 	}
+	
+	
+	
+	// 添加车型信息
+		@RequestMapping(value = "/ajax/addProductModelFromSeries", method = RequestMethod.POST, consumes = "application/json; charset=utf-8")
+		@ResponseBody
+		public String addProductModelFromSeries(@RequestBody ListDto listDto) {
+			System.out.println(JSON.toJSONString(listDto));
+			List<ModelPage> modelPageList = listDto.getModelPageList();
+			TmPartInfoPage tmPartInfoPage = new TmPartInfoPage();
+			if (modelPageList.size() > 0) {
+				TiOpiExtendedDCS tiOpiExtendedDCS = new TiOpiExtendedDCS();
+				for (int i = 0; i < modelPageList.size(); i++) {
+					ModelPage model = new ModelPage();
+					if (modelPageList.get(i).getPRODUCT_ID() != null && !"".equals(modelPageList.get(i).getPRODUCT_ID())) {
+						tiOpiExtendedDCS = productService.getProductByID(modelPageList.get(i).getPRODUCT_ID());
+					}
+					TiOpiExtendedModel tiOpiExtendedModel = new TiOpiExtendedModel();
+					if (tiOpiExtendedDCS != null) {
+						int modelCount = productService.getProductModelFromSeries(modelPageList.get(i));
+						if (modelCount > 0) {
+							Map map = new HashMap<>();
+							map.put("PRODUCT_ID", modelPageList.get(i).getPRODUCT_ID());
+							map.put("BRAND_ID", modelPageList.get(i).getBRAND_ID());
+							map.put("SERIES_ID", modelPageList.get(i).getSERIES_ID());
+							productService.deleteProductModelFromSeries(map);
+							//根据车系查询车型
+							List<Map> modelList = commonNoService.getModelList(modelPageList.get(i).getSERIES_ID());
+							if(modelList.size() > 0) {
+								for(int j=0;j<modelList.size();j++) {
+									tiOpiExtendedModel.setPRODUCT_MODEL_ID(commonNoService.getId("ID", "999999"));
+									tiOpiExtendedModel.setPRODUCT_ID(Long.parseLong(modelPageList.get(i).getPRODUCT_ID()));
+									tiOpiExtendedModel.setPRODUCT_NO(tiOpiExtendedDCS.getPRODUCT_NO().toString());
+									tiOpiExtendedModel.setPRODUCT_NAME(tiOpiExtendedDCS.getPRODUCT_NAME());
+									tiOpiExtendedModel.setPRODUCT_PROPERTY(tiOpiExtendedDCS.getPRODUCT_PROPERTY());
+									tiOpiExtendedModel.setBRAND_CODE(modelPageList.get(i).getBRAND_CODE());
+									tiOpiExtendedModel.setBRAND_NAME(modelPageList.get(i).getBRAND_NAME());
+									tiOpiExtendedModel.setSERIES_CODE(modelPageList.get(i).getSERIES_CODE());
+									tiOpiExtendedModel.setSERIES_NAME(modelPageList.get(i).getSERIES_NAME());
+									tiOpiExtendedModel.setMODEL_CODE(modelList.get(i).get("MODEL_CODE").toString());
+									tiOpiExtendedModel.setMODEL_NAME(modelList.get(i).get("MODEL_NAME").toString());
+									tiOpiExtendedModel.setCREATED_AT(new Date());
+									tiOpiExtendedModel.setIS_VALID(12781001);
+									tiOpiExtendedModel.setIS_DELETE(0);
+									tiOpiExtendedModel.setPRODUCT_CATEGORY(tiOpiExtendedDCS.getPRODUCT_CATEGORY());
+									tiOpiExtendedModel.setBRAND_ID(modelPageList.get(i).getBRAND_ID());
+									tiOpiExtendedModel.setSERIES_ID(modelPageList.get(i).getSERIES_ID());
+									tiOpiExtendedModel.setMODEL_ID(modelList.get(i).get("MODEL_ID").toString());
+									productService.insertProductModel(tiOpiExtendedModel);
+								}
+							}
+							
+						}else {
+							List<Map> modelList = commonNoService.getModelList(modelPageList.get(i).getSERIES_ID());
+							if(modelList.size() > 0) {
+								for(int j=0;j<modelList.size();j++) {
+									tiOpiExtendedModel.setPRODUCT_MODEL_ID(commonNoService.getId("ID", "999999"));
+									tiOpiExtendedModel.setPRODUCT_ID(Long.parseLong(modelPageList.get(i).getPRODUCT_ID()));
+									tiOpiExtendedModel.setPRODUCT_NO(tiOpiExtendedDCS.getPRODUCT_NO().toString());
+									tiOpiExtendedModel.setPRODUCT_NAME(tiOpiExtendedDCS.getPRODUCT_NAME());
+									tiOpiExtendedModel.setPRODUCT_PROPERTY(tiOpiExtendedDCS.getPRODUCT_PROPERTY());
+									tiOpiExtendedModel.setBRAND_CODE(modelPageList.get(i).getBRAND_CODE());
+									tiOpiExtendedModel.setBRAND_NAME(modelPageList.get(i).getBRAND_NAME());
+									tiOpiExtendedModel.setSERIES_CODE(modelPageList.get(i).getSERIES_CODE());
+									tiOpiExtendedModel.setSERIES_NAME(modelPageList.get(i).getSERIES_NAME());
+									tiOpiExtendedModel.setMODEL_CODE(modelList.get(j).get("MODEL_CODE").toString());
+									tiOpiExtendedModel.setMODEL_NAME(modelList.get(j).get("MODEL_NAME").toString());
+									tiOpiExtendedModel.setCREATED_AT(new Date());
+									tiOpiExtendedModel.setIS_VALID(12781001);
+									tiOpiExtendedModel.setIS_DELETE(0);
+									tiOpiExtendedModel.setPRODUCT_CATEGORY(tiOpiExtendedDCS.getPRODUCT_CATEGORY());
+									tiOpiExtendedModel.setBRAND_ID(modelPageList.get(i).getBRAND_ID());
+									tiOpiExtendedModel.setSERIES_ID(modelPageList.get(i).getSERIES_ID());
+									tiOpiExtendedModel.setMODEL_ID(modelList.get(j).get("MODEL_ID").toString());
+									productService.insertProductModel(tiOpiExtendedModel);
+								}
+							}
+						}
+						
+					}
+				}
+				tmPartInfoPage.setPART_NO(tiOpiExtendedDCS.getPRODUCT_NO().toString());
+				tmPartInfoPage.setPART_NAME(tiOpiExtendedDCS.getPRODUCT_NAME());
+				tmPartInfoPage.setPART_GROUP_CODE(tiOpiExtendedDCS.getPRODUCT_CATEGORY());
+				tmPartInfoPage.setPART_PROPERTY(tiOpiExtendedDCS.getPRODUCT_PROPERTY());
+				tmPartInfoPage.setCLAIM_PRICE(tiOpiExtendedDCS.getDNP_PRICE().toString());
+				tmPartInfoPage.setLIMIT_PRICE(tiOpiExtendedDCS.getMSRP_PRICE().toString());
+				tmPartInfoPage.setIS_C_SALE(tiOpiExtendedDCS.getIS_C_SALE().toString());
+
+				if (tiOpiExtendedDCS.getIS_C_SALE() == 12781001) {
+					tmPartInfoPage.setIS_C_SALE("是");
+				} else {
+					tmPartInfoPage.setIS_C_SALE("否");
+				}
+				return "0";
+			}
+			return "1";
+		}
+	
 
 	@RequestMapping(value = "/ajax/modelToProduct", method = RequestMethod.GET)
 	public ModelAndView modelToProduct(@RequestParam String productId) {

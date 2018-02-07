@@ -62,8 +62,7 @@
 		</form>
 	</div>
 
-	<div v-show="showOperModel" class="box box-custom collapsed-box"
-		style="margin-bottom: 0;">
+	<div v-show="showOperModel" class="box box-custom collapsed-box" style="margin-bottom: 0;">
 		<div class="box-body">
 			<ul id="tabUl" class="nav nav-tabs">
 				<li class="active" id="modelLi" onclick="modelClick()"><a
@@ -96,7 +95,7 @@
 				</button>
 			</div>
 		</div>
-		<div style="height: 10px;"></div>
+		<div style="height: 10%;"></div>
 	</div>
 
 </div>

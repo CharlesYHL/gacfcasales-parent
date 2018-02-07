@@ -43,6 +43,8 @@ public interface ProductDao {
 	 
 	 //判断产品车型信息是否存在
 	 int getProductModel(ModelPage modelPage);
+	 int getProductModelFromSeries(ModelPage modelPage);
+	 void deleteProductModelFromSeries(Map map);
 	 
 	 //插入产品车型信息表
 	 ///void insert

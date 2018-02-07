@@ -631,7 +631,7 @@ function edit(productId) {
 				globe_index = layer.open({
 					title : '产品编辑',
 					type : 2,
-					area : [ '90%', '100%' ],
+					area : [ '80%', '100%' ],
 					fixed : true, // 固定
 					maxmin : false,
 					content : ctx + '/sysProduct/ajax/toEditProduct?productId='+productId
@@ -664,7 +664,7 @@ function detail(productId) {
 				globe_index = layer.open({
 					title : '产品明细',
 					type : 2,
-					area : [ '90%', '100%' ],
+					area : [ '80%', '100%' ],
 					fixed : true, // 固定
 					maxmin : false,
 					content : ctx + '/sysProduct/ajax/detailProduct?productId='+productId

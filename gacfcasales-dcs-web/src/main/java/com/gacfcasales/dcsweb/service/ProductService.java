@@ -47,6 +47,8 @@ public interface ProductService {
 
 	// 判断产品车型信息是否存在
 	int getProductModel(ModelPage modelPage);
+	int getProductModelFromSeries(ModelPage modelPage);
+	void deleteProductModelFromSeries(Map map);
 
 	// 新增更新产品信息
 	void updateAndAddProduct(TiOpiExtendedDCS tiOpiExtendedDCS);

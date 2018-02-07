@@ -26,10 +26,10 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5">产品编号</label>
-								<div class="col-xs-7 ">
+								<label class="control-label col-xs-4">产品编号</label>
+								<div class="col-xs-8 ">
 									<div class="input-group">
-										<input type="text"
+										<input type="text" disabled="disabled"
 											value="${requestScope.tiOpiExtendedDCS.PRODUCT_NO }"
 											class="form-control" id="productNo" name="productNo" />
 										<!-- <span
@@ -43,10 +43,10 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5">产品名称</label>
-								<div class="col-xs-7 ">
+								<label class="control-label col-xs-4">产品名称</label>
+								<div class="col-xs-8 ">
 									<div class="input-group">
-										<input type="text"
+										<input type="text" disabled="disabled"
 											value="${requestScope.tiOpiExtendedDCS.PRODUCT_NAME }"
 											class="form-control" id="productName" name="productName" />
 									</div>
@@ -56,10 +56,10 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5">产品类别</label>
-								<div class="col-xs-7 ">
+								<label class="control-label col-xs-4">产品类别</label>
+								<div class="col-xs-8 ">
 									<div class="input-group">
-										<input type="text"
+										<input type="text" disabled="disabled"
 											value="${requestScope.tiOpiExtendedDCS.PRODUCT_CATEGORY }"
 											class="form-control" id="productCategory"
 											name="productCategory" />
@@ -70,10 +70,10 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5">产品属性</label>
-								<div class="col-xs-7 ">
+								<label class="control-label col-xs-4">产品属性</label>
+								<div class="col-xs-8 ">
 									<div class="input-group">
-										<input type="text"
+										<input type="text" disabled="disabled"
 											value="${requestScope.tiOpiExtendedDCS.PRODUCT_PROPERTY }"
 											class="form-control" id="productProperty"
 											name="productProperty" />
@@ -98,8 +98,8 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">产品有效期</label>
-								<div class="col-xs-7">
+								<label class="control-label col-xs-4 ">产品有效期</label>
+								<div class="col-xs-8">
 									<select name="productDate" id="productDate"
 										class="bs-select form-control" onchange="getProductDate()"></select>
 								</div>
@@ -107,8 +107,8 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5">DNP价格</label>
-								<div class="col-xs-7 ">
+								<label class="control-label col-xs-4">DNP价格</label>
+								<div class="col-xs-8 ">
 									<div class="input-group">
 										<input type="text"
 											value="${requestScope.tiOpiExtendedDCS.DNP_PRICE }"
@@ -120,8 +120,8 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5">MSRP价格</label>
-								<div class="col-xs-7 ">
+								<label class="control-label col-xs-4">MSRP价格</label>
+								<div class="col-xs-8 ">
 									<div class="input-group">
 										<input type="text"
 											value="${requestScope.tiOpiExtendedDCS.MSRP_PRICE }"
@@ -134,8 +134,8 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">是否FIAT授权</label>
-								<div class="col-xs-7">
+								<label class="control-label col-xs-4 ">FIAT授权</label>
+								<div class="col-xs-8">
 									<select name="isFiat" id="isFiat"
 										class="bs-select form-control"></select>
 								</div>
@@ -144,8 +144,8 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">是否JEEP授权</label>
-								<div class="col-xs-7">
+								<label class="control-label col-xs-4 ">JEEP授权</label>
+								<div class="col-xs-8">
 									<select name="isJeep" id="isJeep"
 										class="bs-select form-control"></select>
 								</div>
@@ -154,18 +154,19 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">是否CJD授权</label>
-								<div class="col-xs-7">
+								<label class="control-label col-xs-4">CJD授权</label>
+								<div class="col-xs-8">
 									<select name="isCjd" id="isCjd" class="bs-select form-control"></select>
 								</div>
 							</div>
 						</div>
 
 
+
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5">适用车型</label>
-								<div class="col-xs-7 ">
+								<label class="control-label col-xs-4">适用车型</label>
+								<div class="col-xs-8 ">
 									<div class="input-group">
 										<input type="text"
 											value="${requestScope.tiOpiExtendedDCS.PRODUCT_MODEL }"
@@ -174,11 +175,10 @@
 								</div>
 							</div>
 						</div>
-
-						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-5">
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
 							<div class="form-group">
-								<label class="control-label col-xs-3">销售时间</label>
-								<div class="col-xs-6 col-sm-8">
+								<label class="control-label col-xs-4 col-sm-2">销售时间</label>
+								<div class="col-xs-8 col-sm-10">
 									<div class="input-group input-daterange">
 										<input id="salesStart" name="salesStart" type="text"
 											class="form-control" placeholder="请输入开始日期"
@@ -194,15 +194,14 @@
 							</div>
 						</div>
 
-						<div class="col-xs-12 col-sm-6 col-md-4">
+
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
 								<label class="control-label col-xs-4">产品说明</label>
 								<div class="col-xs-8">
 									<textarea id="productDescribtion" name="productDescribtion"
 										class="form-control" rows="3"></textarea>
-									<%-- <input id="productDescribtion" name="productDescribtion"
-										class="form-control" type="text"
-										value="${requestScope.tiOpiExtendedDCS.PRODUCT_DESCRIBTION }" /> --%>
 								</div>
 							</div>
 						</div>

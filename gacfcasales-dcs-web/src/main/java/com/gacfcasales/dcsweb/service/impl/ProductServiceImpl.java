@@ -181,6 +181,18 @@ public class ProductServiceImpl implements ProductService {
 		productDao.updateReleaseStatus(map);
 	}
 
+	@Override
+	public int getProductModelFromSeries(ModelPage modelPage) {
+		// TODO Auto-generated method stub
+		return productDao.getProductModelFromSeries(modelPage);
+	}
+
+	@Override
+	public void deleteProductModelFromSeries(Map map) {
+		// TODO Auto-generated method stub
+		productDao.deleteProductModelFromSeries(map);
+	}
+
 	
 
 }
