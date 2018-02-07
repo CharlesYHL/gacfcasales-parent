@@ -239,7 +239,7 @@ var TableInit = function() {
 										formatter : function(value, row, index) {
 											var operate = '<div style="width:120px;">'
 
-											operate += '<button class="btn btn-primary btn-xs" href="#" onclick="detail(\''
+											operate += '<button class="btn btn-primary btn-xs" title="明细" href="#" onclick="detail(\''
 													+ row.PRODUCT_ID
 													+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
 

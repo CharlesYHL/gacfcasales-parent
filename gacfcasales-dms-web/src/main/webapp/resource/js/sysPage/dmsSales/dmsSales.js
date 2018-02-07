@@ -50,7 +50,7 @@ function getBrand() {
 		contentType : "application/json",
 		dataType : "json",
 		cache : false,
-		async:true,
+		async : true,
 		success : function(data) {
 			if (data.length > 0) {
 				var optionstring = "<option value='0'>请选择</option>";
@@ -80,7 +80,7 @@ function getSeries() {
 		data : JSON.stringify(vm.sysUser),
 		dataType : "json",
 		cache : false,
-		async:true,
+		async : true,
 		success : function(data) {
 			if (data.length > 0) {
 				var optionstring = "<option value='0'>请选择</option>";
@@ -109,7 +109,7 @@ function getModel() {
 		data : JSON.stringify(vm.sysUser),
 		dataType : "json",
 		cache : false,
-		async:true,
+		async : true,
 		success : function(data) {
 			if (data.length > 0) {
 				var optionstring = "<option value='0'>请选择</option>";
@@ -140,8 +140,8 @@ function addSales() {
 			console.log(data);
 			console.log(data.code);
 			console.log(data.message);
-			
-			if(data.code != 401){
+
+			if (data.code != 401) {
 				globe_index = layer.open({
 					id : 'addSales',
 					title : '新增销售订单',
@@ -152,7 +152,7 @@ function addSales() {
 					content : ctx + '/dmsSales/ajax/toAddSales'
 				});
 			}
-			
+
 		},
 		error : function(data) {
 			console.log(data);
@@ -160,15 +160,11 @@ function addSales() {
 			console.log(data.message);
 		}
 	});
-	/*globe_index = layer.open({
-		id : 'addSales',
-		title : '新增销售订单',
-		type : 2,
-		area : [ '80%', '100%' ],
-		fixed : true, // 固定
-		maxmin : false,
-		content : ctx + '/dmsSales/ajax/toAddSales'
-	});*/
+	/*
+	 * globe_index = layer.open({ id : 'addSales', title : '新增销售订单', type : 2,
+	 * area : [ '80%', '100%' ], fixed : true, // 固定 maxmin : false, content :
+	 * ctx + '/dmsSales/ajax/toAddSales' });
+	 */
 }
 
 // 获得当前日期
@@ -194,13 +190,13 @@ function resetASC() {
 	$("#productName").val('');
 	$('#productDate').val('0');
 	// getBrand();
-	$("#brandId").val('0');  
+	$("#brandId").val('0');
 	$("#brandId").selectpicker('refresh');
 
-	$("#seriesId").empty();  
+	$("#seriesId").empty();
 	$("#seriesId").selectpicker('refresh');
-	
-	$("#modelId").empty();  
+
+	$("#modelId").empty();
 	$("#modelId").selectpicker('refresh');
 
 	$("#vin").val('');
@@ -299,32 +295,44 @@ var TableInit = function() {
 										title : '操作',
 										align : 'center',
 										valign : 'middle',
-										width : '120',
+										width : '150',
 										formatter : function(value, row, index) {
-											var operate = '<div style="width:120px;">'
+											var operate = '<div style="width:150px;">'
 											if (row.ORDER_STATUS == '已结案'
 													|| row.ORDER_STATUS == "已作废") {
-												operate += '<button class="btn btn-primary btn-xs" disabled="disabled" href="#" onclick="edit(\''
+												operate += '<button class="btn btn-primary btn-xs" disabled="disabled" title="编辑" href="#" onclick="edit(\''
 														+ row.PRODUCT_SALES_ID
 														+ '\')"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs" href="#" onclick="detail(\''
+												operate += '<button class="btn btn-primary btn-xs" title="明细" href="#" onclick="detail(\''
 														+ row.PRODUCT_SALES_ID
 														+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs" disabled="disabled"  href="#" onclick="invalid(\''
+												operate += '<button class="btn btn-primary btn-xs" title="作废" disabled="disabled"  href="#" onclick="invalid(\''
 														+ row.PRODUCT_SALES_ID
 														+ '\')"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i></button> '
+												operate += '<button class="btn btn-primary btn-xs" title="提交" disabled="disabled"  href="#" onclick="submitSAP(\''
+														+ row.PRODUCT_SALES_ORDER
+														+ '\')"><i class="glyphicon glyphicon-upload" aria-hidden="true"></i></button> '
+												operate += '<button class="btn btn-primary btn-xs" title="打印"  href="#" onclick="printOrder(\''
+														+ row.PRODUCT_SALES_ORDER
+														+ '\')"><i class="glyphicon glyphicon-print" aria-hidden="true"></i></button> '
 											}
 											if (row.ORDER_STATUS == '已保存'
 													|| row.ORDER_STATUS == "扣款失败") {
-												operate += '<button class="btn btn-primary btn-xs" href="#" onclick="edit(\''
+												operate += '<button class="btn btn-primary btn-xs" href="#" title="编辑" onclick="edit(\''
 														+ row.PRODUCT_SALES_ID
 														+ '\')"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs" href="#" onclick="detail(\''
+												operate += '<button class="btn btn-primary btn-xs" title="明细" href="#" onclick="detail(\''
 														+ row.PRODUCT_SALES_ID
 														+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs"  href="#" onclick="invalid(\''
+												operate += '<button class="btn btn-primary btn-xs" title="作废" href="#" onclick="invalid(\''
 														+ row.PRODUCT_SALES_ID
 														+ '\')"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i></button> '
+												operate += '<button class="btn btn-primary btn-xs" title="提交"  href="#" onclick="submitSAP(\''
+														+ row.PRODUCT_SALES_ORDER
+														+ '\')"><i class="glyphicon glyphicon-upload" aria-hidden="true"></i></button> '
+												operate += '<button class="btn btn-primary btn-xs" title="打印"  href="#" onclick="printOrder(\''
+														+ row.PRODUCT_SALES_ORDER
+														+ '\')"><i class="glyphicon glyphicon-print" aria-hidden="true"></i></button> '
 											}
 											return operate;
 										}
@@ -639,19 +647,20 @@ function detail(productSalesId) {
 			console.log(data);
 			console.log(data.code);
 			console.log(data.message);
-			
-			if(data.code != 401){
+
+			if (data.code != 401) {
 				globe_index = layer.open({
 					title : '销售单明细',
 					type : 2,
 					area : [ '80%', '100%' ],
 					fixed : true, // 固定
 					maxmin : false,
-					content : ctx + '/dmsSales/ajax/toSalesDetail?productSalesId='
+					content : ctx
+							+ '/dmsSales/ajax/toSalesDetail?productSalesId='
 							+ productSalesId
 				});
 			}
-			
+
 		},
 		error : function(data) {
 			console.log(data);
@@ -659,11 +668,128 @@ function detail(productSalesId) {
 			console.log(data.message);
 		}
 	});
-	
+
 }
 
 function edit(productSalesId) {
 	console.log("进入编辑页面" + productSalesId);
+
+	$.ajax({
+		type : "GET",
+		url : ctx + "/dmsSales/ajax/getSessionSign",
+		contentType : "application/json",
+		dataType : "json",
+		cache : false,
+		async : true,
+		success : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+
+			if (data.code != 401) {
+				globe_index = layer.open({
+					title : '销售单编辑',
+					type : 2,
+					area : [ '80%', '100%' ],
+					fixed : true, // 固定
+					maxmin : false,
+					content : ctx
+							+ '/dmsSales/ajax/toSalesEdit?productSalesId='
+							+ productSalesId
+				});
+			}
+
+		},
+		error : function(data) {
+			console.log(data);
+			console.log(data.code);
+			console.log(data.message);
+		}
+	});
+
+}
+
+function invalid(productSalesId) {
+	console.log("进入作废功能" + productSalesId);
+
+	layer.confirm('请确认是否作废销售单据？', {
+		btn : [ '确定', '取消' ]
+	// 按钮
+	}, function() {
+		$.ajax({
+			type : "GET",
+			url : ctx + "/dmsSales/ajax/invalidSales?productSalesId="
+					+ productSalesId,
+			contentType : "application/json",
+			dataType : "json",
+			cache : false,
+			async : true,
+			success : function(data) {
+				console.log("返回参数:" + data);
+				if (data == 0) {
+					toastr.success("作废成功");
+					// alert("作废成功!");
+					vm.reload();
+				} else {
+					toastr.error("作废失败");
+					// alert("作废失败!");
+				}
+			},
+			error : function(data) {
+				console.log(data);
+			}
+		});
+
+		/*
+		 * layer.msg('的确很重要', { icon : 1 });
+		 */
+	}, function() {
+		/*
+		 * layer.msg('也可以这样', { time : 20000, // 20s后自动关闭 btn : [ '明白了', '知道了' ]
+		 * });
+		 */
+	});
+
+}
+
+function submitSAP(productSalesOrder) {
+	layer.confirm('销售单据一旦提交，不可作废，请再次确认是否提交？', {
+		btn : [ '确定', '取消' ]
+	// 按钮
+	}, function(index) {
+		$.ajax({
+			type : "GET",
+			url : ctx + "/dmsSales/ajax/submitSales?productSalesOrder="
+					+ productSalesOrder,
+			contentType : "application/json",
+			dataType : "json",
+			cache : false,
+			async : true,
+			success : function(data) {
+				console.log("返回参数:" + data);
+				if (data == 0) {
+					toastr.success("扣款成功");
+					// alert("扣款成功!");
+					$("#btn_print").attr("disabled", false);
+					$("#btn_submit").attr("disabled", true)
+					$("#btn_save").attr("disabled", true);
+					layer.close(index);
+					vm.reload();
+				} else {
+					toastr.error("扣款失败!");
+					layer.close(index);
+				}
+			},
+			error : function(data) {
+				console.log(data);
+			}
+		});
+	}, function() {
+
+	});
+}
+
+function printOrder(productSalesOrder) {
 	
 	$.ajax({
 		type : "GET",
@@ -676,19 +802,19 @@ function edit(productSalesId) {
 			console.log(data);
 			console.log(data.code);
 			console.log(data.message);
-			
 			if(data.code != 401){
+				//var productSalesOrder = $("#salesOrder").val();
+				console.log("进入打印页面" + productSalesOrder);
 				globe_index = layer.open({
-					title : '销售单编辑',
+					title : '销售单打印',
 					type : 2,
-					area : [ '80%', '100%' ],
+					area : [ '70%', '100%' ],
 					fixed : true, // 固定
 					maxmin : false,
-					content : ctx + '/dmsSales/ajax/toSalesEdit?productSalesId='
-							+ productSalesId
+					content : ctx + '/dmsSales/ajax/toSalesPrint?productSalesOrder='
+							+ productSalesOrder
 				});
 			}
-			
 		},
 		error : function(data) {
 			console.log(data);
@@ -697,47 +823,12 @@ function edit(productSalesId) {
 		}
 	});
 	
-	
-}
-
-
-function invalid(productSalesId) {
-	console.log("进入作废功能" + productSalesId);
-
-	layer.confirm('请确认是否作废销售单据？', {
+	/*layer.confirm('是否确认打印？', {
 		btn : [ '确定', '取消' ]
 	// 按钮
-	}, function() {
-		$.ajax({
-			type: "GET",
-		    url: ctx + "/dmsSales/ajax/invalidSales?productSalesId="+productSalesId,
-	        contentType: "application/json",
-		    dataType: "json",
-			cache: false,
-			async:true,
-		    success: function(data){
-		    	console.log("返回参数:"+data);
-		    	if(data == 0){
-		    		toastr.success("作废成功");
-		    		//alert("作废成功!");
-		    		vm.reload();
-		    	}else{
-		    		toastr.error("作废失败");
-		    		//alert("作废失败!");
-		    	}
-			},error :function(data){
-				console.log(data);
-			}
-		});
+	}, function(index) {
 		
-		/*layer.msg('的确很重要', {
-			icon : 1
-		});*/
 	}, function() {
-		/*layer.msg('也可以这样', {
-			time : 20000, // 20s后自动关闭
-			btn : [ '明白了', '知道了' ]
-		});*/
-	});
 
+	});*/
 }

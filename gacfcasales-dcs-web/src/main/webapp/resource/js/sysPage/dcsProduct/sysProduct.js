@@ -328,45 +328,45 @@ var TableInit = function() {
 											var operate = '<div style="width:120px;">'
 
 											if (row.RELEASE_STATUS == '未发布') {
-												operate += '<button class="btn btn-primary btn-xs" href="#" onclick="edit(\''
+												operate += '<button class="btn btn-primary btn-xs" title="编辑" href="#" onclick="edit(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs" href="#" onclick="detail(\''
+												operate += '<button class="btn btn-primary btn-xs" title="明细" href="#" onclick="detail(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs" href="#" onclick="release(\''
+												operate += '<button class="btn btn-primary btn-xs" title="发布" href="#" onclick="release(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs" disabled="disabled" style="border-color:#dd4b39;background-color:#dd4b39;" href="#" onclick="cancel(\''
+												operate += '<button class="btn btn-primary btn-xs" title="取消发布" disabled="disabled" style="border-color:#dd4b39;background-color:#dd4b39;" href="#" onclick="cancel(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></button> '
 											}
 											if (row.RELEASE_STATUS == '已发布') {
-												operate += '<button class="btn btn-primary btn-xs" disabled="disabled" href="#" onclick="edit(\''
+												operate += '<button class="btn btn-primary btn-xs" title="编辑" disabled="disabled" href="#" onclick="edit(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs" href="#" onclick="detail(\''
+												operate += '<button class="btn btn-primary btn-xs" title="明细" href="#" onclick="detail(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs" disabled="disabled" href="#" onclick="release(\''
+												operate += '<button class="btn btn-primary btn-xs" title="发布" disabled="disabled" href="#" onclick="release(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs" style="border-color:#dd4b39;background-color:#dd4b39" href="#" onclick="cancel(\''
+												operate += '<button class="btn btn-primary btn-xs" title="取消发布" style="border-color:#dd4b39;background-color:#dd4b39" href="#" onclick="cancel(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></button> '
 											}
 
 											if (row.RELEASE_STATUS == '已取消') {
-												operate += '<button class="btn btn-primary btn-xs" style="" href="#" onclick="edit(\''
+												operate += '<button class="btn btn-primary btn-xs" title="编辑" style="" href="#" onclick="edit(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs" href="#" onclick="detail(\''
+												operate += '<button class="btn btn-primary btn-xs" title="明细" href="#" onclick="detail(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs" style=""href="#" onclick="release(\''
+												operate += '<button class="btn btn-primary btn-xs" title="发布" style=""href="#" onclick="release(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs" disabled="disabled" style="border-color:#dd4b39;background-color:#dd4b39;" href="#" onclick="cancel(\''
+												operate += '<button class="btn btn-primary btn-xs" title="取消发布" disabled="disabled" style="border-color:#dd4b39;background-color:#dd4b39;" href="#" onclick="cancel(\''
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></button> '
 											}

@@ -408,7 +408,7 @@
 									<span class="glyphicon glyphicon-film" aria-hidden="true"></span>
 									保存
 								</button>
-								<button id="btn_submit" type="button" disabled="disabled"
+								<!-- <button id="btn_submit" type="button" disabled="disabled"
 									class="btn btn-primary btn-sm" onclick="submitASC()">
 									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 									提交
@@ -417,7 +417,7 @@
 									class="btn btn-primary btn-sm" onclick="print()">
 									<span class="glyphicon glyphicon-print" aria-hidden="true"></span>
 									打印
-								</button>
+								</button> -->
 								<button id="btn_reset" type="button"
 									class="btn btn-primary btn-sm" onclick="resetASC()">
 									<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>&nbsp;&nbsp;返回
