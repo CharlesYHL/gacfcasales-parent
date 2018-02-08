@@ -298,8 +298,7 @@ var TableInit = function() {
 										width : '150',
 										formatter : function(value, row, index) {
 											var operate = '<div style="width:150px;">'
-											if (row.ORDER_STATUS == '已结案'
-													|| row.ORDER_STATUS == "已作废") {
+											if (row.ORDER_STATUS == '已结案') {
 												operate += '<button class="btn btn-primary btn-xs" disabled="disabled" title="编辑" href="#" onclick="edit(\''
 														+ row.PRODUCT_SALES_ID
 														+ '\')"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></button> '
@@ -316,6 +315,25 @@ var TableInit = function() {
 														+ row.PRODUCT_SALES_ORDER
 														+ '\')"><i class="glyphicon glyphicon-print" aria-hidden="true"></i></button> '
 											}
+											
+											if(row.ORDER_STATUS == "已作废"){
+												operate += '<button class="btn btn-primary btn-xs" disabled="disabled" title="编辑" href="#" onclick="edit(\''
+													+ row.PRODUCT_SALES_ID
+													+ '\')"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></button> '
+											operate += '<button class="btn btn-primary btn-xs" title="明细" href="#" onclick="detail(\''
+													+ row.PRODUCT_SALES_ID
+													+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
+											operate += '<button class="btn btn-primary btn-xs" title="作废" disabled="disabled"  href="#" onclick="invalid(\''
+													+ row.PRODUCT_SALES_ID
+													+ '\')"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i></button> '
+											operate += '<button class="btn btn-primary btn-xs" title="提交" disabled="disabled"  href="#" onclick="submitSAP(\''
+													+ row.PRODUCT_SALES_ORDER
+													+ '\')"><i class="glyphicon glyphicon-upload" aria-hidden="true"></i></button> '
+											operate += '<button class="btn btn-primary btn-xs" title="打印" disabled="disabled" href="#" onclick="printOrder(\''
+													+ row.PRODUCT_SALES_ORDER
+													+ '\')"><i class="glyphicon glyphicon-print" aria-hidden="true"></i></button> '
+											}
+											
 											if (row.ORDER_STATUS == '已保存'
 													|| row.ORDER_STATUS == "扣款失败") {
 												operate += '<button class="btn btn-primary btn-xs" href="#" title="编辑" onclick="edit(\''
@@ -330,7 +348,7 @@ var TableInit = function() {
 												operate += '<button class="btn btn-primary btn-xs" title="提交"  href="#" onclick="submitSAP(\''
 														+ row.PRODUCT_SALES_ORDER
 														+ '\')"><i class="glyphicon glyphicon-upload" aria-hidden="true"></i></button> '
-												operate += '<button class="btn btn-primary btn-xs" title="打印"  href="#" onclick="printOrder(\''
+												operate += '<button class="btn btn-primary btn-xs" title="打印" disabled="disabled"  href="#" onclick="printOrder(\''
 														+ row.PRODUCT_SALES_ORDER
 														+ '\')"><i class="glyphicon glyphicon-print" aria-hidden="true"></i></button> '
 											}
