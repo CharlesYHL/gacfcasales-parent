@@ -115,7 +115,21 @@ public class ProductDcsController {
 		TiOpiExtendedDCS tiOpiExtendedDCS = new TiOpiExtendedDCS();
 		tiOpiExtendedDCS.setPRODUCT_NO(PRODUCT_NO);
 		tiOpiExtendedDCS.setPRODUCT_NAME(PRODUCT_NAME);
-		tiOpiExtendedDCS.setPRODUCT_CATEGORY(PRODUCT_CATEGORY);
+		
+		if (PRODUCT_CATEGORY != null && !"".equals(PRODUCT_CATEGORY)) {
+			// assist.setRequires(Assist.andLike("PRODUCT_CATEGORY", "%" +
+			// tiOpiExtendedDCS.getPRODUCT_CATEGORY() + "%"));
+			if ("道路救援".equals(PRODUCT_CATEGORY)) {
+				tiOpiExtendedDCS.setPRODUCT_CATEGORY("81021002");
+				//assist.setRequires(Assist.andLike("PRODUCT_CATEGORY", "%%"));
+			} else {
+				tiOpiExtendedDCS.setPRODUCT_CATEGORY("无");
+			}
+		}else {
+			tiOpiExtendedDCS.setPRODUCT_CATEGORY("81021002");
+		}
+		
+		//tiOpiExtendedDCS.setPRODUCT_CATEGORY();
 		tiOpiExtendedDCS.setPRODUCT_PROPERTY(PRODUCT_PROPERTY);
 		if (IS_VALID != 0) {
 			tiOpiExtendedDCS.setIS_VALID(IS_VALID);
@@ -192,11 +206,13 @@ public class ProductDcsController {
 		if (tiOpiExtendedDCS.getPRODUCT_CATEGORY() != null && !"".equals(tiOpiExtendedDCS.getPRODUCT_CATEGORY())) {
 			// assist.setRequires(Assist.andLike("PRODUCT_CATEGORY", "%" +
 			// tiOpiExtendedDCS.getPRODUCT_CATEGORY() + "%"));
-			if ("延保".equals(tiOpiExtendedDCS.getPRODUCT_CATEGORY())) {
-				assist.setRequires(Assist.andLike("PRODUCT_CATEGORY", "%81021001%"));
-			} else {
+			if ("道路救援".equals(tiOpiExtendedDCS.getPRODUCT_CATEGORY())) {
 				assist.setRequires(Assist.andLike("PRODUCT_CATEGORY", "%81021002%"));
+			} else {
+				assist.setRequires(Assist.andLike("PRODUCT_CATEGORY", "%无%"));
 			}
+		}else {
+			assist.setRequires(Assist.andLike("PRODUCT_CATEGORY", "%81021002%"));
 		}
 		if (tiOpiExtendedDCS.getPRODUCT_PROPERTY() != null && !"".equals(tiOpiExtendedDCS.getPRODUCT_PROPERTY())) {
 			assist.setRequires(Assist.andLike("PRODUCT_PROPERTY", "%" + tiOpiExtendedDCS.getPRODUCT_PROPERTY() + "%"));
