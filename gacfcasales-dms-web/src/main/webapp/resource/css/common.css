@@ -21,3 +21,10 @@ table tbody tr td{
 .form-control{
 	height:34px;
 }
+.panel .panel-body{
+	font-size:12px;
+}
+
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: "Microsoft YaHei", Arial, 宋体, 黑体, sans-serif;
+}
