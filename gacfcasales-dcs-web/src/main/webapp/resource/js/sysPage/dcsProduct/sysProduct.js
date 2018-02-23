@@ -556,6 +556,37 @@ function cancel(productId) {
 
 }
 
+
+
+/*function releaseBatch() {
+	var selected = $('#table').bootstrapTable('getSelections');
+	console.log(selected.length);
+	for ( var item in selected) {
+		console.log(selected[item].PRODUCT_ID);
+	}
+	if (selected.length > 0) {
+		$('[data-toggle="confirmation"]').confirmation({  
+            animation: true,  
+            placement: "top",  
+            title: "确定要删除吗？",  
+            btnOkLabel: '确定',  
+            btnCancelLabel: '取消',  
+            onConfirm: function () {  
+                alert("点击了确定");  
+            },  
+            onCancel: function () {   
+                alert("点击了取消");   
+  
+            }  
+        })
+	}else{
+		toastr.warning("请选择一件产品");
+	}
+}*/
+
+
+
+
 function releaseBatch() {
 	var selected = $('#table').bootstrapTable('getSelections');
 	console.log(selected.length);
@@ -603,6 +634,7 @@ function releaseBatch() {
 	}
 
 }
+
 function cancelBatch() {
 	var selected = $('#table').bootstrapTable('getSelections');
 	console.log(selected.length);

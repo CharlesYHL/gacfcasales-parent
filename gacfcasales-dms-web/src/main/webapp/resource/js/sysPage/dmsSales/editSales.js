@@ -459,7 +459,7 @@ function save(){
 			success : function(data) {
 				console.log("返回参数:" + data);
 				if (data == '0') {
-					toastr.success("销售单编辑成功");
+					toastr.success("保存成功，请确认已收款，收款后再提交");
 				}else{
 					toastr.error("销售单编辑失败");
 				}
