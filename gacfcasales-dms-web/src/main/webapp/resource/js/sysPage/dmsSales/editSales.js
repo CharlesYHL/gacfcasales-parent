@@ -461,7 +461,7 @@ function save(){
 				if (data == '0') {
 					toastr.success("保存成功，请确认已收款，收款后再提交");
 				}else{
-					toastr.error("销售单编辑失败");
+					toastr.error("销售单保存失败");
 				}
 			},
 			error : function(data) {

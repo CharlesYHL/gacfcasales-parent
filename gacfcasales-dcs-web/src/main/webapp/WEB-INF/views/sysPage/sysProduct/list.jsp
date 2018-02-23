@@ -190,13 +190,13 @@
 				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增
 			</button> -->
 
-			<button id="btn_release" type="button" class="btn btn-primary"
+			<button id="btn_release" type="button" class="btn btn-primary" data-toggle="confirmation"
 				style="margin-right: 2px;" onclick="releaseBatch();">
 				<!-- <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> -->
 				批量发布
 			</button>
 
-			<button id="btn_add" type="button" class="btn btn-primary"
+			<button id="btn_cancel" type="button" class="btn btn-primary"
 				style="margin-right: 2px;" onclick="cancelBatch();">
 				<!-- <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> -->
 				批量取消
