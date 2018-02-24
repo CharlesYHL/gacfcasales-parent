@@ -46,35 +46,43 @@
 
 	<!-- 获取品牌下拉框 -->
 	<select id="getBrandList" resultType="map">
-		SELECT DISTINCT m1.GROUP_ID
-		BRAND_ID,m1.GROUP_CODE
-		BRAND_CODE,m1.GROUP_NAME BRAND_NAME FROM
-		tm_vhcl_material_group
-		m1,tm_vhcl_material_group m2
+		<!-- SELECT DISTINCT m1.GROUP_ID BRAND_ID,m1.GROUP_CODE BRAND_CODE,m1.GROUP_NAME 
+			BRAND_NAME FROM tm_vhcl_material_group m1,tm_vhcl_material_group m2 WHERE 
+			m1.GROUP_ID = m2.PARENT_GROUP_ID AND m2.GROUP_LEVEL = 2 AND m1.STATUS = '10011001' 
+			AND m2.GROUP_TYPE =90081002 -->
+
+		SELECT DISTINCT m1.GROUP_ID BRAND_ID,m1.GROUP_NAME BRAND_NAME FROM
+		tm_vhcl_material_group m1,tm_vhcl_material_group m2
 		WHERE m1.GROUP_ID =
 		m2.PARENT_GROUP_ID AND m2.GROUP_LEVEL = 2
 		AND m1.STATUS = '10011001'
-		AND m2.GROUP_TYPE =90081002
 	</select>
 
 	<!-- 获取车系下拉框 -->
 	<select id="getSeriesList" parameterType="java.lang.String"
 		resultType="map">
-		SELECT DISTINCT m2.GROUP_ID SERIES_ID, m2.GROUP_CODE
-		SERIES_CODE
-		,m2.GROUP_NAME SERIES_NAME FROM tm_vhcl_material_group
-		m1,tm_vhcl_material_group m2
-		WHERE m1.GROUP_ID = m2.PARENT_GROUP_ID AND
-		m2.GROUP_LEVEL = 2
-		AND m2.STATUS = '10011001' AND m2.GROUP_TYPE =
-		90081002
-		AND m1.GROUP_ID = #{groupId}
+		<!-- SELECT DISTINCT m2.GROUP_ID SERIES_ID, m2.GROUP_CODE SERIES_CODE ,m2.GROUP_NAME 
+			SERIES_NAME FROM tm_vhcl_material_group m1,tm_vhcl_material_group m2 WHERE 
+			m1.GROUP_ID = m2.PARENT_GROUP_ID AND m2.GROUP_LEVEL = 2 AND m2.STATUS = '10011001' 
+			AND m2.GROUP_TYPE = 90081002 AND m1.GROUP_ID = #{groupId} -->
+
+		SELECT DISTINCT m2.GROUP_ID SERIES_ID,m2.GROUP_NAME SERIES_NAME FROM
+		tm_vhcl_material_group m1,tm_vhcl_material_group m2
+		WHERE m1.GROUP_ID =
+		m2.PARENT_GROUP_ID AND m2.GROUP_LEVEL = 2
+		AND m2.STATUS = '10011001'
+		AND m1.GROUP_ID=#{groupId}
 
 	</select>
 
 	<!-- 获取车型下拉框 -->
 	<select id="getModelList" parameterType="java.lang.String"
 		resultType="map">
+		<!-- SELECT DISTINCT m2.GROUP_ID MODEL_ID,m2.GROUP_CODE MODEL_CODE,m2.GROUP_NAME 
+			MODEL_NAME FROM tm_vhcl_material_group m1,tm_vhcl_material_group m2 WHERE 
+			m1.GROUP_ID = m2.PARENT_GROUP_ID AND m2.GROUP_LEVEL = 3 AND m2.STATUS = '10011001' 
+			AND m1.GROUP_TYPE = 90081002 AND m1.GROUP_ID = #{groupId} -->
+
 		SELECT DISTINCT m2.GROUP_ID MODEL_ID,m2.GROUP_CODE
 		MODEL_CODE,m2.GROUP_NAME MODEL_NAME
 		FROM tm_vhcl_material_group
@@ -82,9 +90,8 @@
 		WHERE m1.GROUP_ID = m2.PARENT_GROUP_ID
 		AND
 		m2.GROUP_LEVEL = 3
-		AND m2.STATUS = '10011001' AND m1.GROUP_TYPE =
-		90081002
-		AND m1.GROUP_ID = #{groupId}
+		AND m2.STATUS = '10011001' AND m1.GROUP_ID =
+		#{groupId}
 	</select>
 
 
@@ -353,8 +360,10 @@
 		tmv.VIN,tmv.DEALER_CODE,tmv.OWNER_NO,tmv.LICENSE,tmv.YEAR_MODEL,tmv.BRAND,tmv.SERIES,tmv.MODEL,tmv.COLOR,tmv.APACKAGE,
 		DATE_FORMAT(tsi.INVOICE_DATE,'%Y-%m-%d') INVOICE_DATE,
 		tmo.OWNER_NAME,tmo.PHONE,tmo.MOBILE,tvmg1.GROUP_NAME
-		BRAND_NAME,tvmg1.GROUP_ID BRAND_ID,tvmg2.GROUP_NAME SERIES_NAME,tvmg2.GROUP_ID SERIES_ID,tvmg3.GROUP_NAME	MODEL_NAME
-	 ,tvmg3.GROUP_ID MODEL_ID,tvmg4.GROUP_NAME APACKAGE_NAME ,tvmg4.GROUP_ID  APACKAGE_ID
+		BRAND_NAME,tvmg1.GROUP_ID BRAND_ID,tvmg2.GROUP_NAME
+		SERIES_NAME,tvmg2.GROUP_ID SERIES_ID,tvmg3.GROUP_NAME MODEL_NAME
+		,tvmg3.GROUP_ID MODEL_ID,tvmg4.GROUP_NAME APACKAGE_NAME
+		,tvmg4.GROUP_ID APACKAGE_ID
 		from TM_VEHICLE tmv INNER
 		JOIN TM_OWNER tmo
 		ON tmv.OWNER_NO = tmo.OWNER_NO AND tmv.DEALER_CODE =
@@ -383,8 +392,10 @@
 		tmv.VIN,tmv.DEALER_CODE,tmv.OWNER_NO,tmv.LICENSE,tmv.YEAR_MODEL,tmv.BRAND,tmv.SERIES,tmv.MODEL,tmv.COLOR,tmv.APACKAGE,
 		DATE_FORMAT(tsi.INVOICE_DATE,'%Y-%m-%d') INVOICE_DATE,
 		tmo.OWNER_NAME,tmo.PHONE,tmo.MOBILE,tvmg1.GROUP_NAME
-		BRAND_NAME,tvmg1.GROUP_ID BRAND_ID,tvmg2.GROUP_NAME SERIES_NAME,tvmg2.GROUP_ID SERIES_ID,tvmg3.GROUP_NAME	MODEL_NAME
-	 ,tvmg3.GROUP_ID MODEL_ID,tvmg4.GROUP_NAME APACKAGE_NAME ,tvmg4.GROUP_ID  APACKAGE_ID
+		BRAND_NAME,tvmg1.GROUP_ID BRAND_ID,tvmg2.GROUP_NAME
+		SERIES_NAME,tvmg2.GROUP_ID SERIES_ID,tvmg3.GROUP_NAME MODEL_NAME
+		,tvmg3.GROUP_ID MODEL_ID,tvmg4.GROUP_NAME APACKAGE_NAME
+		,tvmg4.GROUP_ID APACKAGE_ID
 		from TM_VEHICLE tmv INNER
 		JOIN TM_OWNER tmo
 		ON tmv.OWNER_NO = tmo.OWNER_NO AND tmv.DEALER_CODE =
@@ -404,17 +415,22 @@
 			<include refid="Assist" />
 		</if>
 	</select>
-	
+
 	<select id="getTmUserId" parameterType="map" resultType="map">
-		select * from tm_user where DEALER_CODE=#{dealerCode} and EMPLOYEE_NO =#{employeeNo} limit 1
+		select *
+		from tm_user where DEALER_CODE=#{dealerCode} and EMPLOYEE_NO
+		=#{employeeNo} limit 1
 	</select>
-	
+
 	<select id="getTcUserId" parameterType="map" resultType="map">
-		select * from tc_user where ACNT =#{employeeNo} limit 1
+		select *
+		from tc_user where ACNT =#{employeeNo} limit 1
 	</select>
-	
-	
-	<select id="getDealerCodeAndName" parameterType="java.lang.String" resultType="map">
-		select * from tm_vhcl_material_group where GROUP_ID = #{groupId}
+
+
+	<select id="getDealerCodeAndName" parameterType="java.lang.String"
+		resultType="map">
+		select * from tm_vhcl_material_group where GROUP_ID =
+		#{groupId}
 	</select>
 </mapper>
