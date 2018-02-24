@@ -265,6 +265,8 @@ var TableInit = function() {
 							striped : true, // 是否显示行间隔色
 							sidePagination : "server", // 分页方式：client客户端分页，server服务端分页（*）
 							pagination : true,
+							sortable: true,                     //是否启用排序
+			                sortOrder: "desc",                   //排序方式
 							queryParams : this.queryParams,
 							"queryParamsType" : "limit",
 							minimumCountColumns : 2,
@@ -374,6 +376,7 @@ var TableInit = function() {
 										title : '单据状态',
 										align : 'center',
 										valign : 'middle',
+										sortable: true,
 										formatter : function(value, row, index) {
 											var a = "";
 											if (value == "扣款失败"
@@ -389,21 +392,25 @@ var TableInit = function() {
 										field : 'PRODUCT_SALES_ORDER',
 										title : '销售单编号',
 										align : 'center',
+										sortable: true,
 										valign : 'middle'
 									}, {
 										field : 'SAP_SALES_ORDER',
 										title : 'SAP订单号',
 										align : 'center',
+										sortable: true,
 										valign : 'middle'
 									}, {
 										field : 'PRODUCT_NO',
 										title : '产品编号',
 										align : 'center',
+										sortable: true,
 										valign : 'middle'
 									}, {
 										field : 'PRODUCT_NAME',
 										title : '产品名称',
 										align : 'center',
+										sortable: true,
 										valign : 'middle'
 									}, {
 										field : 'PRODUCT_DESCRIBTION',
@@ -413,6 +420,7 @@ var TableInit = function() {
 									}, {
 										field : 'PRODUCT_DATE',
 										title : '产品有效期',
+										sortable: true,
 										align : 'center',
 										valign : 'middle'
 									}, {
@@ -574,7 +582,9 @@ var TableInit = function() {
 			CREATED_AT_START : $("#createStart").val(),
 			CREATED_AT_END : $("#createEnd").val(),
 			CLOSED_AT_START : $("#closedStart").val(),
-			CLOSED_AT_END : $("#closedEnd").val()
+			CLOSED_AT_END : $("#closedEnd").val(),
+			sort: ORDER_STATUS,      //排序列名  
+            sortOrder: params.sortOrder, //排位命令（desc，asc）
 		}
 		return param;
 	};

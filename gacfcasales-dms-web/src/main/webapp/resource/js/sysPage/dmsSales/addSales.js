@@ -512,6 +512,8 @@ function save(){
 					$("#orderStatus").val("已保存");
 					toastr.success("销售单新增成功,销售单号:"+data.PRODUCT_SALES_ORDER);
 					//alert("销售单新增成功");
+					var index1 = parent.layer.getFrameIndex(window.name);
+					parent.layer.close(index1);
 				}
 			},
 			error : function(data) {

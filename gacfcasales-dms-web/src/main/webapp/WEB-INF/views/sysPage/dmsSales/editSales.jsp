@@ -88,7 +88,7 @@
 									<input type="text" class="form-control" disabled="disabled"
 										name="salesOrder" id="salesOrder"
 										value="${requestScope.ttOpiExtendedSales.PRODUCT_SALES_ORDER}"
-										placeholder="请输入销售单编号" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -100,7 +100,7 @@
 									<input type="text" class="form-control" disabled="disabled"
 										name="createdBy" id="createdBy"
 										value="${requestScope.ttOpiExtendedSales.CREATE_NAME}"
-										placeholder="请输入创建人" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -112,7 +112,7 @@
 									<input type="text" class="form-control" disabled="disabled"
 										name="createAt" id="createAt"
 										value="${requestScope.ttOpiExtendedSales.CREATED_AT}"
-										placeholder="请输入创建人" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -146,7 +146,7 @@
 									<input type="text" class="form-control" disabled="disabled"
 										name="orderStatus" id="orderStatus"
 										value="${requestScope.ttOpiExtendedSales.ORDER_STATUS}"
-										placeholder="请输入单据状态" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -166,9 +166,9 @@
 								<div class="col-xs-7">
 									<div class="input-group">
 										<div class="input-icon-group">
-											<input type="text" class="form-control" name="vin" id="vin"
+											<input type="text" class="form-control" name="vin" id="vin" disabled="disabled"
 												value="${requestScope.ttOpiExtendedSales.VIN}"
-												placeholder="请输入VIN" />
+												placeholder="" />
 										</div>
 										<span class="input-group-btn" style="height: 34px;">
 											<button class="btn btn-primary" type="button"
@@ -222,9 +222,9 @@
 								<label class="control-label col-xs-5 ">年款</label>
 								<div class="col-xs-7">
 									<input type="text" class="form-control" name="yearModel"
-										id="yearModel"
+										id="yearModel" disabled="disabled"
 										value="${requestScope.ttOpiExtendedSales.YEAR_MODEL}"
-										placeholder="请输入年款" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -236,7 +236,7 @@
 									<input id="billingAt" name="billingAt" type="text"
 										class="form-control"
 										value="${requestScope.ttOpiExtendedSales.BILLING_AT}"
-										placeholder="请输入开票日期" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -247,7 +247,7 @@
 									<input type="text" class="form-control" name="ownerNo"
 										disabled="disabled" id="ownerNo"
 										value="${requestScope.ttOpiExtendedSales.OWNER_NO}"
-										placeholder="请输入车主编号" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -258,7 +258,7 @@
 									<input type="text" class="form-control" name="ownerPhone"
 										disabled="disabled" id="ownerPhone"
 										value="${requestScope.ttOpiExtendedSales.OWNER_PHONE}"
-										placeholder="请输入车主电话" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -269,7 +269,7 @@
 									<input type="text" class="form-control" name="ownerName"
 										disabled="disabled" id="ownerName"
 										value="${requestScope.ttOpiExtendedSales.OWNER_NAME}"
-										placeholder="请输入车主姓名" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -280,7 +280,7 @@
 									<input type="text" class="form-control" name="ownerMobile"
 										disabled="disabled" id="ownerMobile"
 										value="${requestScope.ttOpiExtendedSales.OWNER_MOBILE}"
-										placeholder="请输入车主手机" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -302,7 +302,7 @@
 											<input type="text" class="form-control" name="productNo"
 												disabled="disabled" id="productNo"
 												value="${requestScope.ttOpiExtendedSales.PRODUCT_NO}"
-												placeholder="请输入产品编号" />
+												placeholder="" />
 										</div>
 										<span class="input-group-btn" style="height: 34px;">
 											<button class="btn btn-primary" type="button"
@@ -322,7 +322,7 @@
 									<input type="text" class="form-control" name="productName"
 										disabled="disabled" id="productName"
 										value="${requestScope.ttOpiExtendedSales.PRODUCT_NAME}"
-										placeholder="请输入车主手机" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -333,7 +333,7 @@
 									<input type="text" class="form-control" name="productDate"
 										disabled="disabled" id="productDate"
 										value="${requestScope.ttOpiExtendedSales.PRODUCT_DATE}"
-										placeholder="请输入产品有效期" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -344,7 +344,7 @@
 									<input type="text" class="form-control" name="productDate"
 										disabled="disabled" id="productDate"
 										value="${requestScope.requestScope.ttOpiExtendedSales.PRODUCT_DESCRIBTION}"
-										placeholder="请输入产品有效期" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -356,7 +356,7 @@
 										name="terminalNonSalesPrice" id="terminalNonSalesPrice"
 										disabled="disabled"
 										value="${requestScope.ttOpiExtendedSales.TERMINAL_NON_SALES_PRICE}"
-										placeholder="请输入终端不含税销售价" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -367,7 +367,7 @@
 									<input type="text" class="form-control" disabled="disabled"
 										name="terminalSalesPrice" id="terminalSalesPrice"
 										value="${requestScope.ttOpiExtendedSales.TERMINAL_SALES_PRICE}"
-										placeholder="请输入终端含税销售价" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -377,9 +377,9 @@
 								<label class="control-label col-xs-5 ">生效开始时间</label>
 								<div class="col-xs-7">
 									<input type="text" class="form-control" name="takeEffectStart"
-										id="takeEffectStart"
+										id="takeEffectStart" disabled="disabled"
 										value="${requestScope.ttOpiExtendedSales.TAKE_EFFECT_START}"
-										placeholder="请输入生效开始时间" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -388,9 +388,9 @@
 								<label class="control-label col-xs-5 ">生效结束时间</label>
 								<div class="col-xs-7">
 									<input type="text" class="form-control" name="takeEffectEnd"
-										id="takeEffectEnd"
+										id="takeEffectEnd" disabled="disabled"
 										value="${requestScope.ttOpiExtendedSales.TAKE_EFFECT_END}"
-										placeholder="请输入生效结束时间" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -409,7 +409,7 @@
 									<input type="text" class="form-control" name="purchaseNumber"
 										disabled="disabled" id="purchaseNumber"
 										value="${requestScope.ttOpiExtendedSales.PURCHASE_NUMBER}"
-										placeholder="请输入购买数量" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
@@ -434,7 +434,7 @@
 									<input type="text" class="form-control" name="totalAmount"
 										disabled="disabled" id="totalAmount"
 										value="${requestScope.ttOpiExtendedSales.TOTAL_AMOUNT}"
-										placeholder="请输入含税总额" />
+										placeholder="" />
 								</div>
 							</div>
 						</div>
