@@ -87,18 +87,11 @@ public class DmsSalesController {
 
 		dmsSalesDto.setDEALER_CODE(tmUser.getDEALER_CODE());
 		dmsSalesDto.setEMPLOYEE_NO(tmUser.getEMPLOYEE_NO());
+		dmsSalesDto.setVIN("");
+		dmsSalesDto.setPRODUCT_NO("");
 		Map map = dmsSalesService.getEntityCode(tmUser.getDEALER_CODE());
-		/*if (map != null) {
-			// Long salesOrderId = commonNoService.getId("SO",
-			// map.get("ENTITY_CODE").toString());
-
-			// Long salesOrderId = commonNoService.getIds("ID", "999999");
-			// mav.addObject("salesOrderId", salesOrderId);
-			dmsSalesDto.setSaleOrderId(commonNoService.getSystemOrderNo("SO", map.get("ENTITY_CODE").toString()));
-		}*/
 		Map mapUser = dmsSalesService.getUserName(map.get("ENTITY_CODE").toString(), tmUser.getEMPLOYEE_NO());
 		if (mapUser != null) {
-			// mav.addObject("employeeName", mapUser.get("EMPLOYEE_NAME"));
 			dmsSalesDto.setEmployeeName(mapUser.get("EMPLOYEE_NAME").toString());
 		}
 		Date date = new Date();

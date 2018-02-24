@@ -731,7 +731,7 @@ function invalid(productSalesId) {
 	console.log("进入作废功能" + productSalesId);
 
 	layer.confirm('请确认是否作废销售单据？', {
-		btn : [ '确定', '取消' ]
+		btn : [ '确定', '取消' ],closeBtn: 0
 	// 按钮
 	}, function() {
 		$.ajax({
@@ -772,7 +772,7 @@ function invalid(productSalesId) {
 
 function submitSAP(productSalesOrder) {
 	layer.confirm('销售单据一旦提交，不可作废，请再次确认是否提交？', {
-		btn : [ '确定', '取消' ]
+		btn : [ '确定', '取消' ],closeBtn: 0
 	// 按钮
 	}, function(index) {
 		$.ajax({

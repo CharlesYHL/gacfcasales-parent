@@ -24,55 +24,114 @@ var params;
 function getChildValues(values){
 	params = values;
 	console.log("接受到数据："+JSON.stringify(params));
-	// var selected = JSON.stringify(params)
-	console.log(params.VIN);
-	$("#vin").val(params.VIN);
-	$("#billingAt").val(params.INVOICE_DATE);
-	$("#ownerNo").val(params.OWNER_NO);
-	$("#ownerName").val(params.OWNER_NAME);
-	$("#ownerPhone").val(params.PHONE);
-	$("#ownerMobile").val(params.MOBILE);
-	$("#yearModel").val(params.YEAR_MODEL);
-	$("#liceseNo").val(params.LICENSE);
-	
-	$("#brandCode").val(params.BRAND);
-	$("#seriesCode").val(params.SERIES);
-	$("#modelCode").val(params.MODEL);
-	$("#apackageCode").val(params.APACKAGE);
-	
-	$("#brandName").val(params.BRAND_NAME);
-	$("#seriesName").val(params.SERIES_NAME);
-	$("#modelName").val(params.MODEL_NAME);
-	$("#apackageName").val(params.APACKAGE_NAME);
-	
-	$("#customerName").val(params.OWNER_NAME);
-	$("#customerContact").val(params.MOBILE);
-	
-	if(params.BRAND != ''){
-		console.log(params.BRAND);
-		$("#brandId").append("<option selected = 'selected' value='"+params.BRAND_ID+"'>"+params.BRAND_NAME+"</option>");
-		$("#brandId").selectpicker('refresh');
-		// jQuery("#brandId").append("<option selected = 'selected'
-		// value='"+params.BRAND_ID+"'>"+params.BRAND_NAME+"</option>");
+	var oldVin = $("#vin").val();
+	if(oldVin != params.VIN){
+		console.log(params.VIN);
+		$("#vin").val(params.VIN);
+		$("#billingAt").val(params.INVOICE_DATE);
+		$("#ownerNo").val(params.OWNER_NO);
+		$("#ownerName").val(params.OWNER_NAME);
+		$("#ownerPhone").val(params.PHONE);
+		$("#ownerMobile").val(params.MOBILE);
+		$("#yearModel").val(params.YEAR_MODEL);
+		$("#liceseNo").val(params.LICENSE);
+		
+		$("#brandCode").val(params.BRAND);
+		$("#seriesCode").val(params.SERIES);
+		$("#modelCode").val(params.MODEL);
+		$("#apackageCode").val(params.APACKAGE);
+		
+		$("#brandName").val(params.BRAND_NAME);
+		$("#seriesName").val(params.SERIES_NAME);
+		$("#modelName").val(params.MODEL_NAME);
+		$("#apackageName").val(params.APACKAGE_NAME);
+		
+		$("#customerName").val(params.OWNER_NAME);
+		$("#customerContact").val(params.MOBILE);
+		
+		if(params.BRAND != ''){
+			console.log(params.BRAND);
+			$("#brandId").append("<option selected = 'selected' value='"+params.BRAND_ID+"'>"+params.BRAND_NAME+"</option>");
+			$("#brandId").selectpicker('refresh');
+			// jQuery("#brandId").append("<option selected = 'selected'
+			// value='"+params.BRAND_ID+"'>"+params.BRAND_NAME+"</option>");
+		}
+		if(params.SERIES != ''){
+			$("#seriesId").append("<option selected = 'selected' value='"+params.SERIES_ID+"'>"+params.SERIES_NAME+"</option>");
+			$("#seriesId").selectpicker('refresh');
+		}
+		
+		if(params.MODEL != ''){
+			$("#modelId").append("<option selected = 'selected' value='"+params.MODEL_ID+"'>"+params.MODEL_NAME+"</option>");
+			$("#modelId").selectpicker('refresh');
+		}
+		
+		if(params.APACKAGE != ''){
+			$("#apackage").append("<option selected = 'selected' value='"+params.APACKAGE_ID+"'>"+params.APACKAGE_NAME+"</option>");
+			$("#apackage").selectpicker('refresh');
+		}
+		
+		//清空以前的产品信息
+		$("#productId").val("");
+		$("#productNo").val("");
+		$("#productName").val("");
+		$("#productDate").val("");
+		$("#productDescribtion").val("");
+		$("#terminalNonSalesPrice").val("");
+		$("#terminalSalesPrice").val("");
+		$("#nonTaxCostPrice").val("");
+		$("#taxCostPrice").val("");
+		$("#takeEffectStart").val("");
+   	 	$("#takeEffectEnd").val("");
+   	 	$("#actualNonSalesPrice").val("");
+   	 	$("#totalAmount").val("");
+		
+	}else{
+		console.log(params.VIN);
+		$("#vin").val(params.VIN);
+		$("#billingAt").val(params.INVOICE_DATE);
+		$("#ownerNo").val(params.OWNER_NO);
+		$("#ownerName").val(params.OWNER_NAME);
+		$("#ownerPhone").val(params.PHONE);
+		$("#ownerMobile").val(params.MOBILE);
+		$("#yearModel").val(params.YEAR_MODEL);
+		$("#liceseNo").val(params.LICENSE);
+		
+		$("#brandCode").val(params.BRAND);
+		$("#seriesCode").val(params.SERIES);
+		$("#modelCode").val(params.MODEL);
+		$("#apackageCode").val(params.APACKAGE);
+		
+		$("#brandName").val(params.BRAND_NAME);
+		$("#seriesName").val(params.SERIES_NAME);
+		$("#modelName").val(params.MODEL_NAME);
+		$("#apackageName").val(params.APACKAGE_NAME);
+		
+		$("#customerName").val(params.OWNER_NAME);
+		$("#customerContact").val(params.MOBILE);
+		
+		if(params.BRAND != ''){
+			console.log(params.BRAND);
+			$("#brandId").append("<option selected = 'selected' value='"+params.BRAND_ID+"'>"+params.BRAND_NAME+"</option>");
+			$("#brandId").selectpicker('refresh');
+			// jQuery("#brandId").append("<option selected = 'selected'
+			// value='"+params.BRAND_ID+"'>"+params.BRAND_NAME+"</option>");
+		}
+		if(params.SERIES != ''){
+			$("#seriesId").append("<option selected = 'selected' value='"+params.SERIES_ID+"'>"+params.SERIES_NAME+"</option>");
+			$("#seriesId").selectpicker('refresh');
+		}
+		
+		if(params.MODEL != ''){
+			$("#modelId").append("<option selected = 'selected' value='"+params.MODEL_ID+"'>"+params.MODEL_NAME+"</option>");
+			$("#modelId").selectpicker('refresh');
+		}
+		
+		if(params.APACKAGE != ''){
+			$("#apackage").append("<option selected = 'selected' value='"+params.APACKAGE_ID+"'>"+params.APACKAGE_NAME+"</option>");
+			$("#apackage").selectpicker('refresh');
+		}
 	}
-	if(params.SERIES != ''){
-		$("#seriesId").append("<option selected = 'selected' value='"+params.SERIES_ID+"'>"+params.SERIES_NAME+"</option>");
-		$("#seriesId").selectpicker('refresh');
-	}
-	
-	if(params.MODEL != ''){
-		$("#modelId").append("<option selected = 'selected' value='"+params.MODEL_ID+"'>"+params.MODEL_NAME+"</option>");
-		$("#modelId").selectpicker('refresh');
-	}
-	
-	if(params.APACKAGE != ''){
-		$("#apackage").append("<option selected = 'selected' value='"+params.APACKAGE_ID+"'>"+params.APACKAGE_NAME+"</option>");
-		$("#apackage").selectpicker('refresh');
-	}
-	
-	/*
-	 * var nowDate = getNowDate(); getDay(nowDate,params.INVOICE_DATE);
-	 */
 }
 
 function getProductChild(values){

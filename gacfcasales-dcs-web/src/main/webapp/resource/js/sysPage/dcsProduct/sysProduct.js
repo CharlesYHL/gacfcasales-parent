@@ -509,7 +509,7 @@ function resetFrom() {
 function release(productId) {
 	console.log("发布动作======" + productId);
 	layer.confirm('是否确定发布？', {
-		btn : [ '确定', '取消' ]
+		btn : [ '确定', '取消' ],closeBtn: 0
 	// 按钮
 	}, function(index) {
 		$.get(ctx + "/sysProduct/ajax/releaseProduct?productId=" + productId,
@@ -533,7 +533,7 @@ function release(productId) {
 function cancel(productId) {
 	console.log("取消动作======" + productId);
 	layer.confirm('是否确定取消发布？', {
-		btn : [ '确定', '取消' ]
+		btn : [ '确定', '取消' ],closeBtn: 0
 	// 按钮
 	}, function(index) {
 		$.get(ctx + "/sysProduct/ajax/cancelProduct?productId=" + productId,
@@ -595,7 +595,7 @@ function releaseBatch() {
 	}
 	if (selected.length > 0) {
 		layer.confirm('是否确定批量批量发布？', {
-			btn : [ '确定', '取消' ]
+			btn : [ '确定', '取消' ],closeBtn: 0
 		// 按钮
 		}, function(index) {
 			$.ajax({
@@ -643,7 +643,7 @@ function cancelBatch() {
 	}
 	if (selected.length > 0) {
 		layer.confirm('是否确定批量取消发布？', {
-			btn : [ '确定', '取消' ]
+			btn : [ '确定', '取消' ],closeBtn: 0
 		// 按钮
 		}, function(index) {
 			$.ajax({
