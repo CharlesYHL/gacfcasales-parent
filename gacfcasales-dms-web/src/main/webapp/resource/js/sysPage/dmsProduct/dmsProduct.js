@@ -264,7 +264,7 @@ var TableInit = function() {
 										valign : 'middle'
 									}, {
 										field : 'IS_VALID',
-										title : '是否有效',
+										title : 'SAP有效',
 										align : 'center',
 										valign : 'middle'
 									}, {
@@ -312,12 +312,12 @@ var TableInit = function() {
 										title : '是否可销售',
 										align : 'center',
 										valign : 'middle'
-									}, {
+									}/*, {
 										field : 'PRODUCT_MODEL',
 										title : '适用车型',
 										align : 'center',
 										valign : 'middle'
-									}, {
+									}*/, {
 										field : 'PRODUCT_DESCRIBTION',
 										title : '特别约定',
 										align : 'center',

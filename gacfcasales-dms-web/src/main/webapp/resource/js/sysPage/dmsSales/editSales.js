@@ -500,8 +500,9 @@ function save(){
 				console.log("返回参数:" + data);
 				if (data == '0') {
 					toastr.success("保存成功，请确认已收款，收款后再提交");
-					var index1 = parent.layer.getFrameIndex(window.name);
-					parent.layer.close(index1);
+					$("#btn_save").attr("disabled", true);
+					//var index1 = parent.layer.getFrameIndex(window.name);
+					//parent.layer.close(index1);
 				}else{
 					toastr.error("销售单保存失败");
 				}
