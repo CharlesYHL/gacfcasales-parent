@@ -15,7 +15,8 @@
 								<label class="control-label col-xs-5 ">品牌</label>
 								<div class="col-xs-7">
 									<select name="brandId" id="brandId"
-										class="bs-select form-control" onchange="getSeries()"></select>
+										class="bs-select form-control" onchange="getSeries()" multiple
+										data-live-search="true"></select>
 								</div>
 							</div>
 						</div>
@@ -25,7 +26,8 @@
 								<label class="control-label col-xs-5 ">车系</label>
 								<div class="col-xs-7">
 									<select name="seriesId" id="seriesId"
-										class="bs-select form-control" onchange="getModel()"></select>
+										class="bs-select form-control" onchange="getModel()" multiple
+										data-live-search="true" style="height: 34px;"></select>
 								</div>
 							</div>
 						</div>
@@ -35,7 +37,8 @@
 								<label class="control-label col-xs-5 ">车型</label>
 								<div class="col-xs-7">
 									<select name="modelId" id="modelId"
-										class="bs-select form-control"></select>
+										class="bs-select form-control" multiple
+										data-live-search="true" style="height: 34px;"></select>
 								</div>
 							</div>
 						</div>
@@ -62,22 +65,25 @@
 		</form>
 	</div>
 
-	<div v-show="showOperModel" class="box box-custom collapsed-box" style="margin-bottom: 0;">
+	<div v-show="showOperModel" class="box box-custom collapsed-box"
+		style="margin-bottom: 0;">
 		<div class="box-body">
 			<ul id="tabUl" class="nav nav-tabs">
-				<li class="active" id="modelLi" onclick="modelClick()"><a
-					href="#modelSelect" data-toggle="tab">按车型选择</a></li>
-				<li id="seriesLi" onclick="seriesClick()"><a
+
+				<li class="active" id="seriesLi" onclick="seriesClick()"><a
 					href="#seriesSelect" data-toggle="tab">按车系选择</a></li>
+				<li id="modelLi" onclick="modelClick()"><a href="#modelSelect"
+					data-toggle="tab">按车型选择</a></li>
 			</ul>
 
 			<div id="tabContent" class="tab-content">
-				<div class="tab-pane fade in active" id="modelSelect">
-					<table id="model_table" class="table"></table>
-				</div>
-				<div class="tab-pane fade" id="seriesSelect">
+				<div class="tab-pane fade  in active" id="seriesSelect">
 					<table id="series_table" class="table"></table>
 				</div>
+				<div class="tab-pane fade" id="modelSelect">
+					<table id="model_table" class="table"></table>
+				</div>
+
 			</div>
 
 			<!-- <table id="table" class="table"></table> -->

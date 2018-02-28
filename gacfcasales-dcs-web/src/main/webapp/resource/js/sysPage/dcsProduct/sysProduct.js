@@ -8,7 +8,7 @@ $(function() {
 	jQuery("#productDate").append("<option value='0'>请选择</option>");
 	jQuery("#productDate").append("<option value='12'>12个月</option>");
 	jQuery("#productDate").append("<option value='24'>24个月</option>");
-	jQuery("#productDate").append("<option value='36'>36个月</option>");
+	/*jQuery("#productDate").append("<option value='36'>36个月</option>");*/
 
 	// 发布状态
 	jQuery("#releaseStatus").append("<option value='0'>请选择</option>");
@@ -401,6 +401,21 @@ var TableInit = function() {
 										align : 'center',
 										valign : 'middle'
 									}, {
+										field : 'PRODUCT_FAIT',
+										title : 'FIAT授权',
+										align : 'center',
+										valign : 'middle'
+									}, {
+										field : 'PRODUCT_JEEP',
+										title : '国产JEEP授权',
+										align : 'center',
+										valign : 'middle'
+									}, {
+										field : 'PRODUCT_CJD',
+										title : 'CJD授权',
+										align : 'center',
+										valign : 'middle'
+									}, {
 										field : 'DNP_PRICE',
 										title : 'DNP价格',
 										align : 'center',
@@ -422,12 +437,12 @@ var TableInit = function() {
 										valign : 'middle'
 									}, {
 										field : 'STOP_DATE',
-										title : '停用时间',
+										title : '取消时间',
 										align : 'center',
 										valign : 'middle'
 									}, {
 										field : 'IS_VALID',
-										title : '是否有效',
+										title : 'SAP有效',
 										align : 'center',
 										valign : 'middle'
 									}, {
@@ -440,12 +455,12 @@ var TableInit = function() {
 										title : '产品有效期',
 										align : 'center',
 										valign : 'middle'
-									}, {
+									}/*, {
 										field : 'PRODUCT_MODEL',
 										title : '适用车型',
 										align : 'center',
 										valign : 'middle'
-									}, {
+									}*/, {
 										field : 'SALES_DATE_ALL',
 										title : '销售时间',
 										align : 'center',

@@ -81,6 +81,24 @@
 								</div>
 							</div>
 						</div>
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">销售时间&nbsp;<span style="color:red">*</span></label>
+								<div class="col-xs-8 col-sm-10">
+									<div class="input-group input-daterange">
+										<input id="salesStart" name="salesStart" type="text"
+											class="form-control" placeholder="请输入开始日期"
+											value="${requestScope.tiOpiExtendedDCS.SALES_DATE_START }" />
+										<span class="input-group-addon"> - </span> <input
+											id="salesEnd" name="salesEnd" type="text"
+											class="form-control" style="border:1px solid red;"
+											value="${requestScope.tiOpiExtendedDCS.SALES_DATE_END }"
+											placeholder="请输入结束日期"  required />
+									</div>
+
+								</div>
+							</div>
+						</div>
 
 						<%-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
@@ -144,7 +162,7 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-4 ">JEEP授权</label>
+								<label class="control-label col-xs-4 ">国产JEEP授权</label>
 								<div class="col-xs-8">
 									<select name="isJeep" id="isJeep"
 										class="bs-select form-control"></select>
@@ -163,7 +181,7 @@
 
 
 
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<%-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
 								<label class="control-label col-xs-4">适用车型</label>
 								<div class="col-xs-8 ">
@@ -174,31 +192,14 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
-							<div class="form-group">
-								<label class="control-label col-xs-4 col-sm-2">销售时间</label>
-								<div class="col-xs-8 col-sm-10">
-									<div class="input-group input-daterange">
-										<input id="salesStart" name="salesStart" type="text"
-											class="form-control" placeholder="请输入开始日期"
-											value="${requestScope.tiOpiExtendedDCS.SALES_DATE_START }" />
-										<span class="input-group-addon"> - </span> <input
-											id="salesEnd" name="salesEnd" type="text"
-											class="form-control"
-											value="${requestScope.tiOpiExtendedDCS.SALES_DATE_END }"
-											placeholder="请输入结束日期" />
-									</div>
-
-								</div>
-							</div>
-						</div>
+						</div> --%>
+						
 
 
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-4">产品说明</label>
+								<label class="control-label col-xs-4">特别约定</label>
 								<div class="col-xs-8">
 									<textarea id="productDescribtion" name="productDescribtion"
 										class="form-control" rows="3"></textarea>

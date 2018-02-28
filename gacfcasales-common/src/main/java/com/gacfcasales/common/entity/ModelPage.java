@@ -1,6 +1,7 @@
 package com.gacfcasales.common.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ModelPage implements Serializable {
 	private String PRODUCT_ID;
@@ -13,6 +14,12 @@ public class ModelPage implements Serializable {
 	private String MODEL_ID;
 	private String MODEL_CODE;
 	private String MODEL_NAME;
+	
+	private List<Integer> BRAND_ID_A;
+	private List<Integer> SERIES_ID_A;
+	private List<Integer> MODEL_ID_A;
+	
+	
 	public String getPRODUCT_ID() {
 		return PRODUCT_ID;
 	}
@@ -72,6 +79,24 @@ public class ModelPage implements Serializable {
 	}
 	public void setMODEL_NAME(String mODEL_NAME) {
 		MODEL_NAME = mODEL_NAME;
+	}
+	public List<Integer> getBRAND_ID_A() {
+		return BRAND_ID_A;
+	}
+	public void setBRAND_ID_A(List<Integer> bRAND_ID_A) {
+		BRAND_ID_A = bRAND_ID_A;
+	}
+	public List<Integer> getSERIES_ID_A() {
+		return SERIES_ID_A;
+	}
+	public void setSERIES_ID_A(List<Integer> sERIES_ID_A) {
+		SERIES_ID_A = sERIES_ID_A;
+	}
+	public List<Integer> getMODEL_ID_A() {
+		return MODEL_ID_A;
+	}
+	public void setMODEL_ID_A(List<Integer> mODEL_ID_A) {
+		MODEL_ID_A = mODEL_ID_A;
 	}
 	
 	

@@ -88,6 +88,9 @@ public class ProductDcsController {
 		exportColumnList.add(new ExcelExportColumn("PRODUCT_NAME", "产品名称"));
 		exportColumnList.add(new ExcelExportColumn("PRODUCT_CATEGORY", "产品类别"));
 		exportColumnList.add(new ExcelExportColumn("PRODUCT_PROPERTY", "产品属性"));
+		exportColumnList.add(new ExcelExportColumn("PRODUCT_FAIT", "FIAT授权"));
+		exportColumnList.add(new ExcelExportColumn("PRODUCT_JEEP", "国产JEEP授权"));
+		exportColumnList.add(new ExcelExportColumn("PRODUCT_CJD", "CJD授权"));
 		exportColumnList.add(new ExcelExportColumn("DNP_PRICE", "DNP价格"));
 		exportColumnList.add(new ExcelExportColumn("MSRP_PRICE", "MSRP价格"));
 		exportColumnList.add(new ExcelExportColumn("RELEASE_STATUS", "发布状态"));
@@ -96,7 +99,7 @@ public class ProductDcsController {
 		exportColumnList.add(new ExcelExportColumn("IS_VALID", "是否有效"));
 		exportColumnList.add(new ExcelExportColumn("IS_C_SALE", "是否可销售"));
 		exportColumnList.add(new ExcelExportColumn("PRODUCT_DATE", "产品有效期"));
-		exportColumnList.add(new ExcelExportColumn("PRODUCT_MODEL", "适用车型"));
+		/*exportColumnList.add(new ExcelExportColumn("PRODUCT_MODEL", "适用车型"));*/
 		exportColumnList.add(new ExcelExportColumn("SALES_DATE_START", "销售开始时间"));
 		exportColumnList.add(new ExcelExportColumn("SALES_DATE_END", "销售开始时间"));
 		exportExcel.generateExcelForDms(excelData, exportColumnList, "产品信息表.xls", request, response);
@@ -159,6 +162,9 @@ public class ProductDcsController {
 		exportColumnList.add(new ExcelExportColumn("PRODUCT_NAME", "产品名称"));
 		exportColumnList.add(new ExcelExportColumn("PRODUCT_CATEGORY", "产品类别"));
 		exportColumnList.add(new ExcelExportColumn("PRODUCT_PROPERTY", "产品属性"));
+		exportColumnList.add(new ExcelExportColumn("PRODUCT_FAIT", "FIAT授权"));
+		exportColumnList.add(new ExcelExportColumn("PRODUCT_JEEP", "国产JEEP授权"));
+		exportColumnList.add(new ExcelExportColumn("PRODUCT_CJD", "CJD授权"));
 		exportColumnList.add(new ExcelExportColumn("DNP_PRICE", "DNP价格"));
 		exportColumnList.add(new ExcelExportColumn("MSRP_PRICE", "MSRP价格"));
 		exportColumnList.add(new ExcelExportColumn("RELEASE_STATUS", "发布状态"));
@@ -167,7 +173,7 @@ public class ProductDcsController {
 		exportColumnList.add(new ExcelExportColumn("IS_VALID", "是否有效"));
 		exportColumnList.add(new ExcelExportColumn("IS_C_SALE", "是否可销售"));
 		exportColumnList.add(new ExcelExportColumn("PRODUCT_DATE", "产品有效期"));
-		exportColumnList.add(new ExcelExportColumn("PRODUCT_MODEL", "适用车型"));
+		/*exportColumnList.add(new ExcelExportColumn("PRODUCT_MODEL", "适用车型"));*/
 		exportColumnList.add(new ExcelExportColumn("SALES_DATE_ALL", "销售时间"));
 		/*
 		 * exportColumnList.add(new ExcelExportColumn("SALES_DATE_START", "销售开始时间"));
@@ -426,13 +432,26 @@ public class ProductDcsController {
 	@RequestMapping(value = "/ajax/getSeriesList", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Map> getSeriesList(@RequestParam String groupId) {
-		return commonNoService.getSeriesList(groupId);
+		Map map = new HashMap();
+		List<String> groupIds = new ArrayList<String>();
+		if(!"".equals(groupId)) {
+			groupIds = getDealerCodes3(groupId);
+			map.put("groupIds", groupIds);
+		}
+		//getDealerCodes3
+		return commonNoService.getSeriesListA(map);
 	}
 
 	@RequestMapping(value = "/ajax/getModelList", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Map> getModelList(@RequestParam String groupId) {
-		return commonNoService.getModelList(groupId);
+		Map map = new HashMap();
+		List<String> groupIds = new ArrayList<String>();
+		if(!"".equals(groupId)) {
+			groupIds = getDealerCodes3(groupId);
+			map.put("groupIds", groupIds);
+		}
+		return commonNoService.getModelListA(map);
 	}
 
 	@RequestMapping(value = "/ajax/searchModel", method = RequestMethod.GET)
@@ -457,7 +476,7 @@ public class ProductDcsController {
 			assist.setRowSize(pageSize);
 		}
 
-		if (modelPage.getBRAND_ID() != null && !"".equals(modelPage.getBRAND_ID())
+		/*if (modelPage.getBRAND_ID() != null && !"".equals(modelPage.getBRAND_ID())
 				&& !"0".equals(modelPage.getBRAND_ID())) {
 			assist.setRequires(Assist.andEq("BSM.BRAND_ID", modelPage.getBRAND_ID()));
 		}
@@ -468,20 +487,32 @@ public class ProductDcsController {
 		if (modelPage.getMODEL_ID() != null && !"".equals(modelPage.getMODEL_ID())
 				&& !"0".equals(modelPage.getMODEL_ID())) {
 			assist.setRequires(Assist.andEq("BSM.MODEL_ID", modelPage.getMODEL_ID()));
+		}*/
+		Map map = new HashMap();
+		if(modelPage.getBRAND_ID() != null && !"".equals(modelPage.getBRAND_ID())
+				&& !"0".equals(modelPage.getBRAND_ID()) && !"null".equals(modelPage.getBRAND_ID())) {
+			map.put("brandIds", getDealerCodes4(modelPage.getBRAND_ID()));
 		}
-
+		if(modelPage.getSERIES_ID() != null && !"".equals(modelPage.getSERIES_ID())
+				&& !"0".equals(modelPage.getSERIES_ID()) && !"null".equals(modelPage.getSERIES_ID())) {
+			map.put("seriesIds", getDealerCodes4(modelPage.getSERIES_ID()));
+		}
+		if(modelPage.getMODEL_ID() != null && !"".equals(modelPage.getMODEL_ID())
+				&& !"0".equals(modelPage.getMODEL_ID()) && !"null".equals(modelPage.getMODEL_ID())) {
+			map.put("modelIds", getDealerCodes4(modelPage.getMODEL_ID()));
+		}
+		map.put("startRow", assist.getStartRow());
+		map.put("rowSize", assist.getRowSize());
 		// assist.setOrder("PRODUCT_NO,PRODUCT_ID", true);
 
-		long count = commonNoService.getModelTableRowCount(assist);
-		List<ModelPage> list = commonNoService.getModelTableList(assist);
+		long count = commonNoService.getModelTableRowCountA(map);
+		List<ModelPage> list = commonNoService.getModelTableListA(map);
 		result.setTotalCount(count);
 		result.setDataList(list);
 		return result;
 	}
 
 	// 按车系查询
-
-	// 按车型查询
 	@RequestMapping(value = "/ajax/getSeriesTableList", method = RequestMethod.POST)
 	@ResponseBody
 	public Result<ModelPage> getSeriesTableList(ModelPage modelPage, @RequestParam(required = false) Integer limit,
@@ -494,7 +525,7 @@ public class ProductDcsController {
 			assist.setRowSize(pageSize);
 		}
 
-		if (modelPage.getBRAND_ID() != null && !"".equals(modelPage.getBRAND_ID())
+		/*if (modelPage.getBRAND_ID() != null && !"".equals(modelPage.getBRAND_ID())
 				&& !"0".equals(modelPage.getBRAND_ID())) {
 			assist.setRequires(Assist.andEq("BSM.BRAND_ID", modelPage.getBRAND_ID()));
 		}
@@ -505,12 +536,26 @@ public class ProductDcsController {
 		if (modelPage.getMODEL_ID() != null && !"".equals(modelPage.getMODEL_ID())
 				&& !"0".equals(modelPage.getMODEL_ID())) {
 			assist.setRequires(Assist.andEq("BSM.MODEL_ID", modelPage.getMODEL_ID()));
-		}
+		}*/
 
 		// assist.setOrder("PRODUCT_NO,PRODUCT_ID", true);
-
-		long count = commonNoService.getSeriesTableRowCount(assist);
-		List<ModelPage> list = commonNoService.getSeriesTableList(assist);
+		Map map = new HashMap();
+		if(modelPage.getBRAND_ID() != null && !"".equals(modelPage.getBRAND_ID())
+				&& !"0".equals(modelPage.getBRAND_ID()) && !"null".equals(modelPage.getBRAND_ID())) {
+			map.put("brandIds", getDealerCodes4(modelPage.getBRAND_ID()));
+		}
+		if(modelPage.getSERIES_ID() != null && !"".equals(modelPage.getSERIES_ID())
+				&& !"0".equals(modelPage.getSERIES_ID()) && !"null".equals(modelPage.getSERIES_ID())) {
+			map.put("seriesIds", getDealerCodes4(modelPage.getSERIES_ID()));
+		}
+		/*if(modelPage.getMODEL_ID() != null && !"".equals(modelPage.getMODEL_ID())
+				&& !"0".equals(modelPage.getMODEL_ID()) && !"null".equals(modelPage.getMODEL_ID())) {
+			map.put("modelIds", getDealerCodes4(modelPage.getMODEL_ID()));
+		}*/
+		map.put("startRow", assist.getStartRow());
+		map.put("rowSize", assist.getRowSize());
+		long count = commonNoService.getSeriesTableRowCountA(map);
+		List<ModelPage> list = commonNoService.getSeriesTableListA(map);
 		result.setTotalCount(count);
 		result.setDataList(list);
 		return result;
@@ -986,6 +1031,8 @@ public class ProductDcsController {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			if (tiOpiExtendedDCS.getSALES_DATE_START() != null && !"".equals(tiOpiExtendedDCS.getSALES_DATE_START())) {
 				TiExtendedPage.setSALES_DATE_START(sdf.format(tiOpiExtendedDCS.getSALES_DATE_START()));
+			}else {
+				TiExtendedPage.setSALES_DATE_START(sdf.format(new Date()));
 			}
 			if (tiOpiExtendedDCS.getSALES_DATE_END() != null && !"".equals(tiOpiExtendedDCS.getSALES_DATE_END())) {
 				TiExtendedPage.setSALES_DATE_END(sdf.format(tiOpiExtendedDCS.getSALES_DATE_END()));
@@ -1028,5 +1075,55 @@ public class ProductDcsController {
 		}
 		return result;
 	}
+	
+	
+	
+	public List<String> getDealerCodes3(String dealerCode) {
+		String dealers = "";
+		dealerCode = dealerCode.replaceAll("，", ",");
+		dealerCode = dealerCode.replaceAll("\\n", ",");
+		boolean before = dealerCode.contains("[");
+		boolean after = dealerCode.contains("[");
+		if(before) {
+			//dealerCode = dealerCode.replaceAll("[", "");
+			dealerCode = dealerCode.replace("[",""); 
+		}
+		if(after) {
+			//dealerCode = dealerCode.replaceAll("", "");
+			dealerCode = dealerCode.replace("]",""); 
+		}
+		String[] dealerCodes = dealerCode.split(",");
+		final List<String> list = new ArrayList<String>();
+		for (int i = 0; i < dealerCodes.length; i++) {
+			// String str = "'" + dealerCodes[i] + "'";
+			list.add(dealerCodes[i]);
+		}
+		return list;
+	}
+	
+	public List<String> getDealerCodes4(String dealerCode) {
+		String dealers = "";
+		dealerCode = dealerCode.replaceAll("，", ",");
+		dealerCode = dealerCode.replaceAll("\\n", ",");
+		boolean before = dealerCode.contains("[");
+		boolean after = dealerCode.contains("[");
+		if(before) {
+			//dealerCode = dealerCode.replaceAll("[", "");
+			dealerCode = dealerCode.replace("[",""); 
+		}
+		if(after) {
+			//dealerCode = dealerCode.replaceAll("", "");
+			dealerCode = dealerCode.replace("]",""); 
+		}
+		dealerCode = dealerCode.replace("\"", "");
+		String[] dealerCodes = dealerCode.split(",");
+		final List<String> list = new ArrayList<String>();
+		for (int i = 0; i < dealerCodes.length; i++) {
+			// String str = "'" + dealerCodes[i] + "'";
+			list.add(dealerCodes[i]);
+		}
+		return list;
+	}
+	
 
 }

@@ -468,4 +468,42 @@ public class CommonNoServiceImpl implements CommonNoService {
 		return commoNoDao.getDealerCodeAndName(groupId);
 	}
 
+	@Override
+	@DataSourceAnnotation(value="read")
+	public List<Map> getSeriesListA(Map map) {
+		// TODO Auto-generated method stub
+		return commoNoDao.getSeriesListA(map);
+	}
+
+	@Override
+	@DataSourceAnnotation(value="read")
+	public List<Map> getModelListA(Map map) {
+		// TODO Auto-generated method stub
+		return commoNoDao.getModelListA(map);
+	}
+
+	@Override
+	public List<ModelPage> getModelTableListA(Map map) {
+		// TODO Auto-generated method stub
+		return commoNoDao.getModelTableListA(map);
+	}
+
+	@Override
+	public long getModelTableRowCountA(Map map) {
+		// TODO Auto-generated method stub
+		return commoNoDao.getModelTableRowCountA(map);
+	}
+
+	@Override
+	public List<ModelPage> getSeriesTableListA(Map map) {
+		// TODO Auto-generated method stub
+		return commoNoDao.getSeriesTableListA(map);
+	}
+
+	@Override
+	public long getSeriesTableRowCountA(Map map) {
+		// TODO Auto-generated method stub
+		return commoNoDao.getSeriesTableRowCountA(map);
+	}
+
 }

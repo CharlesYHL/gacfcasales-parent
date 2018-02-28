@@ -1,7 +1,7 @@
 $(function() {
 	getBrand();
 	
-	var oTable = new TableInitModel();
+	var oTable = new TableInitSeries();
 	oTable.Init();
 	
 });
@@ -239,6 +239,12 @@ function getModel(){
 
 var TableInitModel = function() {
 	var oTableInit = new Object();
+	var brandId = $("#brandId").val();
+	console.log("品牌:"+brandId);
+	var seriesId = $("#seriesId").val();
+	console.log("车系:"+seriesId);
+	var modelId = $("#modelId").val();
+	console.log("车型:"+modelId);
 	// 初始化Table
 	oTableInit.Init = function() {
 		$('#model_table').bootstrapTable({
@@ -255,8 +261,8 @@ var TableInitModel = function() {
 			"queryParamsType" : "limit",
 			minimumCountColumns : 2,
 			pageNumber : 1, // 初始化加载第一页，默认第一页
-			pageSize : 15, // 每页的记录行数（*）
-			pageList : [ 15, 25, 50, 100 ], // 可供选择的每页的行数（*）
+			pageSize : 30, // 每页的记录行数（*）
+			pageList : [ 30, 50, 100 ], // 可供选择的每页的行数（*）
 			height : 590,
 			uniqueId : "id", // 每一行的唯一标识，一般为主键列
 			showRefresh : false, // 是否显示刷新按钮
@@ -340,9 +346,9 @@ var TableInitModel = function() {
 			offset : params.offset, // 页码
 			pageindex : this.pageNumber,
 			pageSize : this.pageSize,
-			BRAND_ID : $("#brandId").val(),
-			SERIES_ID : $("#seriesId").val(),
-			MODEL_ID : $("#modelId").val(),
+			BRAND_ID : JSON.stringify($("#brandId").val()),
+			SERIES_ID : JSON.stringify($("#seriesId").val()),
+			MODEL_ID : JSON.stringify($("#modelId").val()),
 			
 		}
 		return param;
@@ -369,6 +375,12 @@ var TableInitModel = function() {
 
 var TableInitSeries = function() {
 	var oTableInit = new Object();
+	var brandId = $("#brandId").val();
+	console.log("品牌:"+brandId);
+	var seriesId = $("#seriesId").val();
+	console.log("车系:"+seriesId);
+	var modelId = $("#modelId").val();
+	console.log("车型:"+modelId);
 	// 初始化Table
 	oTableInit.Init = function() {
 		$('#series_table').bootstrapTable({
@@ -385,8 +397,8 @@ var TableInitSeries = function() {
 			"queryParamsType" : "limit",
 			minimumCountColumns : 2,
 			pageNumber : 1, // 初始化加载第一页，默认第一页
-			pageSize : 15, // 每页的记录行数（*）
-			pageList : [ 15, 25, 50, 100 ], // 可供选择的每页的行数（*）
+			pageSize : 30, // 每页的记录行数（*）
+			pageList : [ 30, 50, 100 ], // 可供选择的每页的行数（*）
 			height : 500,
 			uniqueId : "id", // 每一行的唯一标识，一般为主键列
 			showRefresh : false, // 是否显示刷新按钮
@@ -471,9 +483,9 @@ var TableInitSeries = function() {
 			offset : params.offset, // 页码
 			pageindex : this.pageNumber,
 			pageSize : this.pageSize,
-			BRAND_ID : $("#brandId").val(),
-			SERIES_ID : $("#seriesId").val(),
-			MODEL_ID : $("#modelId").val(),
+			BRAND_ID : JSON.stringify($("#brandId").val()),
+			SERIES_ID : JSON.stringify($("#seriesId").val()),
+			MODEL_ID : JSON.stringify($("#modelId").val()),
 			
 		}
 		return param;

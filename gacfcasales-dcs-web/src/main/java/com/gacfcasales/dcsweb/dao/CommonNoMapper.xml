@@ -75,15 +75,28 @@
 		AND m1.GROUP_ID=#{groupId}
 
 	</select>
+	<select id="getSeriesListA" parameterType="map"
+		resultType="map">
+		SELECT DISTINCT m2.GROUP_ID SERIES_ID,m2.GROUP_NAME SERIES_NAME FROM
+		tm_vhcl_material_group m1,tm_vhcl_material_group m2
+		WHERE m1.GROUP_ID =
+		m2.PARENT_GROUP_ID AND m2.GROUP_LEVEL = 2
+		AND m2.STATUS = '10011001'
+		<if test="groupIds != null and groupIds.size > 0 ">
+			<!-- AND bsm.DEALER_CODE in #{DEALER_CODE} -->
+			AND m1.GROUP_ID in
+			<foreach collection="groupIds" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+
+	</select>
 
 	<!-- 获取车型下拉框 -->
 	<select id="getModelList" parameterType="java.lang.String"
 		resultType="map">
-		<!-- SELECT DISTINCT m2.GROUP_ID MODEL_ID,m2.GROUP_CODE MODEL_CODE,m2.GROUP_NAME 
-			MODEL_NAME FROM tm_vhcl_material_group m1,tm_vhcl_material_group m2 WHERE 
-			m1.GROUP_ID = m2.PARENT_GROUP_ID AND m2.GROUP_LEVEL = 3 AND m2.STATUS = '10011001' 
-			AND m1.GROUP_TYPE = 90081002 AND m1.GROUP_ID = #{groupId} -->
-
 		SELECT DISTINCT m2.GROUP_ID MODEL_ID,m2.GROUP_CODE
 		MODEL_CODE,m2.GROUP_NAME MODEL_NAME
 		FROM tm_vhcl_material_group
@@ -93,6 +106,25 @@
 		m2.GROUP_LEVEL = 3
 		AND m2.STATUS = '10011001' AND m1.GROUP_ID =
 		#{groupId}
+	</select>
+	<select id="getModelListA" parameterType="map"
+		resultType="map">
+		SELECT DISTINCT m2.GROUP_ID MODEL_ID,m2.GROUP_CODE
+		MODEL_CODE,m2.GROUP_NAME MODEL_NAME
+		FROM tm_vhcl_material_group
+		m1,tm_vhcl_material_group m2
+		WHERE m1.GROUP_ID = m2.PARENT_GROUP_ID
+		AND
+		m2.GROUP_LEVEL = 3
+		AND m2.STATUS = '10011001' 
+		<if test="groupIds != null and groupIds.size > 0 ">
+			AND m1.GROUP_ID in
+			<foreach collection="groupIds" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
 	</select>
 
 
@@ -297,6 +329,220 @@
 			<include refid="Assist" />
 		</if>
 	</select>
+	
+	
+	
+	<select id="getModelTableListA" parameterType="map"
+		resultType="com.gacfcasales.common.entity.ModelPage">
+		SELECT
+		MODEL_ID,
+		MODEL_CODE,
+		MODEL_NAME,
+		SERIES_ID,
+		SERIES_CODE,
+		SERIES_NAME,
+		BRAND_ID,
+		BRAND_CODE,
+		BRAND_NAME
+		FROM
+		(
+		SELECT
+		model.MODEL_ID,
+		model.MODEL_CODE,
+		model.MODEL_NAME,
+		series.SERIES_ID,
+		series.SERIES_CODE,
+		series.SERIES_NAME,
+		brand.BRAND_ID,
+		brand.BRAND_CODE,
+		brand.BRAND_NAME
+		FROM
+		(
+		SELECT DISTINCT
+		m2.GROUP_ID
+		MODEL_ID,
+		m2.GROUP_CODE MODEL_CODE,
+		m2.GROUP_NAME MODEL_NAME,
+		m1.GROUP_ID SERIES_ID_MODEL
+		FROM
+		tm_vhcl_material_group m1,
+		tm_vhcl_material_group m2
+		WHERE
+		m1.GROUP_ID = m2.PARENT_GROUP_ID
+		AND
+		m2.GROUP_LEVEL = 3
+		AND m2. STATUS = '10011001'
+		) model
+		INNER JOIN (
+		SELECT DISTINCT
+		m2.GROUP_ID SERIES_ID,
+		m2.GROUP_CODE SERIES_CODE,
+		m2.GROUP_NAME SERIES_NAME,
+		m1.GROUP_ID BRAND_ID_SERIES
+		FROM
+		tm_vhcl_material_group m1,
+		tm_vhcl_material_group m2
+		WHERE
+		m1.GROUP_ID =
+		m2.PARENT_GROUP_ID
+		AND m2.GROUP_LEVEL = 2
+		AND m2. STATUS = '10011001'
+		)
+		series ON model.SERIES_ID_MODEL =
+		series.SERIES_ID
+		INNER JOIN (
+		SELECT
+		DISTINCT
+		m1.GROUP_ID BRAND_ID,
+		m1.GROUP_CODE BRAND_CODE,
+		m1.GROUP_NAME
+		BRAND_NAME
+		FROM
+		tm_vhcl_material_group m1,
+		tm_vhcl_material_group m2
+		WHERE
+		m1.GROUP_ID = m2.PARENT_GROUP_ID
+		AND m2.GROUP_LEVEL = 2
+		AND m1.
+		STATUS = '10011001'
+		) brand ON series.BRAND_ID_SERIES =
+		brand.BRAND_ID
+		GROUP BY model.MODEL_ID,model.MODEL_CODE,model.MODEL_NAME
+		ORDER BY
+		model.MODEL_ID,model.MODEL_CODE,model.MODEL_NAME DESC
+		)
+		BSM
+		
+		where 1=1
+		<if test="brandIds != null and brandIds.size > 0 ">
+			AND BSM.BRAND_ID in
+			<foreach collection="brandIds" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+		<if test="seriesIds != null and seriesIds.size > 0 ">
+			AND BSM.SERIES_ID in
+			<foreach collection="seriesIds" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+		<if test="modelIds != null and modelIds.size > 0 ">
+			AND BSM.MODEL_ID in
+			<foreach collection="modelIds" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+
+		LIMIT
+		#{startRow},#{rowSize}
+	</select>
+	
+	<select id="getModelTableRowCountA" parameterType="map"
+		resultType="java.lang.Long">
+		SELECT count(*) FROM
+		(
+		SELECT
+		model.MODEL_ID,
+		model.MODEL_CODE,
+		model.MODEL_NAME,
+		series.SERIES_ID,
+		series.SERIES_CODE,
+		series.SERIES_NAME,
+		brand.BRAND_ID,
+		brand.BRAND_CODE,
+		brand.BRAND_NAME
+		FROM
+		(
+		SELECT DISTINCT
+		m2.GROUP_ID
+		MODEL_ID,
+		m2.GROUP_CODE MODEL_CODE,
+		m2.GROUP_NAME MODEL_NAME,
+		m1.GROUP_ID SERIES_ID_MODEL
+		FROM
+		tm_vhcl_material_group m1,
+		tm_vhcl_material_group m2
+		WHERE
+		m1.GROUP_ID =
+		m2.PARENT_GROUP_ID
+		AND
+		m2.GROUP_LEVEL = 3
+		AND m2. STATUS = '10011001'
+		)
+		model
+		INNER JOIN (
+		SELECT DISTINCT
+		m2.GROUP_ID SERIES_ID,
+		m2.GROUP_CODE
+		SERIES_CODE,
+		m2.GROUP_NAME SERIES_NAME,
+		m1.GROUP_ID BRAND_ID_SERIES
+		FROM
+		tm_vhcl_material_group m1,
+		tm_vhcl_material_group m2
+		WHERE
+		m1.GROUP_ID =
+		m2.PARENT_GROUP_ID
+		AND m2.GROUP_LEVEL = 2
+		AND m2. STATUS = '10011001'
+		)
+		series ON model.SERIES_ID_MODEL =
+		series.SERIES_ID
+		INNER JOIN (
+		SELECT
+		DISTINCT
+		m1.GROUP_ID BRAND_ID,
+		m1.GROUP_CODE BRAND_CODE,
+		m1.GROUP_NAME
+		BRAND_NAME
+		FROM
+		tm_vhcl_material_group m1,
+		tm_vhcl_material_group m2
+		WHERE
+		m1.GROUP_ID = m2.PARENT_GROUP_ID
+		AND m2.GROUP_LEVEL = 2
+		AND m1.
+		STATUS = '10011001'
+		) brand ON series.BRAND_ID_SERIES =
+		brand.BRAND_ID
+		GROUP BY model.MODEL_ID,model.MODEL_CODE,model.MODEL_NAME
+		ORDER BY
+		model.MODEL_ID,model.MODEL_CODE,model.MODEL_NAME DESC
+		) BSM
+		where 1=1
+		<if test="brandIds != null and brandIds.size > 0 ">
+			AND BSM.BRAND_ID in
+			<foreach collection="brandIds" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+		<if test="seriesIds != null and seriesIds.size > 0 ">
+			AND BSM.SERIES_ID in
+			<foreach collection="seriesIds" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+		<if test="modelIds != null and modelIds.size > 0 ">
+			AND BSM.MODEL_ID in
+			<foreach collection="modelIds" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+	</select>
+	
+	
 
 
 	<!-- 按车系查询 -->
@@ -502,6 +748,220 @@
 			<include refid="Assist" />
 		</if>
 	</select>
+	
+	<!-- 按车系查询 -->
+	<select id="getSeriesTableListA" parameterType="map"
+		resultType="com.gacfcasales.common.entity.ModelPage">
+		SELECT
+		MODEL_ID,
+		MODEL_CODE,
+		MODEL_NAME,
+		SERIES_ID,
+		SERIES_CODE,
+		SERIES_NAME,
+		BRAND_ID,
+		BRAND_CODE,
+		BRAND_NAME
+		FROM
+		(
+		SELECT
+		model.MODEL_ID,
+		model.MODEL_CODE,
+		model.MODEL_NAME,
+		series.SERIES_ID,
+		series.SERIES_CODE,
+		series.SERIES_NAME,
+		brand.BRAND_ID,
+		brand.BRAND_CODE,
+		brand.BRAND_NAME
+		FROM
+		(
+		SELECT DISTINCT
+		m2.GROUP_ID
+		MODEL_ID,
+		m2.GROUP_CODE MODEL_CODE,
+		m2.GROUP_NAME MODEL_NAME,
+		m1.GROUP_ID SERIES_ID_MODEL
+		FROM
+		tm_vhcl_material_group m1,
+		tm_vhcl_material_group m2
+		WHERE
+		m1.GROUP_ID = m2.PARENT_GROUP_ID
+		AND
+		m2.GROUP_LEVEL = 3
+		AND m2. STATUS = '10011001'
+		) model
+		INNER JOIN (
+		SELECT DISTINCT
+		m2.GROUP_ID SERIES_ID,
+		m2.GROUP_CODE SERIES_CODE,
+		m2.GROUP_NAME SERIES_NAME,
+		m1.GROUP_ID BRAND_ID_SERIES
+		FROM
+		tm_vhcl_material_group m1,
+		tm_vhcl_material_group m2
+		WHERE
+		m1.GROUP_ID =
+		m2.PARENT_GROUP_ID
+		AND m2.GROUP_LEVEL = 2
+		AND m2. STATUS = '10011001'
+		)
+		series ON model.SERIES_ID_MODEL =
+		series.SERIES_ID
+		INNER JOIN (
+		SELECT
+		DISTINCT
+		m1.GROUP_ID BRAND_ID,
+		m1.GROUP_CODE BRAND_CODE,
+		m1.GROUP_NAME
+		BRAND_NAME
+		FROM
+		tm_vhcl_material_group m1,
+		tm_vhcl_material_group m2
+		WHERE
+		m1.GROUP_ID = m2.PARENT_GROUP_ID
+		AND m2.GROUP_LEVEL = 2
+		AND m1.
+		STATUS = '10011001'
+		) brand ON series.BRAND_ID_SERIES =
+		brand.BRAND_ID
+		GROUP BY series.SERIES_ID,series.SERIES_CODE,series.SERIES_NAME
+		ORDER
+		BY series.SERIES_ID,series.SERIES_CODE,series.SERIES_NAME DESC
+		)
+		BSM
+		where 1=1
+		<if test="brandIds != null and brandIds.size > 0 ">
+			AND BSM.BRAND_ID in
+			<foreach collection="brandIds" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+		<if test="seriesIds != null and seriesIds.size > 0 ">
+			AND BSM.SERIES_ID in
+			<foreach collection="seriesIds" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+		<if test="modelIds != null and modelIds.size > 0 ">
+			AND BSM.MODEL_ID in
+			<foreach collection="modelIds" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+		LIMIT
+		#{startRow},#{rowSize}
+	</select>
+
+	<select id="getSeriesTableRowCountA" parameterType="map"
+		resultType="java.lang.Long">
+		SELECT
+		count(*)
+		FROM
+		(
+		SELECT
+		model.MODEL_ID,
+		model.MODEL_CODE,
+		model.MODEL_NAME,
+		series.SERIES_ID,
+		series.SERIES_CODE,
+		series.SERIES_NAME,
+		brand.BRAND_ID,
+		brand.BRAND_CODE,
+		brand.BRAND_NAME
+		FROM
+		(
+		SELECT DISTINCT
+		m2.GROUP_ID
+		MODEL_ID,
+		m2.GROUP_CODE MODEL_CODE,
+		m2.GROUP_NAME MODEL_NAME,
+		m1.GROUP_ID SERIES_ID_MODEL
+		FROM
+		tm_vhcl_material_group m1,
+		tm_vhcl_material_group m2
+		WHERE
+		m1.GROUP_ID =
+		m2.PARENT_GROUP_ID
+		AND
+		m2.GROUP_LEVEL = 3
+		AND m2. STATUS = '10011001'
+		)
+		model
+		INNER JOIN (
+		SELECT DISTINCT
+		m2.GROUP_ID SERIES_ID,
+		m2.GROUP_CODE
+		SERIES_CODE,
+		m2.GROUP_NAME SERIES_NAME,
+		m1.GROUP_ID BRAND_ID_SERIES
+		FROM
+		tm_vhcl_material_group m1,
+		tm_vhcl_material_group m2
+		WHERE
+		m1.GROUP_ID =
+		m2.PARENT_GROUP_ID
+		AND m2.GROUP_LEVEL = 2
+		AND m2. STATUS = '10011001'
+		)
+		series ON model.SERIES_ID_MODEL =
+		series.SERIES_ID
+		INNER JOIN (
+		SELECT
+		DISTINCT
+		m1.GROUP_ID BRAND_ID,
+		m1.GROUP_CODE BRAND_CODE,
+		m1.GROUP_NAME
+		BRAND_NAME
+		FROM
+		tm_vhcl_material_group m1,
+		tm_vhcl_material_group m2
+		WHERE
+		m1.GROUP_ID = m2.PARENT_GROUP_ID
+		AND m2.GROUP_LEVEL = 2
+		AND m1.
+		STATUS = '10011001'
+		) brand ON series.BRAND_ID_SERIES =
+		brand.BRAND_ID
+		GROUP BY series.SERIES_ID,series.SERIES_CODE,series.SERIES_NAME
+		ORDER
+		BY series.SERIES_ID,series.SERIES_CODE,series.SERIES_NAME DESC
+		)
+		BSM
+		where 1=1
+		<if test="brandIds != null and brandIds.size > 0 ">
+			AND BSM.BRAND_ID in
+			<foreach collection="brandIds" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+		<if test="seriesIds != null and seriesIds.size > 0 ">
+			AND BSM.SERIES_ID in
+			<foreach collection="seriesIds" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+		<if test="modelIds != null and modelIds.size > 0 ">
+			AND BSM.MODEL_ID in
+			<foreach collection="modelIds" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+	</select>
+	
+	
 
 	<select id="selectMaxDistrict" resultType="map">
 		SELECT DISTINCT
