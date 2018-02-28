@@ -1,5 +1,6 @@
 package com.gacfcasales.dmsweb.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -94,11 +95,15 @@ public class DmsSalesController {
 		if (mapUser != null) {
 			dmsSalesDto.setEmployeeName(mapUser.get("EMPLOYEE_NAME").toString());
 		}
-		Date date = new Date();
+		/*Date date = new Date();
 		int year = DateTimeUtil.getNowYear(date);
 		String month = DateTimeUtil.getNowMonth(date);
-		String day = DateTimeUtil.getNowDay(date);
-		dmsSalesDto.setCreateAt(year + "-" + month + "-" + day);
+		String day = DateTimeUtil.getNowDay(date);*/
+		
+		SimpleDateFormat fomat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String mydate = fomat2.format(new Date());
+		
+		dmsSalesDto.setCreateAt(mydate);
 
 		mav.addObject("dmsSalesDto", dmsSalesDto);
 		return mav;
@@ -309,6 +314,7 @@ public class DmsSalesController {
 	public Result<TtOpiExtendedSales> getSalesList(TtOpiExtendedSales ttOpiExtendedSales,
 			@RequestParam(required = false) Integer limit, @RequestParam(required = false) Integer offset,
 			@RequestParam(required = false) Integer pageindex, @RequestParam(required = false) Integer pageSize,
+			@RequestParam(required = false) String sort,@RequestParam(required = false) String sortOrder,
 			HttpSession httpSession) {
 
 		TmUser tmUser = (TmUser) httpSession.getAttribute("users");
@@ -400,7 +406,18 @@ public class DmsSalesController {
 			// assist.setRequires(Assist.andEq("bsm.CREATED_AT",
 			// ttOpiExtendedSales.getORDER_STATUS()));
 		}
-		assist.setOrder("bsm.PRODUCT_SALES_ID,bsm.PRODUCT_SALES_ORDER,bsm.CREATED_AT", true);
+		if(sort == null) {
+			assist.setOrder("bsm.PRODUCT_SALES_ID,bsm.PRODUCT_SALES_ORDER,bsm.CREATED_AT", true);
+		}else {
+			String orderDesc = "bsm."+sort;
+			if("desc".equals(sortOrder)) {
+				assist.setOrder(orderDesc, false);
+			}else {
+				assist.setOrder(orderDesc, true);
+			}
+			
+		}
+		
 		long count = dmsSalesService.getSalesRowCount(assist);
 		List<Map> list = dmsSalesService.getSalesList(assist);
 		result.setTotalCount(count);
@@ -617,7 +634,8 @@ public class DmsSalesController {
 	// 提交销售订单到SAP
 	@RequestMapping(value = "/ajax/submitSales", method = RequestMethod.GET)
 	@ResponseBody
-	public String submitSales(@RequestParam String productSalesOrder, HttpSession httpSession) {
+	public Map submitSales(@RequestParam String productSalesOrder, HttpSession httpSession) {
+		Map resultMap = new HashMap();
 		TmUser tmUser = (TmUser) httpSession.getAttribute("users");
 		Map mapt = dmsSalesService.getEntityCode(tmUser.getDEALER_CODE());
 		Map mapId = new HashMap();
@@ -649,13 +667,18 @@ public class DmsSalesController {
 					dmsSalesService.updateSapData(returnMap);
 
 					if ("S".equals(returnMap.get("IS_RESULT"))) {
-						return "0";
+						resultMap.put("code", "0");
+						resultMap.put("message", "成功");
+						//return ;
+					}else {
+						resultMap.put("code", "1");
+						resultMap.put("message", returnMap.get("IS_MESSAGE"));
 					}
 
 				}
 			}
 		}
-		return "1";
+		return resultMap;
 
 	}
 

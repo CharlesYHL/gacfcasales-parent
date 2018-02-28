@@ -308,7 +308,7 @@ var TableInit = function() {
 														+ row.PRODUCT_SALES_ID
 														+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
 												operate += '<button class="btn btn-primary btn-xs" title="作废" disabled="disabled"  href="#" onclick="invalid(\''
-														+ row.PRODUCT_SALES_ID
+														+ row.PRODUCT_SALES_ID+','+row.PRODUCT_SALES_ORDER
 														+ '\')"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i></button> '
 												operate += '<button class="btn btn-primary btn-xs" title="提交" disabled="disabled"  href="#" onclick="submitSAP(\''
 														+ row.PRODUCT_SALES_ORDER
@@ -326,7 +326,7 @@ var TableInit = function() {
 													+ row.PRODUCT_SALES_ID
 													+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
 											operate += '<button class="btn btn-primary btn-xs" title="作废" disabled="disabled"  href="#" onclick="invalid(\''
-													+ row.PRODUCT_SALES_ID
+													+ row.PRODUCT_SALES_ID+','+row.PRODUCT_SALES_ORDER
 													+ '\')"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i></button> '
 											operate += '<button class="btn btn-primary btn-xs" title="提交" disabled="disabled"  href="#" onclick="submitSAP(\''
 													+ row.PRODUCT_SALES_ORDER
@@ -345,7 +345,7 @@ var TableInit = function() {
 														+ row.PRODUCT_SALES_ID
 														+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
 												operate += '<button class="btn btn-primary btn-xs" title="作废" href="#" onclick="invalid(\''
-														+ row.PRODUCT_SALES_ID
+														+ row.PRODUCT_SALES_ID+','+row.PRODUCT_SALES_ORDER
 														+ '\')"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i></button> '
 												operate += '<button class="btn btn-primary btn-xs" title="提交"  href="#" onclick="submitSAP(\''
 														+ row.PRODUCT_SALES_ORDER
@@ -583,8 +583,8 @@ var TableInit = function() {
 			CREATED_AT_END : $("#createEnd").val(),
 			CLOSED_AT_START : $("#closedStart").val(),
 			CLOSED_AT_END : $("#closedEnd").val(),
-			sort: ORDER_STATUS,      //排序列名  
-            sortOrder: params.sortOrder, //排位命令（desc，asc）
+			sort: params.sort,      //排序列名  
+            sortOrder: params.order //排位命令（desc，asc） 
 		}
 		return param;
 	};
@@ -739,15 +739,18 @@ function edit(productSalesId) {
 
 function invalid(productSalesId) {
 	console.log("进入作废功能" + productSalesId);
-
-	layer.confirm('请确认是否作废销售单据？', {
+	 var str_before = productSalesId.split(',')[0];  
+	 var str_after = productSalesId.split(',')[1];
+	 console.log('前：'+str_before+' - 后：'+str_after);  
+	 
+	layer.confirm('请确认是否作废销售单号:'+str_after+'？', {
 		btn : [ '确定', '取消' ],closeBtn: 0
 	// 按钮
-	}, function() {
+	}, function(index) {
 		$.ajax({
 			type : "GET",
 			url : ctx + "/dmsSales/ajax/invalidSales?productSalesId="
-					+ productSalesId,
+					+ str_before,
 			contentType : "application/json",
 			dataType : "json",
 			cache : false,
@@ -757,9 +760,11 @@ function invalid(productSalesId) {
 				if (data == 0) {
 					toastr.success("作废成功");
 					// alert("作废成功!");
+					layer.close(index);
 					vm.reload();
 				} else {
 					toastr.error("作废失败");
+					layer.close(index);
 					// alert("作废失败!");
 				}
 			},
@@ -781,7 +786,7 @@ function invalid(productSalesId) {
 }
 
 function submitSAP(productSalesOrder) {
-	layer.confirm('销售单据一旦提交，不可作废，请再次确认是否提交？', {
+	layer.confirm('销售单据一旦提交，不可作废，请确认是否提交:'+productSalesOrder+'？', {
 		btn : [ '确定', '取消' ],closeBtn: 0
 	// 按钮
 	}, function(index) {
@@ -795,7 +800,7 @@ function submitSAP(productSalesOrder) {
 			async : true,
 			success : function(data) {
 				console.log("返回参数:" + data);
-				if (data == 0) {
+				if (data.code == 0) {
 					toastr.success("扣款成功");
 					// alert("扣款成功!");
 					$("#btn_print").attr("disabled", false);
@@ -804,7 +809,7 @@ function submitSAP(productSalesOrder) {
 					layer.close(index);
 					vm.reload();
 				} else {
-					toastr.error("扣款失败!");
+					toastr.error("扣款失败,原因:"+data.message+"!");
 					layer.close(index);
 				}
 			},
@@ -860,3 +865,12 @@ function printOrder(productSalesOrder) {
 
 	});*/
 }
+
+
+
+function getStr(string,str){  
+    var str_before = string.split(str)[0];  
+    var str_after = string.split(str)[1];  
+    console.log('前：'+str_before+' - 后：'+str_after);  
+}  
+

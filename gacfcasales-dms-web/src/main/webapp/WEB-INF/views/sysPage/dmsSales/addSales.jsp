@@ -86,7 +86,7 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">客户姓名</label>
+								<label class="control-label col-xs-5 ">客户姓名&nbsp;<span style="color:red">*</span></label>
 								<div class="col-xs-7">
 									<input type="text" class="form-control" name="customerName"
 										id="customerName" value="" placeholder="请输入客户姓名" />
@@ -95,7 +95,7 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">联系方式</label>
+								<label class="control-label col-xs-5 ">联系方式&nbsp;<span style="color:red">*</span></label>
 								<div class="col-xs-7">
 									<input type="text" class="form-control" name="customerContact"
 										id="customerContact" value="" placeholder="请输入联系方式" />
@@ -124,7 +124,7 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">VIN</label>
+								<label class="control-label col-xs-5 ">VIN&nbsp;<span style="color:red">*</span></label>
 								<div class="col-xs-7">
 									<div class="input-group">
 										<div class="input-icon-group">
@@ -255,7 +255,7 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">产品编号</label>
+								<label class="control-label col-xs-5 ">产品编号&nbsp;<span style="color:red">*</span></label>
 								<div class="col-xs-7">
 									<div class="input-group">
 										<div class="input-icon-group">
@@ -375,7 +375,7 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">实际不含税销售价</label>
+								<label class="control-label col-xs-5 ">实际不含税销售价&nbsp;<span style="color:red">*</span></label>
 								<div class="col-xs-7">
 									<input type="text" class="form-control"
 										name="actualNonSalesPrice" id="actualNonSalesPrice"

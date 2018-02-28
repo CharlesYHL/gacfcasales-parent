@@ -445,6 +445,7 @@
 		<if test="require!=null">
 			<include refid="Assist" />
 		</if>
+		 <if test="order !=null">${order}</if>
 		LIMIT #{startRow},#{rowSize}
 	</select>
 
@@ -697,7 +698,7 @@
 		ctu.USER_NAME CREATE_NAME,
 		DATE_FORMAT(
 		ttes.CREATED_AT,
-		'%Y-%m-%d'
+		'%Y-%m-%d %H:%m:%s'
 		)
 		CREATED_AT,
 		ttes.PURCHASE_NUMBER,

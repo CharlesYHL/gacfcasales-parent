@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gacfcasales.common.Assist;
 import com.gacfcasales.common.Result;
+import com.gacfcasales.common.entity.TmUser;
 import com.gacfcasales.common.entity.TtOpiExtendedSales;
 import com.gacfcasales.common.excel.ExcelExportColumn;
 import com.gacfcasales.common.excel.ExportExcel;
@@ -53,6 +54,8 @@ public class ProfitDmsController {
 				@RequestParam(required = false) Integer limit, @RequestParam(required = false) Integer offset,
 				@RequestParam(required = false) Integer pageindex, @RequestParam(required = false) Integer pageSize,
 				HttpSession httpSession) {
+			System.out.println(httpSession.getAttribute("users"));
+			TmUser tmUser = (TmUser)httpSession.getAttribute("users");
 			Result<TtOpiExtendedSales> result = new Result<TtOpiExtendedSales>();
 			Assist assist = new Assist();
 			if (null != pageindex && null != pageSize) {
@@ -99,6 +102,7 @@ public class ProfitDmsController {
 
 			map.put("startRow", assist.getStartRow());
 			map.put("rowSize", assist.getRowSize());
+			map.put("dealerCode", tmUser.getDEALER_CODE());
 			long count = profitDmsService.getProfitRowCount(map);
 			List<Map> list = profitDmsService.getProfitList(map);
 			result.setTotalCount(count);
@@ -119,7 +123,8 @@ public class ProfitDmsController {
 				@RequestParam(required = false) String CLOSED_AT_START,
 				@RequestParam(required = false) String CLOSED_AT_END, HttpServletRequest request,
 				HttpServletResponse response, HttpSession httpSession) {
-
+			System.out.println(httpSession.getAttribute("users"));
+			TmUser tmUser = (TmUser)httpSession.getAttribute("users");
 			Map<String, Object> map = new HashMap<String, Object>();
 			if (PRODUCT_DATE != null && !"0".equals(PRODUCT_DATE)) {
 				map.put("PRODUCT_DATE", PRODUCT_DATE);
@@ -159,7 +164,7 @@ public class ProfitDmsController {
 
 			map.put("startRow", 0);
 			map.put("rowSize", 50000);
-
+			map.put("dealerCode", tmUser.getDEALER_CODE());
 			ExportExcel exportExcel = new ExportExcel();
 			List<Map> resultList = profitDmsService.getProfitListExport(map);
 			Map<String, List<Map>> excelData = new HashMap<String, List<Map>>();

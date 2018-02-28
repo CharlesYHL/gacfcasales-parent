@@ -335,10 +335,10 @@ var TableInit = function() {
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
 												operate += '<button class="btn btn-primary btn-xs" title="发布" href="#" onclick="release(\''
-														+ row.PRODUCT_ID
+														+ row.PRODUCT_ID+','+row.PRODUCT_NO
 														+ '\')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></button> '
 												operate += '<button class="btn btn-primary btn-xs" title="取消发布" disabled="disabled" style="border-color:#dd4b39;background-color:#dd4b39;" href="#" onclick="cancel(\''
-														+ row.PRODUCT_ID
+														+ row.PRODUCT_ID+','+row.PRODUCT_NO
 														+ '\')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></button> '
 											}
 											if (row.RELEASE_STATUS == '已发布') {
@@ -349,10 +349,10 @@ var TableInit = function() {
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
 												operate += '<button class="btn btn-primary btn-xs" title="发布" disabled="disabled" href="#" onclick="release(\''
-														+ row.PRODUCT_ID
+														+ row.PRODUCT_ID+','+row.PRODUCT_NO
 														+ '\')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></button> '
 												operate += '<button class="btn btn-primary btn-xs" title="取消发布" style="border-color:#dd4b39;background-color:#dd4b39" href="#" onclick="cancel(\''
-														+ row.PRODUCT_ID
+														+ row.PRODUCT_ID+','+row.PRODUCT_NO
 														+ '\')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></button> '
 											}
 
@@ -364,10 +364,10 @@ var TableInit = function() {
 														+ row.PRODUCT_ID
 														+ '\')"><i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i></button> '
 												operate += '<button class="btn btn-primary btn-xs" title="发布" style=""href="#" onclick="release(\''
-														+ row.PRODUCT_ID
+														+ row.PRODUCT_ID+','+row.PRODUCT_NO
 														+ '\')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></button> '
 												operate += '<button class="btn btn-primary btn-xs" title="取消发布" disabled="disabled" style="border-color:#dd4b39;background-color:#dd4b39;" href="#" onclick="cancel(\''
-														+ row.PRODUCT_ID
+														+ row.PRODUCT_ID+','+row.PRODUCT_NO
 														+ '\')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></button> '
 											}
 
@@ -508,11 +508,14 @@ function resetFrom() {
 
 function release(productId) {
 	console.log("发布动作======" + productId);
-	layer.confirm('是否确定发布？', {
+	 var str_before = productId.split(',')[0];  
+	 var str_after = productId.split(',')[1];
+	 console.log('前：'+str_before+' - 后：'+str_after);
+	layer.confirm('是否确定发布:'+str_after+'？', {
 		btn : [ '确定', '取消' ],closeBtn: 0
 	// 按钮
 	}, function(index) {
-		$.get(ctx + "/sysProduct/ajax/releaseProduct?productId=" + productId,
+		$.get(ctx + "/sysProduct/ajax/releaseProduct?productId=" + str_before,
 				function(data) {
 					// $("div").html(result);
 					if (data == '0') {
@@ -532,11 +535,14 @@ function release(productId) {
 }
 function cancel(productId) {
 	console.log("取消动作======" + productId);
-	layer.confirm('是否确定取消发布？', {
+	 var str_before = productId.split(',')[0];  
+	 var str_after = productId.split(',')[1];
+	 console.log('前：'+str_before+' - 后：'+str_after);
+	layer.confirm('是否确定取消发布:'+str_after+'？', {
 		btn : [ '确定', '取消' ],closeBtn: 0
 	// 按钮
 	}, function(index) {
-		$.get(ctx + "/sysProduct/ajax/cancelProduct?productId=" + productId,
+		$.get(ctx + "/sysProduct/ajax/cancelProduct?productId=" + str_before,
 				function(data) {
 					// $("div").html(result);
 					if (data == '0') {

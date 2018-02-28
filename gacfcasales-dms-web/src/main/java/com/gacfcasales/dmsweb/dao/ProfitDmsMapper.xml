@@ -134,7 +134,8 @@
 		FROM
 		tt_opi_extended_sales ttes
 		LEFT JOIN ti_opi_extended_dcs
-		toed ON ttes.PRODUCT_ID = toed.PRODUCT_ID
+		toed ON
+		ttes.PRODUCT_ID = toed.PRODUCT_ID
 		LEFT JOIN tm_user ctu ON
 		ttes.CREATED_BY = ctu.USER_ID
 		LEFT JOIN tm_user ltu ON ttes.CLOSED_BY =
@@ -143,14 +144,18 @@
 		LEFT
 		JOIN TM_ENTITY_DEALER_CHANGE TEDC ON ttes.DEALER_CODE =
 		TEDC.ENTITY_CODE
-		LEFT JOIN tm_dealer tmd ON TEDC.DEALER_CODE = tmd.DEALER_CODE
+		LEFT JOIN tm_dealer tmd ON TEDC.DEALER_CODE =
+		tmd.DEALER_CODE
 		LEFT JOIN tm_dealer_org_relation tdor ON
-		tdor.DEALER_ID = tmd.DEALER_ID
+		tdor.DEALER_ID
+		= tmd.DEALER_ID
 		LEFT JOIN tm_org ORG1 ON ORG1.ORG_ID =
 		tdor.ORG_ID
-		LEFT JOIN tm_org ORG2 ON ORG2.ORG_ID = ORG1.PARENT_ORG_ID)
+		LEFT
+		JOIN tm_org ORG2 ON ORG2.ORG_ID = ORG1.PARENT_ORG_ID)
 		bsm
-		where 1=1 and bsm.ORDER_STATUS= '已结案'
+		where 1=1 and
+		bsm.ORDER_STATUS= '已结案'
 		<if test="PRODUCT_DATE != null and PRODUCT_DATE != '' ">AND bsm.PRODUCT_DATE =#{PRODUCT_DATE}  </if>
 		<if test="PRODUCT_SALES_ORDER != null and PRODUCT_SALES_ORDER != '' ">AND bsm.PRODUCT_SALES_ORDER LIKE
 			CONCAT('%',#{PRODUCT_SALES_ORDER},'%')  </if>
@@ -172,7 +177,9 @@
 			AND bsm.CLOSED_AT between #{CLOSED_AT_START} and
 			#{CLOSED_AT_END}
 		</if>
-
+		<if test="dealerCode != null and dealerCode != ''">
+			AND bsm.DEALER_CODE = #{dealerCode}
+		</if>
 		LIMIT #{startRow},#{rowSize}
 	</select>
 
@@ -289,7 +296,8 @@
 		FROM
 		tt_opi_extended_sales ttes
 		LEFT JOIN ti_opi_extended_dcs
-		toed ON ttes.PRODUCT_ID = toed.PRODUCT_ID
+		toed ON
+		ttes.PRODUCT_ID = toed.PRODUCT_ID
 		LEFT JOIN tm_user ctu ON
 		ttes.CREATED_BY = ctu.USER_ID
 		LEFT JOIN tm_user ltu ON ttes.CLOSED_BY =
@@ -298,14 +306,18 @@
 		LEFT
 		JOIN TM_ENTITY_DEALER_CHANGE TEDC ON ttes.DEALER_CODE =
 		TEDC.ENTITY_CODE
-		LEFT JOIN tm_dealer tmd ON TEDC.DEALER_CODE = tmd.DEALER_CODE
+		LEFT JOIN tm_dealer tmd ON TEDC.DEALER_CODE =
+		tmd.DEALER_CODE
 		LEFT JOIN tm_dealer_org_relation tdor ON
-		tdor.DEALER_ID = tmd.DEALER_ID
+		tdor.DEALER_ID
+		= tmd.DEALER_ID
 		LEFT JOIN tm_org ORG1 ON ORG1.ORG_ID =
 		tdor.ORG_ID
-		LEFT JOIN tm_org ORG2 ON ORG2.ORG_ID = ORG1.PARENT_ORG_ID)
+		LEFT
+		JOIN tm_org ORG2 ON ORG2.ORG_ID = ORG1.PARENT_ORG_ID)
 		bsm
-		where 1=1 and bsm.ORDER_STATUS= '已结案'
+		where 1=1 and
+		bsm.ORDER_STATUS= '已结案'
 		<if test="PRODUCT_DATE != null and PRODUCT_DATE != '' ">AND bsm.PRODUCT_DATE =#{PRODUCT_DATE}  </if>
 		<if test="PRODUCT_SALES_ORDER != null and PRODUCT_SALES_ORDER != '' ">AND bsm.PRODUCT_SALES_ORDER LIKE
 			CONCAT('%',#{PRODUCT_SALES_ORDER},'%')  </if>
@@ -327,7 +339,9 @@
 			AND bsm.CLOSED_AT between #{CLOSED_AT_START} and
 			#{CLOSED_AT_END}
 		</if>
-
+		<if test="dealerCode != null and dealerCode != ''">
+			AND bsm.DEALER_CODE = #{dealerCode}
+		</if>
 
 		<!-- <if test="require!=null"> <include refid="Assist" /> </if> -->
 
@@ -448,7 +462,8 @@
 		FROM
 		tt_opi_extended_sales ttes
 		LEFT JOIN ti_opi_extended_dcs
-		toed ON ttes.PRODUCT_ID = toed.PRODUCT_ID
+		toed ON
+		ttes.PRODUCT_ID = toed.PRODUCT_ID
 		LEFT JOIN tm_user ctu ON
 		ttes.CREATED_BY = ctu.USER_ID
 		LEFT JOIN tm_user ltu ON ttes.CLOSED_BY =
@@ -457,14 +472,18 @@
 		LEFT
 		JOIN TM_ENTITY_DEALER_CHANGE TEDC ON ttes.DEALER_CODE =
 		TEDC.ENTITY_CODE
-		LEFT JOIN tm_dealer tmd ON TEDC.DEALER_CODE = tmd.DEALER_CODE
+		LEFT JOIN tm_dealer tmd ON TEDC.DEALER_CODE =
+		tmd.DEALER_CODE
 		LEFT JOIN tm_dealer_org_relation tdor ON
-		tdor.DEALER_ID = tmd.DEALER_ID
+		tdor.DEALER_ID
+		= tmd.DEALER_ID
 		LEFT JOIN tm_org ORG1 ON ORG1.ORG_ID =
 		tdor.ORG_ID
-		LEFT JOIN tm_org ORG2 ON ORG2.ORG_ID = ORG1.PARENT_ORG_ID)
+		LEFT
+		JOIN tm_org ORG2 ON ORG2.ORG_ID = ORG1.PARENT_ORG_ID)
 		bsm
-		where 1=1 and bsm.ORDER_STATUS= '已结案'
+		where 1=1 and
+		bsm.ORDER_STATUS= '已结案'
 		<if test="PRODUCT_DATE != null and PRODUCT_DATE != '' ">AND bsm.PRODUCT_DATE =#{PRODUCT_DATE}  </if>
 		<if test="PRODUCT_SALES_ORDER != null and PRODUCT_SALES_ORDER != '' ">AND bsm.PRODUCT_SALES_ORDER LIKE
 			CONCAT('%',#{PRODUCT_SALES_ORDER},'%')  </if>
@@ -487,13 +506,18 @@
 			#{CLOSED_AT_END}
 		</if>
 		
+		<if test="dealerCode != null and dealerCode != ''">
+			AND bsm.DEALER_CODE = #{dealerCode}
+		</if>
+		
 		LIMIT #{startRow},#{rowSize}
 	</select>
-	
-	
-	<select id="getProfitFindBySalesId" parameterType="java.lang.String" resultType="map">
-	
-	select * from
+
+
+	<select id="getProfitFindBySalesId" parameterType="java.lang.String"
+		resultType="map">
+
+		select * from
 		(SELECT
 		ttes.PRODUCT_SALES_ID,
 		ttes.DEALER_CODE AS
@@ -543,7 +567,8 @@
 		WHEN toed.PRODUCT_DATE
 		= 12 THEN
 		'12个月'
-		WHEN toed.PRODUCT_DATE = 24 THEN
+		WHEN
+		toed.PRODUCT_DATE = 24 THEN
 		'24个月'
 		WHEN
 		toed.PRODUCT_DATE = 36 THEN
@@ -606,7 +631,8 @@
 		FROM
 		tt_opi_extended_sales ttes
 		LEFT JOIN ti_opi_extended_dcs
-		toed ON ttes.PRODUCT_ID = toed.PRODUCT_ID
+		toed ON
+		ttes.PRODUCT_ID = toed.PRODUCT_ID
 		LEFT JOIN tm_user ctu ON
 		ttes.CREATED_BY = ctu.USER_ID
 		LEFT JOIN tm_user ltu ON ttes.CLOSED_BY =
@@ -615,14 +641,18 @@
 		LEFT
 		JOIN TM_ENTITY_DEALER_CHANGE TEDC ON ttes.DEALER_CODE =
 		TEDC.ENTITY_CODE
-		LEFT JOIN tm_dealer tmd ON TEDC.DEALER_CODE = tmd.DEALER_CODE
+		LEFT JOIN tm_dealer tmd ON TEDC.DEALER_CODE =
+		tmd.DEALER_CODE
 		LEFT JOIN tm_dealer_org_relation tdor ON
-		tdor.DEALER_ID = tmd.DEALER_ID
+		tdor.DEALER_ID
+		= tmd.DEALER_ID
 		LEFT JOIN tm_org ORG1 ON ORG1.ORG_ID =
 		tdor.ORG_ID
-		LEFT JOIN tm_org ORG2 ON ORG2.ORG_ID = ORG1.PARENT_ORG_ID)
+		LEFT
+		JOIN tm_org ORG2 ON ORG2.ORG_ID = ORG1.PARENT_ORG_ID)
 		bsm
-		where bsm.PRODUCT_SALES_ID=#{PRODUCT_SALES_ID} and bsm.ORDER_STATUS= '已结案'
+		where
+		bsm.PRODUCT_SALES_ID=#{PRODUCT_SALES_ID} and bsm.ORDER_STATUS= '已结案'
 		GROUP BY PRODUCT_SALES_ID
 	</select>
 
