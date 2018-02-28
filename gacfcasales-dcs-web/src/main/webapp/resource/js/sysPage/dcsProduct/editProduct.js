@@ -48,25 +48,25 @@ $(function() {
 			jQuery("#productDate").append(
 					"<option value='12' selected = 'selected'>12个月</option>");
 			jQuery("#productDate").append("<option value='24'>24个月</option>");
-			jQuery("#productDate").append("<option value='36'>36个月</option>");
+			/*jQuery("#productDate").append("<option value='36'>36个月</option>");*/
 		} else if (productDateRet == '24') {
 			jQuery("#productDate").append("<option value='0'>请选择</option>");
 			jQuery("#productDate").append("<option value='12'>12个月</option>");
 			jQuery("#productDate").append(
 					"<option value='24' selected = 'selected'>24个月</option>");
-			jQuery("#productDate").append("<option value='36'>36个月</option>");
+			/*jQuery("#productDate").append("<option value='36'>36个月</option>");*/
 		} else if (productDateRet == '36') {
 			jQuery("#productDate").append("<option value='0'>请选择</option>");
 			jQuery("#productDate").append("<option value='12'>12个月</option>");
 			jQuery("#productDate").append("<option value='24'>24个月</option>");
-			jQuery("#productDate").append(
-					"<option value='36' selected = 'selected'>36个月</option>");
+			/*jQuery("#productDate").append(
+					"<option value='36' selected = 'selected'>36个月</option>");*/
 		} else {
 			jQuery("#productDate").append(
 					"<option value='0' selected = 'selected'>请选择</option>");
 			jQuery("#productDate").append("<option value='12'>12个月</option>");
 			jQuery("#productDate").append("<option value='24'>24个月</option>");
-			jQuery("#productDate").append("<option value='36'>36个月</option>");
+			/*jQuery("#productDate").append("<option value='36'>36个月</option>");*/
 		}
 	}
 

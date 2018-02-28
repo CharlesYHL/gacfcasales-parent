@@ -35,6 +35,7 @@ function getChildValues(values){
 		$("#ownerMobile").val(params.MOBILE);
 		$("#yearModel").val(params.YEAR_MODEL);
 		$("#liceseNo").val(params.LICENSE);
+		$("#licese").val(params.LICENSE);
 		
 		$("#brandCode").val(params.BRAND);
 		$("#seriesCode").val(params.SERIES);

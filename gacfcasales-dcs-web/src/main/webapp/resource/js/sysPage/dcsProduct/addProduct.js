@@ -4,7 +4,7 @@ $(function() {
 	jQuery("#productDate").append("<option value='0'>请选择</option>");
 	jQuery("#productDate").append("<option value='12'>12个月</option>");
 	jQuery("#productDate").append("<option value='24'>24个月</option>");
-	jQuery("#productDate").append("<option value='36'>36个月</option>");
+	/*jQuery("#productDate").append("<option value='36'>36个月</option>");*/
 
 	// 是否FIAT授权
 	jQuery("#isFiat").append("<option value='0'>请选择</option>");

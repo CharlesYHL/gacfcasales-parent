@@ -162,6 +162,16 @@
 						
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
+								<label class="control-label col-xs-5 ">车牌号</label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control" name="licese" disabled="disabled"
+										id="licese" value="${requestScope.ttOpiExtendedSales.LICENSE_NO}" placeholder="" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
 								<label class="control-label col-xs-5 ">客户姓名&nbsp;<span style="color:red">*</span></label>
 								<div class="col-xs-7">
 									<input type="text" class="form-control" name="customerName"

@@ -5,7 +5,7 @@ $(function() {
 	jQuery("#productDate").append("<option value='0'>请选择</option>");
 	jQuery("#productDate").append("<option value='12'>12个月</option>");
 	jQuery("#productDate").append("<option value='24'>24个月</option>");
-	jQuery("#productDate").append("<option value='36'>36个月</option>");
+	/*jQuery("#productDate").append("<option value='36'>36个月</option>");*/
 	// 单据状态
 	jQuery("#orderStatus").append("<option value='0'>请选择</option>");
 	jQuery("#orderStatus").append("<option value='55011001'>已保存</option>");

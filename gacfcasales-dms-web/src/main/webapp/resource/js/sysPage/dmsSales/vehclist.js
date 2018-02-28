@@ -144,10 +144,9 @@ var TableInit = function() {
 				visible : false
 			}, {
 				field : 'LICENSE',
-				title : 'LICENSE',
+				title : '车牌号',
 				align : 'center',
-				valign : 'middle',
-				visible : false
+				valign : 'middle'
 			}, {
 				field : 'BRAND',
 				title : 'BRAND',
