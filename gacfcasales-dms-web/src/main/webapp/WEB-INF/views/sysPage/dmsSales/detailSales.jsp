@@ -3,18 +3,31 @@
 <%@ include file="/WEB-INF/views/include/base.jsp"%>
 
 <div id="detailSalesApp" v-cloak>
-	<input type="text" id="rbrandId" name="rbrandId" value="${requestScope.ttOpiExtendedSales.BRAND_ID}" hidden="hidden" />
-	<input type="text" id="rbrandName" name="rbrandName" value="${requestScope.ttOpiExtendedSales.BRAND_NAME}" hidden="hidden" />
-	<input type="text" id="rbrandCode" name="rbrandCode" value="${requestScope.ttOpiExtendedSales.BRAND_CODE}" hidden="hidden" />
-	<input type="text" id="rseriesId" name="rseriesId" value="${requestScope.ttOpiExtendedSales.SERIES_ID}" hidden="hidden" />
-	<input type="text" id="rseriesName" name="rseriesName" value="${requestScope.ttOpiExtendedSales.SERIES_NAME}" hidden="hidden" />
-	<input type="text" id="rseriesCode" name="rseriesCode" value="${requestScope.ttOpiExtendedSales.SERIES_CODE}" hidden="hidden" />
-	<input type="text" id="rmodelId" name="rmodelId" value="${requestScope.ttOpiExtendedSales.MODEL_ID}" hidden="hidden" />
-	<input type="text" id="rmodelName" name="rmodelName" value="${requestScope.ttOpiExtendedSales.MODEL_NAME}" hidden="hidden" />
-	<input type="text" id="rmodelCode" name="rmodelCode" value="${requestScope.ttOpiExtendedSales.MODEL_CODE}" hidden="hidden" />
-	<input type="text" id="rapackageId" name="rapackageId" value="${requestScope.ttOpiExtendedSales.APACKAGE_ID}" hidden="hidden" />
-	<input type="text" id="rapackage" name="rapackage" value="${requestScope.ttOpiExtendedSales.APACKAGE}" hidden="hidden" />
-	<input type="text" id="rapackageName" name="rapackageName" value="${requestScope.ttOpiExtendedSales.APACKAGE_NAME}" hidden="hidden" />
+	<input type="text" id="rbrandId" name="rbrandId"
+		value="${requestScope.ttOpiExtendedSales.BRAND_ID}" hidden="hidden" />
+	<input type="text" id="rbrandName" name="rbrandName"
+		value="${requestScope.ttOpiExtendedSales.BRAND_NAME}" hidden="hidden" />
+	<input type="text" id="rbrandCode" name="rbrandCode"
+		value="${requestScope.ttOpiExtendedSales.BRAND_CODE}" hidden="hidden" />
+	<input type="text" id="rseriesId" name="rseriesId"
+		value="${requestScope.ttOpiExtendedSales.SERIES_ID}" hidden="hidden" />
+	<input type="text" id="rseriesName" name="rseriesName"
+		value="${requestScope.ttOpiExtendedSales.SERIES_NAME}" hidden="hidden" />
+	<input type="text" id="rseriesCode" name="rseriesCode"
+		value="${requestScope.ttOpiExtendedSales.SERIES_CODE}" hidden="hidden" />
+	<input type="text" id="rmodelId" name="rmodelId"
+		value="${requestScope.ttOpiExtendedSales.MODEL_ID}" hidden="hidden" />
+	<input type="text" id="rmodelName" name="rmodelName"
+		value="${requestScope.ttOpiExtendedSales.MODEL_NAME}" hidden="hidden" />
+	<input type="text" id="rmodelCode" name="rmodelCode"
+		value="${requestScope.ttOpiExtendedSales.MODEL_CODE}" hidden="hidden" />
+	<input type="text" id="rapackageId" name="rapackageId"
+		value="${requestScope.ttOpiExtendedSales.APACKAGE_ID}" hidden="hidden" />
+	<input type="text" id="rapackage" name="rapackage"
+		value="${requestScope.ttOpiExtendedSales.APACKAGE}" hidden="hidden" />
+	<input type="text" id="rapackageName" name="rapackageName"
+		value="${requestScope.ttOpiExtendedSales.APACKAGE_NAME}"
+		hidden="hidden" />
 	<div v-show="showList" class="dms-search">
 		<form class="form-horizontal">
 			<%-- <input type="text" id="productSalesId" name="productSalesId"
@@ -63,29 +76,8 @@
 							</div>
 						</div>
 
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-							<div class="form-group">
-								<label class="control-label col-xs-5 ">客户姓名</label>
-								<div class="col-xs-7">
-									<input type="text" class="form-control" name="customerName"
-										id="customerName" disabled="disabled"
-										value="${requestScope.ttOpiExtendedSales.CUSTOMER_NAME}"
-										placeholder="请输入客户姓名" />
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-							<div class="form-group">
-								<label class="control-label col-xs-5 ">联系方式</label>
-								<div class="col-xs-7">
-									<input type="text" class="form-control" name="customerContact"
-										id="customerContact" disabled="disabled"
-										value="${requestScope.ttOpiExtendedSales.CUSTOMER_CONTACT}"
-										placeholder="请输入联系方式" />
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+
+						<%-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
 								<label class="control-label col-xs-5 ">单据状态</label>
 								<div class="col-xs-7">
@@ -95,7 +87,7 @@
 										placeholder="请输入单据状态" />
 								</div>
 							</div>
-						</div>
+						</div> --%>
 
 
 					</div>
@@ -126,7 +118,28 @@
 								</div>
 							</div>
 						</div>
-
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">客户姓名</label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control" name="customerName"
+										id="customerName" disabled="disabled"
+										value="${requestScope.ttOpiExtendedSales.CUSTOMER_NAME}"
+										placeholder="请输入客户姓名" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">联系方式</label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control" name="customerContact"
+										id="customerContact" disabled="disabled"
+										value="${requestScope.ttOpiExtendedSales.CUSTOMER_CONTACT}"
+										placeholder="请输入联系方式" />
+								</div>
+							</div>
+						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
 								<label class="control-label col-xs-5 ">品牌</label>
@@ -177,7 +190,7 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">开票日期</label>
+								<label class="control-label col-xs-5 ">车辆销售开票日期</label>
 								<div class="col-xs-7">
 									<input id="billingAt" name="billingAt" type="text"
 										class="form-control" disabled="disabled"
@@ -285,12 +298,12 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">产品说明</label>
+								<label class="control-label col-xs-5 ">特别约定</label>
 								<div class="col-xs-7">
-									<input type="text" class="form-control" name="productDate"
-										disabled="disabled" id="productDate"
+									<input type="text" class="form-control" name="productDescribtion"
+										disabled="disabled" id="productDescribtion"
 										value="${requestScope.requestScope.ttOpiExtendedSales.PRODUCT_DESCRIBTION}"
-										placeholder="请输入产品说明" />
+										placeholder="请输入特别约定" />
 								</div>
 							</div>
 						</div>
@@ -391,7 +404,7 @@
 				</div>
 			</div>
 		</form>
-		
+
 
 	</div>
 </div>

@@ -71,7 +71,8 @@ function getChildValues(values){
 			$("#apackage").selectpicker('refresh');
 		}
 		
-		//清空以前的产品信息
+		
+		// 清空以前的产品信息
 		$("#productId").val("");
 		$("#productNo").val("");
 		$("#productName").val("");
@@ -85,6 +86,16 @@ function getChildValues(values){
    	 	$("#takeEffectEnd").val("");
    	 	$("#actualNonSalesPrice").val("");
    	 	$("#totalAmount").val("");
+   	 	
+   	 var billingAt = params.INVOICE_DATE;
+		if(billingAt != null && billingAt != ''){
+			var nowDate = getNowDate();
+			// var invoiceDate = $("#billingAt").val();
+			getDay(nowDate,billingAt);
+		}else{
+			 $("#takeEffectStart").val('');
+	    	 $("#takeEffectEnd").val('');
+		}
 		
 	}else{
 		console.log(params.VIN);
@@ -109,6 +120,16 @@ function getChildValues(values){
 		
 		$("#customerName").val(params.OWNER_NAME);
 		$("#customerContact").val(params.MOBILE);
+		
+		var billingAt = params.INVOICE_DATE;
+		if(billingAt != null && billingAt != ''){
+			var nowDate = getNowDate();
+			// var invoiceDate = $("#billingAt").val();
+			getDay(nowDate,billingAt);
+		}else{
+			 $("#takeEffectStart").val('');
+	    	 $("#takeEffectEnd").val('');
+		}
 		
 		if(params.BRAND != ''){
 			console.log(params.BRAND);
@@ -230,10 +251,10 @@ function addProduct(){
 				});
 				}else if(billingAt == '' && vin != ''){
 					toastr.warning("开票日期不能为空");
-					//alert("开票日期不能为空");
+					// alert("开票日期不能为空");
 				}else{
 					toastr.warning("请先选择车辆信息");
-					//alert("请先选择车辆信息!");
+					// alert("请先选择车辆信息!");
 				}
 			}
 			
@@ -314,14 +335,19 @@ function getDay(a, b) {
      if (year > 3) {
          // 大于
     	 console.log('大于');
+    	 
+    	 //$("#takeEffectStart").val(addOneDay(more3YearStart(),1));
+    	 //$("#takeEffectEnd").val(addOneDay(more3YeareEnd(),1));
     	 $("#takeEffectStart").val(more3YearStart());
-    	 $("#takeEffectEnd").val(more3YeareEnd);
+    	 $("#takeEffectEnd").val(more3YeareEnd());
      }
      else {
          // 小于等于3年
     	 console.log('小于');
     	 getYear3Start(b);
     	 getYear3End(b);
+    	 //$("#takeEffectStart").val(addOneDay(getYear3Start(b),1));
+    	 //$("#takeEffectEnd").val(addOneDay(getYear3End(b),1));
     	 $("#takeEffectStart").val(getYear3Start(b));
     	 $("#takeEffectEnd").val(getYear3End(b));
      }
@@ -352,8 +378,14 @@ function getYear3Start(c){
 		month ='0'+(c.getMonth()+1);
 	}
 	if(day < 10){
-		day='0'+c.getDate();
+		day='0'+day;
 	}
+	
+	if(month == 2 && c.getDate() == 28){
+		month = '03';
+		day = '01'
+	}
+	
 	var str = year+'-'+month+'-'+day;
 	console.log("质保期内开始时间"+str);
 	return str;
@@ -367,7 +399,12 @@ function getYear3End(c){
 		month ='0'+(c.getMonth()+1);
 	}
 	if(day < 10){
-		day='0'+c.getDate();
+		day='0'+day;
+	}
+	
+	if(month == 2 && c.getDate() == 28){
+		month = '03';
+		day = '01'
 	}
 	
 	var productDate=$("#productDate").val();
@@ -397,6 +434,11 @@ function more3YearStart(){
 	if(day < 10){
 		day='0'+day;
 	}
+	if(month == 2 && d.getDate() == 28){
+		month = '03';
+		day = '01'
+	}
+	
 	var str = year+'-'+month+'-'+day;
 	console.log("脱保期内开始时间"+str);
 	return str;
@@ -414,6 +456,11 @@ function more3YeareEnd(){
 		day='0'+day;
 	}
 	
+	if(month == 2 && d.getDate() == 28){
+		month = '03';
+		day = '01'
+	}
+	
 	var productDate=$("#productDate").val();
 	if(productDate == '12个月'){
 		year = year+1;
@@ -425,15 +472,39 @@ function more3YeareEnd(){
 		year= year;
 	}
 	var str = year+'-'+month+'-'+day;
-	console.log("脱保期内开始时间"+str);
+	console.log("脱保期内结束时间"+str);
 	return str;
 }
 
 
 function taxSales(){
-	var actualNonSalesPrice = $("#actualNonSalesPrice").val();
-	var totalAmount = actualNonSalesPrice*1.06;
-	$("#totalAmount").val(totalAmount.toFixed(2));
+	var totalAmount = $("#totalAmount").val();
+	var actualNonSalesPrice = totalAmount/1.06;
+	$("#actualNonSalesPrice").val(actualNonSalesPrice.toFixed(2));
+}
+
+
+function billingAtKDate(){
+	var billingAt = $("#billingAt").val();
+	if(billingAt != null && billingAt != ''){
+		var nowDate = getNowDate();
+		// var invoiceDate = $("#billingAt").val();
+		getDay(nowDate,billingAt);
+	}else{
+		 $("#takeEffectStart").val('');
+    	 $("#takeEffectEnd").val('');
+	}
+}
+function billingAtCDate(){
+	var billingAt = $("#billingAt").val();
+	if(billingAt != null && billingAt != ''){
+		var nowDate = getNowDate();
+		// var invoiceDate = $("#billingAt").val();
+		getDay(nowDate,billingAt);
+	}else{
+		 $("#takeEffectStart").val('');
+    	 $("#takeEffectEnd").val('');
+	}
 }
 
 
@@ -446,19 +517,19 @@ function save(){
 	var actualNonSalesPrice = $("#actualNonSalesPrice").val();
 	if(customerName == ''){
 		toastr.warning("客户姓名不能为空");
-		//alert("客户姓名不能为空");
+		// alert("客户姓名不能为空");
 	}else if(customerContact == ''){
 		toastr.warning("客户联系方式不能为空");
-		//alert("客户联系方式不能为空");
+		// alert("客户联系方式不能为空");
 	}else if(vin == ''){
 		toastr.warning("请选择车辆信息");
-		//alert("请选择车辆信息");
+		// alert("请选择车辆信息");
 	}else if(billingAt == ''){
 		toastr.warning("开票日期不能为空");
-		//alert("开票日期不能为空");
+		// alert("开票日期不能为空");
 	}else if(productNo == ''){
 		toastr.warning("请选择产品信息");
-		//alert("请选择产品信息");
+		// alert("请选择产品信息");
 	}else if(actualNonSalesPrice == ''){
 		toastr.warning("请输入实际不含税销售价");
 	}else{
@@ -510,10 +581,11 @@ function save(){
 				if (data.CODE == '0') {
 					$("#btn_submit").attr("disabled", false);
 					$("#orderStatus").val("已保存");
+					$("#btn_save").attr("disabled", true);
 					toastr.success("销售单新增成功,销售单号:"+data.PRODUCT_SALES_ORDER);
-					//alert("销售单新增成功");
-					var index1 = parent.layer.getFrameIndex(window.name);
-					parent.layer.close(index1);
+					// alert("销售单新增成功");
+					/*var index1 = parent.layer.getFrameIndex(window.name);
+					parent.layer.close(index1);*/
 				}
 			},
 			error : function(data) {
@@ -547,7 +619,7 @@ function submitASC(){
 		    	console.log("返回参数:"+data);
 		    	if(data == 0){
 		    		toastr.success("扣款成功");
-		    		//alert("扣款成功!");
+		    		// alert("扣款成功!");
 		    		$("#btn_print").attr("disabled", false);
 		    		$("#btn_submit").attr("disabled",true)
 		    		$("#btn_save").attr("disabled",true);
@@ -608,3 +680,22 @@ function print(){
 	
 }
 
+
+
+function addOneDay(date, days){
+	var date = new Date(date);
+	date.setDate(date.getDate() + days);
+	var month = date.getMonth() + 1;
+	var day = date.getDate();
+	 return date.getFullYear() + '-' + getFormatDate(month) + '-' + getFormatDate(day);
+}
+function getFormatDate(arg){
+	 if (arg == undefined || arg == '') {
+         return '';
+     }
+     var re = arg + '';
+     if (re.length < 2) {
+         re = '0' + re;
+     }
+     return re;
+}

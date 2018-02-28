@@ -334,7 +334,7 @@ var TableInit = function() {
 										valign : 'middle'
 									}, {
 										field : 'PRODUCT_DESCRIBTION',
-										title : '产品说明',
+										title : '特别约定',
 										align : 'center',
 										valign : 'middle'
 									}, {

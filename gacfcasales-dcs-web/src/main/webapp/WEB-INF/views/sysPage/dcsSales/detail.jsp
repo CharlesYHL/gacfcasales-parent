@@ -360,12 +360,12 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">产品说明</label>
+								<label class="control-label col-xs-5 ">特别约定</label>
 								<div class="col-xs-7">
 									<input type="text" class="form-control" disabled="disabled"
 										name="productDescribtion" id="productDescribtion"
 										value="${requestScope.ttOpiSalesAll.PRODUCT_DESCRIBTION}"
-										placeholder="请输入产品说明" />
+										placeholder="请输入特别约定" />
 								</div>
 							</div>
 						</div>

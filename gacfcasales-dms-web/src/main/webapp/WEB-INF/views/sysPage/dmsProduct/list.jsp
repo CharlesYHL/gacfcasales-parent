@@ -24,8 +24,8 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">产品编号</label>
-								<div class="col-xs-7">
+								<label class="control-label col-xs-4 ">产品编号</label>
+								<div class="col-xs-8">
 									<input type="text" class="bs-select form-control"
 										name="productNo" id="productNo" value="" placeholder="请输入产品编号" />
 								</div>
@@ -34,8 +34,8 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">产品名称</label>
-								<div class="col-xs-6">
+								<label class="control-label col-xs-4 ">产品名称</label>
+								<div class="col-xs-8">
 									<input type="text" class="bs-select form-control"
 										name="productName" id="productName" value=""
 										placeholder="请输入产品名称" />
@@ -45,15 +45,15 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">产品有效期</label>
-								<div class="col-xs-7">
+								<label class="control-label col-xs-4 ">产品有效期</label>
+								<div class="col-xs-8">
 									<select name="productDate" id="productDate"
 										class="bs-select form-control"></select>
 								</div>
 							</div>
 						</div>
 
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
 								<label class="control-label col-xs-5 ">适用车型</label>
 								<div class="col-xs-6">
@@ -61,22 +61,22 @@
 										id="productModel" value="" placeholder="请输入适用车型" />
 								</div>
 							</div>
-						</div>
+						</div> -->
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">发布状态</label>
-								<div class="col-xs-7">
+								<label class="control-label col-xs-4 ">发布状态</label>
+								<div class="col-xs-8">
 									<select name="releaseStatus" id="releaseStatus"
 										class="bs-select form-control"></select>
 								</div>
 							</div>
 						</div>
 
-						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-5">
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
 							<div class="form-group">
-								<label class="control-label col-xs-3">发布时间</label>
-								<div class="col-xs-6 col-sm-8">
+								<label class="control-label col-xs-4 col-sm-2">发布时间</label>
+								<div class="col-xs-8 col-sm-10">
 									<div class="input-group input-daterange">
 
 										<input id="releaseStart" name="releaseStart" type="text"
@@ -90,10 +90,10 @@
 							</div>
 						</div>
 
-						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-5">
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
 							<div class="form-group">
-								<label class="control-label col-xs-3">销售时间</label>
-								<div class="col-xs-6 col-sm-8">
+								<label class="control-label col-xs-4 col-sm-2">销售时间</label>
+								<div class="col-xs-8 col-sm-10">
 									<div class="input-group input-daterange">
 
 										<input id="salesStart" name="salesStart" type="text"

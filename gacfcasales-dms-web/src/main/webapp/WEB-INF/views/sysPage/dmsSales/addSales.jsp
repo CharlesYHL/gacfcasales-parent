@@ -84,25 +84,7 @@
 							</div>
 						</div>
 
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-							<div class="form-group">
-								<label class="control-label col-xs-5 ">客户姓名&nbsp;<span style="color:red">*</span></label>
-								<div class="col-xs-7">
-									<input type="text" class="form-control" name="customerName"
-										id="customerName" value="" placeholder="请输入客户姓名" />
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-							<div class="form-group">
-								<label class="control-label col-xs-5 ">联系方式&nbsp;<span style="color:red">*</span></label>
-								<div class="col-xs-7">
-									<input type="text" class="form-control" name="customerContact"
-										id="customerContact" value="" placeholder="请输入联系方式" />
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
 								<label class="control-label col-xs-5 ">单据状态</label>
 								<div class="col-xs-7">
@@ -111,7 +93,7 @@
 										placeholder="" />
 								</div>
 							</div>
-						</div>
+						</div> -->
 
 
 					</div>
@@ -141,7 +123,26 @@
 								</div>
 							</div>
 						</div>
-
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">客户姓名&nbsp;<span style="color:red">*</span></label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control" name="customerName"
+										id="customerName" value="" placeholder="请输入客户姓名" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">联系方式&nbsp;<span style="color:red">*</span></label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control" name="customerContact"
+										id="customerContact" value="" placeholder="请输入联系方式" />
+								</div>
+							</div>
+						</div>
+						
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
 								<label class="control-label col-xs-5 ">品牌</label>
@@ -191,11 +192,11 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">开票日期</label>
+								<label class="control-label col-xs-5 ">车辆销售开票日期</label>
 								<div class="col-xs-6">
 									<input id="billingAt" name="billingAt" type="text"
 										class="form-control"
-										value="${requestScope.dmsSalesDto.INVOICE_DATE}"
+										value="${requestScope.dmsSalesDto.INVOICE_DATE}"  onkeyup="billingAtKDate()" onchange="billingAtCDate()"
 										placeholder="请输入开票日期" />
 								</div>
 							</div>
@@ -299,10 +300,10 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">产品说明</label>
+								<label class="control-label col-xs-5 ">特别约定</label>
 								<div class="col-xs-7">
-									<input type="text" class="form-control" name="productDate"
-										disabled="disabled" id="productDate"
+									<input type="text" class="form-control" name="productDescribtion"
+										disabled="disabled" id="productDescribtion"
 										value="${requestScope.dmsSalesDto.PRODUCT_DESCRIBTION}"
 										placeholder="" />
 								</div>
@@ -372,31 +373,33 @@
 								</div>
 							</div>
 						</div>
-
+						
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-5 ">实际不含税销售价&nbsp;<span style="color:red">*</span></label>
+								<label class="control-label col-xs-5 ">含税总额(6%)&nbsp;<span style="color:red">*</span></label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control" name="totalAmount"
+										 id="totalAmount" onkeyup="taxSales()"
+										value="${requestScope.dmsSalesDto.TOTAL_AMOUNT}"
+										placeholder="" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-5 ">实际不含税销售价</label>
 								<div class="col-xs-7">
 									<input type="text" class="form-control"
 										name="actualNonSalesPrice" id="actualNonSalesPrice"
-										onkeyup="taxSales()"
+										disabled="disabled"
 										value="${requestScope.dmsSalesDto.ACTUAL_NON_SALES_PRICE}"
 										placeholder="请输入实际不含税销售价" />
 								</div>
 							</div>
 						</div>
 
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-							<div class="form-group">
-								<label class="control-label col-xs-5 ">含税总额(6%)</label>
-								<div class="col-xs-7">
-									<input type="text" class="form-control" name="totalAmount"
-										disabled="disabled" id="totalAmount"
-										value="${requestScope.dmsSalesDto.TOTAL_AMOUNT}"
-										placeholder="" />
-								</div>
-							</div>
-						</div>
+						
 
 
 					</div>

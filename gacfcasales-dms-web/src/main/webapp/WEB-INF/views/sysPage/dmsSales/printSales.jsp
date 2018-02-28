@@ -194,7 +194,7 @@
 
 							<div style="margin-left: 5%">
 								<div>
-									<span style="font-size: 15px;">产品说明:</span>
+									<span style="font-size: 15px;">特别约定:</span>
 								</div>
 							</div>
 							<div style="margin-left: 5%">

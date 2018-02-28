@@ -177,7 +177,7 @@ public class ProfitDmsController {
 			exportColumnList.add(new ExcelExportColumn("PRODUCT_NO", "产品编号"));
 			exportColumnList.add(new ExcelExportColumn("PRODUCT_NAME", "产品名称"));
 			exportColumnList.add(new ExcelExportColumn("PRODUCT_DATE", "产品有效期"));
-			exportColumnList.add(new ExcelExportColumn("PRODUCT_DESCRIBTION", "产品说明"));
+			exportColumnList.add(new ExcelExportColumn("PRODUCT_DESCRIBTION", "特别约定"));
 			exportColumnList.add(new ExcelExportColumn("CUSTOMER_NAME", "客户姓名"));
 			exportColumnList.add(new ExcelExportColumn("CUSTOMER_CONTACT", "客户联系方式"));
 			exportColumnList.add(new ExcelExportColumn("VIN", "VIN"));

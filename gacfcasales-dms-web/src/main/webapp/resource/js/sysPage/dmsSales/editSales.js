@@ -306,7 +306,11 @@ function getYear3Start(c){
 		month ='0'+(c.getMonth()+1);
 	}
 	if(day < 10){
-		day='0'+c.getDate();
+		day='0'+day;
+	}
+	if(month == 2 && c.getDate() == 28){
+		month = '03';
+		day = '01'
 	}
 	var str = year+'-'+month+'-'+day;
 	console.log("质保期内开始时间"+str);
@@ -321,7 +325,7 @@ function getYear3End(c){
 		month ='0'+(c.getMonth()+1);
 	}
 	if(day < 10){
-		day='0'+c.getDate();
+		day='0'+day;
 	}
 	
 	var productDate=$("#productDate").val();
@@ -333,6 +337,11 @@ function getYear3End(c){
 		year = year+3;
 	}else{
 		year= year;
+	}
+	
+	if(month == 2 && c.getDate() == 28){
+		month = '03';
+		day = '01'
 	}
 	
 	var str = year+'-'+month+'-'+day;
@@ -350,6 +359,10 @@ function more3YearStart(){
 	}
 	if(day < 10){
 		day='0'+day;
+	}
+	if(month == 2 && d.getDate() == 28){
+		month = '03';
+		day = '01'
 	}
 	var str = year+'-'+month+'-'+day;
 	console.log("脱保期内开始时间"+str);
@@ -378,6 +391,10 @@ function more3YeareEnd(){
 	}else{
 		year= year;
 	}
+	if(month == 2 && d.getDate() == 28){
+		month = '03';
+		day = '01'
+	}
 	var str = year+'-'+month+'-'+day;
 	console.log("脱保期内开始时间"+str);
 	return str;
@@ -385,9 +402,32 @@ function more3YeareEnd(){
 
 
 function taxSales(){
-	var actualNonSalesPrice = $("#actualNonSalesPrice").val();
-	var totalAmount = actualNonSalesPrice*1.06;
-	$("#totalAmount").val(totalAmount.toFixed(2));
+	var totalAmount = $("#totalAmount").val();
+	var actualNonSalesPrice = totalAmount/1.06;
+	$("#actualNonSalesPrice").val(actualNonSalesPrice.toFixed(2));
+}
+
+function billingAtKDate(){
+	var billingAt = $("#billingAt").val();
+	if(billingAt != null && billingAt != ''){
+		var nowDate = getNowDate();
+		// var invoiceDate = $("#billingAt").val();
+		getDay(nowDate,billingAt);
+	}else{
+		 $("#takeEffectStart").val('');
+    	 $("#takeEffectEnd").val('');
+	}
+}
+function billingAtCDate(){
+	var billingAt = $("#billingAt").val();
+	if(billingAt != null && billingAt != ''){
+		var nowDate = getNowDate();
+		// var invoiceDate = $("#billingAt").val();
+		getDay(nowDate,billingAt);
+	}else{
+		 $("#takeEffectStart").val('');
+    	 $("#takeEffectEnd").val('');
+	}
 }
 
 

@@ -110,10 +110,10 @@
 						<div>
 							<div class="input-group input-group-sm"
 								style="margin-right: 16px; width: 600px;">
-								<span class="input-group-addon" style="width: 150px;">产品说明</span>
+								<span class="input-group-addon" style="width: 150px;">特别约定</span>
 								<input type="text" class="form-control"
 									name="productDescribtion" style="height: 50px;"
-									id="productDescribtion" value="" placeholder="产品说明" />
+									id="productDescribtion" value="" placeholder="特别约定" />
 							</div>
 						</div>
 					</div>

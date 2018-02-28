@@ -62,31 +62,22 @@ var vm = new Vue({
 			};
 			console.log(params);
 
-			/*
-			 * window.location.href = ctx +
-			 * '/dmsSales/ajax/fromVehclistToAddSales?VIN=' + selected[0].VIN +
-			 * '&BRAND_ID=' + selected[0].BRAND_ID + '&BRAND_NAME=' +
-			 * selected[0].BRAND_NAME + '&SERIES_ID=' + selected[0].SERIES_ID +
-			 * '&SERIES_NAME=' + selected[0].SERIES_NAME + '&MODEL_ID=' +
-			 * selected[0].MODEL_ID + '&MODEL_NAME=' + selected[0].MODEL_NAME +
-			 * '&APACKAGE_ID=' + selected[0].APACKAGE_ID + '&APACKAGE_NAME=' +
-			 * selected[0].APACKAGE_NAME + '&YEAR_MODEL=' +
-			 * selected[0].YEAR_MODEL + '&INVOICE_DATE=' +
-			 * selected[0].INVOICE_DATE + '&OWNER_NO=' + selected[0].OWNER_NO +
-			 * '&OWNER_NAME=' + selected[0].OWNER_NAME + '&PHONE=' +
-			 * selected[0].PHONE + '&MOBILE=' + selected[0].MOBILE + '&BRAND=' +
-			 * selected[0].BRAND + '&SERIES=' + selected[0].SERIES + '&MODEL=' +
-			 * selected[0].MODEL + '&APACKAGE=' + selected[0].APACKAGE
-			 */// top.getChildValues(params);
-			parent.getChildValues(params);
-			// parent.document.getElementById("ownerMobile").contentWindow.value
-			// = params.MOBILE;
-			var index1 = parent.layer.getFrameIndex(window.name);
-			parent.layer.close(index1);
-			/*
-			 * window.location.href = ctx+
-			 * '/dmsSales/ajax/fromVehclistToAddSales?VIN=' +selected[0].VIN
-			 */
+			var billingAt = selected[0].INVOICE_DATE
+			var nowDate = getNowDate();
+			nowDate = new Date(nowDate.replace(/-/g, '/'));
+			billingAt = new Date(billingAt.replace(/-/g, '/'));
+		    var d = Math.abs(nowDate.getTime() - billingAt.getTime()) / 1000 / 24 / 60 / 60;
+		    var year = Math.ceil(d / 365)
+			if(year >= 5){
+				toastr.error("该车实际年龄超过5年，无法购买该产品!");
+			}else{
+				parent.getChildValues(params);
+				
+				var index1 = parent.layer.getFrameIndex(window.name);
+				parent.layer.close(index1);
+			}
+			
+			
 
 		},
 		reset : function() {
@@ -286,3 +277,21 @@ var TableInit = function() {
 
 	return oTableInit;
 };
+
+
+function getNowDate(){
+	var d = new Date();
+	var year = d.getFullYear();
+	var month = d.getMonth()+1;
+	var day = d.getDate();
+	if(month < 10){
+		month ='0'+(d.getMonth()+1);
+	}
+	if(day < 10){
+		day='0'+d.getDate();
+	}
+	var str = year+'-'+month+'-'+day;
+	console.log("nowDate===="+str);
+	return str;
+}
+
