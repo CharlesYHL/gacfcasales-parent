@@ -44,4 +44,10 @@ public class SalesDcsServiceImpl implements SalesDcsService {
 		return salesDcsDao.getSalesFindBySalesId(PRODUCT_SALES_ID);
 	}
 
+	@Override
+	public List<Map> getSalesListExportA(Map map) {
+		// TODO Auto-generated method stub
+		return salesDcsDao.getSalesListExportA(map);
+	}
+
 }

@@ -119,4 +119,22 @@ public class DmsSalesServiceImpl implements DmsSalesService {
 		return dmsSalesDao.selectTtOpiExtendedSalesPrint(PRODUCT_SALES_ORDER);
 	}
 
+	@Override
+	public List<Map> getSalesListA(Map map) {
+		// TODO Auto-generated method stub
+		return dmsSalesDao.getSalesListA(map);
+	}
+
+	@Override
+	public long getSalesRowCountA(Map map) {
+		// TODO Auto-generated method stub
+		return dmsSalesDao.getSalesRowCountA(map);
+	}
+
+	@Override
+	public List<Map> exportSalesExcelA(Map map) {
+		// TODO Auto-generated method stub
+		return dmsSalesDao.exportSalesExcelA(map);
+	}
+
 }

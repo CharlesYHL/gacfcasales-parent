@@ -53,7 +53,8 @@ function getBrand() {
 		async : true,
 		success : function(data) {
 			if (data.length > 0) {
-				var optionstring = "<option value='0'>请选择</option>";
+				/*var optionstring = "<option value='0'>请选择</option>";*/
+				var optionstring;
 				for ( var item in data) {
 					console.log(data[item]);
 					optionstring += "<option value='" + data[item].BRAND_ID
@@ -83,7 +84,8 @@ function getSeries() {
 		async : true,
 		success : function(data) {
 			if (data.length > 0) {
-				var optionstring = "<option value='0'>请选择</option>";
+				/*var optionstring = "<option value='0'>请选择</option>";*/
+				var optionstring;
 				for ( var item in data) {
 					console.log(data[item]);
 					optionstring += "<option value='" + data[item].SERIES_ID
@@ -112,7 +114,8 @@ function getModel() {
 		async : true,
 		success : function(data) {
 			if (data.length > 0) {
-				var optionstring = "<option value='0'>请选择</option>";
+				/*var optionstring = "<option value='0'>请选择</option>";*/
+				var optionstring;
 				for ( var item in data) {
 					console.log(data[item]);
 					optionstring += "<option value='" + data[item].MODEL_ID
@@ -572,9 +575,9 @@ var TableInit = function() {
 			PRODUCT_NO : $("#productNo").val(),
 			PRODUCT_NAME : $("#productName").val(),
 			PRODUCT_DATE : $("#productDate").val(),
-			BRAND_ID : $("#brandId").val(),
-			SERIES_ID : $("#seriesId").val(),
-			MODEL_ID : $("#modelId").val(),
+			BRAND_ID : JSON.stringify($("#brandId").val()),
+			SERIES_ID : JSON.stringify($("#seriesId").val()),
+			MODEL_ID : JSON.stringify($("#modelId").val()),
 			VIN : $("#vin").val(),
 			LICENSE_NO : $("#licenseNo").val(),
 			CUSTOMER_NAME : $("#customerName").val(),

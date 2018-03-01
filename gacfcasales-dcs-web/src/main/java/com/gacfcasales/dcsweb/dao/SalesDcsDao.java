@@ -13,6 +13,7 @@ public interface SalesDcsDao {
 	long getSalesRowCount(Map map);
 
 	List<Map> getSalesListExport(Map map);
+	List<Map> getSalesListExportA(Map map);
 
 	// 明细
 	Map getSalesFindBySalesId(String PRODUCT_SALES_ID);

@@ -113,7 +113,7 @@ public class DmsProductController {
 		exportColumnList.add(new ExcelExportColumn("RELEASE_DATE", "发布时间"));
 		exportColumnList.add(new ExcelExportColumn("RELEASE_STATUS", "发布状态"));
 		exportColumnList.add(new ExcelExportColumn("IS_C_SALE", "是否可销售"));
-		exportColumnList.add(new ExcelExportColumn("PRODUCT_MODEL", "适用车型"));
+		/*exportColumnList.add(new ExcelExportColumn("PRODUCT_MODEL", "适用车型"));*/
 		exportColumnList.add(new ExcelExportColumn("PRODUCT_DESCRIBTION", "特别约定"));
 		exportExcel.generateExcelForDms(excelData, exportColumnList, "产品信息表.xls", request, response);
 	}

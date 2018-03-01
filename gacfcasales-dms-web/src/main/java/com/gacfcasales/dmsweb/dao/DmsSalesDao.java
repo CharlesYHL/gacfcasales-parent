@@ -25,8 +25,12 @@ public interface DmsSalesDao {
 	 List<Map> getSalesList(Assist assist);
 	 long getSalesRowCount(Assist assist);
 	 
+	 List<Map> getSalesListA(Map map);
+	 long getSalesRowCountA(Map map);
+	 
 	 //导出销售单信息
 	 List<Map> exportSalesExcel(Assist assist);
+	 List<Map> exportSalesExcelA(Map map);
 	 
 	 TtOpiExtendedSales selectTtOpiExtendedSales(String PRODUCT_SALES_ID);
 	 

@@ -350,23 +350,47 @@ public class SalesDcsController {
 			map.put("PRODUCT_NAME", PRODUCT_NAME);
 		}
 		if (BRAND_ID != null && !"".equals(BRAND_ID) && !"null".equals(BRAND_ID)) {
-			Map brandMap = commonNoService.getDealerCodeAndName(BRAND_ID);
-			if (brandMap != null) {
-				map.put("BRAND_CODE", brandMap.get("GROUP_CODE"));
+			Map mapBrand = new HashMap();
+			mapBrand.put("groupIds", getDealerCodes4(BRAND_ID));
+			List<Map> brandMap = commonNoService.getDealerCodeAndNameA(mapBrand);
+			if (brandMap.size() > 0) {
+				// assist.setRequires(Assist.andEq("bsm.BRAND_CODE",
+				// brandMap.get("GROUP_CODE")));
+				StringBuffer sb = new StringBuffer();
+				for(int i=0;i<brandMap.size();i++) {
+					sb.append(brandMap.get(i).get("GROUP_CODE")+",");
+				}
+				map.put("BRAND_CODE", getDealerCodes4(sb.toString().substring(0, sb.toString().length() - 1)));
 			}
 		}
 
 		if (SERIES_ID != null && !"".equals(SERIES_ID) && !"null".equals(SERIES_ID)) {
-			Map seriesMap = commonNoService.getDealerCodeAndName(SERIES_ID);
-			if (seriesMap != null) {
-				map.put("SERIES_CODE", seriesMap.get("GROUP_CODE"));
+			Map mapSeries = new HashMap();
+			mapSeries.put("groupIds", getDealerCodes4(SERIES_ID));
+			List<Map> seriesMap = commonNoService.getDealerCodeAndNameA(mapSeries);
+			if (seriesMap.size() > 0) {
+				// assist.setRequires(Assist.andEq("bsm.SERIES_CODE",
+				// seriesMap.get("GROUP_CODE")));
+				StringBuffer sb = new StringBuffer();
+				for(int i=0;i<seriesMap.size();i++) {
+					sb.append(seriesMap.get(i).get("GROUP_CODE")+",");
+				}
+				map.put("SERIES_CODE", getDealerCodes4(sb.toString().substring(0, sb.toString().length() - 1)));
 			}
 		}
 
 		if (MODEL_ID != null && !"".equals(MODEL_ID) && !"null".equals(MODEL_ID)) {
-			Map modelMap = commonNoService.getDealerCodeAndName(MODEL_ID);
-			if (modelMap != null) {
-				map.put("MODEL_CODE", modelMap.get("GROUP_CODE"));
+			Map mapModel = new HashMap();
+			mapModel.put("groupIds", getDealerCodes4(MODEL_ID));
+			List<Map> modelMap = commonNoService.getDealerCodeAndNameA(mapModel);
+			if (modelMap.size() > 0) {
+				// assist.setRequires(Assist.andEq("bsm.MODEL_CODE",
+				// modelMap.get("GROUP_CODE")));
+				StringBuffer sb = new StringBuffer();
+				for(int i=0;i<modelMap.size();i++) {
+					sb.append(modelMap.get(i).get("GROUP_CODE")+",");
+				}
+				map.put("MODEL_CODE", getDealerCodes4(sb.toString().substring(0, sb.toString().length() - 1)));
 			}
 		}
 
@@ -397,7 +421,7 @@ public class SalesDcsController {
 		map.put("rowSize", 50000);
 
 		ExportExcel exportExcel = new ExportExcel();
-		List<Map> resultList = salesDcsService.getSalesListExport(map);
+		List<Map> resultList = salesDcsService.getSalesListExportA(map);
 		Map<String, List<Map>> excelData = new HashMap<String, List<Map>>();
 		excelData.put("销售单信息表", resultList);
 

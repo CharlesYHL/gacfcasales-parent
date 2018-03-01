@@ -109,16 +109,6 @@
 
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-4 ">产品有效期</label>
-								<div class="col-xs-8">
-									<select name="productDate" id="productDate"
-										class="bs-select form-control"></select>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-							<div class="form-group">
 								<label class="control-label col-xs-4 ">品牌</label>
 								<div class="col-xs-8">
 									<select name="brandId" id="brandId"
@@ -149,7 +139,17 @@
 								</div>
 							</div>
 						</div>
-
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">产品有效期</label>
+								<div class="col-xs-8">
+									<select name="productDate" id="productDate"
+										class="bs-select form-control"></select>
+								</div>
+							</div>
+						</div>
+						
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
 								<label class="control-label col-xs-4 ">VIN</label>

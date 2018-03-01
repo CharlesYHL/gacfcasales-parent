@@ -68,13 +68,28 @@ public class DmsSalesController {
 	@RequestMapping(value = "/ajax/getSeriesList", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Map> getSeriesList(@RequestParam String groupId) {
-		return commonNoService.getSeriesList(groupId);
+		Map map = new HashMap();
+		List<String> groupIds = new ArrayList<String>();
+		if(!"".equals(groupId)) {
+			groupIds = getDealerCodes3(groupId);
+			map.put("groupIds", groupIds);
+		}
+		//getDealerCodes3
+		return commonNoService.getSeriesListA(map);
+		//return commonNoService.getSeriesList(groupId);
 	}
 
 	@RequestMapping(value = "/ajax/getModelList", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Map> getModelList(@RequestParam String groupId) {
-		return commonNoService.getModelList(groupId);
+		//return commonNoService.getModelList(groupId);
+		Map map = new HashMap();
+		List<String> groupIds = new ArrayList<String>();
+		if(!"".equals(groupId)) {
+			groupIds = getDealerCodes3(groupId);
+			map.put("groupIds", groupIds);
+		}
+		return commonNoService.getModelListA(map);
 	}
 
 	// 获得销售订单编号
@@ -325,25 +340,29 @@ public class DmsSalesController {
 			assist.setStartRow((pageindex - 1) * pageSize);
 			assist.setRowSize(pageSize);
 		}
-
+		Map<String, Object> mapParam = new HashMap<String, Object>();
 		if (map != null) {
-			assist.setRequires(Assist.andEq("bsm.DEALER_CODE", map.get("ENTITY_CODE").toString()));
+			//assist.setRequires(Assist.andEq("bsm.DEALER_CODE", map.get("ENTITY_CODE").toString()));
+			mapParam.put("DEALER_CODE", map.get("ENTITY_CODE").toString());
 		}
 		if (ttOpiExtendedSales.getPRODUCT_DATE() != null && !"0".equals(ttOpiExtendedSales.getPRODUCT_DATE())) {
-			assist.setRequires(Assist.andEq("bsm.PRODUCT_DATE", ttOpiExtendedSales.getPRODUCT_DATE()));
+			//assist.setRequires(Assist.andEq("bsm.PRODUCT_DATE", ttOpiExtendedSales.getPRODUCT_DATE()));
+			mapParam.put("PRODUCT_DATE", ttOpiExtendedSales.getPRODUCT_DATE());
 		}
-		if (ttOpiExtendedSales.getPRODUCT_SALES_ORDER() != null
-				&& !"".equals(ttOpiExtendedSales.getPRODUCT_SALES_ORDER())) {
-			assist.setRequires(
-					Assist.andLike("bsm.PRODUCT_SALES_ORDER", "%" + ttOpiExtendedSales.getPRODUCT_SALES_ORDER() + "%"));
+		if (ttOpiExtendedSales.getPRODUCT_SALES_ORDER() != null	&& !"".equals(ttOpiExtendedSales.getPRODUCT_SALES_ORDER())) {
+			//assist.setRequires(Assist.andLike("bsm.PRODUCT_SALES_ORDER", "%" + ttOpiExtendedSales.getPRODUCT_SALES_ORDER() + "%"));
+			mapParam.put("PRODUCT_SALES_ORDER", ttOpiExtendedSales.getPRODUCT_SALES_ORDER());
 		}
 		if (ttOpiExtendedSales.getPRODUCT_NO() != null && !"".equals(ttOpiExtendedSales.getPRODUCT_NO())) {
-			assist.setRequires(Assist.andLike("bsm.PRODUCT_NO", "%" + ttOpiExtendedSales.getPRODUCT_NO() + "%"));
+			//assist.setRequires(Assist.andLike("bsm.PRODUCT_NO", "%" + ttOpiExtendedSales.getPRODUCT_NO() + "%"));
+			mapParam.put("PRODUCT_NO", ttOpiExtendedSales.getPRODUCT_NO());
 		}
 		if (ttOpiExtendedSales.getPRODUCT_NAME() != null && !"".equals(ttOpiExtendedSales.getPRODUCT_NAME())) {
-			assist.setRequires(Assist.andLike("bsm.PRODUCT_NAME", "%" + ttOpiExtendedSales.getPRODUCT_NAME() + "%"));
+			//assist.setRequires(Assist.andLike("bsm.PRODUCT_NAME", "%" + ttOpiExtendedSales.getPRODUCT_NAME() + "%"));
+			mapParam.put("PRODUCT_NAME", ttOpiExtendedSales.getPRODUCT_NAME());
 		}
-		if (ttOpiExtendedSales.getBRAND_ID() != null && !"".equals(ttOpiExtendedSales.getBRAND_ID())) {
+		
+		/*if (ttOpiExtendedSales.getBRAND_ID() != null && !"".equals(ttOpiExtendedSales.getBRAND_ID())) {
 			Map brandMap = commonNoService.getDealerCodeAndName(ttOpiExtendedSales.getBRAND_ID());
 			if (brandMap != null) {
 				assist.setRequires(Assist.andEq("bsm.BRAND_CODE", brandMap.get("GROUP_CODE")));
@@ -362,29 +381,85 @@ public class DmsSalesController {
 			if (modelMap != null) {
 				assist.setRequires(Assist.andEq("bsm.MODEL_CODE", modelMap.get("GROUP_CODE")));
 			}
+		}*/
+		
+		if (ttOpiExtendedSales.getBRAND_ID() != null && !"".equals(ttOpiExtendedSales.getBRAND_ID()) && !"null".equals(ttOpiExtendedSales.getBRAND_ID())) {
+			//Map brandMap = commonNoService.getDealerCodeAndName(ttOpiExtendedSales.getBRAND_ID());
+			Map mapBrand = new HashMap();
+			mapBrand.put("groupIds", getDealerCodes4(ttOpiExtendedSales.getBRAND_ID()));
+			List<Map> brandMap = commonNoService.getDealerCodeAndNameA(mapBrand);
+			if (brandMap.size() > 0) {
+				// assist.setRequires(Assist.andEq("bsm.BRAND_CODE",
+				// brandMap.get("GROUP_CODE")));
+				StringBuffer sb = new StringBuffer();
+				for(int i=0;i<brandMap.size();i++) {
+					sb.append(brandMap.get(i).get("GROUP_CODE")+",");
+				}
+				mapParam.put("BRAND_CODE", getDealerCodes4(sb.toString().substring(0, sb.toString().length() - 1)));
+			}
 		}
 
+		if (ttOpiExtendedSales.getSERIES_ID() != null && !"".equals(ttOpiExtendedSales.getSERIES_ID()) && !"null".equals(ttOpiExtendedSales.getSERIES_ID())) {
+			//Map seriesMap = commonNoService.getDealerCodeAndName(ttOpiExtendedSales.getSERIES_ID());
+			Map mapSeries = new HashMap();
+			mapSeries.put("groupIds", getDealerCodes4(ttOpiExtendedSales.getSERIES_ID()));
+			List<Map> seriesMap = commonNoService.getDealerCodeAndNameA(mapSeries);
+			if (seriesMap.size() > 0) {
+				// assist.setRequires(Assist.andEq("bsm.SERIES_CODE",
+				// seriesMap.get("GROUP_CODE")));
+				StringBuffer sb = new StringBuffer();
+				for(int i=0;i<seriesMap.size();i++) {
+					sb.append(seriesMap.get(i).get("GROUP_CODE")+",");
+				}
+				mapParam.put("SERIES_CODE", getDealerCodes4(sb.toString().substring(0, sb.toString().length() - 1)));
+			}
+		}
+
+		if (ttOpiExtendedSales.getMODEL_ID() != null && !"".equals(ttOpiExtendedSales.getMODEL_ID()) && !"null".equals(ttOpiExtendedSales.getMODEL_ID())) {
+			//Map modelMap = commonNoService.getDealerCodeAndName(ttOpiExtendedSales.getMODEL_ID());
+			Map mapModel = new HashMap();
+			mapModel.put("groupIds", getDealerCodes4(ttOpiExtendedSales.getMODEL_ID()));
+			List<Map> modelMap = commonNoService.getDealerCodeAndNameA(mapModel);
+			if (modelMap.size() > 0) {
+				// assist.setRequires(Assist.andEq("bsm.MODEL_CODE",
+				// modelMap.get("GROUP_CODE")));
+				StringBuffer sb = new StringBuffer();
+				for(int i=0;i<modelMap.size();i++) {
+					sb.append(modelMap.get(i).get("GROUP_CODE")+",");
+				}
+				mapParam.put("MODEL_CODE", getDealerCodes4(sb.toString().substring(0, sb.toString().length() - 1)));
+			}
+		}
+		
+
 		if (ttOpiExtendedSales.getVIN() != null && !"".equals(ttOpiExtendedSales.getVIN())) {
-			assist.setRequires(Assist.andLike("bsm.VIN", "%" + ttOpiExtendedSales.getVIN() + "%"));
+			//assist.setRequires(Assist.andLike("bsm.VIN", "%" + ttOpiExtendedSales.getVIN() + "%"));
+			mapParam.put("VIN", ttOpiExtendedSales.getVIN());
 		}
 
 		if (ttOpiExtendedSales.getLICENSE_NO() != null && !"".equals(ttOpiExtendedSales.getLICENSE_NO())) {
-			assist.setRequires(Assist.andLike("bsm.LICENSE_NO", "%" + ttOpiExtendedSales.getLICENSE_NO() + "%"));
+			//assist.setRequires(Assist.andLike("bsm.LICENSE_NO", "%" + ttOpiExtendedSales.getLICENSE_NO() + "%"));
+			mapParam.put("LICENSE_NO", ttOpiExtendedSales.getLICENSE_NO());
 		}
 		if (ttOpiExtendedSales.getCUSTOMER_NAME() != null && !"".equals(ttOpiExtendedSales.getCUSTOMER_NAME())) {
-			assist.setRequires(Assist.andLike("bsm.CUSTOMER_NAME", "%" + ttOpiExtendedSales.getCUSTOMER_NAME() + "%"));
+			//assist.setRequires(Assist.andLike("bsm.CUSTOMER_NAME", "%" + ttOpiExtendedSales.getCUSTOMER_NAME() + "%"));
+			mapParam.put("CUSTOMER_NAME", ttOpiExtendedSales.getCUSTOMER_NAME());
 		}
 
 		if (ttOpiExtendedSales.getORDER_STATUS() != null && !"0".equals(ttOpiExtendedSales.getORDER_STATUS())) {
 			Integer orderStatus = Integer.parseInt(ttOpiExtendedSales.getORDER_STATUS());
 			if( orderStatus == OemDictCodeConstants.PRODUCT_SALES_STATUS_01) {
-				assist.setRequires(Assist.andEq("bsm.ORDER_STATUS", "已保存"));
+				//assist.setRequires(Assist.andEq("bsm.ORDER_STATUS", "已保存"));
+				mapParam.put("ORDER_STATUS", "已保存");
 			}else if(orderStatus == OemDictCodeConstants.PRODUCT_SALES_STATUS_02) {
-				assist.setRequires(Assist.andEq("bsm.ORDER_STATUS", "已结案"));
+				//assist.setRequires(Assist.andEq("bsm.ORDER_STATUS", "已结案"));
+				mapParam.put("ORDER_STATUS", "已结案");
 			}else if(orderStatus == OemDictCodeConstants.PRODUCT_SALES_STATUS_03) {
-				assist.setRequires(Assist.andEq("bsm.ORDER_STATUS", "扣款失败"));
+				//assist.setRequires(Assist.andEq("bsm.ORDER_STATUS", "扣款失败"));
+				mapParam.put("ORDER_STATUS", "扣款失败");
 			}else {
-				assist.setRequires(Assist.andEq("bsm.ORDER_STATUS", "已作废"));
+				//assist.setRequires(Assist.andEq("bsm.ORDER_STATUS", "已作废"));
+				mapParam.put("ORDER_STATUS", "已作废");
 			}
 			
 			/*assist.setRequires(Assist.andEq("bsm.ORDER_STATUS", ttOpiExtendedSales.getORDER_STATUS()));*/
@@ -393,33 +468,38 @@ public class DmsSalesController {
 		if (ttOpiExtendedSales.getCREATED_AT_START() != null && !"".equals(ttOpiExtendedSales.getCREATED_AT_START())
 				&& ttOpiExtendedSales.getCREATED_AT_END() != null
 				&& !"".equals(ttOpiExtendedSales.getCREATED_AT_END())) {
-			assist.setRequires(Assist.andLte("bsm.CREATED_AT", ttOpiExtendedSales.getCREATED_AT_END()));
-			assist.setRequires(Assist.andGte("bsm.CREATED_AT", ttOpiExtendedSales.getCREATED_AT_START()));
-			// assist.setRequires(Assist.andEq("bsm.CREATED_AT",
-			// ttOpiExtendedSales.getORDER_STATUS()));
+			//assist.setRequires(Assist.andLte("bsm.CREATED_AT", ttOpiExtendedSales.getCREATED_AT_END()));
+			//assist.setRequires(Assist.andGte("bsm.CREATED_AT", ttOpiExtendedSales.getCREATED_AT_START()));
+			mapParam.put("CREATED_AT_START", ttOpiExtendedSales.getCREATED_AT_START());
+			mapParam.put("CREATED_AT_END", ttOpiExtendedSales.getCREATED_AT_END());
+
 		}
 
 		if (ttOpiExtendedSales.getCLOSED_AT_START() != null && !"".equals(ttOpiExtendedSales.getCLOSED_AT_START())
 				&& ttOpiExtendedSales.getCLOSED_AT_END() != null && !"".equals(ttOpiExtendedSales.getCLOSED_AT_END())) {
-			assist.setRequires(Assist.andLte("bsm.CLOSED_AT", ttOpiExtendedSales.getCLOSED_AT_END()));
-			assist.setRequires(Assist.andGte("bsm.CLOSED_AT", ttOpiExtendedSales.getCLOSED_AT_START()));
-			// assist.setRequires(Assist.andEq("bsm.CREATED_AT",
-			// ttOpiExtendedSales.getORDER_STATUS()));
+			//assist.setRequires(Assist.andLte("bsm.CLOSED_AT", ttOpiExtendedSales.getCLOSED_AT_END()));
+			//assist.setRequires(Assist.andGte("bsm.CLOSED_AT", ttOpiExtendedSales.getCLOSED_AT_START()));
+			mapParam.put("CLOSED_AT_START", ttOpiExtendedSales.getCLOSED_AT_START());
+			mapParam.put("CLOSED_AT_END", ttOpiExtendedSales.getCLOSED_AT_END());
 		}
 		if(sort == null) {
-			assist.setOrder("bsm.PRODUCT_SALES_ID,bsm.PRODUCT_SALES_ORDER,bsm.CREATED_AT", true);
+			//assist.setOrder("bsm.PRODUCT_SALES_ID,bsm.PRODUCT_SALES_ORDER,bsm.CREATED_AT", true);
+			mapParam.put("ORDER_BY", "bsm.PRODUCT_SALES_ID,bsm.PRODUCT_SALES_ORDER,bsm.CREATED_AT asc");
 		}else {
-			String orderDesc = "bsm."+sort;
+			//String orderDesc = "bsm."+sort;
 			if("desc".equals(sortOrder)) {
-				assist.setOrder(orderDesc, false);
+				mapParam.put("ORDER_BY", "bsm."+sort+" desc");
+				//assist.setOrder(orderDesc, false);
 			}else {
-				assist.setOrder(orderDesc, true);
+				mapParam.put("ORDER_BY", "bsm."+sort+" asc");
+				//assist.setOrder(orderDesc, true);
 			}
 			
 		}
-		
-		long count = dmsSalesService.getSalesRowCount(assist);
-		List<Map> list = dmsSalesService.getSalesList(assist);
+		mapParam.put("startRow", assist.getStartRow());
+		mapParam.put("rowSize", assist.getRowSize());
+		long count = dmsSalesService.getSalesRowCountA(mapParam);
+		List<Map> list = dmsSalesService.getSalesListA(mapParam);
 		result.setTotalCount(count);
 		result.setDataListMap(list);
 		return result;
@@ -443,75 +523,106 @@ public class DmsSalesController {
 		TmUser tmUser = (TmUser) httpSession.getAttribute("users");
 		Map map = dmsSalesService.getEntityCode(tmUser.getDEALER_CODE());
 		Assist assist = new Assist();
+		Map<String, Object> mapParam = new HashMap<String, Object>();
 		if (map != null) {
-			assist.setRequires(Assist.andEq("bsm.DEALER_CODE", map.get("ENTITY_CODE").toString()));
+			mapParam.put("DEALER_CODE", map.get("ENTITY_CODE").toString());
 		}
 		if (PRODUCT_DATE != null && !"0".equals(PRODUCT_DATE)) {
-			assist.setRequires(Assist.andEq("bsm.PRODUCT_DATE", PRODUCT_DATE));
+			mapParam.put("PRODUCT_DATE", PRODUCT_DATE);
 		}
-		if (PRODUCT_SALES_ORDER != null && !"".equals(PRODUCT_SALES_ORDER)) {
-			assist.setRequires(Assist.andLike("bsm.PRODUCT_SALES_ORDER", "%" + PRODUCT_SALES_ORDER + "%"));
+		if (PRODUCT_SALES_ORDER != null	&& !"".equals(PRODUCT_SALES_ORDER)) {
+			mapParam.put("PRODUCT_SALES_ORDER", PRODUCT_SALES_ORDER);
 		}
 		if (PRODUCT_NO != null && !"".equals(PRODUCT_NO)) {
-			assist.setRequires(Assist.andLike("bsm.PRODUCT_NO", "%" + PRODUCT_NO + "%"));
+			mapParam.put("PRODUCT_NO", PRODUCT_NO);
 		}
 		if (PRODUCT_NAME != null && !"".equals(PRODUCT_NAME)) {
-			assist.setRequires(Assist.andLike("bsm.PRODUCT_NAME", "%" + PRODUCT_NAME + "%"));
+			mapParam.put("PRODUCT_NAME", PRODUCT_NAME);
 		}
-		if (BRAND_ID != null && !"".equals(BRAND_ID)) {
-			Map brandMap = commonNoService.getDealerCodeAndName(BRAND_ID);
-			if (brandMap != null) {
-				assist.setRequires(Assist.andEq("bsm.BRAND_CODE", brandMap.get("GROUP_CODE")));
+		
+		if (BRAND_ID != null && !"".equals(BRAND_ID) && !"null".equals(BRAND_ID)) {
+			Map mapBrand = new HashMap();
+			mapBrand.put("groupIds", getDealerCodes4(BRAND_ID));
+			List<Map> brandMap = commonNoService.getDealerCodeAndNameA(mapBrand);
+			if (brandMap.size() > 0) {
+				StringBuffer sb = new StringBuffer();
+				for(int i=0;i<brandMap.size();i++) {
+					sb.append(brandMap.get(i).get("GROUP_CODE")+",");
+				}
+				mapParam.put("BRAND_CODE", getDealerCodes4(sb.toString().substring(0, sb.toString().length() - 1)));
 			}
 		}
 
-		if (SERIES_ID != null && !"".equals(SERIES_ID)) {
-			Map seriesMap = commonNoService.getDealerCodeAndName(SERIES_ID);
-			if (seriesMap != null) {
-				assist.setRequires(Assist.andEq("bsm.SERIES_CODE", seriesMap.get("GROUP_CODE")));
+		if (SERIES_ID != null && !"".equals(SERIES_ID) && !"null".equals(SERIES_ID)) {
+			Map mapSeries = new HashMap();
+			mapSeries.put("groupIds", getDealerCodes4(SERIES_ID));
+			List<Map> seriesMap = commonNoService.getDealerCodeAndNameA(mapSeries);
+			if (seriesMap.size() > 0) {
+				StringBuffer sb = new StringBuffer();
+				for(int i=0;i<seriesMap.size();i++) {
+					sb.append(seriesMap.get(i).get("GROUP_CODE")+",");
+				}
+				mapParam.put("SERIES_CODE", getDealerCodes4(sb.toString().substring(0, sb.toString().length() - 1)));
 			}
 		}
 
-		if (MODEL_ID != null && !"".equals(MODEL_ID)) {
-			Map modelMap = commonNoService.getDealerCodeAndName(MODEL_ID);
-			if (modelMap != null) {
-				assist.setRequires(Assist.andEq("bsm.MODEL_CODE", modelMap.get("GROUP_CODE")));
+		if (MODEL_ID != null && !"".equals(MODEL_ID) && !"null".equals(MODEL_ID)) {
+			Map mapModel = new HashMap();
+			mapModel.put("groupIds", getDealerCodes4(MODEL_ID));
+			List<Map> modelMap = commonNoService.getDealerCodeAndNameA(mapModel);
+			if (modelMap.size() > 0) {
+				StringBuffer sb = new StringBuffer();
+				for(int i=0;i<modelMap.size();i++) {
+					sb.append(modelMap.get(i).get("GROUP_CODE")+",");
+				}
+				mapParam.put("MODEL_CODE", getDealerCodes4(sb.toString().substring(0, sb.toString().length() - 1)));
 			}
 		}
+		
 
 		if (VIN != null && !"".equals(VIN)) {
-			assist.setRequires(Assist.andLike("bsm.VIN", "%" + VIN + "%"));
+			mapParam.put("VIN", VIN);
 		}
 
 		if (LICENSE_NO != null && !"".equals(LICENSE_NO)) {
-			assist.setRequires(Assist.andLike("bsm.LICENSE_NO", "%" + LICENSE_NO + "%"));
+			mapParam.put("LICENSE_NO", LICENSE_NO);
 		}
 		if (CUSTOMER_NAME != null && !"".equals(CUSTOMER_NAME)) {
-			assist.setRequires(Assist.andLike("bsm.CUSTOMER_NAME", "%" + CUSTOMER_NAME + "%"));
+			mapParam.put("CUSTOMER_NAME", CUSTOMER_NAME);
 		}
 
 		if (ORDER_STATUS != null && !"0".equals(ORDER_STATUS)) {
-			assist.setRequires(Assist.andEq("bsm.ORDER_STATUS", ORDER_STATUS));
+			Integer orderStatus = Integer.parseInt(ORDER_STATUS);
+			if( orderStatus == OemDictCodeConstants.PRODUCT_SALES_STATUS_01) {
+				mapParam.put("ORDER_STATUS", "已保存");
+			}else if(orderStatus == OemDictCodeConstants.PRODUCT_SALES_STATUS_02) {
+				mapParam.put("ORDER_STATUS", "已结案");
+			}else if(orderStatus == OemDictCodeConstants.PRODUCT_SALES_STATUS_03) {
+				mapParam.put("ORDER_STATUS", "扣款失败");
+			}else {
+				mapParam.put("ORDER_STATUS", "已作废");
+			}
 		}
 
-		if (CREATED_AT_START != null && !"".equals(CREATED_AT_START) && CREATED_AT_END != null
+		if (CREATED_AT_START != null && !"".equals(CREATED_AT_START)
+				&& CREATED_AT_END != null
 				&& !"".equals(CREATED_AT_END)) {
-			assist.setRequires(Assist.andLte("bsm.CREATED_AT", CREATED_AT_END));
-			assist.setRequires(Assist.andGte("bsm.CREATED_AT", CREATED_AT_START));
+			mapParam.put("CREATED_AT_START", CREATED_AT_START);
+			mapParam.put("CREATED_AT_END", CREATED_AT_END);
+
 		}
 
-		if (CLOSED_AT_START != null && !"".equals(CLOSED_AT_START) && CLOSED_AT_END != null
-				&& !"".equals(CLOSED_AT_END)) {
-			assist.setRequires(Assist.andLte("bsm.CLOSED_AT", CLOSED_AT_END));
-			assist.setRequires(Assist.andGte("bsm.CLOSED_AT", CLOSED_AT_START));
-			// assist.setRequires(Assist.andEq("bsm.CREATED_AT",
-			// ttOpiExtendedSales.getORDER_STATUS()));
+		if (CLOSED_AT_START != null && !"".equals(CLOSED_AT_START)
+				&& CLOSED_AT_END != null && !"".equals(CLOSED_AT_END)) {
+			mapParam.put("CLOSED_AT_START", CLOSED_AT_START);
+			mapParam.put("CLOSED_AT_END", CLOSED_AT_END);
 		}
-		assist.setOrder("bsm.PRODUCT_SALES_ID,bsm.PRODUCT_SALES_ORDER", true);
+		
+		mapParam.put("ORDER_BY", "bsm.PRODUCT_SALES_ID,bsm.PRODUCT_SALES_ORDER,bsm.CREATED_AT asc");
 
 		ExportExcel exportExcel = new ExportExcel();
 
-		List<Map> resultList = dmsSalesService.exportSalesExcel(assist);
+		List<Map> resultList = dmsSalesService.exportSalesExcelA(mapParam);
 
 		Map<String, List<Map>> excelData = new HashMap<String, List<Map>>();
 		excelData.put("销售单信息", resultList);
@@ -710,5 +821,52 @@ public class DmsSalesController {
 		return result;
 	}
 	
+	
+	public List<String> getDealerCodes4(String dealerCode) {
+		String dealers = "";
+		dealerCode = dealerCode.replaceAll("，", ",");
+		dealerCode = dealerCode.replaceAll("\\n", ",");
+		boolean before = dealerCode.contains("[");
+		boolean after = dealerCode.contains("[");
+		if(before) {
+			//dealerCode = dealerCode.replaceAll("[", "");
+			dealerCode = dealerCode.replace("[",""); 
+		}
+		if(after) {
+			//dealerCode = dealerCode.replaceAll("", "");
+			dealerCode = dealerCode.replace("]",""); 
+		}
+		dealerCode = dealerCode.replace("\"", "");
+		String[] dealerCodes = dealerCode.split(",");
+		final List<String> list = new ArrayList<String>();
+		for (int i = 0; i < dealerCodes.length; i++) {
+			// String str = "'" + dealerCodes[i] + "'";
+			list.add(dealerCodes[i]);
+		}
+		return list;
+	}
+	
+	public List<String> getDealerCodes3(String dealerCode) {
+		String dealers = "";
+		dealerCode = dealerCode.replaceAll("，", ",");
+		dealerCode = dealerCode.replaceAll("\\n", ",");
+		boolean before = dealerCode.contains("[");
+		boolean after = dealerCode.contains("[");
+		if(before) {
+			//dealerCode = dealerCode.replaceAll("[", "");
+			dealerCode = dealerCode.replace("[",""); 
+		}
+		if(after) {
+			//dealerCode = dealerCode.replaceAll("", "");
+			dealerCode = dealerCode.replace("]",""); 
+		}
+		String[] dealerCodes = dealerCode.split(",");
+		final List<String> list = new ArrayList<String>();
+		for (int i = 0; i < dealerCodes.length; i++) {
+			// String str = "'" + dealerCodes[i] + "'";
+			list.add(dealerCodes[i]);
+		}
+		return list;
+	}
 
 }
