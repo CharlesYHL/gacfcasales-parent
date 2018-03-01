@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>厂端-延保系统</title>
+<title>厂端-延长服务产品销售系统</title>
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
@@ -57,9 +57,9 @@ ${param.styles }
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
 		<header class="main-header">
-			<a href="${ctx }/" class="logo"> <span class="logo-mini"><b>厂端</b></span>
+			<a href="${ctx }/" class="logo"> <span class="logo-mini"><b>系统</b></span>
 				<!-- logo for regular state and mobile devices --> <span
-				class="logo-lg"><b>延保系统</b></span>
+				class="logo-lg"><b>延长服务产品销售系统</b></span>
 			</a>
 			<nav class="navbar navbar-static-top" role="navigation">
 				<a href="#" class="sidebar-toggle" data-toggle="offcanvas"
