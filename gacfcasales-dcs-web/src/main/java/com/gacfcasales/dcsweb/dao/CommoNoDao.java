@@ -51,5 +51,6 @@ public interface CommoNoDao {
 	long selectDealerArrRowCount(Assist assist);
 
 	Map getDealerCodeAndName(String groupId);
+	List<Map> getDealerCodeAndNameA(Map map);
 
 }

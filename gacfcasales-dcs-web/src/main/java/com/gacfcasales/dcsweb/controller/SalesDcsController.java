@@ -72,13 +72,28 @@ public class SalesDcsController {
 	@RequestMapping(value = "/ajax/getSeriesList", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Map> getSeriesList(@RequestParam String groupId) {
-		return commonNoService.getSeriesList(groupId);
+		/*return commonNoService.getSeriesList(groupId);*/
+		Map map = new HashMap();
+		List<String> groupIds = new ArrayList<String>();
+		if(!"".equals(groupId)) {
+			groupIds = getDealerCodes3(groupId);
+			map.put("groupIds", groupIds);
+		}
+		//getDealerCodes3
+		return commonNoService.getSeriesListA(map);
 	}
 
 	@RequestMapping(value = "/ajax/getModelList", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Map> getModelList(@RequestParam String groupId) {
-		return commonNoService.getModelList(groupId);
+		/*return commonNoService.getModelList(groupId);*/
+		Map map = new HashMap();
+		List<String> groupIds = new ArrayList<String>();
+		if(!"".equals(groupId)) {
+			groupIds = getDealerCodes3(groupId);
+			map.put("groupIds", groupIds);
+		}
+		return commonNoService.getModelListA(map);
 	}
 	
 
@@ -187,30 +202,51 @@ public class SalesDcsController {
 			// ttOpiExtendedSales.getPRODUCT_NAME() + "%"));
 			map.put("PRODUCT_NAME", ttOpiExtendedSales.getPRODUCT_NAME());
 		}
-		if (ttOpiExtendedSales.getBRAND_ID() != null && !"".equals(ttOpiExtendedSales.getBRAND_ID())) {
-			Map brandMap = commonNoService.getDealerCodeAndName(ttOpiExtendedSales.getBRAND_ID());
-			if (brandMap != null) {
+		if (ttOpiExtendedSales.getBRAND_ID() != null && !"".equals(ttOpiExtendedSales.getBRAND_ID()) && !"null".equals(ttOpiExtendedSales.getBRAND_ID())) {
+			//Map brandMap = commonNoService.getDealerCodeAndName(ttOpiExtendedSales.getBRAND_ID());
+			Map mapBrand = new HashMap();
+			mapBrand.put("groupIds", getDealerCodes4(ttOpiExtendedSales.getBRAND_ID()));
+			List<Map> brandMap = commonNoService.getDealerCodeAndNameA(mapBrand);
+			if (brandMap.size() > 0) {
 				// assist.setRequires(Assist.andEq("bsm.BRAND_CODE",
 				// brandMap.get("GROUP_CODE")));
-				map.put("BRAND_CODE", brandMap.get("GROUP_CODE"));
+				StringBuffer sb = new StringBuffer();
+				for(int i=0;i<brandMap.size();i++) {
+					sb.append(brandMap.get(i).get("GROUP_CODE")+",");
+				}
+				map.put("BRAND_CODE", getDealerCodes4(sb.toString().substring(0, sb.toString().length() - 1)));
 			}
 		}
 
-		if (ttOpiExtendedSales.getSERIES_ID() != null && !"".equals(ttOpiExtendedSales.getSERIES_ID())) {
-			Map seriesMap = commonNoService.getDealerCodeAndName(ttOpiExtendedSales.getSERIES_ID());
-			if (seriesMap != null) {
+		if (ttOpiExtendedSales.getSERIES_ID() != null && !"".equals(ttOpiExtendedSales.getSERIES_ID()) && !"null".equals(ttOpiExtendedSales.getSERIES_ID())) {
+			//Map seriesMap = commonNoService.getDealerCodeAndName(ttOpiExtendedSales.getSERIES_ID());
+			Map mapSeries = new HashMap();
+			mapSeries.put("groupIds", getDealerCodes4(ttOpiExtendedSales.getSERIES_ID()));
+			List<Map> seriesMap = commonNoService.getDealerCodeAndNameA(mapSeries);
+			if (seriesMap.size() > 0) {
 				// assist.setRequires(Assist.andEq("bsm.SERIES_CODE",
 				// seriesMap.get("GROUP_CODE")));
-				map.put("SERIES_CODE", seriesMap.get("GROUP_CODE"));
+				StringBuffer sb = new StringBuffer();
+				for(int i=0;i<seriesMap.size();i++) {
+					sb.append(seriesMap.get(i).get("GROUP_CODE")+",");
+				}
+				map.put("SERIES_CODE", getDealerCodes4(sb.toString().substring(0, sb.toString().length() - 1)));
 			}
 		}
 
-		if (ttOpiExtendedSales.getMODEL_ID() != null && !"".equals(ttOpiExtendedSales.getMODEL_ID())) {
-			Map modelMap = commonNoService.getDealerCodeAndName(ttOpiExtendedSales.getMODEL_ID());
-			if (modelMap != null) {
+		if (ttOpiExtendedSales.getMODEL_ID() != null && !"".equals(ttOpiExtendedSales.getMODEL_ID()) && !"null".equals(ttOpiExtendedSales.getMODEL_ID())) {
+			//Map modelMap = commonNoService.getDealerCodeAndName(ttOpiExtendedSales.getMODEL_ID());
+			Map mapModel = new HashMap();
+			mapModel.put("groupIds", getDealerCodes4(ttOpiExtendedSales.getMODEL_ID()));
+			List<Map> modelMap = commonNoService.getDealerCodeAndNameA(mapModel);
+			if (modelMap.size() > 0) {
 				// assist.setRequires(Assist.andEq("bsm.MODEL_CODE",
 				// modelMap.get("GROUP_CODE")));
-				map.put("MODEL_CODE", modelMap.get("GROUP_CODE"));
+				StringBuffer sb = new StringBuffer();
+				for(int i=0;i<modelMap.size();i++) {
+					sb.append(modelMap.get(i).get("GROUP_CODE")+",");
+				}
+				map.put("MODEL_CODE", getDealerCodes4(sb.toString().substring(0, sb.toString().length() - 1)));
 			}
 		}
 
@@ -468,6 +504,30 @@ public class SalesDcsController {
 			mav.addObject("ttOpiSalesAll", map);
 		}
 		return mav;
+	}
+	
+	public List<String> getDealerCodes4(String dealerCode) {
+		String dealers = "";
+		dealerCode = dealerCode.replaceAll("，", ",");
+		dealerCode = dealerCode.replaceAll("\\n", ",");
+		boolean before = dealerCode.contains("[");
+		boolean after = dealerCode.contains("[");
+		if(before) {
+			//dealerCode = dealerCode.replaceAll("[", "");
+			dealerCode = dealerCode.replace("[",""); 
+		}
+		if(after) {
+			//dealerCode = dealerCode.replaceAll("", "");
+			dealerCode = dealerCode.replace("]",""); 
+		}
+		dealerCode = dealerCode.replace("\"", "");
+		String[] dealerCodes = dealerCode.split(",");
+		final List<String> list = new ArrayList<String>();
+		for (int i = 0; i < dealerCodes.length; i++) {
+			// String str = "'" + dealerCodes[i] + "'";
+			list.add(dealerCodes[i]);
+		}
+		return list;
 	}
 	
 }

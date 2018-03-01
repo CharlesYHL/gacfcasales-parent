@@ -506,4 +506,10 @@ public class CommonNoServiceImpl implements CommonNoService {
 		return commoNoDao.getSeriesTableRowCountA(map);
 	}
 
+	@Override
+	public List<Map> getDealerCodeAndNameA(Map map) {
+		// TODO Auto-generated method stub
+		return commoNoDao.getDealerCodeAndNameA(map);
+	}
+
 }

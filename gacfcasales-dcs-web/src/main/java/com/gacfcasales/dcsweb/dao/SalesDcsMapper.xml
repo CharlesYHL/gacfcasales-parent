@@ -168,9 +168,36 @@
 		<if test="PRODUCT_NO != null and PRODUCT_NO != '' ">AND bsm.PRODUCT_NO LIKE CONCAT('%',#{PRODUCT_NO},'%')  </if>
 		<if test="PRODUCT_NAME != null and PRODUCT_NAME != '' ">AND bsm.PRODUCT_NAME LIKE CONCAT('%',#{PRODUCT_NAME},'%')
 		</if>
-		<if test="BRAND_CODE != null and BRAND_CODE != '' ">AND bsm.BRAND_CODE =#{BRAND_CODE}  </if>
-		<if test="SERIES_CODE != null and SERIES_CODE != '' ">AND bsm.SERIES_CODE =#{SERIES_CODE}  </if>
-		<if test="MODEL_CODE != null and MODEL_CODE != '' ">AND bsm.MODEL_CODE =#{MODEL_CODE}  </if>
+		
+		<!-- <if test=" != null and  != '' ">AND bsm.BRAND_CODE =#{BRAND_CODE}  </if> -->
+		<if test="BRAND_CODE != null and BRAND_CODE.size > 0 ">
+			AND bsm.BRAND_CODE  in
+			<foreach collection="BRAND_CODE" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+		<!-- <if test=" != null and SERIES_CODE != '' ">AND  =#{SERIES_CODE}  </if> -->
+		<if test="SERIES_CODE != null and SERIES_CODE.size > 0 ">
+			AND bsm.SERIES_CODE  in
+			<foreach collection="SERIES_CODE" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+		<!-- <if test=" != null and MODEL_CODE != '' ">AND bsm.MODEL_CODE =#{MODEL_CODE}  </if> -->
+		<if test="MODEL_CODE != null and MODEL_CODE.size > 0 ">
+			AND bsm.MODEL_CODE  in
+			<foreach collection="MODEL_CODE" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+		
+		
 		<if test="VIN != null and VIN != '' ">AND bsm.VIN LIKE CONCAT('%',#{VIN},'%')  </if>
 		<if test="LICENSE_NO != null and LICENSE_NO != '' ">AND bsm.LICENSE_NO LIKE CONCAT('%',#{LICENSE_NO},'%')  </if>
 		<if test="CUSTOMER_NAME != null and CUSTOMER_NAME != '' ">AND bsm.CUSTOMER_NAME LIKE
@@ -336,9 +363,33 @@
 		<if test="PRODUCT_NO != null and PRODUCT_NO != '' ">AND bsm.PRODUCT_NO LIKE CONCAT('%',#{PRODUCT_NO},'%')  </if>
 		<if test="PRODUCT_NAME != null and PRODUCT_NAME != '' ">AND bsm.PRODUCT_NAME LIKE CONCAT('%',#{PRODUCT_NAME},'%')
 		</if>
-		<if test="BRAND_CODE != null and BRAND_CODE != '' ">AND bsm.BRAND_CODE =#{BRAND_CODE}  </if>
-		<if test="SERIES_CODE != null and SERIES_CODE != '' ">AND bsm.SERIES_CODE =#{SERIES_CODE}  </if>
-		<if test="MODEL_CODE != null and MODEL_CODE != '' ">AND bsm.MODEL_CODE =#{MODEL_CODE}  </if>
+		<!-- <if test=" != null and  != '' ">AND bsm.BRAND_CODE =#{BRAND_CODE}  </if> -->
+		<if test="BRAND_CODE != null and BRAND_CODE.size > 0 ">
+			AND bsm.BRAND_CODE  in
+			<foreach collection="BRAND_CODE" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+		<!-- <if test=" != null and SERIES_CODE != '' ">AND  =#{SERIES_CODE}  </if> -->
+		<if test="SERIES_CODE != null and SERIES_CODE.size > 0 ">
+			AND bsm.SERIES_CODE  in
+			<foreach collection="SERIES_CODE" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
+		<!-- <if test=" != null and MODEL_CODE != '' ">AND bsm.MODEL_CODE =#{MODEL_CODE}  </if> -->
+		<if test="MODEL_CODE != null and MODEL_CODE.size > 0 ">
+			AND bsm.MODEL_CODE  in
+			<foreach collection="MODEL_CODE" index="index" item="item" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+
+		</if>
 		<if test="VIN != null and VIN != '' ">AND bsm.VIN LIKE CONCAT('%',#{VIN},'%')  </if>
 		<if test="LICENSE_NO != null and LICENSE_NO != '' ">AND bsm.LICENSE_NO LIKE CONCAT('%',#{LICENSE_NO},'%')  </if>
 		<if test="CUSTOMER_NAME != null and CUSTOMER_NAME != '' ">AND bsm.CUSTOMER_NAME LIKE

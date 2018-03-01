@@ -122,7 +122,8 @@
 								<label class="control-label col-xs-4 ">品牌</label>
 								<div class="col-xs-8">
 									<select name="brandId" id="brandId"
-										class="bs-select form-control" onchange="getSeries()"></select>
+										class="bs-select form-control" onchange="getSeries()" multiple
+										data-live-search="true"></select>
 								</div>
 							</div>
 						</div>
@@ -132,7 +133,8 @@
 								<label class="control-label col-xs-4 ">车系</label>
 								<div class="col-xs-8">
 									<select name="seriesId" id="seriesId"
-										class="bs-select form-control" onchange="getModel()"></select>
+										class="bs-select form-control" onchange="getModel()" multiple
+										data-live-search="true" style="height: 34px;"></select>
 								</div>
 							</div>
 						</div>
@@ -142,7 +144,8 @@
 								<label class="control-label col-xs-4 ">车型</label>
 								<div class="col-xs-8">
 									<select name="modelId" id="modelId"
-										class="bs-select form-control"></select>
+										class="bs-select form-control" multiple
+										data-live-search="true" style="height: 34px;"></select>
 								</div>
 							</div>
 						</div>

@@ -166,7 +166,8 @@ function getBrand(){
 		async:true,
 	    success: function(data){
 	    	if(data.length > 0){
-	    		var optionstring = "<option value='0'>请选择</option>";  
+	    		/*var optionstring = "<option value='0'>请选择</option>";*/  
+	    		var optionstring;
 	    		for(var item in data){
 	    			console.log(data[item]);
 	    			optionstring += "<option value='"+data[item].BRAND_ID+"'>"+data[item].BRAND_NAME+"</option>";
@@ -194,7 +195,8 @@ function getSeries(){
 		async:true,
 	    success: function(data){
 	    	if(data.length > 0){
-	    		var optionstring = "<option value='0'>请选择</option>";  
+	    		/*var optionstring = "<option value='0'>请选择</option>";  */
+	    		var optionstring;
 	    		for(var item in data){
 	    			console.log(data[item]);
 	    			optionstring += "<option value='"+data[item].SERIES_ID+"'>"+data[item].SERIES_NAME+"</option>";
@@ -222,7 +224,8 @@ function getModel(){
 		async:true,
 	    success: function(data){
 	    	if(data.length > 0){
-	    		var optionstring = "<option value='0'>请选择</option>";  
+	    		/*var optionstring = "<option value='0'>请选择</option>";  */
+	    		var optionstring;
 	    		for(var item in data){
 	    			console.log(data[item]);
 	    			optionstring += "<option value='"+data[item].MODEL_ID+"'>"+data[item].MODEL_NAME+"</option>";
